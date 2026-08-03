@@ -1,5 +1,7 @@
 # Lộ trình PCCP JavaScript trong 37 ngày
 
+> **Bản lưu trữ để đối chiếu.** Kế hoạch đang dùng là [PLAN_PCCP_700_REBUILD_2026-09-05.md](../../PLAN_PCCP_700_REBUILD_2026-09-05.md). Không cập nhật tiến độ hoặc mở mock theo lịch trong file này.
+
 **Khoảng học:** 30/07/2026–04/09/2026  
 **Ngày thi người học cung cấp:** 05/09/2026  
 **Mục tiêu vận hành:** viết JavaScript trôi chảy, giải chắc các dạng phổ biến, hoàn thành 5 lần thi thử 120 phút và giảm lỗi hidden test. Đây là kế hoạch tối ưu xác suất đạt 700+, không phải cam kết điểm.

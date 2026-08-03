@@ -9,20 +9,21 @@
 
 ## Bắt đầu trong hôm nay
 
-1. Mở [`PCCP_37_Day_Daily_Plan.md`](PCCP_37_Day_Daily_Plan.md), làm đúng D1 trong 180 phút.
-2. Mở [`PCCP_Problem_Tracker.csv`](PCCP_Problem_Tracker.csv), lọc `planned_first_attempt = 2026-07-30`; làm P25.
-3. Viết lại 4 template đầu trong [`PCCP_JavaScript_Templates.md`](PCCP_JavaScript_Templates.md), đặc biệt matrix và numeric sort.
-4. Ghi lỗi thật vào [`PCCP_Error_Log_Template.csv`](PCCP_Error_Log_Template.csv), không chỉ ghi “sai”.
-5. Chưa bấm link/đọc đề P09–P16: đó là hai bộ mock chính thức được giữ mới đến 29/08 và 31/08. Tên/pattern vẫn xuất hiện trong tracker để quản lý phạm vi.
+1. Quay về [`README.md`](../../README.md) để đi theo đúng một luồng học.
+2. Học một chương trong [`PCCP_Thinking_Curriculum.md`](PCCP_Thinking_Curriculum.md), rồi đóng tài liệu và làm một bài mới.
+3. Dùng [`PLAN_PCCP_700_REBUILD_2026-09-05.md`](../../PLAN_PCCP_700_REBUILD_2026-09-05.md) làm kế hoạch hằng ngày duy nhất.
+4. Viết lỗi thật vào [`PCCP_Error_Log.csv`](PCCP_Error_Log.csv), không ghi dữ liệu mẫu.
+5. Các mock đã lộ tên/pattern trong tracker chỉ dùng luyện implementation có giờ; không dùng điểm của chúng làm bằng chứng độc lập đã đạt 700+.
 
 ### Bộ tài liệu
 
 | File | Dùng khi nào |
 |---|---|
-| [`PCCP_37_Day_Daily_Plan.md`](PCCP_37_Day_Daily_Plan.md) | Mở đầu mỗi ngày; lịch đủ 37 ngày, review R1/R3/R7 và 5 mock |
+| [`../../PLAN_PCCP_700_REBUILD_2026-09-05.md`](../../PLAN_PCCP_700_REBUILD_2026-09-05.md) | Plan chính duy nhất: lịch, gate, Rescue và mock |
+| [`PCCP_Thinking_Curriculum.md`](PCCP_Thinking_Curriculum.md) | 12 chương học cách đi từ đề đến thuật toán và code |
 | [`PCCP_JavaScript_Templates.md`](PCCP_JavaScript_Templates.md) | Học/recode template; mỗi template có dấu hiệu, code, lỗi, ví dụ, checklist |
 | [`PCCP_Problem_Tracker.csv`](PCCP_Problem_Tracker.csv) | 48 bài thật, link, nhóm, Level, pattern, timebox, hidden risk, lịch review |
-| [`PCCP_Error_Log_Template.csv`](PCCP_Error_Log_Template.csv) | Root cause, revealing test, rule và ngày làm lại |
+| [`PCCP_Error_Log.csv`](PCCP_Error_Log.csv) | Dữ liệu lỗi thật: root cause, revealing test, rule và ngày làm lại |
 | [`PCCP_Final_Cheat_Sheet.md`](PCCP_Final_Cheat_Sheet.md) | Bản ôn 4 trang cho 48 giờ cuối |
 | [`sources.md`](sources.md) | 85 URL đã rà soát, phân loại chính thức/kỹ thuật/cộng đồng |
 

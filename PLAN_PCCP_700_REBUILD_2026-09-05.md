@@ -21,13 +21,13 @@ Nguồn: [giới thiệu PCCP](https://certi.programmers.co.kr/about/pccp), [đ�
 
 Tại ngày research 30/07/2026, [lịch thi công khai](https://certi.programmers.co.kr/tryouts) hiển thị 23/08 và 20/09, không có ca công khai 05/09. Plan này coi 05/09 là deadline riêng/ca do tổ chức cấp. Nếu mày thi ca công khai 23/08 thì phải dùng lịch tăng tốc riêng, không thể áp nguyên 37 ngày này.
 
-## 1. Chốt ngôn ngữ trong ngày đầu
+## 1. Khóa ngôn ngữ: JavaScript
 
-- Dùng ngôn ngữ mày từng code nhanh nhất.
-- Nếu Python/Java/C++ hiện ngang nhau, chọn **Python** vì code ngắn và thư viện `collections`, `heapq`, `bisect` tiện trong bài timed.
+- Repo này dùng **JavaScript** làm ngôn ngữ duy nhất.
+- Người học đã có nền tảng frontend; đổi ngôn ngữ trong sprint ngắn sẽ tăng lỗi syntax/API.
 - Sau D1 không đổi ngôn ngữ.
 
-Nếu chọn Python, D1–D2 chỉ học lại các phần cần dùng trong [khóa Python nhập môn miễn phí của Programmers](https://school.programmers.co.kr/learn/courses/2/2-%EB%AC%B4%EB%A3%8C-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%9E%85%EB%AC%B8): điều kiện, hàm, list/string, loop, dict/set và comprehension. Không cần xem hết khóa.
+D1–D2 chỉ ôn phần JavaScript cần cho thuật toán: function, loop, array/string, matrix, `Map`, `Set`, numeric sort và mutation. Sau đó tra [bộ template JavaScript](docs/pccp-700-roadmap/PCCP_JavaScript_Templates.md), không học lại toàn bộ ngôn ngữ.
 
 ## 2. Cách học mỗi ngày
 
@@ -80,7 +80,7 @@ Với mỗi lỗi, ghi thêm một input nhỏ làm cách sai thất bại.
 
 ### Bắt buộc, theo đúng thứ tự
 
-1. loop, function, list/string, indexing, Big-O;
+1. loop, function, array/string, indexing, Big-O;
 2. hash/set/counting, sort/comparator;
 3. stack, queue, deque, heap;
 4. implementation/simulation, greedy cơ bản;
@@ -111,11 +111,11 @@ URL bài tập có dạng:
 
 | D | Ngày | Thời lượng | Nội dung và bài bắt buộc | Chuẩn đầu ra |
 |---:|---|---:|---|---|
-| 1 | 30/07 | 210' | Chốt ngôn ngữ; syntax/function/list/string/loop. Bài [181875](https://school.programmers.co.kr/learn/courses/30/lessons/181875), [12918](https://school.programmers.co.kr/learn/courses/30/lessons/12918) | Một tờ syntax/API; tự code hai hàm hoàn chỉnh |
+| 1 | 30/07 | 210' | Khóa JavaScript; syntax/function/array/string/loop. Bài [181875](https://school.programmers.co.kr/learn/courses/30/lessons/181875), [12918](https://school.programmers.co.kr/learn/courses/30/lessons/12918) | Một tờ syntax/API; tự code hai hàm hoàn chỉnh |
 | 2 | 31/07 | 210' | Array/string traversal, state, indexing. Chọn [181901](https://school.programmers.co.kr/learn/courses/30/lessons/181901) hoặc [12906](https://school.programmers.co.kr/learn/courses/30/lessons/12906), rồi [17681](https://school.programmers.co.kr/learn/courses/30/lessons/17681) | Ghi 5 edge case; không còn lỗi off-by-one cơ bản |
-| 3 | 01/08 | 210' | Constraint → Big-O; hash/set/counting. [1845](https://school.programmers.co.kr/learn/courses/30/lessons/1845), [42576](https://school.programmers.co.kr/learn/courses/30/lessons/42576) | Viết `dict/set` skeleton từ trí nhớ |
+| 3 | 01/08 | 210' | Constraint → Big-O; hash/set/counting. [1845](https://school.programmers.co.kr/learn/courses/30/lessons/1845), [42576](https://school.programmers.co.kr/learn/courses/30/lessons/42576) | Viết `Map`/`Set` skeleton từ trí nhớ |
 | 4 | 02/08 | 210' | Sort, multi-key/tie. [12915](https://school.programmers.co.kr/learn/courses/30/lessons/12915), [42748](https://school.programmers.co.kr/learn/courses/30/lessons/42748); [42747](https://school.programmers.co.kr/learn/courses/30/lessons/42747) là stretch | Giải thích comparator/key và complexity |
-| 5 | 03/08 | 210' | Stack/queue/deque. [12909](https://school.programmers.co.kr/learn/courses/30/lessons/12909), [42587](https://school.programmers.co.kr/learn/courses/30/lessons/42587) | Chọn đúng cấu trúc, không dùng list-pop đầu tùy tiện |
+| 5 | 03/08 | 210' | Stack/queue/deque. [12909](https://school.programmers.co.kr/learn/courses/30/lessons/12909), [42587](https://school.programmers.co.kr/learn/courses/30/lessons/42587) | Chọn đúng cấu trúc, không dùng `shift()` lặp trên queue lớn |
 | 6 | 04/08 | 210' | Timeline/event simulation. [42586](https://school.programmers.co.kr/learn/courses/30/lessons/42586), [42583](https://school.programmers.co.kr/learn/courses/30/lessons/42583) | Tách rõ state, event, điều kiện kết thúc |
 | 7 | 05/08 | 210' | **Gate A**, không phải official mock: [42840](https://school.programmers.co.kr/learn/courses/30/lessons/42840), [68644](https://school.programmers.co.kr/learn/courses/30/lessons/68644), rồi một bài đã fail | Qua khi ≥2/3 AC, mỗi bài mới ≤25', không tra syntax cơ bản |
 
@@ -173,7 +173,7 @@ URL bài tập có dạng:
 | 37 | 04/09 | 60–90' | Một bài dễ ≤20'; đọc error log; test thiết bị; nghỉ | Dừng sớm, ngủ đủ |
 | — | 05/09 | 120' | **D-day** | Thực thi chiến thuật, không đổi thói quen |
 
-Không mở trước nội dung bốn bộ chính thức. Đến ngày thi thử, vào [sample hub](https://certi.programmers.co.kr/about/sample) và chọn đúng Mock 1, Mock 2, Past 1/Past 2. Khóa [giải thích PCCP bằng Python](https://school.programmers.co.kr/learn/courses/24542) chỉ dùng **sau** khi đã hết giờ và tự review.
+Không mở trước nội dung bốn bộ chính thức. Đến ngày thi thử, vào [sample hub](https://certi.programmers.co.kr/about/sample) và chọn đúng Mock 1, Mock 2, Past 1/Past 2. Bất kỳ khóa giải thích/lời giải nào cũng chỉ dùng **sau** khi đã hết giờ và tự review.
 
 ## 5. Gate và nhánh Rescue
 
@@ -209,7 +209,7 @@ Quy tắc chuyển bài: 10 phút không tạo thêm tiến triển quan sát đ
 
 ## 7. Việc phải làm ngay hôm nay
 
-1. Chốt Python/Java/C++.
+1. Dùng JavaScript và viết một tờ syntax/API còn hay quên.
 2. Học lại syntax đúng 45–60 phút, không sa vào xem cả khóa.
 3. Làm D1: 181875 và 12918, mỗi bài cap 25 phút.
 4. Với bài sai, xem gợi ý theo thang rồi code lại từ trang trắng.
@@ -221,6 +221,6 @@ Quy tắc chuyển bài: 10 phút không tạo thêm tiến triển quan sát đ
 - [Official sample/mock hub](https://certi.programmers.co.kr/about/sample)
 - [Programmers Algorithm Practice Kit](https://school.programmers.co.kr/learn/challenges?tab=algorithm_practice_kit)
 - [Stack/Queue kit](https://school.programmers.co.kr/learn/courses/30/parts/12081)
-- [Python nhập môn miễn phí](https://school.programmers.co.kr/learn/courses/2/2-%EB%AC%B4%EB%A3%8C-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%9E%85%EB%AC%B8)
+- [MDN JavaScript reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
 
 Nguyên tắc học dùng trong plan: retrieval practice, spaced re-solve D+1/D+7 và self-explanation thay vì chỉ đọc lại. Tham khảo: [Karpicke & Roediger, 2008](https://doi.org/10.1126/science.1152408), [Cepeda et al., 2006](https://pubmed.ncbi.nlm.nih.gov/16719566/), [Chi et al., 1989](https://doi.org/10.1207/s15516709cog1302_1).
