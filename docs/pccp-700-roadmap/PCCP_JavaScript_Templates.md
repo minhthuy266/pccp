@@ -1182,7 +1182,253 @@ console.log(dijkstra(3, graph, 0)); // [0, 2, 1]
 - Node không tới được giữ `Infinity` và được chuyển sang output đúng?
 - Tổng distance có vượt safe integer không?
 
-## 23. Checklist viết code từ ý tưởng
+## 23. Deque hai đầu không dùng `shift()`
+
+### Dấu hiệu
+
+Cần thêm/xóa ở cả đầu và cuối, ví dụ 0-1 BFS, cửa sổ đơn điệu hoặc simulation hai đầu.
+
+```js
+function createDeque() {
+    const data = Object.create(null);
+    let front = 0;
+    let back = 0; // phần tử hợp lệ nằm trong [front, back)
+
+    return {
+        get size() {
+            return back - front;
+        },
+
+        isEmpty() {
+            return front === back;
+        },
+
+        pushFront(value) {
+            front--;
+            data[front] = value;
+        },
+
+        pushBack(value) {
+            data[back] = value;
+            back++;
+        },
+
+        popFront() {
+            if (front === back) return undefined;
+            const value = data[front];
+            delete data[front];
+            front++;
+            return value;
+        },
+
+        popBack() {
+            if (front === back) return undefined;
+            back--;
+            const value = data[back];
+            delete data[back];
+            return value;
+        },
+
+        peekFront() {
+            return front === back ? undefined : data[front];
+        },
+
+        peekBack() {
+            return front === back ? undefined : data[back - 1];
+        },
+    };
+}
+```
+
+**Complexity:** trung bình `O(1)` cho mọi thao tác, `O(n)` bộ nhớ.
+
+**Lỗi thường gặp:** pop khi rỗng; nhầm `back` là index phần tử cuối thay vì vị trí sau cuối; dùng `shift()` trong vòng lặp lớn.
+
+## 24. Sliding window co giãn
+
+### Dấu hiệu
+
+Đoạn liên tiếp, hai pointer chỉ tiến, và điều kiện thay đổi đơn điệu khi mở rộng/thu nhỏ. Template dưới đây yêu cầu mọi phần tử không âm.
+
+```js
+function minLengthWithSumAtLeast(nums, target) {
+    let left = 0;
+    let sum = 0;
+    let best = Infinity;
+
+    for (let right = 0; right < nums.length; right++) {
+        sum += nums[right];
+
+        while (sum >= target) {
+            best = Math.min(best, right - left + 1);
+            sum -= nums[left];
+            left++;
+        }
+    }
+
+    return best === Infinity ? 0 : best;
+}
+```
+
+**Invariant:** sau vòng `while`, cửa sổ hiện tại chưa đủ target; mọi cửa sổ đủ target kết thúc tại `right` đã được xét.
+
+**Complexity:** `O(n)` vì mỗi phần tử vào và ra cửa sổ tối đa một lần.
+
+**Không dùng khi:** có số âm mà proof dựa trên tổng tăng/giảm đơn điệu.
+
+## 25. BFS với state nhiều chiều
+
+### Dấu hiệu
+
+Cùng một vị trí nhưng còn quyền/tài nguyên khác nhau sẽ dẫn tới tương lai khác nhau, ví dụ đã dùng kỹ năng đặc biệt hay chưa.
+
+```js
+function shortestPathWithOneBreak(grid) {
+    const rows = grid.length;
+    const cols = grid[0].length;
+    const distance = Array.from(
+        { length: rows },
+        () => Array.from({ length: cols }, () => [-1, -1]),
+    );
+    const queue = [[0, 0, 0]]; // row, col, usedBreak: 0 | 1
+    let head = 0;
+
+    distance[0][0][0] = 0;
+    const directions = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
+    while (head < queue.length) {
+        const [row, col, usedBreak] = queue[head++];
+
+        for (const [dr, dc] of directions) {
+            const nextRow = row + dr;
+            const nextCol = col + dc;
+
+            if (nextRow < 0 || nextRow >= rows) continue;
+            if (nextCol < 0 || nextCol >= cols) continue;
+
+            const isWall = grid[nextRow][nextCol] === 1;
+            const nextUsedBreak = usedBreak + (isWall ? 1 : 0);
+
+            if (nextUsedBreak > 1) continue;
+            if (distance[nextRow][nextCol][nextUsedBreak] !== -1) continue;
+
+            distance[nextRow][nextCol][nextUsedBreak] =
+                distance[row][col][usedBreak] + 1;
+            queue.push([nextRow, nextCol, nextUsedBreak]);
+        }
+    }
+
+    const candidates = distance[rows - 1][cols - 1].filter(value => value !== -1);
+    return candidates.length === 0 ? -1 : Math.min(...candidates);
+}
+```
+
+**Invariant:** một state là `(row, col, usedBreak)`, không chỉ là ô. Mỗi state được enqueue tối đa một lần.
+
+**Lỗi thường gặp:** `visited[row][col]` làm mất đường đi tới cùng ô nhưng chưa dùng kỹ năng; mark visited lúc dequeue; quên state đích có thể hợp lệ ở nhiều lớp.
+
+## 26. Tree traversal thực chiến
+
+### Dấu hiệu
+
+Input là `n - 1` cạnh của một cây; cần depth, parent, subtree hoặc thứ tự duyệt.
+
+```js
+function buildTreeInfo(n, edges, root = 0) {
+    const graph = Array.from({ length: n }, () => []);
+
+    for (const [a, b] of edges) {
+        graph[a].push(b);
+        graph[b].push(a);
+    }
+
+    const parent = Array(n).fill(-1);
+    const depth = Array(n).fill(-1);
+    const order = [];
+    const queue = [root];
+    let head = 0;
+
+    parent[root] = root;
+    depth[root] = 0;
+
+    while (head < queue.length) {
+        const node = queue[head++];
+        order.push(node);
+
+        for (const next of graph[node]) {
+            if (depth[next] !== -1) continue;
+            parent[next] = node;
+            depth[next] = depth[node] + 1;
+            queue.push(next);
+        }
+    }
+
+    return { graph, parent, depth, order };
+}
+```
+
+Muốn tính subtree bottom-up, duyệt `order` từ cuối về đầu và cộng vào `parent[node]`.
+
+**Complexity:** `O(V + E)` time, `O(V + E)` space.
+
+## 27. Simulation theo event
+
+### Dấu hiệu
+
+State chỉ đổi ở thời điểm có event. Timeline lớn nên không được lặp từng giây.
+
+```js
+function simulateSingleServer(requests) {
+    const sorted = [...requests].sort((a, b) => a.arrival - b.arrival);
+    const completionTimes = [];
+    let currentTime = 0;
+
+    for (const request of sorted) {
+        currentTime = Math.max(currentTime, request.arrival);
+        currentTime += request.duration;
+        completionTimes.push(currentTime);
+    }
+
+    return completionTimes;
+}
+```
+
+Với nhiều event cạnh tranh, thường là `sort arrivals + heap available jobs + clock`. Khi heap rỗng, nhảy `clock` tới arrival tiếp theo.
+
+**Checklist:** state ban đầu; event cùng thời điểm; inclusive/exclusive; event cuối; idle gap; stop condition.
+
+## 28. Monotonic stack
+
+### Dấu hiệu
+
+Tìm phần tử lớn/nhỏ hơn gần nhất, khoảng thời gian đến khi điều kiện bị phá, hoặc cần loại phần tử không còn cơ hội làm đáp án.
+
+```js
+function nextSmallerIndex(nums) {
+    const answer = Array(nums.length).fill(-1);
+    const stack = []; // index, giá trị tăng dần từ đáy lên đỉnh
+
+    for (let i = 0; i < nums.length; i++) {
+        while (
+            stack.length > 0 &&
+            nums[stack[stack.length - 1]] > nums[i]
+        ) {
+            const index = stack.pop();
+            answer[index] = i;
+        }
+
+        stack.push(i);
+    }
+
+    return answer;
+}
+```
+
+**Complexity:** `O(n)` vì mỗi index push một lần và pop tối đa một lần.
+
+**Lỗi thường gặp:** lưu value khi cần index; dùng `>=` thay `>` làm sai duplicate; quên xử lý các index còn lại theo sentinel của đề.
+
+## 29. Checklist viết code từ ý tưởng
 
 Trước khi chạm bàn phím, viết năm dòng:
 
