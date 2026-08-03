@@ -11,7 +11,7 @@
 - Không tìm thấy nguồn chính thức công bố trọng số cố định cho từng câu, công thức điểm theo test case, hay bảo đảm “giải ba câu = 700/750”. Các con số như 200/300/300/200 chỉ là lời truyền miệng và không được dùng làm sự thật trong bộ tài liệu.
 - Không tìm thấy trang chính thức công bố phiên bản Node.js cụ thể cho kỳ thi. Template dùng cú pháp JavaScript phổ biến, không phụ thuộc thư viện ngoài; người học phải chạy pre-test để kiểm tra môi trường thực tế.
 - Lịch công khai tại thời điểm truy cập không hiển thị kỳ thi thường lệ ngày 05/09/2026. Lộ trình vẫn dùng ngày thi do người học cung cấp; giả định đây có thể là lịch riêng của trường/doanh nghiệp hoặc lượt chưa hiển thị công khai.
-- Hai course mock chính thức có đủ 4 coding exercise mỗi course và được cập nhật 15/01/2026. Tám lesson mock không công bố Level chính thức; tracker ghi `N/A`, không tự gán Level.
+- Hai course mock chính thức có đủ 4 coding exercise mỗi course và được cập nhật 15/01/2026. Tám lesson mock không công bố Level chính thức; problem bank ghi `Không công bố`, không tự gán Level.
 
 ## 37 nguồn nền
 
@@ -24,8 +24,8 @@
 | 5 | Published tryouts API | https://certi.programmers.co.kr/api/v1/tryouts/published/ | Chính thức – PCCP API, động | Đối chiếu ngày/giờ các kỳ thi công khai; kiểm tra giả định 05/09/2026 | 30/07/2026 |
 | 6 | PCCP sample | https://certi.programmers.co.kr/about/sample | Chính thức – PCCP | Điểm vào các tài nguyên mẫu | 30/07/2026 |
 | 7 | Programmers courses | https://school.programmers.co.kr/learn/courses/ | Chính thức – Programmers School | Danh mục khóa học được rà soát | 30/07/2026 |
-| 8 | PCCP 모의고사 1회 | https://school.programmers.co.kr/learn/courses/15008 | Chính thức – Programmers School | Mock 1 có 4 bài, miễn phí; lesson P09–P12 | 30/07/2026 |
-| 9 | PCCP 모의고사 2회 | https://school.programmers.co.kr/learn/courses/15009 | Chính thức – Programmers School | Mock 2 có 4 bài, miễn phí; lesson P13–P16 | 30/07/2026 |
+| 8 | Official Mock 1 | LOCKED | Chính thức – Programmers School | URL chỉ nằm trong vùng locked; mở khi bắt đầu timer | 30/07/2026 |
+| 9 | Official Mock 2 | LOCKED | Chính thức – Programmers School | URL chỉ nằm trong vùng locked; mở khi bắt đầu timer | 30/07/2026 |
 | 10 | PCCP 기출문제 | https://school.programmers.co.kr/learn/courses/19344 | Chính thức – Programmers School | Course gom một phần bài PCCP công khai; không xem là danh sách đầy đủ cả 8 bài | 30/07/2026 |
 | 11 | PCCP 기출문제 해설 강의 (Python) | https://school.programmers.co.kr/learn/courses/24542 | Chính thức – Programmers School | Khóa giải thích miễn phí; chỉ xem sau khi tự giải bằng JavaScript | 30/07/2026 |
 | 12 | 프로그래머스와 함께하는 PCCP 합격 대비 : 실전 모의고사 해설 강의(Python편) | https://school.programmers.co.kr/learn/courses/14760 | Chính thức – Programmers School, trả phí | Tài nguyên bổ sung bằng Python; không phải lựa chọn chính cho kế hoạch JavaScript 37 ngày | 30/07/2026 |
@@ -57,7 +57,7 @@
 
 ## 48 trang bài tập đã kiểm tra
 
-Mỗi URL dưới đây là trang bài chính thức của Programmers. Trang chính thức trực tiếp hỗ trợ **mô tả, constraints và Level nếu có**. Pattern, nhóm ưu tiên, ngân sách thời gian và rủi ro hidden test trong tracker là **phân tích của tài liệu**, không phải metadata chính thức. Riêng P09–P16, course mock không công bố Level nên tracker giữ `N/A`.
+Mỗi URL dưới đây là trang bài chính thức của Programmers. Trang chính thức trực tiếp hỗ trợ **mô tả, constraints và Level nếu có**. Các lesson của Official Mock 1 và Official Mock 2 bị lược khỏi bảng này để bảo vệ trải nghiệm; chỉ xem dữ liệu tương ứng trong `locked/POST_MOCK_ANALYSIS.csv` sau khi hoàn thành mock.
 
 | Bài | URL | Loại nguồn | Nội dung được hỗ trợ | Truy cập |
 |---|---|---|---|---|
@@ -69,14 +69,8 @@ Mỗi URL dưới đây là trang bài chính thức của Programmers. Trang ch
 | P06 — Thử thách game xếp hình | https://school.programmers.co.kr/learn/courses/30/lessons/340212?language=javascript | Chính thức – Programmers | Mô tả, constraints và Level nếu công bố | 30/07/2026 |
 | P07 — Tìm nguy cơ va chạm | https://school.programmers.co.kr/learn/courses/30/lessons/340211?language=javascript | Chính thức – Programmers | Mô tả, constraints và Level nếu công bố | 30/07/2026 |
 | P08 — Khôi phục biểu thức | https://school.programmers.co.kr/learn/courses/30/lessons/340210?language=javascript | Chính thức – Programmers | Mô tả, constraints và Level nếu công bố | 30/07/2026 |
-| P09 — Chữ cái cô lập | https://school.programmers.co.kr/learn/courses/15008/lessons/121683 | Chính thức – Programmers | Mô tả/constraints; mock không công bố Level | 30/07/2026 |
-| P10 — Đại hội thể thao | https://school.programmers.co.kr/learn/courses/15008/lessons/121684 | Chính thức – Programmers | Mô tả/constraints; mock không công bố Level | 30/07/2026 |
-| P11 — Quy luật di truyền | https://school.programmers.co.kr/learn/courses/15008/lessons/121685 | Chính thức – Programmers | Mô tả/constraints; mock không công bố Level | 30/07/2026 |
-| P12 — Hệ điều hành | https://school.programmers.co.kr/learn/courses/15008/lessons/121686 | Chính thức – Programmers | Mô tả/constraints; mock không công bố Level | 30/07/2026 |
-| P13 — Robot thực hành | https://school.programmers.co.kr/learn/courses/15009/lessons/121687 | Chính thức – Programmers | Mô tả/constraints; mock không công bố Level | 30/07/2026 |
-| P14 — Đào tạo nhân viên mới | https://school.programmers.co.kr/learn/courses/15009/lessons/121688 | Chính thức – Programmers | Mô tả/constraints; mock không công bố Level | 30/07/2026 |
-| P15 — Mở rộng quán cà phê | https://school.programmers.co.kr/learn/courses/15009/lessons/121689 | Chính thức – Programmers | Mô tả/constraints; mock không công bố Level | 30/07/2026 |
-| P16 — Bản đồ kho báu | https://school.programmers.co.kr/learn/courses/15009/lessons/121690 | Chính thức – Programmers | Mô tả/constraints; mock không công bố Level | 30/07/2026 |
+| Official Mock 1 | LOCKED | Chính thức – Programmers | Bốn lesson và URL được khóa đến lúc làm mock | 30/07/2026 |
+| Official Mock 2 | LOCKED | Chính thức – Programmers | Bốn lesson và URL được khóa đến lúc làm mock | 30/07/2026 |
 | P17 — Hạn lưu trữ dữ liệu cá nhân | https://school.programmers.co.kr/learn/courses/30/lessons/150370?language=javascript | Chính thức – Programmers | Mô tả, constraints và Level nếu công bố | 30/07/2026 |
 | P18 — Dạo công viên | https://school.programmers.co.kr/learn/courses/30/lessons/172928?language=javascript | Chính thức – Programmers | Mô tả, constraints và Level nếu công bố | 30/07/2026 |
 | P19 — Game gắp thú bằng cần cẩu | https://school.programmers.co.kr/learn/courses/30/lessons/64061?language=javascript | Chính thức – Programmers | Mô tả, constraints và Level nếu công bố | 30/07/2026 |
