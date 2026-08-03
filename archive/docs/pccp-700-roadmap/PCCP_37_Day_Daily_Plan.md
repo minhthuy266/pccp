@@ -1,6 +1,6 @@
 # Lộ trình PCCP JavaScript trong 37 ngày
 
-> **Bản lưu trữ để đối chiếu.** Kế hoạch đang dùng là [PLAN_PCCP_700_REBUILD_2026-09-05.md](../../PLAN_PCCP_700_REBUILD_2026-09-05.md). Không cập nhật tiến độ hoặc mở mock theo lịch trong file này.
+> **Bản lưu trữ để đối chiếu.** Kế hoạch đang dùng là [PLAN_PCCP_700_REBUILD_2026-09-05.md](../../../PLAN_PCCP_700_REBUILD_2026-09-05.md). Không cập nhật tiến độ hoặc mở mock theo lịch trong file này.
 
 **Khoảng học:** 30/07/2026–04/09/2026  
 **Ngày thi người học cung cấp:** 05/09/2026  

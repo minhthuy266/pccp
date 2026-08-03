@@ -1,5 +1,7 @@
 # PCCP 700+ — Giáo trình tư duy từ đề đến code JavaScript
 
+Tài liệu này không phải lịch học. Luôn đi từ [`README.md`](../../README.md) đến [`PLAN_PCCP_700_REBUILD_2026-09-05.md`](../../PLAN_PCCP_700_REBUILD_2026-09-05.md), rồi chỉ đọc mục được chỉ định; kết quả thực tế được ghi trong [`TRACKER_PCCP_REBUILD_2026.csv`](../../TRACKER_PCCP_REBUILD_2026.csv).
+
 Tài liệu này không cố nhồi thêm template. Mục tiêu là biến một đề chưa gặp thành một chuỗi quyết định có thể lặp lại:
 
 ```text
@@ -7,7 +9,7 @@ Contract → Bound → Brute force → Bottleneck → State
 → Invariant → Transition → Complexity → Code → Test
 ```
 
-Mỗi chương gồm một ví dụ tự chứa, luồng suy luận, code mẫu và gate. Không đọc liên tục 12 chương. Học một chương, đóng tài liệu, rồi làm bài chưa thấy.
+Mỗi chương gồm một ví dụ tự chứa, luồng suy luận, code mẫu và gate. Không đọc liên tục 12 chương và không mặc định một chương mỗi ngày. Chỉ đọc mục được plan chính chỉ định; một chương có thể kéo dài nhiều ngày. Sau đó đóng tài liệu và làm bài luyện của ngày đó.
 
 ---
 
@@ -918,7 +920,7 @@ Qua khi:
 - hướng đúng trong 10–15 phút;
 - code AC trong 35–45 phút;
 - tự nêu được counterexample cho ít nhất một cách sai;
-- hôm sau code lại không nhìn.
+- ở lần ôn kế tiếp code lại không nhìn.
 
 ---
 

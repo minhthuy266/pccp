@@ -1,0 +1,49 @@
+id,problem_name,level,link,general_topic,mock_status
+P01,Băng bó,Lv.1,https://school.programmers.co.kr/learn/courses/30/lessons/250137?language=javascript,Simulation,non-mock
+P02,Khai thác dầu,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/250136?language=javascript,Graph traversal,non-mock
+P03,Đồng hồ analog,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/250135?language=javascript,Math and simulation,non-mock
+P04,Di chuyển xe kéo,Lv.3,https://school.programmers.co.kr/learn/courses/30/lessons/250134?language=javascript,Backtracking,non-mock
+P05,Trình phát video,Lv.1,https://school.programmers.co.kr/learn/courses/30/lessons/340213?language=javascript,Parsing and simulation,non-mock
+P06,Thử thách game xếp hình,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/340212?language=javascript,Binary search,non-mock
+P07,Tìm nguy cơ va chạm,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/340211?language=javascript,Simulation,non-mock
+P08,Khôi phục biểu thức,Lv.3,https://school.programmers.co.kr/learn/courses/30/lessons/340210?language=javascript,Brute force and parsing,non-mock
+P09,Official Mock 1 - Bài 1,Không công bố,,Locked until mock,mock
+P10,Official Mock 1 - Bài 2,Không công bố,,Locked until mock,mock
+P11,Official Mock 1 - Bài 3,Không công bố,,Locked until mock,mock
+P12,Official Mock 1 - Bài 4,Không công bố,,Locked until mock,mock
+P13,Official Mock 2 - Bài 1,Không công bố,,Locked until mock,mock
+P14,Official Mock 2 - Bài 2,Không công bố,,Locked until mock,mock
+P15,Official Mock 2 - Bài 3,Không công bố,,Locked until mock,mock
+P16,Official Mock 2 - Bài 4,Không công bố,,Locked until mock,mock
+P17,Hạn lưu trữ dữ liệu cá nhân,Lv.1,https://school.programmers.co.kr/learn/courses/30/lessons/150370?language=javascript,Parsing and Map,non-mock
+P18,Dạo công viên,Lv.1,https://school.programmers.co.kr/learn/courses/30/lessons/172928?language=javascript,Matrix simulation,non-mock
+P19,Game gắp thú bằng cần cẩu,Lv.1,https://school.programmers.co.kr/learn/courses/30/lessons/64061?language=javascript,Matrix and stack,non-mock
+P20,Cuộc đua chạy,Lv.1,https://school.programmers.co.kr/learn/courses/30/lessons/178871?language=javascript,Map and indexing,non-mock
+P21,Người chưa hoàn thành,Lv.1,https://school.programmers.co.kr/learn/courses/30/lessons/42576?language=javascript,Frequency counting,non-mock
+P22,Ponketmon,Lv.1,https://school.programmers.co.kr/learn/courses/30/lessons/1845?language=javascript,Set,non-mock
+P23,Danh bạ điện thoại,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/42577?language=javascript,Hash and sort,non-mock
+P24,Trang phục,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/42578?language=javascript,Frequency counting,non-mock
+P25,Số thứ K,Lv.1,https://school.programmers.co.kr/learn/courses/30/lessons/42748?language=javascript,Sort and indexing,non-mock
+P26,Phát triển tính năng,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/42586?language=javascript,Queue and simulation,non-mock
+P27,Tiến trình,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/42587?language=javascript,Queue,non-mock
+P28,Cay hơn,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/42626?language=javascript,Heap,non-mock
+P29,Xuồng cứu sinh,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/42885?language=javascript,Greedy and two pointers,non-mock
+P30,Số mục tiêu,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/43165?language=javascript,Backtracking,non-mock
+P31,Đường ngắn nhất trên bản đồ game,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/1844?language=javascript,BFS,non-mock
+P32,Sự kiện giảm giá,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/131127?language=javascript,Sliding window,non-mock
+P33,Tổng dãy con liên tiếp,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/178870?language=javascript,Two pointers,non-mock
+P34,Số lớn nhất,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/42746?language=javascript,Sort,non-mock
+P35,Xe tải qua cầu,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/42583?language=javascript,Queue and simulation,non-mock
+P36,Giá cổ phiếu,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/42584?language=javascript,Stack,non-mock
+P37,Tạo số lớn,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/42883?language=javascript,Greedy and stack,non-mock
+P38,Hệ thống đánh chặn,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/181188?language=javascript,Greedy and intervals,non-mock
+P39,Độ mệt mỏi,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/87946?language=javascript,Backtracking,non-mock
+P40,Mạng lưới,Lv.3,https://school.programmers.co.kr/learn/courses/30/lessons/43162?language=javascript,Graph traversal,non-mock
+P41,Thoát mê cung,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/159993?language=javascript,BFS,non-mock
+P42,Biến đổi số,Lv.2,https://school.programmers.co.kr/learn/courses/30/lessons/154538?language=javascript,DP or BFS,non-mock
+P43,Tam giác số nguyên,Lv.3,https://school.programmers.co.kr/learn/courses/30/lessons/43105?language=javascript,Dynamic programming,non-mock
+P44,Đường đến trường,Lv.3,https://school.programmers.co.kr/learn/courses/30/lessons/42898?language=javascript,Dynamic programming,non-mock
+P45,Bộ điều khiển đĩa,Lv.3,https://school.programmers.co.kr/learn/courses/30/lessons/42627?language=javascript,Heap and simulation,non-mock
+P46,Chuyển đổi từ,Lv.3,https://school.programmers.co.kr/learn/courses/30/lessons/43163?language=javascript,BFS,non-mock
+P47,Kiểm tra nhập cảnh,Lv.3,https://school.programmers.co.kr/learn/courses/30/lessons/43238?language=javascript,Binary search,non-mock
+P48,Node xa nhất,Lv.3,https://school.programmers.co.kr/learn/courses/30/lessons/49189?language=javascript,Graph and BFS,non-mock

@@ -1,1 +1,1 @@
-date,problem_id,problem_name,link,level,pattern,status,actual_minutes,hint_level,initial_idea,actual_error,revealing_test,root_cause,rule_learned,related_template,review_d1,review_d3,review_d7,recode_done,confidence,notes
+date,day,problem_id,error_code,symptom,revealing_test,root_cause,prevention_rule,retry_date,retry_result,notes

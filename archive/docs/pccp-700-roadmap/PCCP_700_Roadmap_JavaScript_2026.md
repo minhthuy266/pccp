@@ -1,5 +1,7 @@
 # PCCP 700+ Roadmap — JavaScript, 37 ngày
 
+> **ARCHIVED:** không dùng file này để bắt đầu hoặc theo lịch. Quay về [`README.md`](../../../README.md); các chỉ dẫn ngày và mock bên dưới chỉ được giữ như lịch sử.
+
 **Phiên bản nghiên cứu:** 30/07/2026  
 **Ngày thi người học cung cấp:** 05/09/2026  
 **Cửa sổ học:** 30/07/2026–04/09/2026  
@@ -7,25 +9,25 @@
 
 > Đây là hệ thống tối ưu **xác suất** đạt từ 700 điểm, không phải bảo đảm kết quả. Trọng tâm là code chắc những dạng phổ biến, sửa lỗi lặp lại và thi thử đúng quy trình — không học thuộc toàn bộ DSA. “Invariant” trong tài liệu là điều luôn phải đúng của trạng thái; “timebox” là ngân sách thời gian cố định.
 
-## Bắt đầu trong hôm nay
+## Hướng dẫn lịch sử — không thực hiện
 
 1. Quay về [`README.md`](../../README.md) để đi theo đúng một luồng học.
-2. Học một chương trong [`PCCP_Thinking_Curriculum.md`](PCCP_Thinking_Curriculum.md), rồi đóng tài liệu và làm một bài mới.
-3. Dùng [`PLAN_PCCP_700_REBUILD_2026-09-05.md`](../../PLAN_PCCP_700_REBUILD_2026-09-05.md) làm kế hoạch hằng ngày duy nhất.
-4. Viết lỗi thật vào [`PCCP_Error_Log.csv`](PCCP_Error_Log.csv), không ghi dữ liệu mẫu.
+2. Học mục được plan hiện hành chỉ định trong [`PCCP_Thinking_Curriculum.md`](../../../docs/pccp-700-roadmap/PCCP_Thinking_Curriculum.md).
+3. Dùng [`PLAN_PCCP_700_REBUILD_2026-09-05.md`](../../../PLAN_PCCP_700_REBUILD_2026-09-05.md) làm kế hoạch hằng ngày duy nhất.
+4. Viết lỗi thật vào [`PCCP_Error_Log.csv`](../../../docs/pccp-700-roadmap/PCCP_Error_Log.csv), không ghi dữ liệu mẫu.
 5. Các mock đã lộ tên/pattern trong tracker chỉ dùng luyện implementation có giờ; không dùng điểm của chúng làm bằng chứng độc lập đã đạt 700+.
 
 ### Bộ tài liệu
 
 | File | Dùng khi nào |
 |---|---|
-| [`../../PLAN_PCCP_700_REBUILD_2026-09-05.md`](../../PLAN_PCCP_700_REBUILD_2026-09-05.md) | Plan chính duy nhất: lịch, gate, Rescue và mock |
-| [`PCCP_Thinking_Curriculum.md`](PCCP_Thinking_Curriculum.md) | 12 chương học cách đi từ đề đến thuật toán và code |
-| [`PCCP_JavaScript_Templates.md`](PCCP_JavaScript_Templates.md) | Học/recode template; mỗi template có dấu hiệu, code, lỗi, ví dụ, checklist |
+| [`../../../PLAN_PCCP_700_REBUILD_2026-09-05.md`](../../../PLAN_PCCP_700_REBUILD_2026-09-05.md) | Plan chính duy nhất: lịch, gate, Rescue và mock |
+| [`PCCP_Thinking_Curriculum.md`](../../../docs/pccp-700-roadmap/PCCP_Thinking_Curriculum.md) | 12 chương học cách đi từ đề đến thuật toán và code |
+| [`PCCP_JavaScript_Templates.md`](../../../docs/pccp-700-roadmap/PCCP_JavaScript_Templates.md) | Học/recode template; mỗi template có dấu hiệu, code, lỗi, ví dụ, checklist |
 | [`PCCP_Problem_Tracker.csv`](PCCP_Problem_Tracker.csv) | 48 bài thật, link, nhóm, Level, pattern, timebox, hidden risk, lịch review |
-| [`PCCP_Error_Log.csv`](PCCP_Error_Log.csv) | Dữ liệu lỗi thật: root cause, revealing test, rule và ngày làm lại |
-| [`PCCP_Final_Cheat_Sheet.md`](PCCP_Final_Cheat_Sheet.md) | Bản ôn 4 trang cho 48 giờ cuối |
-| [`sources.md`](sources.md) | 85 URL đã rà soát, phân loại chính thức/kỹ thuật/cộng đồng |
+| [`PCCP_Error_Log.csv`](../../../docs/pccp-700-roadmap/PCCP_Error_Log.csv) | Dữ liệu lỗi thật: root cause, revealing test, rule và ngày làm lại |
+| [`PCCP_Final_Cheat_Sheet.md`](../../../docs/pccp-700-roadmap/PCCP_Final_Cheat_Sheet.md) | Bản ôn 4 trang cho 48 giờ cuối |
+| [`sources.md`](../../../docs/pccp-700-roadmap/sources.md) | 85 URL đã rà soát, phân loại chính thức/kỹ thuật/cộng đồng |
 
 ---
 
@@ -70,7 +72,7 @@ Không tìm thấy nguồn chính thức hiện hành cho:
 - khẳng định “ba câu đầu bằng 700/750/800”;
 - phiên bản Node.js cụ thể dùng cho mọi lượt thi.
 
-Do đó, tài liệu **không dùng** tin đồn 200/300/300/200. Một số trải nghiệm cộng đồng nói rằng sample/visible test không phản ánh hết hidden/efficiency test; điều này chỉ được dùng để tăng thời gian audit, không dùng để suy ra cách chấm. Xem phân loại nguồn tại [`sources.md`](sources.md).
+Do đó, tài liệu **không dùng** tin đồn 200/300/300/200. Một số trải nghiệm cộng đồng nói rằng sample/visible test không phản ánh hết hidden/efficiency test; điều này chỉ được dùng để tăng thời gian audit, không dùng để suy ra cách chấm. Xem phân loại nguồn tại [`sources.md`](../../../docs/pccp-700-roadmap/sources.md).
 
 ## 1.3 Mục tiêu vận hành thay cho “công thức điểm”
 
@@ -186,7 +188,7 @@ Không có yêu cầu phải học hết bảng. Cần khóa:
 
 # Phần 4 — Bộ template JavaScript tối thiểu
 
-Toàn bộ code và giải thích nằm tại [`PCCP_JavaScript_Templates.md`](PCCP_JavaScript_Templates.md). Bộ này có 22 template, nhưng không phải 22 thứ phải thuộc ngay.
+Toàn bộ code và giải thích nằm tại [`PCCP_JavaScript_Templates.md`](../../../docs/pccp-700-roadmap/PCCP_JavaScript_Templates.md). Bộ này có 22 template, nhưng không phải 22 thứ phải thuộc ngay.
 
 ## 4.1 Ba tầng pattern và template
 
@@ -316,8 +318,8 @@ Lịch chi tiết đủ từng ngày nằm tại [`PCCP_37_Day_Daily_Plan.md`](P
 | 2 | [코딩테스트 광탈 방지 A to Z : JavaScript](https://school.programmers.co.kr/learn/courses/13213) | DSA và code JS có hệ thống | array/object, stack, queue, hash, heap, binary, sort, DFS/BFS, greedy; DP/backtracking nếu cần | linked list, trie và bonus CS trong lượt đầu | 4h35 video + bài tập; trả phí | Phù hợp có chọn lọc, không bắt buộc mua |
 | 3 | [코딩테스트 고득점 Kit](https://school.programmers.co.kr/learn/challenges?tab=algorithm_practice_kit) | Bài chuẩn theo pattern | Các bài thuộc Kit trong tracker; phần còn lại lấy từ kho bài chính thức Programmers | Không làm cả kit theo số lượng | Theo tracker | **Một nguồn luyện chính** |
 | 4 | [PCCP 기출문제](https://school.programmers.co.kr/learn/courses/19344) + 8 lesson riêng | Học phong cách PCCP công khai | P01–P08 | Course 19344 chỉ gom một phần, không coi là đủ | 8 bài | **Bắt buộc** |
-| 5 | [PCCP 모의고사 1회](https://school.programmers.co.kr/learn/courses/15008) | Mock chính thức 4 câu | Mở lần đầu 29/08, đủ 120 phút | Không xem trước | 120 + 90 phút review | **Bắt buộc** |
-| 6 | [PCCP 모의고사 2회](https://school.programmers.co.kr/learn/courses/15009) | Mock chính thức 4 câu | Mở lần đầu 31/08, đủ 120 phút | Không xem trước | 120 + 90 phút review | **Bắt buộc** |
+| 5 | Official Mock 1 — URL locked | Mock chính thức 4 câu | Mốc cũ, không dùng | Không xem trước | 120 + 90 phút review | **Bắt buộc** |
+| 6 | Official Mock 2 — URL locked | Mock chính thức 4 câu | Mốc cũ, không dùng | Không xem trước | 120 + 90 phút review | **Bắt buộc** |
 | 7 | [PCCP 기출문제 해설 강의 (Python)](https://school.programmers.co.kr/learn/courses/24542) | Đối chiếu reasoning sau attempt | Chỉ xem bài đã tự làm bằng JS | Không chép Python→JS khi chưa tự code | 1h54 toàn khóa | Phù hợp sau attempt, miễn phí |
 | 8 | [프로그래머스와 함께하는 PCCP 합격 대비 : 실전 모의고사 해설 강의(Python편)](https://school.programmers.co.kr/learn/courses/14760) | Tài nguyên mở rộng | Chỉ dùng nếu đã xong lịch chính | Python, trả phí, 15 bài; không tối ưu cho người thi JS | 7h28 | **Không ưu tiên** |
 | 9 | [Sách coding test JavaScript](https://product.kyobobook.co.kr/detail/S000213641007) | Tra cứu dài hạn | Chương đúng weak pattern | Không đọc tuần tự trong 37 ngày | Tùy chọn | Không cần để bắt đầu |
@@ -333,8 +335,8 @@ Không tìm thấy khóa video PCCP chuyên biệt bằng JavaScript trong các 
 - **A — bắt buộc:** làm theo lịch, review nghiêm túc.
 - **B — nên làm:** giữ nếu không có backlog nhóm A.
 - **C — còn thời gian:** bỏ trước khi làm hỏng lịch mock.
-- `N/A` ở P09–P16 nghĩa là mock không công bố Level, không phải Level 0.
-- Bảng CSV đầy đủ chứa `pattern phụ`, `hint rule`, `redo rule`, hidden-risk chi tiết, ngày R1/R3/R7 và cột kết quả: [`PCCP_Problem_Tracker.csv`](PCCP_Problem_Tracker.csv).
+- P09–P16 đã được redaction khỏi bản archive đang checkout để tránh spoiler; bản gốc vẫn còn trong Git history.
+- Problem bank hiện hành ở [`../../../PROBLEM_BANK.csv`](../../../PROBLEM_BANK.csv); không dùng bảng cũ này làm lịch học.
 
 ## 8.2 Nhóm A — 29 bài bắt buộc
 
@@ -345,13 +347,6 @@ Không tìm thấy khóa video PCCP chuyên biệt bằng JavaScript trong các 
 | P05 | [Trình phát video](https://school.programmers.co.kr/learn/courses/30/lessons/340213?language=javascript) | Lv.1 | Simulation + time parsing | 30 phút |
 | P06 | [Thử thách game xếp hình](https://school.programmers.co.kr/learn/courses/30/lessons/340212?language=javascript) | Lv.2 | Binary search on answer | 45 phút |
 | P07 | [Tìm nguy cơ va chạm](https://school.programmers.co.kr/learn/courses/30/lessons/340211?language=javascript) | Lv.2 | Simulation nhiều route | 55 phút |
-| P09 | [Chữ cái cô lập](https://school.programmers.co.kr/learn/courses/15008/lessons/121683) | N/A | String/implementation | Mock |
-| P10 | [Đại hội thể thao](https://school.programmers.co.kr/learn/courses/15008/lessons/121684) | N/A | Brute force/backtracking | Mock |
-| P12 | [Hệ điều hành](https://school.programmers.co.kr/learn/courses/15008/lessons/121686) | N/A | Heap/scheduling | Mock |
-| P13 | [Robot thực hành](https://school.programmers.co.kr/learn/courses/15009/lessons/121687) | N/A | Simulation | Mock |
-| P14 | [Đào tạo nhân viên mới](https://school.programmers.co.kr/learn/courses/15009/lessons/121688) | N/A | Heap/greedy | Mock |
-| P15 | [Mở rộng quán cà phê](https://school.programmers.co.kr/learn/courses/15009/lessons/121689) | N/A | Queue/simulation | Mock |
-| P16 | [Bản đồ kho báu](https://school.programmers.co.kr/learn/courses/15009/lessons/121690) | N/A | BFS/grid | Mock |
 | P17 | [Hạn lưu trữ dữ liệu cá nhân](https://school.programmers.co.kr/learn/courses/30/lessons/150370?language=javascript) | Lv.1 | Date parsing/Map | 30 phút |
 | P18 | [Dạo công viên](https://school.programmers.co.kr/learn/courses/30/lessons/172928?language=javascript) | Lv.1 | Grid simulation | 30 phút |
 | P19 | [Game gắp thú](https://school.programmers.co.kr/learn/courses/30/lessons/64061?language=javascript) | Lv.1 | Stack + matrix | 35 phút |
@@ -376,7 +371,6 @@ Không tìm thấy khóa video PCCP chuyên biệt bằng JavaScript trong các 
 |---|---|---:|---|---:|
 | P03 | [Đồng hồ analog](https://school.programmers.co.kr/learn/courses/30/lessons/250135?language=javascript) | Lv.2 | Math/event counting | 60 phút |
 | P08 | [Khôi phục biểu thức](https://school.programmers.co.kr/learn/courses/30/lessons/340210?language=javascript) | Lv.3 | Parsing + hypothesis | 60 phút |
-| P11 | [Quy luật di truyền](https://school.programmers.co.kr/learn/courses/15008/lessons/121685) | N/A | Recursion/math | Mock |
 | P34 | [Số lớn nhất](https://school.programmers.co.kr/learn/courses/30/lessons/42746?language=javascript) | Lv.2 | Custom comparator | Mock |
 | P35 | [Xe tải qua cầu](https://school.programmers.co.kr/learn/courses/30/lessons/42583?language=javascript) | Lv.2 | Queue/simulation | Mock |
 | P36 | [Giá cổ phiếu](https://school.programmers.co.kr/learn/courses/30/lessons/42584?language=javascript) | Lv.2 | Stack | 45 phút |
@@ -626,7 +620,7 @@ Không chỉ ghi tổng điểm. Nếu hệ thống không hiển thị điểm 
 
 # Phần 15 — Cheat sheet cuối
 
-Đọc/in [`PCCP_Final_Cheat_Sheet.md`](PCCP_Final_Cheat_Sheet.md) trong 48 giờ cuối. Bản này được giới hạn theo bốn “trang” nội dung:
+Đọc/in [`PCCP_Final_Cheat_Sheet.md`](../../../docs/pccp-700-roadmap/PCCP_Final_Cheat_Sheet.md) trong 48 giờ cuối. Bản này được giới hạn theo bốn “trang” nội dung:
 
 1. Complexity, array/sort/Map/Set/matrix.
 2. Stack/queue/BFS/DFS/graph.
@@ -645,7 +639,7 @@ Ngày 04/09 chỉ:
 
 # Nguồn và giới hạn
 
-Danh mục đầy đủ, loại nguồn, nội dung được hỗ trợ và ngày truy cập nằm trong [`sources.md`](sources.md). Tổng cộng: **37 nguồn nền và 48 trang bài tập chính thức, 85 URL tham chiếu**.
+Danh mục đầy đủ, loại nguồn, nội dung được hỗ trợ và ngày truy cập nằm trong [`sources.md`](../../../docs/pccp-700-roadmap/sources.md). Tổng cộng: **37 nguồn nền và 48 trang bài tập chính thức, 85 URL tham chiếu**.
 
 Các giới hạn chưa thể xác minh chính thức:
 
