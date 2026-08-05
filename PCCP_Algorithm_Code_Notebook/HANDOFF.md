@@ -16,7 +16,7 @@ Hoàn thiện notebook theo `PATTERN_COVERAGE_MATRIX.md`, từng chương một.
 
 ## Điểm dừng hiện tại
 
-Theo ưu tiên mới, Chapter 08 — Stack/Queue đã hoàn tất và có QA: 32/32 Practice–Solution IDs, 167 JS fences không lỗi, 16/16 behavioral assertions. `SQ-01..05` đã `FULL`. Chapter 07 vẫn là stub; `PRE-01..05`, `SW-01..06` còn `PLANNED`.
+Theo ưu tiên mới, Chapter 08 — Stack/Queue đã hoàn tất và có QA: 32/32 Practice–Solution IDs; mọi Solution section có invariant/trace/complexity/trap; 167 JS fences không lỗi; contract và behavioral cases được khóa bằng `tests/chapter08_notebook.test.js` và chạy qua `npm test`. `SQ-01..05` đã `FULL`. Chapter 07 vẫn là stub; `PRE-01..05`, `SW-01..06` còn `PLANNED`.
 
 ## Scope vừa hoàn tất — Chapter 08
 
