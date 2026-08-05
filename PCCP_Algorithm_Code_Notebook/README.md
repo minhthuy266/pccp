@@ -42,9 +42,9 @@ ID ổn định, phân loại CORE/VARIANT/COMBINATION/OPTIONAL và trạng thá
 | [03_Map_Set.md](03_Map_Set.md) | `MAP-01..14` | **Hoàn thiện v1** |
 | [04_Simulation.md](04_Simulation.md) | `SIM-01..05` | **Hoàn thiện v1** |
 | [05_Sorting.md](05_Sorting.md) | `SORT-01..05` | **Hoàn thiện v1** |
-| [06_Two_Pointers.md](06_Two_Pointers.md) | Hai con trỏ và chứng minh không bỏ sót | Khung |
+| [06_Two_Pointers.md](06_Two_Pointers.md) | `TP-01..06`: hai con trỏ và chứng minh không bỏ sót | **Hoàn thiện v1** |
 | [07_Sliding_Window_Prefix_Sum.md](07_Sliding_Window_Prefix_Sum.md) | Cửa sổ và tổng tiền tố | Khung |
-| [08_Stack_Queue.md](08_Stack_Queue.md) | Thứ tự lấy state | Khung |
+| [08_Stack_Queue.md](08_Stack_Queue.md) | `SQ-01..05`: LIFO, monotonic stack, FIFO, circular queue, BFS queue | **Hoàn thiện v1** |
 | [09_Binary_Search.md](09_Binary_Search.md) | Search theo tính đơn điệu | Khung |
 | [10_BFS_DFS.md](10_BFS_DFS.md) | Duyệt graph/state | Khung |
 | [11_Heap_Greedy.md](11_Heap_Greedy.md) | Chọn phần tử/lựa chọn cục bộ | Khung |

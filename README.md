@@ -23,7 +23,12 @@
 | `TRACKER_PCCP_REBUILD_2026.csv` | Kế hoạch theo ngày và kết quả thực tế duy nhất |
 | `PCCP_Error_Log.csv` | Lỗi đã thực sự gặp và quy tắc phòng tránh |
 | `PCCP_Final_Cheat_Sheet.md` | Ôn nhanh ở giai đoạn cuối |
+| `docs/CHEATSHEET_THUAT_TOAN_JS_PCCP.md` | **Tra cứu phụ, không phải curriculum.** Chỉ mở khi cần giải thích dài hơn; nếu khác tài liệu canonical thì ưu tiên plan và `PCCP_Thinking_Curriculum.md` |
+| `docs/JS_TEMPLATES_PCCP.js` | **Code companion phụ.** Dùng để chạy smoke test hoặc tham khảo implementation; template học chính vẫn là `PCCP_JavaScript_Templates.md` |
+| `PCCP_Level_1_Full_De_Bai_Tieng_Viet_84_Bai.*` | Bộ **86 bài phân tích: 84 bài Level 1 + 2 bài mô phỏng PCCP bổ sung**; là tài liệu tham khảo, không thay lịch học |
 | `archive/` | Tài liệu cũ, không dùng làm lịch hiện tại |
+
+Hai file tra cứu phụ không tạo thêm một luồng học. Không đọc tuần tự chúng và không dùng chúng để tự đổi thứ tự/ngày học trong plan.
 
 ## Quy tắc bảo vệ mock
 

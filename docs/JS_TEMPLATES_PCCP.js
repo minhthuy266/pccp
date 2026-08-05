@@ -6,11 +6,11 @@
 
 // ---------- Array / String / Map / Set ----------
 
+// Precondition: initialValue is primitive. With an object/array, cells in the
+// same row would share that reference; use a factory when independent objects
+// are required.
 function makeGrid(rows, cols, initialValue = 0) {
-  return Array.from(
-    { length: rows },
-    () => Array(cols).fill(initialValue)
-  );
+  return Array.from({ length: rows }, () => Array(cols).fill(initialValue));
 }
 
 function countFrequency(values) {
@@ -45,6 +45,7 @@ function rangeSum(prefix, left, right) {
   return prefix[right + 1] - prefix[left];
 }
 
+// Precondition: grid is a non-empty rectangular matrix.
 function buildPrefixSum2D(grid) {
   const rows = grid.length;
   const cols = grid[0].length;
@@ -183,17 +184,11 @@ class Heap {
       const right = left + 1;
       let best = index;
 
-      if (
-        left < heap.length &&
-        this.compare(heap[left], heap[best]) < 0
-      ) {
+      if (left < heap.length && this.compare(heap[left], heap[best]) < 0) {
         best = left;
       }
 
-      if (
-        right < heap.length &&
-        this.compare(heap[right], heap[best]) < 0
-      ) {
+      if (right < heap.length && this.compare(heap[right], heap[best]) < 0) {
         best = right;
       }
 
@@ -288,6 +283,9 @@ function lastFeasible(low, high, can) {
 
 // ---------- Backtracking ----------
 
+// Precondition: values are distinct. Duplicate inputs produce duplicate
+// permutations; deduplicate the input/result explicitly when uniqueness is
+// required.
 function permutations(values, length) {
   const result = [];
   const path = [];
@@ -414,10 +412,7 @@ function bfsGrid(board, startRow, startCol) {
       const nextRow = row + DIRECTION_ROW[direction];
       const nextCol = col + DIRECTION_COL[direction];
 
-      if (
-        nextRow < 0 || nextRow >= rows ||
-        nextCol < 0 || nextCol >= cols
-      ) {
+      if (nextRow < 0 || nextRow >= rows || nextCol < 0 || nextCol >= cols) {
         continue;
       }
 
@@ -501,7 +496,8 @@ class UnionFind {
 
 // ---------- Dynamic programming examples ----------
 
-// Maximum sum with no two adjacent values selected.
+// Maximum sum with no two adjacent values selected. Selecting no value is
+// allowed, so an empty input or an all-negative input returns 0.
 function maxNonAdjacentSum(values) {
   let previousTwo = 0;
   let previousOne = 0;
@@ -521,13 +517,9 @@ function knapsack01(items, capacity) {
 
   for (const [weight, value] of items) {
     for (let current = capacity; current >= weight; current--) {
-      dp[current] = Math.max(
-        dp[current],
-        dp[current - weight] + value
-      );
+      dp[current] = Math.max(dp[current], dp[current - weight] + value);
     }
   }
 
   return dp[capacity];
 }
-

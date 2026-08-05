@@ -39,7 +39,7 @@ const printMatrix = (matrix) => {
             sum = sum + matrix[row][col]
         }
     }
-    
+
     console.log(sum)
     return sum
 }
@@ -228,7 +228,7 @@ const removeDuplicatePointer = (array) => {
             array[write] = array[read]
         }
     }
-    
+
     return array.slice(0, write + 1);
 }
 
@@ -242,7 +242,7 @@ console.log(
 
 const solutionNew = (n) => {
     const triangle = Array.from({length: n}, (_, row) => Array(row + 1).fill(0))
-    
+
     const dr = [1, 0, -1]
     const dc = [0, 1, -1]
 

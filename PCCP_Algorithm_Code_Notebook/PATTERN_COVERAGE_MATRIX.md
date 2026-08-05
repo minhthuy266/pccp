@@ -56,23 +56,23 @@ Matrix này lập bản đồ **83 bộ xương triển khai có khả năng tá
 | PRE-03 | Prefix Sum | Prefix count/nhiều thuộc tính | đếm loại trong range | one/multiple prefix arrays | mỗi thuộc tính cộng indicator | VARIANT · Có | PRE-01 | Cao | PLANNED |
 | PRE-04 | Prefix Sum | Prefix 2D | rectangle queries | prefix matrix | inclusion–exclusion | VARIANT · Có | PRE-01 | Trung bình | PLANNED |
 | PRE-05 | Prefix Sum | Difference array / prefix+Map | range updates hoặc subarray target | diff hoặc prefix-frequency Map | mark endpoints/lookup complement prefix | COMBINATION · Không | PRE-01 + MAP-07 | Cao | PLANNED |
-| TP-01 | Two Pointers | Hai đầu đi vào | sorted pair, palindrome | left,right | loại một phía theo monotonic rule | CORE · Có | — | Rất cao | PLANNED |
-| TP-02 | Two Pointers | Fast/slow cùng chiều | compact/filter in-place | read,write | read scan; condition→write++ | CORE · Có | — | Cao | PLANNED |
-| TP-03 | Two Pointers | Loại duplicate sorted | unique in-place | read,write,last | different→copy/advance | VARIANT · Có | TP-02 | Cao | PLANNED |
-| TP-04 | Two Pointers | Merge/giao hai dãy sort | hai danh sách có thứ tự | i,j,output | advance smaller/both | CORE · Có | — | Cao | PLANNED |
-| TP-05 | Two Pointers | Pair sum / Three Sum outer loop | tổng cặp/bộ ba sorted | fixed + left/right | move pointer theo sum | VARIANT · Có | TP-01 | Cao | PLANNED |
-| TP-06 | Two Pointers | Partition cơ bản | chia theo predicate/pivot | left,right | swap và advance | OPTIONAL · Có | TP-01 | Thấp | PLANNED |
+| TP-01 | Two Pointers | Hai đầu đi vào | sorted pair, palindrome | left,right | loại một phía theo monotonic rule | CORE · Có | — | Rất cao | FULL |
+| TP-02 | Two Pointers | Fast/slow cùng chiều | compact/filter in-place | read,write | read scan; condition→write++ | CORE · Có | — | Cao | FULL |
+| TP-03 | Two Pointers | Loại duplicate sorted | unique in-place | read,write,last | different→copy/advance | VARIANT · Có | TP-02 | Cao | FULL |
+| TP-04 | Two Pointers | Merge/giao hai dãy sort | hai danh sách có thứ tự | i,j,output | advance smaller/both | CORE · Có | — | Cao | FULL |
+| TP-05 | Two Pointers | Pair sum / Three Sum outer loop | tổng cặp/bộ ba sorted | fixed + left/right | move pointer theo sum | VARIANT · Có | TP-01 | Cao | FULL |
+| TP-06 | Two Pointers | Partition cơ bản | chia theo predicate/pivot | left,right | swap và advance | OPTIONAL · Có | TP-01 | Thấp | FULL |
 | SW-01 | Sliding Window | Cửa sổ cố định + aggregate | đúng K phần tử | left/right + sum/count | add right, remove expired | CORE · Có | — | Rất cao | PLANNED |
 | SW-02 | Sliding Window | Co giãn tìm dài nhất | at most K/không trùng | left,right + validity state | add; while invalid remove; maximize | CORE · Có | — | Rất cao | PLANNED |
 | SW-03 | Sliding Window | Co giãn tìm ngắn nhất | sum/coverage at least target | window state + best | add; while valid minimize/remove | VARIANT · Có | SW-02 | Rất cao | PLANNED |
 | SW-04 | Sliding Window | Map frequency/distinct/K loại | unique, K categories | count Map + distinct | zero↔positive updates distinct | VARIANT · Có | SW-02 + MAP-03 | Rất cao | PLANNED |
 | SW-05 | Sliding Window | Đếm số cửa sổ hợp lệ | bao nhiêu subarray at most/exact K | left + answer | shrink; add number ending at right | VARIANT · Có | SW-02 | Cao | PLANNED |
 | SW-06 | Sliding Window | Contrast window vs TP/prefix | contiguous + monotonic update | tùy contract | chọn add/remove hoặc subtraction | COMBINATION · Không | SW-01/PRE-02/TP-01 | Rất cao | PLANNED |
-| SQ-01 | Stack/Queue | Stack thao tác/matching/undo | LIFO, dấu ngoặc, rollback | stack | push current/pop match | CORE · Có | — | Rất cao | PLANNED |
-| SQ-02 | Stack/Queue | Monotonic stack | next greater, bỏ ứng viên | stack indices monotonic | while dominated pop; push | CORE · Có | SQ-01 | Cao | PLANNED |
-| SQ-03 | Stack/Queue | Queue head-index | FIFO, xử lý đến lượt | array + head | enqueue push; dequeue `queue[head++]` | CORE · Có | — | Rất cao | PLANNED |
-| SQ-04 | Stack/Queue | Circular queue index | capacity cố định | buffer,head,tail,size | modulo advance | OPTIONAL · Có | SQ-03 | Thấp | PLANNED |
-| SQ-05 | Stack/Queue | BFS queue | theo lớp/khoảng cách | queue + visited | mark khi enqueue | COMBINATION · Không | SQ-03 + BFS-01 | Rất cao | PLANNED |
+| SQ-01 | Stack/Queue | Stack thao tác/matching/undo | LIFO, dấu ngoặc, rollback | stack | push current/pop match | CORE · Có | — | Rất cao | FULL |
+| SQ-02 | Stack/Queue | Monotonic stack | next greater, bỏ ứng viên | stack indices monotonic | while dominated pop; push | CORE · Có | SQ-01 | Cao | FULL |
+| SQ-03 | Stack/Queue | Queue head-index | FIFO, xử lý đến lượt | array + head | enqueue push; dequeue `queue[head++]` | CORE · Có | — | Rất cao | FULL |
+| SQ-04 | Stack/Queue | Circular queue index | capacity cố định | buffer,head,tail,size | modulo advance | OPTIONAL · Có | SQ-03 | Thấp | FULL |
+| SQ-05 | Stack/Queue | BFS queue | theo lớp/khoảng cách | queue + visited | mark khi enqueue | COMBINATION · Không | SQ-03 + BFS-01 | Rất cao | FULL |
 | BS-01 | Binary Search | Tìm exact trong sorted | có bằng target không | low,high | discard half by comparison | CORE · Có | — | Cao | PLANNED |
 | BS-02 | Binary Search | Lower bound / first true | vị trí đầu `>=`, boundary | half-open bounds | true→high, false→low | CORE · Có | — | Rất cao | PLANNED |
 | BS-03 | Binary Search | Upper bound / last true | đầu `>`, cuối thỏa | bounds | condition boundary tương ứng | VARIANT · Có | BS-02 | Cao | PLANNED |
@@ -140,9 +140,9 @@ Ví dụ `MAP-13`: Sliding Window chịu trách nhiệm biên duyệt; frequency
 | COMBINATION | 10 |
 | OPTIONAL | 3 |
 | CORE + VARIANT | 70 |
-| Dạng đã viết đầy đủ | 36 (`ARR-01..07`, `MAT-01..05`, `MAP-01..14`, `SIM-01..05`, `SORT-01..05`) |
-| Bài luyện đã viết | 151 nhiệm vụ + 11 Transfer Test |
-| Transfer Test | 11 |
-| Dạng còn thiếu | 47 dòng `PLANNED` |
+| Dạng đã viết đầy đủ | 47 (`ARR-01..07`, `MAT-01..05`, `MAP-01..14`, `SIM-01..05`, `SORT-01..05`, `TP-01..06`, `SQ-01..05`) |
+| Bài luyện đã viết | 211 nhiệm vụ + 15 Transfer Test |
+| Transfer Test | 15 |
+| Dạng còn thiếu | 36 dòng `PLANNED` |
 | Mục trùng đã gộp | 6 cụm, liệt kê phía trên |
-| File làm tiếp | `06_Two_Pointers.md` (`TP-01..06`) |
+| File làm tiếp | Theo ưu tiên hiện tại: hoàn tất audit Chapter 08; sau đó quay lại `07_Sliding_Window_Prefix_Sum.md` |
