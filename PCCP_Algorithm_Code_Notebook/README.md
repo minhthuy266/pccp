@@ -1,5 +1,7 @@
 # PCCP Algorithm Code Notebook – Từ hiểu đến tự viết được
 
+> Tiếp tục xây notebook ở phiên mới: đọc [CONTINUATION_CONTEXT.md](CONTINUATION_CONTEXT.md) trước, sau đó đọc [HANDOFF.md](HANDOFF.md).
+
 Đây là notebook luyện **chuyển đề bài thành state, transition, invariant và code JavaScript từ trang trắng**. Nó không thay thế kho bài hay cheatsheet. Nó biến kiến thức tra cứu thành bài tập active recall có đáp án tách riêng.
 
 > Nhìn code thấy hiểu ≠ tự viết được.  

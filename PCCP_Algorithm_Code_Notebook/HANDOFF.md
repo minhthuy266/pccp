@@ -1,5 +1,7 @@
 # Handoff — PCCP Algorithm Code Notebook
 
+> **Context tiếp tục mới nhất:** đọc toàn bộ [CONTINUATION_CONTEXT.md](CONTINUATION_CONTEXT.md) trước khi sửa notebook. File đó là nguồn chỉ dẫn chính cho các phiên sau và ghi lại workflow concept-first được người học yêu cầu.
+
 > Cập nhật: 2026-08-05 (Asia/Ho_Chi_Minh)
 
 ## Mục tiêu còn hiệu lực
