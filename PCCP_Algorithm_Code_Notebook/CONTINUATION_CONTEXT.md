@@ -104,7 +104,7 @@ Các chương tiếp theo phải tạo được tài liệu tổng hợp có ch�
 Theo handoff trước:
 
 - Chương 01–06 đã hoàn thiện v1.
-- Chương 08 Stack/Queue đã hoàn tất và có QA.
+- Chương 08 Stack/Queue đã hoàn tất concept-first: beginner guide, 22 bài thật, 22 solutions, audit 47 bài Kit, 10 derived concepts và QA mở rộng.
 - Chương 07 Prefix Sum/Sliding Window còn cần hoàn thiện theo workflow mới.
 - Các chương Binary Search, BFS/DFS, Heap/Greedy, Backtracking/DP và Mixed Tests cần được audit lại mức concept-first, kể cả khi đã có file khung hoặc nội dung cũ.
 

@@ -1,6 +1,6 @@
 # 08 — Stack và Queue
 
-> Trạng thái: **Hoàn thiện v1**; bằng chứng tại [QA.md](chapters/08_stack_queue/QA.md).
+> Trạng thái: **Hoàn thiện concept-first**; theory nền, 22 bài thật, audit 47 bài Kit, derived concepts và bằng chứng tại [QA.md](chapters/08_stack_queue/QA.md).
 
 ## Mục tiêu
 
@@ -25,11 +25,15 @@ Chọn cấu trúc theo thứ tự state phải lấy ra: stack lấy mới nh�
 
 ## Lộ trình
 
-1. [Stack và monotonic stack](chapters/08_stack_queue/01_Stack_Monotonic.md)
-2. [Queue, circular queue và BFS](chapters/08_stack_queue/02_Queue_Circular_BFS.md)
-3. [Practice Ladder](chapters/08_stack_queue/03_Practice_Ladder.md)
-4. [Solutions](solutions/08_Stack_Queue_Solutions.md) — chỉ mở sau nỗ lực.
-5. [QA và coverage lock](chapters/08_stack_queue/QA.md)
+1. [Nhập môn Stack/Queue](chapters/08_stack_queue/00_Beginner_Guide.md)
+2. [Stack và monotonic stack](chapters/08_stack_queue/01_Stack_Monotonic.md)
+3. [Queue, circular queue và BFS](chapters/08_stack_queue/02_Queue_Circular_BFS.md)
+4. [Practice Ladder](chapters/08_stack_queue/03_Practice_Ladder.md)
+5. [Bộ 22 bài Programmers/PCCP](chapters/08_stack_queue/04_Programmers_PCCP_Set.md)
+6. [Audit Practice Kit](chapters/08_stack_queue/05_Programmers_Kit_Audit.md)
+7. [Concept rút ra từ bài thật](chapters/08_stack_queue/06_Programmers_Derived_Concepts.md)
+8. [Solutions nền](solutions/08_Stack_Queue_Solutions.md) và [solutions bộ bài thật](solutions/08_Stack_Queue_Programmers_Solutions.md) — chỉ mở sau nỗ lực.
+9. [QA và coverage lock](chapters/08_stack_queue/QA.md)
 
 ## Mastery Gate
 

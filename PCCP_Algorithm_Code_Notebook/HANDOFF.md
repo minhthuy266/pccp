@@ -2,7 +2,7 @@
 
 > **Context tiếp tục mới nhất:** đọc toàn bộ [CONTINUATION_CONTEXT.md](CONTINUATION_CONTEXT.md) trước khi sửa notebook. File đó là nguồn chỉ dẫn chính cho các phiên sau và ghi lại workflow concept-first được người học yêu cầu.
 
-> Cập nhật: 2026-08-05 (Asia/Ho_Chi_Minh)
+> Cập nhật: 2026-08-09 (Asia/Ho_Chi_Minh)
 
 ## Mục tiêu còn hiệu lực
 
@@ -22,7 +22,7 @@ Theo ưu tiên mới, Chapter 08 — Stack/Queue đã hoàn tất và có QA: 32
 
 ## Scope vừa hoàn tất — Chapter 08
 
-Chapter 08 đã khóa tại `chapters/08_stack_queue/QA.md`. Không sửa trạng thái `SQ-*` nếu chưa chạy lại QA sau thay đổi code.
+Chapter 08 đã được nâng từ v1 lên concept-first và khóa lại tại `chapters/08_stack_queue/QA.md`: beginner guide, bộ 22 bài Programmers/PCCP, 22 full solutions, audit 47/47 bài Practice Kit và 10 derived concepts. `SQ-01..05` vẫn `FULL`. Không sửa trạng thái `SQ-*` nếu chưa chạy lại QA sau thay đổi code.
 
 ## Scope kế tiếp khi quay lại Chapter 07
 

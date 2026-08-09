@@ -11,7 +11,7 @@ Manifest này là hợp đồng nội dung của bộ sách. `Dạng` là đơn 
 | 05 Sorting | `SORT-01..05`: numeric comparator; multi-key tie; decoration/index; sort-then-scan/interval; coordinate compression; mutation | 12/3/3/3/3/3/1 + 2 Transfer | **Hoàn thiện v1** |
 | 06 Two Pointers | `TP-01..06`: opposite ends; fast/slow compact; sorted duplicate; merge/intersection; pair/three sum; partition | 12/3/3/3/3/3/1 + 2 Transfer | **Hoàn thiện v1** |
 | 07 Sliding Window, Prefix Sum | fixed window; variable window; count state; deque preview; prefix 1D; range query; prefix frequency; difference array | 12/3/3/3/3/2/1 | Khung |
-| 08 Stack, Queue | `SQ-01..05`: matching/undo; monotonic stack; FIFO/head index/batching; circular queue; BFS queue | 12/3/3/3/3/3/1 + 2 Transfer | **Hoàn thiện v1** |
+| 08 Stack, Queue | `SQ-01..05`: matching/undo; monotonic stack; FIFO/head index/batching; circular queue; BFS queue | 12/3/3/3/3/3/1 + 2 Transfer; 22 bài thật + audit + derived concepts | **Hoàn thiện concept-first** |
 | 09 Binary Search | exact search; lower/upper bound; first/last true; answer space; feasibility; bounds; overflow and termination | 10/3/3/3/3/2/1 | Khung |
 | 10 BFS, DFS | graph modeling; grid; shortest unweighted; components; adjacency list; iterative DFS; multi-source; multi-dimensional state; tree | 12/3/3/3/3/2/1 | Khung |
 | 11 Heap, Greedy | min/max heap; top-k; scheduling; k-way processing; local choice; interval greedy; exchange argument; heap + simulation | 12/3/3/3/3/2/1 | Khung |

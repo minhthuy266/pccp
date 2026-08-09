@@ -27,3 +27,16 @@ Kết quả: **16/16 behavioral assertions pass**, **0 syntax error**.
 
 `SQ-01..05` đủ điều kiện `FULL`. Chapter 07 vẫn `PLANNED` và sẽ được làm sau theo thứ tự ưu tiên mới.
 
+## Concept-first extension — 09/08/2026
+
+- [x] Có beginner guide riêng, giải thích LIFO/FIFO, head-index queue, monotonic stack và BFS owner/helper.
+- [x] Có đủ 6/6 bài Stack/Queue Kit chính thức.
+- [x] Audit đủ 47/47 bài trong 10 Algorithm Practice Kit: 13 core, 7 auxiliary, 27 none.
+- [x] Bộ bài thật có 22 đề, 22 source, 22 contract và 22 full solutions.
+- [x] Sáu bài Kit chính + bảy bài cross-Kit + tám bài public ngoài Kit + một đề PCCP public.
+- [x] Derived concepts nén 22 bài thành 10 bộ xương và có bảng ánh xạ đủ 22 ID.
+- [x] 22 JavaScript solution blocks parse độc lập; 23 behavioral assertions đại diện pass.
+- [x] Comment code giải thích state/transition, không chỉ kể lại cú pháp.
+- [x] Link nội bộ, Markdown fence, `git diff --check` và test repo được chạy lại.
+
+Kết luận mới: Coverage ID `SQ-01..05` vẫn giữ `FULL`; Chapter 08 đạt thêm Definition of Done concept-first mà không xóa hoặc làm yếu theory/practice cũ.
