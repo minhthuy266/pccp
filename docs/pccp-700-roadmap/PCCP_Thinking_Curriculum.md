@@ -1,6 +1,6 @@
 # PCCP 700+ — Giáo trình tư duy từ đề đến code JavaScript
 
-Tài liệu này không phải lịch học. Luôn đi từ [`README.md`](../../README.md) đến [`PLAN_PCCP_700_REBUILD_2026-09-05.md`](../../PLAN_PCCP_700_REBUILD_2026-09-05.md), rồi chỉ đọc mục được chỉ định; kết quả thực tế được ghi trong [`TRACKER_PCCP_REBUILD_2026.csv`](../../TRACKER_PCCP_REBUILD_2026.csv).
+Tài liệu này không phải lịch học. Luôn đi từ [`README.md`](../../README.md) đến [`PLAN_PCCP_700_REBUILD_2026-09-12.md`](../../PLAN_PCCP_700_REBUILD_2026-09-12.md), rồi chỉ đọc mục được chỉ định; kết quả thực tế được ghi trong [`TRACKER_PCCP_REBUILD_2026.csv`](../../TRACKER_PCCP_REBUILD_2026.csv).
 
 Tài liệu này không cố nhồi thêm template. Mục tiêu là biến một đề chưa gặp thành một chuỗi quyết định có thể lặp lại:
 

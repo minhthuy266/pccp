@@ -6,7 +6,7 @@
 
 1. Mở [`TRACKER_PCCP_REBUILD_2026.csv`](TRACKER_PCCP_REBUILD_2026.csv).
 2. Tiếp tục từ ngày gần nhất chưa hoàn thành. Không tự nhảy ngày chỉ để khớp lịch.
-3. Mở đúng dòng ngày đó trong [`PLAN_PCCP_700_REBUILD_2026-09-05.md`](PLAN_PCCP_700_REBUILD_2026-09-05.md). Đây là **lịch học chính duy nhất**.
+3. Mở đúng dòng ngày đó trong [`PLAN_PCCP_700_REBUILD_2026-09-12.md`](PLAN_PCCP_700_REBUILD_2026-09-12.md). Đây là **lịch học chính duy nhất**.
 4. Chỉ đọc chương/mục được chỉ định trong plan từ [`PCCP_Thinking_Curriculum.md`](docs/pccp-700-roadmap/PCCP_Thinking_Curriculum.md). Một chương có thể kéo dài nhiều ngày; một ngày có thể chỉ ôn hoặc tra template.
 5. Lấy thông tin bài luyện từ [`PROBLEM_BANK.csv`](PROBLEM_BANK.csv); tra cú pháp trong [`PCCP_JavaScript_Templates.md`](docs/pccp-700-roadmap/PCCP_JavaScript_Templates.md) khi plan yêu cầu.
 6. Sau buổi học, chỉ cập nhật tiến độ thực tế trong tracker. Nếu có lỗi thật, ghi vào [`PCCP_Error_Log.csv`](docs/pccp-700-roadmap/PCCP_Error_Log.csv).
@@ -16,7 +16,7 @@
 | File | Vai trò duy nhất |
 |---|---|
 | `README.md` | Cổng bắt đầu và quy tắc điều hướng |
-| `PLAN_PCCP_700_REBUILD_2026-09-05.md` | Lịch học chính 37 ngày, bài luyện và gate |
+| `PLAN_PCCP_700_REBUILD_2026-09-12.md` | Lịch chính đến 12/09: 37 ngày cốt lõi, 3 ngày repair/buffer, bài luyện và gate |
 | `PCCP_Thinking_Curriculum.md` | 12 chương tư duy; chỉ đọc mục plan chỉ định |
 | `PCCP_JavaScript_Templates.md` | Tra cứu/recode template, không phải lịch học |
 | `PROBLEM_BANK.csv` | Danh mục bài; không chứa tiến độ, lời giải hoặc hậu kiểm |

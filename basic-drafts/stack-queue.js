@@ -141,3 +141,70 @@ const areBracketsValid = (text) => {
 }
 
 console.log("areBracketsValid", areBracketsValid("([)]"))
+
+
+function solutionP(board, moves) {
+  const basket = [];
+  let removed = 0;
+
+  for (const move of moves) {
+    const col = move - 1;
+
+    for (let row = 0; row < board.length; row++) {
+      if (board[row][col] === 0) {
+        continue;
+      }
+
+      const doll = board[row][col];
+      board[row][col] = 0;
+
+      const top = basket[basket.length - 1];
+
+      if (top === doll) {
+        basket.pop();
+        removed += 2;
+      } else {
+        basket.push(doll);
+      }
+
+      break;
+    }
+  }
+
+  return removed;
+}
+
+
+
+const solutionThu = (board, moves) => {
+    const basket = []
+    let answer = 0
+    
+    for (const move of moves) {
+      const col = move - 1
+      for (let row = 0; row < board.length; row++) {
+        if (board[row][col] === 0) {
+          continue;
+        }
+
+        const doll = board[row][col]
+        board[row][col] = 0
+
+        const top = basket[basket.length - 1]
+
+        if (top === doll) {
+          basket.pop()
+          answer += 2 
+        } else {
+          basket.push(doll)
+        }
+
+        break; 
+      }
+    }
+
+    return answer
+
+}
+
+console.log(solutionThu([[0,0,0,0,0],[0,0,1,0,3],[0,2,5,0,1],[4,2,4,4,2],[3,5,1,3,1]], [1,5,3,5,1,2,1,4]))

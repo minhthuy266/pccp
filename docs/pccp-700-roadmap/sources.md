@@ -10,7 +10,7 @@
 - Phạm vi chính thức nêu ví dụ: implementation; String, Array, Greedy, Sort; Stack, Queue, Deque, Hash, Binary Search, DFS, BFS; Graph, Tree, Heap, DP; cùng khả năng chọn giải pháp đúng và hiệu quả. Từ “등/…” cho thấy đây là danh sách ví dụ, không phải danh mục đóng.
 - Không tìm thấy nguồn chính thức công bố trọng số cố định cho từng câu, công thức điểm theo test case, hay bảo đảm “giải ba câu = 700/750”. Các con số như 200/300/300/200 chỉ là lời truyền miệng và không được dùng làm sự thật trong bộ tài liệu.
 - Không tìm thấy trang chính thức công bố phiên bản Node.js cụ thể cho kỳ thi. Template dùng cú pháp JavaScript phổ biến, không phụ thuộc thư viện ngoài; người học phải chạy pre-test để kiểm tra môi trường thực tế.
-- Lịch công khai tại thời điểm truy cập không hiển thị kỳ thi thường lệ ngày 05/09/2026. Lộ trình vẫn dùng ngày thi do người học cung cấp; giả định đây có thể là lịch riêng của trường/doanh nghiệp hoặc lượt chưa hiển thị công khai.
+- Lộ trình dùng ngày thi 12/09/2026 do người học cập nhật ngày 10/08/2026; đây là deadline có thẩm quyền cho kế hoạch cá nhân dù lịch công khai có thể hiển thị khác.
 - Hai course mock chính thức có đủ 4 coding exercise mỗi course và được cập nhật 15/01/2026. Tám lesson mock không công bố Level chính thức; problem bank ghi `Không công bố`, không tự gán Level.
 
 ## 37 nguồn nền
@@ -21,7 +21,7 @@
 | 2 | PCCP 출제 범위 | https://certi.programmers.co.kr/about/pccp?tab=range | Chính thức – PCCP | Phạm vi kiến thức và năng lực được đánh giá | 30/07/2026 |
 | 3 | Programmers 인증시험 소개서 | https://business.programmers.co.kr/static/business/certification_intro.pdf | Chính thức – Programmers (PDF) | 4 câu/120 phút/6 ngôn ngữ; syllabus; mốc điểm và cấp độ; cách thi. Chỉ dùng dữ kiện cấu trúc, không dùng lịch 2025 trong PDF cho năm 2026 | 30/07/2026 |
 | 4 | 정기시험/tryouts | https://certi.programmers.co.kr/tryouts | Chính thức – PCCP, động | Kiểm tra lịch thi công khai hiện hành | 30/07/2026 |
-| 5 | Published tryouts API | https://certi.programmers.co.kr/api/v1/tryouts/published/ | Chính thức – PCCP API, động | Đối chiếu ngày/giờ các kỳ thi công khai; kiểm tra giả định 05/09/2026 | 30/07/2026 |
+| 5 | Published tryouts API | https://certi.programmers.co.kr/api/v1/tryouts/published/ | Chính thức – PCCP API, động | Đối chiếu ngày/giờ các kỳ thi công khai; ngày mục tiêu cá nhân hiện là 12/09/2026 | 30/07/2026 |
 | 6 | PCCP sample | https://certi.programmers.co.kr/about/sample | Chính thức – PCCP | Điểm vào các tài nguyên mẫu | 30/07/2026 |
 | 7 | Programmers courses | https://school.programmers.co.kr/learn/courses/ | Chính thức – Programmers School | Danh mục khóa học được rà soát | 30/07/2026 |
 | 8 | Official Mock 1 | LOCKED | Chính thức – Programmers School | URL chỉ nằm trong vùng locked; mở khi bắt đầu timer | 30/07/2026 |

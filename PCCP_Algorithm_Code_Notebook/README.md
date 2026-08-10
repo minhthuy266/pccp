@@ -83,4 +83,4 @@ Không tệp cũ nào bị sửa hoặc xóa.
 
 **Cần viết lại:** biến template thành câu hỏi state; tách `firstIndex` với `latestIndex`; giải thích `has()` khác `get()`; bắt buộc check-before-update; tạo đề không gắn pattern và đáp án ở thư mục riêng.
 
-**Nguồn đã rà:** `README.md`, `PLAN_PCCP_700_REBUILD_2026-09-05.md`, `PROBLEM_BANK.csv`, tracker/error-log CSV, `docs/CHEATSHEET_THUAT_TOAN_JS_PCCP.md`, ba tài liệu trong `docs/pccp-700-roadmap/`, `BASIC.js`, ba bộ Level 1 DOCX/PDF và archive. Các file `locked/` không được mở để bảo vệ mock.
+**Nguồn đã rà:** `README.md`, `PLAN_PCCP_700_REBUILD_2026-09-12.md`, `PROBLEM_BANK.csv`, tracker/error-log CSV, `docs/CHEATSHEET_THUAT_TOAN_JS_PCCP.md`, ba tài liệu trong `docs/pccp-700-roadmap/`, `BASIC.js`, ba bộ Level 1 DOCX/PDF và archive. Các file `locked/` không được mở để bảo vệ mock.
