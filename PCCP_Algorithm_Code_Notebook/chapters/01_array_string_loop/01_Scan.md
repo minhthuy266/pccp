@@ -1,281 +1,597 @@
-# Scan và quyết định — `ARR-01..04`
+# Quét mảng một lần: từ đề bài đến biến cần lưu — `ARR-01..04`
 
-[← Index](../../01_Array_String_Loop.md) · [Tiếp: sequence →](02_Sequences.md)
+[← Trang chính Chương 01](../../01_Array_String_Loop.md) · [Phần 2: tạo kết quả và xử lý đoạn liên tiếp →](02_Sequences.md)
 
-## Dạng 1 `[ARR-01]` — Accumulator tổng/tích
+## Học phần này để làm gì?
 
-### A. Bản chất
+Rất nhiều bài PCCP cơ bản chỉ cần đi qua mảng từ trái sang phải đúng một lần. Phần khó không nằm ở cú pháp `for`. Phần khó là trả lời được:
 
-Mỗi phần tử đóng góp vào một kết quả gộp. Nếu không giữ kết quả của prefix, ta phải cộng/tính lại phần đã đi qua. Dấu hiệu: tổng, tích, checksum, tổng có trọng số. Không dùng một accumulator khi output cần từng prefix hoặc khi transition phụ thuộc thêm ngữ cảnh chưa lưu.
+> Sau khi đọc một phần tử, mình phải nhớ lại điều gì để xử lý phần tử tiếp theo?
 
-### B. Mental model
+Thông tin cần nhớ đó được gọi là **trạng thái** (`state`). Tạm thời đừng cố học thuộc từ này. Trong từng bài dưới đây, ta sẽ tự tìm ra biến cần lưu trước, rồi mới gọi tên nó.
 
-Một đồng hồ công-tơ: mỗi item đi qua làm số hiện tại đổi đúng một lần.
+Phần này có bốn kiểu câu hỏi:
 
-### C. Template tư duy
+| Đề hỏi gì? | Ta cần nhớ gì khi đang duyệt? | Dạng |
+| --- | --- | --- |
+| Tổng hoặc tích của nhiều phần tử | Kết quả đã gộp đến hiện tại | `ARR-01` |
+| Phần tử tốt nhất/lớn nhất/nhỏ nhất | Ứng viên tốt nhất hiện tại | `ARR-02` |
+| Có bao nhiêu phần tử thỏa điều kiện | Số lượng đã tìm thấy | `ARR-03` |
+| Có tồn tại không / tất cả có đúng không | Chỉ cần một bằng chứng để kết luận | `ARR-04` |
 
-```text
-Duyệt: từng value hoặc index nếu công thức dùng vị trí.
-State: accumulator là kết quả gộp của prefix đã xử lý.
-Khởi tạo: phần tử đơn vị của phép gộp (0 cho tổng, 1 cho tích).
-Transition: accumulator = combine(accumulator, current).
-Invariant đầu vòng i: accumulator đúng cho [0..i-1].
-Return: accumulator sau khi xử lý hết.
-```
+Hãy học từng dạng theo thứ tự: **đọc bài nhỏ → đoán biến cần lưu → xem code → chạy tay → tự viết lại**.
 
-### D. Template code JavaScript
+---
 
-```js
-let accumulator = identityValue;
-for (let index = 0; index < values.length; index += 1) {
-  const currentValue = values[index];
-  accumulator = combine(accumulator, currentValue, index);
-}
-return accumulator;
-```
+## 1. Gộp tất cả phần tử vào một kết quả `[ARR-01]`
 
-`identityValue` phải làm empty input đúng theo contract. Với tích, khởi tạo 0 khiến mọi kết quả thành 0; với tổng, khởi tạo bằng phần tử đầu lại buộc loop bắt đầu ở 1 và cần xử lý empty riêng.
+### Bài toán mở đầu
 
-### E. Bài mẫu — Tổng có trọng số theo vị trí
-
-1. **Đề:** trả `values[0]*1 + values[1]*2 + ... + values[i]*(i+1)`.  
-2. **I/O:** `[3,1,2] → 11`; `[] → 0`.  
-3. **Kể lại:** mỗi số đóng góp số đó nhân vị trí 1-based.  
-4. **Brute force:** công thức này vốn chỉ cần một lượt; array trung gian `map` rồi `reduce` vẫn đúng nhưng không cần thiết.  
-5. **Bottleneck:** không có bottleneck độ phức tạp; rủi ro là nhầm index 0-based/1-based.  
-6. **Vì sao pattern hợp:** đóng góp current tính được độc lập từ value và index.  
-7. **State:** `weightedSum` là tổng đúng của prefix.  
-8. **Transition:** cộng `values[index] * (index + 1)`.  
-9. **Invariant:** đầu vòng `index`, sum chứa đóng góp của index `0..index-1`.  
-10. **Pseudocode:** sum=0; scan index; contribution=value*(index+1); cộng; return.  
-11. **Full code:**
+Cho mảng điểm:
 
 ```js
-function weightedSum(values) {
+const scores = [6, 8, 5];
+```
+
+Tính tổng điểm. Kết quả là `19`.
+
+Khi đọc từ trái sang phải:
+
+- đọc `6`: tổng đang là `6`;
+- đọc thêm `8`: tổng đang là `14`;
+- đọc thêm `5`: tổng đang là `19`.
+
+Ta không cần nhớ lại từng số đã đi qua. Ta chỉ cần một biến `total` chứa tổng hiện tại.
+
+```js
+function sumScores(scores) {
   let total = 0;
-  for (let index = 0; index < values.length; index += 1) {
-    const position = index + 1;
-    const contribution = values[index] * position;
-    total += contribution;
+
+  for (const score of scores) {
+    total += score;
   }
+
   return total;
 }
 ```
 
-12. `position` tách riêng để lộ chuyển đổi 0→1-based; bỏ `+1` làm `[3]` trả 0. Khởi tạo 0 khiến empty trả đúng.  
-13. **Dry run:**
+### Vì sao `total` bắt đầu bằng `0`?
 
-| Bước | Phần tử/index | State trước | Điều kiện | Hành động | State sau |
-| --- | --- | --- | --- | --- | --- |
-| 0 | 3/0 | total=0 | position=1 | +3×1 | 3 |
-| 1 | 1/1 | total=3 | position=2 | +1×2 | 5 |
-| 2 | 2/2 | total=5 | position=3 | +2×3 | 11 |
+Trước khi đọc số nào, tổng phải là `0`. Nhờ vậy mảng rỗng cũng trả đúng `0`.
 
-14. **Complexity:** `O(n)` time, `O(1)` extra space.  
-15. **Lỗi:** dùng `index` thay `index+1`; reset total trong loop; Number không an toàn nếu bound tích lớn.  
-16. **Biến thể:** chỉ cộng index chẵn: condition đổi, nghĩa accumulator vẫn là tổng đóng góp hợp lệ trong prefix.
-
-**Recall Card `[ARR-01]`:** identity → scan → combine → return; state là kết quả prefix. **Blank Page:** viết tổng chữ số của số nguyên không nhìn. **Mutation:** tổng có điều kiện; tích modulo; prefix outputs. **Explain Back:** identity là gì? Vì sao loop từ 0? Khi nào cần BigInt?
-
-## Dạng 2 `[ARR-02]` — Min/max, index và tie-break
-
-### A. Bản chất
-
-Ta giữ ứng viên tốt nhất trong prefix. “Tốt hơn” phải là một comparator hoàn chỉnh, gồm cả luật hòa. Không nên sort toàn array chỉ để lấy một cực trị vì sort làm `O(n log n)`, mutate input và có thể mất index gốc.
-
-### B. Mental model
-
-Một ghế dẫn đầu: current chỉ thay người ngồi khi thắng đúng luật, kể cả luật hòa.
-
-### C. Template tư duy
-
-```text
-Duyệt: index vì cần trả index/tie.
-State: bestValue, bestIndex.
-Condition: current tốt hơn, hoặc hòa và thắng tie.
-Transition: cập nhật value và index cùng nhau.
-Invariant: best là đáp án đúng của prefix đã xử lý.
-Return: bestValue, bestIndex hoặc object theo contract.
-```
-
-### D. Template code JavaScript
+Nếu bài hỏi tích, ta thường bắt đầu bằng `1`:
 
 ```js
-if (isBetter(currentValue, index, bestValue, bestIndex)) {
-  bestValue = currentValue;
-  bestIndex = index;
+function multiplyAll(numbers) {
+  let product = 1;
+
+  for (const number of numbers) {
+    product *= number;
+  }
+
+  return product;
 }
 ```
 
-Nếu input không rỗng, khởi tạo từ index 0 rồi loop từ 1 giúp best luôn là phần tử thật. Sentinel `-Infinity` hữu ích khi empty có contract riêng, nhưng không tự cung cấp index hợp lệ.
+Khởi tạo tích bằng `0` là sai, vì nhân số nào với `0` cũng vẫn bằng `0`.
 
-### E. Bài mẫu — Điểm lớn nhất, hòa lấy index nhỏ nhất
+### Khi công thức cần vị trí
 
-1. **Đề:** array không rỗng; trả index của max, hòa lấy index nhỏ hơn.  
-2. **I/O:** `[7,9,9,4] → 1`.  
-3. **Kể lại:** giữ người dẫn đầu; người bằng điểm đến sau không thay.  
-4. **Brute force:** tìm max rồi `indexOf`; đúng hai lượt.  
-5. **Bottleneck:** không lớn, nhưng một lượt thể hiện tie và mở rộng tốt hơn.  
-6. **Vì sao pattern hợp:** đáp án prefix cập nhật từ đúng một current.  
-7. **State:** `bestValue`, `bestIndex`.  
-8. **Transition:** chỉ update khi `currentValue > bestValue`.  
-9. **Invariant:** sau index i, bestIndex là index nhỏ nhất đạt max của `[0..i]`.  
-10. **Pseudocode:** best=index0; loop i=1; nếu current lớn hơn update cả hai; return index.  
-11. **Full code:**
+Tính tổng có trọng số:
+
+```text
+values[0] × 1 + values[1] × 2 + values[2] × 3 + ...
+```
+
+Lúc này ta cần cả giá trị và vị trí, nên dùng vòng lặp theo `index`.
 
 ```js
-function indexOfMaximumFirstTie(values) {
+function weightedSum(values) {
+  let total = 0;
+
+  for (let index = 0; index < values.length; index += 1) {
+    const position = index + 1;
+    total += values[index] * position;
+  }
+
+  return total;
+}
+```
+
+Chạy tay với `[3, 1, 2]`:
+
+| `index` | Giá trị | Trọng số `index + 1` | `total` trước | `total` sau |
+| ---: | ---: | ---: | ---: | ---: |
+| 0 | 3 | 1 | 0 | 3 |
+| 1 | 1 | 2 | 3 | 5 |
+| 2 | 2 | 3 | 5 | 11 |
+
+Sau mỗi vòng, `total` bằng tổng đóng góp của tất cả phần tử đã đọc. Câu này chính là **điều luôn đúng của vòng lặp** (sau này ta gọi là `invariant`). Nó giải thích vì sao đi hết mảng thì `total` là đáp án.
+
+### Cách nhận ra dạng này
+
+Đề thường có các từ: “tổng”, “tích”, “tổng điểm”, “tổng chi phí”, “checksum”, “tổng có trọng số”. Mỗi phần tử đóng góp vào cùng một kết quả.
+
+Khung cần nhớ:
+
+```js
+let answer = giaTriBanDau;
+
+for (const value of values) {
+  answer = gop(answer, value);
+}
+
+return answer;
+```
+
+`gop` không phải hàm có sẵn. Nó đại diện cho phép tính mà đề yêu cầu, ví dụ `answer + value` hoặc `answer * value`.
+
+### Lỗi hay gặp
+
+- Khởi tạo sai: tổng bắt đầu bằng `1`, tích bắt đầu bằng `0`.
+- Công thức dùng vị trí 1, 2, 3 nhưng code dùng thẳng index 0, 1, 2.
+- Đặt `let total = 0` bên trong vòng lặp làm tổng bị xóa ở mỗi bước.
+- Dùng `Number` khi đề cho số quá lớn; lúc đó phải xem có cần `BigInt` hoặc lấy modulo không.
+
+### Tự kiểm tra
+
+Đóng phần code và tự viết hàm tính tổng bình phương:
+
+```text
+[2, 3, 4] → 2² + 3² + 4² = 29
+[] → 0
+```
+
+Nếu bạn chưa nói được câu “biến của mình có ý nghĩa gì sau mỗi vòng”, hãy chạy tay lại trước khi sang dạng 2.
+
+---
+
+## 2. Giữ ứng viên tốt nhất `[ARR-02]`
+
+### Bài toán mở đầu
+
+Cho mảng điểm không rỗng. Trả về vị trí của điểm lớn nhất. Nếu có nhiều điểm bằng nhau, lấy vị trí xuất hiện đầu tiên.
+
+```text
+[7, 9, 9, 4] → 1
+```
+
+Ta cần trả về **vị trí**, nhưng muốn so sánh lại cần biết **điểm** của người đang dẫn đầu. Vì vậy phải lưu hai biến:
+
+- `bestValue`: điểm lớn nhất đã thấy;
+- `bestIndex`: vị trí của điểm đó.
+
+Phần tử đầu tiên tạm thời là người dẫn đầu. Ta bắt đầu so từ phần tử thứ hai.
+
+```js
+function indexOfMaximum(values) {
   let bestValue = values[0];
   let bestIndex = 0;
 
   for (let index = 1; index < values.length; index += 1) {
     const currentValue = values[index];
+
     if (currentValue > bestValue) {
       bestValue = currentValue;
       bestIndex = index;
     }
   }
+
   return bestIndex;
 }
 ```
 
-12. Loop bắt đầu 1 vì index0 đã ở state. Dùng `>=` sẽ thay khi hòa và trả index lớn nhất. Hai biến phải update cùng nhánh; bỏ update value khiến những current sau so với leader cũ.  
-13. **Dry run:**
+Chạy tay:
 
-| Bước | Phần tử/index | State trước | Điều kiện | Hành động | State sau |
-| --- | --- | --- | --- | --- | --- |
-| init | 7/0 | — | input nonempty | chọn 7/0 | 7/0 |
-| 1 | 9/1 | 7/0 | 9>7 | thay leader | 9/1 |
-| 2 | 9/2 | 9/1 | 9>9 sai | giữ tie đầu | 9/1 |
-| 3 | 4/3 | 9/1 | 4>9 sai | giữ | 9/1 |
+| Vị trí đang xét | Giá trị | Người dẫn đầu trước đó | Có thay không? | Người dẫn đầu sau đó |
+| ---: | ---: | --- | --- | --- |
+| khởi tạo | 7 | chưa có | chọn phần tử đầu | `7` tại `0` |
+| 1 | 9 | `7` tại `0` | có, vì `9 > 7` | `9` tại `1` |
+| 2 | 9 | `9` tại `1` | không, vì `9 > 9` sai | `9` tại `1` |
+| 3 | 4 | `9` tại `1` | không | `9` tại `1` |
 
-14. `O(n)`/`O(1)`.  
-15. Empty input không có contract; `>=` phá tie; chỉ lưu value khi return cần index; sort mutate input.  
-16. Biến thể hòa lấy index lớn nhất: condition đổi thành `>=`, invariant đổi “index lớn nhất đạt max”.
+### Dấu `>` hay `>=` quyết định cách xử lý hòa
 
-**Recall Card `[ARR-02]`:** best state + comparator hoàn chỉnh; tie nằm ở dấu so sánh. **Blank Page:** viết min hòa index cuối. **Mutation:** best object theo 3 khóa; second max; max absolute value nhưng return original. **Explain Back:** vì sao khởi tạo index0? `>`/`>=` khác gì? Vì sao cập nhật hai biến cùng nhau?
+Đây là chỗ rất hay sai trong phòng thi:
 
-### Template Contrast — `ARR-01` và `ARR-02`
+- dùng `>`: giá trị bằng nhau đến sau **không thay** → giữ vị trí đầu tiên;
+- dùng `>=`: giá trị bằng nhau đến sau **có thay** → giữ vị trí cuối cùng.
 
-| Dạng | State | Condition | Transition | Dấu hiệu |
-| --- | --- | --- | --- | --- |
-| `ARR-01` | kết quả gộp của mọi item | thường không loại item | combine mọi current | tổng/tích |
-| `ARR-02` | một ứng viên thắng | comparator + tie | thay toàn bộ best | tốt nhất/max/min |
-
-## Dạng 3 `[ARR-03]` — Đếm theo điều kiện
-
-### A. Bản chất
-
-Mỗi phần tử được phân loại độc lập thành thỏa hoặc không; state chỉ cần số đã thỏa. Không dùng nếu điều kiện của current phụ thuộc đoạn/lịch sử mà state count không mô tả đủ.
-
-### B. Mental model
-
-Một máy bấm số: chỉ bấm khi item qua bộ kiểm tra.
-
-### C. Template tư duy
-
-```text
-Duyệt: mỗi item một lần.
-State: count số item thỏa trong prefix.
-Condition: predicate(current,index).
-Transition: true → count += 1; false → giữ.
-Invariant: count đúng cho prefix.
-Return: count.
-```
-
-### D. Template code
+Ví dụ cần vị trí cuối cùng của số lớn nhất:
 
 ```js
-let count = 0;
-for (let index = 0; index < values.length; index += 1) {
-  if (matches(values[index], index)) count += 1;
+if (currentValue >= bestValue) {
+  bestValue = currentValue;
+  bestIndex = index;
 }
-return count;
 ```
 
-### E. Bài mẫu — Đếm số dương ở index chẵn
+### Khi có nhiều luật ưu tiên
 
-1. Đề: đếm `values[index] > 0` và index chẵn. 2. `[-1,5,3,2,4]→2`. 3. Chỉ index0,2,4 có quyền xét value dương. 4. Filter rồi length. 5. Array trung gian không cần. 6. Count condition trực tiếp. 7. `count`. 8. cả hai predicate đúng→increment. 9. count đúng prefix. 10. scan/check conjunction/increment/return. 11. **Code:**
+Cho danh sách đơn hàng `{id, priority, distance}`. Chọn đơn có:
+
+1. `priority` lớn hơn;
+2. nếu bằng `priority`, chọn `distance` nhỏ hơn;
+3. nếu vẫn bằng nhau, giữ đơn xuất hiện trước.
+
+Đừng viết ba lần cập nhật rời rạc. Hãy gom toàn bộ luật vào một biến `isBetter`, rồi thay cả ứng viên trong một lần.
+
+```js
+function chooseOrder(orders) {
+  if (orders.length === 0) return null;
+
+  let bestOrder = orders[0];
+
+  for (let index = 1; index < orders.length; index += 1) {
+    const currentOrder = orders[index];
+    const hasHigherPriority = currentOrder.priority > bestOrder.priority;
+    const samePriorityButNearer =
+      currentOrder.priority === bestOrder.priority &&
+      currentOrder.distance < bestOrder.distance;
+
+    const isBetter = hasHigherPriority || samePriorityButNearer;
+
+    if (isBetter) {
+      bestOrder = currentOrder;
+    }
+  }
+
+  return bestOrder.id;
+}
+```
+
+Ta không thêm điều kiện “bằng hết thì lấy phần tử trước”, vì chỉ cập nhật khi ứng viên mới tốt hơn. Khi hòa hoàn toàn, `bestOrder` cũ tự động được giữ lại.
+
+### Cách nhận ra dạng này
+
+Đề hỏi “lớn nhất”, “nhỏ nhất”, “tốt nhất”, “ưu tiên nhất”, hoặc “trả vị trí/phần tử thắng cuộc”. Đặc biệt chú ý các câu bắt đầu bằng “nếu bằng nhau thì...”.
+
+Khung cần nhớ:
+
+```js
+let best = values[0];
+
+for (let index = 1; index < values.length; index += 1) {
+  const current = values[index];
+  if (currentTotHonBest) {
+    best = current;
+  }
+}
+
+return best;
+```
+
+### Vì sao không sort rồi lấy phần tử đầu?
+
+Sort vẫn có thể cho đáp án, nhưng thường không cần thiết:
+
+- quét một lần mất `O(n)` thời gian;
+- sort mất `O(n log n)`;
+- `sort()` của JavaScript còn sửa trực tiếp mảng ban đầu;
+- sau khi sort, vị trí ban đầu có thể bị mất.
+
+### Lỗi hay gặp
+
+- Đề cho mảng rỗng nhưng vẫn đọc `values[0]`.
+- Cập nhật `bestIndex` mà quên cập nhật `bestValue`, hoặc ngược lại.
+- Dùng `>=` khi đề muốn giữ lần xuất hiện đầu tiên.
+- Chỉ so luật ưu tiên thứ nhất và quên luật xử lý hòa.
+
+### Tự kiểm tra
+
+Viết hàm trả vị trí **cuối cùng** chứa giá trị **nhỏ nhất**.
+
+```text
+[4, 2, 7, 2] → 3
+```
+
+Tự trả lời trước khi code: khởi tạo ở đâu, vòng lặp bắt đầu từ đâu, dùng `<` hay `<=`?
+
+---
+
+## 3. Đếm phần tử thỏa điều kiện `[ARR-03]`
+
+### Bài toán mở đầu
+
+Đếm số dương nằm ở vị trí chẵn.
+
+```text
+[-1, 5, 3, 2, 4] → 2
+```
+
+Các vị trí chẵn là `0`, `2`, `4`. Trong đó `3` và `4` là số dương, nên đáp án là `2`.
+
+Ta cần một biến `count`:
+
+- bắt đầu bằng `0`, vì chưa xét phần tử nào;
+- tăng thêm `1` khi phần tử hiện tại thỏa **cả hai** điều kiện;
+- không thay đổi khi phần tử không thỏa.
 
 ```js
 function countPositiveAtEvenIndex(values) {
   let count = 0;
+
   for (let index = 0; index < values.length; index += 1) {
     const isEvenIndex = index % 2 === 0;
     const isPositive = values[index] > 0;
-    if (isEvenIndex && isPositive) count += 1;
+
+    if (isEvenIndex && isPositive) {
+      count += 1;
+    }
   }
+
   return count;
 }
 ```
 
-12. Cần index loop thay `for...of`; `&&` diễn đạt phải thỏa cả hai. 13. **Dry run:**
+Chạy tay:
 
-| Bước | Phần tử/index | State trước | Điều kiện | Hành động | State sau |
-| --- | --- | --- | --- | --- | --- |
-| 0 | -1/0 | 0 | even, không positive | giữ | 0 |
-| 1 | 5/1 | 0 | odd | giữ | 0 |
-| 2 | 3/2 | 0 | cả hai đúng | +1 | 1 |
-| 3 | 2/3 | 1 | odd | giữ | 1 |
-| 4 | 4/4 | 1 | cả hai đúng | +1 | 2 |
+| `index` | Giá trị | Vị trí chẵn? | Số dương? | `count` sau bước này |
+| ---: | ---: | --- | --- | ---: |
+| 0 | -1 | có | không | 0 |
+| 1 | 5 | không | có | 0 |
+| 2 | 3 | có | có | 1 |
+| 3 | 2 | không | có | 1 |
+| 4 | 4 | có | có | 2 |
 
-14. `O(n)`/`O(1)`. 15. `||` thay `&&`; đếm value rồi quên index; count khởi tạo 1. 16. Biến thể đếm cặp kề tăng: loop bắt đầu 1 và predicate so `values[i] > values[i-1]`.
+Sau mỗi vòng, `count` đúng bằng số phần tử thỏa điều kiện trong đoạn đã đọc.
 
-**Recall Card `[ARR-03]`:** predicate độc lập → conditional increment. **Blank Page:** đếm ký tự digit. **Mutation:** count pair; count transition; weighted count. **Explain Back:** khi count state thiếu? Vì sao empty trả 0? Khi filter hợp lý hơn?
+### Phân biệt “đếm” và “tính tổng”
 
-## Dạng 4 `[ARR-04]` — Every/some và early return
+Hai dạng đều có một biến số, nhưng cách cập nhật khác nhau:
 
-### A. Bản chất
+| Đề hỏi | Cập nhật |
+| --- | --- |
+| Có bao nhiêu phần tử hợp lệ? | `count += 1` |
+| Tổng giá trị của các phần tử hợp lệ? | `total += value` |
+| Tổng tiền phạt của câu sai? | `totalPenalty += penalties[index]` |
 
-Với “tồn tại”, một witness đủ kết luận true. Với “tất cả”, một counterexample đủ kết luận false. Duyệt tiếp sau khi đã có kết luận là công việc thừa và làm invariant khó hơn.
-
-### B. Mental model
-
-Kiểm soát vé: một vé giả đủ bác bỏ “mọi vé hợp lệ”; một vé VIP đủ xác nhận “có VIP”.
-
-### C. Template tư duy
-
-```text
-Some: gặp witness → true; hết vòng → false.
-Every: gặp counterexample → false; hết vòng → true.
-Invariant: trước current chưa gặp witness/counterexample quyết định.
-Empty: some=false, every=true theo logic; vẫn theo contract đề.
-```
-
-### D. Template code
+Ví dụ vừa đếm số câu sai, vừa tính tổng điểm phạt:
 
 ```js
-for (const value of values) {
-  if (!predicate(value)) return false;
+function summarizeWrongAnswers(answers, penalties) {
+  let wrongCount = 0;
+  let totalPenalty = 0;
+
+  for (let index = 0; index < answers.length; index += 1) {
+    if (answers[index] === false) {
+      wrongCount += 1;
+      totalPenalty += penalties[index];
+    }
+  }
+
+  return { wrongCount, totalPenalty };
 }
-return true;
 ```
 
-### E. Bài mẫu — Mọi mật khẩu đều đủ dài
+Một vòng lặp có thể giữ nhiều biến, miễn là bạn nói rõ ý nghĩa của từng biến.
 
-1. Đề: mọi string có length≥8. 2. `['abcdefgh','12345678']→true`; `[]→true`. 3. tìm password đầu tiên quá ngắn. 4. đếm valid rồi so length. 5. đếm hết dù lỗi ở đầu. 6. every/early return. 7. không cần count; trạng thái ngầm “chưa thấy lỗi”. 8. current ngắn→false. 9. đầu vòng chưa có counterexample trong prefix. 10. scan; invalid false; hết true. 11. **Code:**
+### Cách nhận ra dạng này
+
+Đề hỏi “có bao nhiêu”, “đếm số lượng”, “số lần xuất hiện”, và việc một phần tử có được tính hay không có thể quyết định ngay khi đọc nó.
+
+Khung cần nhớ:
+
+```js
+let count = 0;
+
+for (const value of values) {
+  if (valueThoaDieuKien) {
+    count += 1;
+  }
+}
+
+return count;
+```
+
+### Khi khung này chưa đủ
+
+Nếu điều kiện phụ thuộc vào phần tử trước, một đoạn liên tiếp, hoặc những gì đã xuất hiện trước đó, chỉ có `count` là chưa đủ. Khi đó ta phải lưu thêm thông tin. Ví dụ:
+
+- đếm số lần mảng tăng: cần nhớ phần tử trước;
+- tìm đoạn số dương liên tiếp dài nhất: cần nhớ độ dài đoạn hiện tại;
+- đếm giá trị khác nhau: cần `Set` để nhớ những giá trị đã gặp.
+
+### Lỗi hay gặp
+
+- Dùng `||` trong khi đề yêu cầu thỏa cả hai điều kiện.
+- Viết `count += value` trong bài hỏi số lượng.
+- Khởi tạo `count = 1` dù chưa tìm thấy phần tử hợp lệ nào.
+- Dùng `for...of` rồi lại cần `index`; khi đó vòng lặp theo index dễ đọc hơn.
+
+### Tự kiểm tra
+
+Viết hàm đếm ký tự là chữ số trong chuỗi. Có thể kiểm tra một ký tự bằng:
+
+```js
+character >= "0" && character <= "9"
+```
+
+Test: `"a1-b20" → 3`, chuỗi rỗng trả `0`.
+
+---
+
+## 4. Kết luận sớm khi đã có đủ bằng chứng `[ARR-04]`
+
+### Bài toán A — “Có ít nhất một”
+
+Kiểm tra mảng có số âm hay không.
+
+```text
+[4, 2, -3, 8] → true
+```
+
+Ngay khi gặp `-3`, ta đã biết chắc đáp án là `true`. Không cần xem tiếp `8`.
+
+```js
+function containsNegative(values) {
+  for (const value of values) {
+    if (value < 0) {
+      return true;
+    }
+  }
+
+  return false;
+}
+```
+
+Hãy để ý hai vị trí `return`:
+
+- `return true` nằm trong vòng lặp vì chỉ cần gặp một bằng chứng;
+- `return false` nằm sau vòng lặp vì phải xem hết mà vẫn không gặp số âm.
+
+Mảng rỗng trả `false`: không có phần tử nào làm bằng chứng rằng “có số âm”.
+
+### Bài toán B — “Tất cả”
+
+Kiểm tra mọi mật khẩu đều có ít nhất 8 ký tự.
 
 ```js
 function areAllPasswordsLongEnough(passwords) {
   for (const password of passwords) {
-    if (password.length < 8) return false;
+    if (password.length < 8) {
+      return false;
+    }
   }
+
   return true;
 }
 ```
 
-12. Return true phải sau loop; đặt trong loop chỉ kiểm phần tử đầu. Empty không vào loop và true phù hợp mệnh đề “không có phản ví dụ”. 13. **Dry run:**
+Ở đây ta đi tìm một phần tử **làm hỏng** kết luận “tất cả đều đúng”:
 
-| Bước | Phần tử/index | State trước | Điều kiện | Hành động | State sau |
-| --- | --- | --- | --- | --- | --- |
-| 0 | `abcdefgh`/0 | chưa thấy lỗi | len=8 | tiếp tục | chưa thấy lỗi |
-| 1 | `short`/1 | chưa thấy lỗi | len<8 | return false | kết thúc |
+- gặp một mật khẩu ngắn → trả `false` ngay;
+- xem hết mà không gặp mật khẩu ngắn → trả `true`.
 
-14. Best-case `O(1)`, worst `O(n)`, space `O(1)`. 15. đảo predicate; true trong loop; nghĩ empty phải false không theo logic/contract. 16. Biến thể “có password yếu”: check cùng condition nhưng witness→true, hết→false.
+Mảng rỗng trả `true` theo cách hiểu logic: không có phần tử nào vi phạm. Tuy nhiên, nếu đề quy định khác thì phải theo đề.
 
-**Recall Card `[ARR-04]`:** some tìm witness; every tìm counterexample; terminal return nằm sau loop. **Blank Page:** viết cả some/every không dùng method. **Mutation:** trả index witness; validate và thu lỗi; predicate cần index. **Explain Back:** vì sao empty every true? Khi không nên early return? Invariant ngầm là gì?
+### Hai bộ xương đối xứng
 
-## Transfer Test A — Sau `ARR-01..04`
+```js
+// Có ít nhất một phần tử thỏa?
+for (const value of values) {
+  if (thoaDieuKien(value)) return true;
+}
+return false;
+```
 
-Làm [A01-T01](03_Practice_Ladder.md#a01-t01--trạm-pin). Không có phiếu state/check/update và có dữ liệu thời gian gây nhiễu.
+```js
+// Tất cả phần tử đều thỏa?
+for (const value of values) {
+  if (!thoaDieuKien(value)) return false;
+}
+return true;
+```
 
+`thoaDieuKien` chỉ là tên đại diện cho điều kiện của đề, không phải hàm JavaScript có sẵn.
+
+### Tại sao không đếm rồi so sánh?
+
+Ta có thể đếm số phần tử hợp lệ rồi so với độ dài mảng, nhưng cách đó thường làm việc thừa. Nếu phần tử đầu tiên đã sai, kết luận sớm chỉ chạy một bước; cách đếm vẫn phải duyệt hết mảng.
+
+### Cách nhận ra dạng này
+
+- “có ít nhất một”, “có tồn tại”, “có chứa” → tìm một bằng chứng đúng;
+- “mọi”, “tất cả”, “không có phần tử nào sai” → tìm một bằng chứng sai.
+
+Trong JavaScript, `some()` và `every()` cũng biểu diễn hai ý này. Khi mới học, viết vòng lặp đầy đủ giúp nhìn rõ vị trí kết luận hơn.
+
+### Lỗi hay gặp
+
+- Đặt kết quả mặc định sai: bài “có tồn tại” lại trả `true` sau vòng lặp.
+- Gặp một phần tử đúng liền trả `true` trong bài hỏi “tất cả”.
+- Gán boolean rồi vẫn duyệt hết dù đã biết chắc đáp án.
+- Quên xác định hành vi với mảng rỗng.
+
+### Tự kiểm tra
+
+Viết hai hàm:
+
+1. `containsZero(values)`: có ít nhất một số `0` hay không;
+2. `isNonDecreasing(values)`: mọi cặp kề đều thỏa `values[i] >= values[i - 1]`.
+
+Với bài 2, vòng lặp phải bắt đầu từ `index = 1`, vì phần tử đầu tiên không có phần tử đứng trước để so sánh.
+
+---
+
+## Chọn dạng nào trong phòng thi?
+
+Đừng chọn theo tên hàm hay loại dữ liệu. Hãy nhìn thứ đề yêu cầu trả về:
+
+```text
+Một giá trị được gộp từ mọi phần tử?
+└─ ARR-01: giữ tổng/tích hiện tại
+
+Một phần tử hoặc vị trí thắng cuộc?
+└─ ARR-02: giữ ứng viên tốt nhất và luật xử lý hòa
+
+Một con số biểu thị số lượng phần tử hợp lệ?
+└─ ARR-03: giữ count, đúng thì tăng 1
+
+Chỉ cần trả true/false cho “có” hoặc “tất cả”?
+└─ ARR-04: tìm bằng chứng và kết luận sớm
+```
+
+Một bài có thể kết hợp nhiều dạng. Ví dụ `{wrongCount, totalPenalty}` dùng cùng lúc:
+
+- `ARR-03` cho số câu sai;
+- `ARR-01` cho tổng điểm phạt.
+
+Điều quan trọng không phải gắn đúng một nhãn, mà là chọn đủ các biến để trả được kết quả.
+
+## Bài kiểm tra chuyển giao
+
+Không xem lại code ở trên. Cho danh sách giao dịch:
+
+```js
+[
+  { type: "income", amount: 100 },
+  { type: "expense", amount: 30 },
+  { type: "expense", amount: 80 }
+]
+```
+
+Hãy trả:
+
+```js
+const expectedResult = {
+  balance: -10,
+  expenseCount: 2,
+  hasLargeExpense: true
+};
+```
+
+Trong đó giao dịch chi từ `50` trở lên là khoản chi lớn.
+
+Gợi ý chỉ mở khi bí:
+
+<details>
+<summary>Gợi ý 1 — Cần lưu gì?</summary>
+
+Bạn cần ba biến: số dư hiện tại, số giao dịch chi, và thông tin đã gặp khoản chi lớn hay chưa.
+
+</details>
+
+<details>
+<summary>Gợi ý 2 — Mỗi phần tử cập nhật ra sao?</summary>
+
+`income` cộng vào số dư. `expense` trừ khỏi số dư và tăng bộ đếm. Nếu expense có `amount >= 50`, đánh dấu đã gặp khoản chi lớn.
+
+</details>
+
+Sau khi tự code, hãy giải thích bằng lời:
+
+1. Mỗi biến có ý nghĩa gì sau khi xử lý `i` giao dịch đầu?
+2. Vì sao `expenseCount` bắt đầu bằng `0`?
+3. Nếu đề chỉ hỏi `hasLargeExpense`, có thể dừng vòng lặp ở đâu?
+
+## Phiếu nhớ nhanh
+
+| Dạng | Câu hỏi tự hỏi | Biến thường dùng | Cập nhật chính |
+| --- | --- | --- | --- |
+| `ARR-01` | Kết quả đã gộp đến đâu? | `total`, `product` | cộng/nhân đóng góp hiện tại |
+| `ARR-02` | Ai đang thắng và vì sao? | `bestValue`, `bestIndex`, `bestItem` | thay khi current tốt hơn |
+| `ARR-03` | Đã có bao nhiêu phần tử đúng? | `count` | điều kiện đúng thì `+1` |
+| `ARR-04` | Bằng chứng nào đủ kết luận? | thường không cần biến | gặp bằng chứng thì `return` |
+
+Bạn đã sẵn sàng sang phần 2 khi có thể tự viết lại bốn bộ xương mà không nhìn và nói được ý nghĩa của từng biến.

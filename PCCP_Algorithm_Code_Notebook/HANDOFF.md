@@ -6,7 +6,7 @@
 
 ## Mục tiêu còn hiệu lực
 
-Hoàn thiện notebook theo `PATTERN_COVERAGE_MATRIX.md`, từng chương một. Chỉ đổi ID sang `FULL` sau khi theory → practice → solution → recall và QA đều đạt.
+Hoàn thiện notebook để người học tự giải được mọi đề PCCP công khai trong `PROBLEM_BANK.csv`. Theo dõi tiến độ từng đề ở [PCCP_PUBLIC_PROBLEM_CATALOG.md](PCCP_PUBLIC_PROBLEM_CATALOG.md), không chỉ theo `PATTERN_COVERAGE_MATRIX.md`. Chỉ đổi trạng thái một đề sang `Đã hoàn tất` khi lesson → solution → recall → QA đều đạt; `FULL` của pattern không thay thế điều đó.
 
 ## Trạng thái đã khóa
 
@@ -18,7 +18,7 @@ Hoàn thiện notebook theo `PATTERN_COVERAGE_MATRIX.md`, từng chương một.
 
 ## Điểm dừng hiện tại
 
-Theo ưu tiên mới, Chapter 08 — Stack/Queue đã hoàn tất và có QA: 32/32 Practice–Solution IDs, 167 JS fences không lỗi, 16/16 behavioral assertions. `SQ-01..05` đã `FULL`. Chapter 07 vẫn là stub; `PRE-01..05`, `SW-01..06` còn `PLANNED`.
+Đã tạo catalog 40 đề công khai và bài học/lời giải đầu tiên theo chuẩn mới: `P01 — Băng bó` tại `chapters/04_simulation/04_PCCP_Public_Problems.md` và `solutions/04_Simulation_PCCP_Solutions.md`. Chapter 07 vẫn là stub; `PRE-01..05`, `SW-01..06` còn `PLANNED`.
 
 ## Scope vừa hoàn tất — Chapter 08
 
@@ -29,7 +29,7 @@ Chapter 08 đã được nâng từ v1 lên concept-first và khóa lại tại 
 1. `PRE-01..05`: prefix sum 1D, range query, prefix frequency/count, difference array và boundary/index convention.
 2. `SW-01..06`: fixed window, variable window, count state, deque preview, invariant add/remove, contrast window với two pointers/prefix.
 3. Giữ quota Manifest tối thiểu; ưu tiên chuẩn `12R/3F/3L/3P/3C/3V/1M + 2 Transfer Tests`.
-4. Tách theory thành cụm Prefix và Sliding Window; mỗi ID vẫn phải có A–E, bài mẫu 16 bước, dry run sáu cột, recall drills.
+4. Tách theory thành cụm Prefix và Sliding Window; viết theo chuẩn learner-first trong `CONTINUATION_CONTEXT.md`: bài nhỏ → tìm biến → code → dry run → thuật ngữ/nhận diện → lỗi → tự kiểm tra. Không quay lại A–E hoặc bài mẫu 16 bước.
 5. Chỉ tạo QA và đổi `FULL` sau syntax, behavioral, ID-set và link audits.
 
 ## Quy ước chất lượng
@@ -42,7 +42,6 @@ Chapter 08 đã được nâng từ v1 lên concept-first và khóa lại tại 
 
 ## Kế hoạch còn lại
 
-- Hoàn thiện PRE/SW.
-- Hoàn thiện SQ/BS/BFS.
-- Hoàn thiện HG/BTD/Mixed Tests.
-- Completion audit đủ 83 IDs trước khi gọi goal complete.
+- Lấp từng đề `Cần viết` trong public catalog, bắt đầu từ P05/P17/P18/P19 và đồng thời viết các chapter nền còn thiếu theo chuẩn learner-first.
+- Hoàn thiện PRE/SW, BS, BFS, Heap/Greedy, Backtracking/DP để các đề P02–P48 có nền giải thích từ gốc.
+- Completion audit phải có 40/40 đề công khai `Đã hoàn tất`, không chỉ đủ 83 IDs.

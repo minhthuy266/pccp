@@ -1,16 +1,32 @@
-# 01 — Array, String và Loop: dựng state trong một lượt quét
+# 01 — Array, String và Loop: học cách nghĩ trước khi học pattern
 
 > Trạng thái: `ARR-01..07` hoàn thiện v1. Không mở solutions trước khi lưu nỗ lực.
 
-## Điều hướng
+## Bắt đầu như thế nào?
 
-1. [Scan và quyết định](chapters/01_array_string_loop/01_Scan.md): `ARR-01..04`.
-2. [Xây output, duyệt ngược và run](chapters/01_array_string_loop/02_Sequences.md): `ARR-05..07`.
-3. [Practice Ladder](chapters/01_array_string_loop/03_Practice_Ladder.md).
-4. [Lời giải](solutions/01_Array_String_Loop_Solutions.md).
-5. [QA chương](chapters/01_array_string_loop/QA.md).
+Nếu bạn mới học, đừng đọc bảng ID rồi cố nhớ. Đi theo thứ tự này:
 
-## Câu hỏi chọn bộ xương
+1. Đọc [Quét mảng một lần](chapters/01_array_string_loop/01_Scan.md). Phần này dùng bài nhỏ để tự tìm ra biến cần lưu, sau đó mới gọi tên `state` và `invariant`.
+2. Tự làm các mục **Tự kiểm tra** ngay trong bài. Chưa cần mở lời giải.
+3. Đọc [Tạo kết quả, duyệt ngược và đoạn liên tiếp](chapters/01_array_string_loop/02_Sequences.md).
+4. Làm [Practice Ladder](chapters/01_array_string_loop/03_Practice_Ladder.md) theo từng tầng; chỉ mở [lời giải](solutions/01_Array_String_Loop_Solutions.md) sau khi đã lưu cách mình thử.
+
+[QA chương](chapters/01_array_string_loop/QA.md) là ghi chép kiểm tra kỹ thuật của người viết, không phải nội dung cần học.
+
+## Một ý duy nhất cần mang theo
+
+Vòng lặp chỉ đọc dữ liệu. Chính các biến được giữ lại giữa hai vòng mới quyết định thuật toán.
+
+Ví dụ khi đi qua `[4, 2, 7]`:
+
+- hỏi tổng → giữ `total`;
+- hỏi số lớn nhất → giữ `bestValue`;
+- hỏi có bao nhiêu số chẵn → giữ `count`;
+- hỏi có số âm không → gặp số âm thì kết luận ngay.
+
+Đó là lý do cùng một vòng `for` nhưng có thể giải nhiều dạng bài khác nhau.
+
+## Bản đồ bảy dạng của chương
 
 | Contract | Coverage ID | State tối thiểu |
 | --- | --- | --- |
@@ -22,21 +38,21 @@
 | Tương lai của current nằm bên phải | `ARR-06` | suffix state, scan ngược |
 | Đo/chốt đoạn liên tiếp | `ARR-07` | current run + best + flush |
 
-Loop không phải pattern “thấp cấp”: vị trí invariant được chọn ở đầu hay cuối vòng quyết định khởi tạo, biên và thứ tự update. `map`, `filter`, `reduce` chỉ là cú pháp; trong phòng thi hãy dùng cách làm khiến state và edge case dễ kiểm tra nhất.
+Các mã `ARR-01..07` chỉ giúp nối lý thuyết với bài tập và lời giải. Bạn không cần thuộc mã để làm bài.
 
-## Template tư duy chung
+## Năm câu hỏi trước khi code
 
 ```text
-Duyệt index hay value? Có cần vị trí/tie không?
-State trước vòng i mô tả prefix/suffix nào?
-Current được đọc trước hay sau condition?
-Transition có thay một biến hay nhiều biến đồng bộ?
-Có thể early return không?
-Empty input trả gì theo contract?
-Vòng bắt đầu/kết thúc ở đâu và vì sao?
+1. Đề bắt trả về cái gì?
+2. Sau khi đọc một phần tử, mình cần nhớ lại điều gì?
+3. Khi nào biến đó thay đổi?
+4. Mảng rỗng hoặc chỉ có một phần tử trả gì?
+5. Có trường hợp nào biết chắc đáp án và dừng sớm không?
 ```
 
-## Template Contrast nhanh
+Sau khi trả lời bằng tiếng Việt, mới đổi câu trả lời thành tên biến và code.
+
+## So sánh nhanh
 
 | Dạng | State | Condition | Transition | Return |
 | --- | --- | --- | --- | --- |
@@ -50,14 +66,12 @@ Vòng bắt đầu/kết thúc ở đâu và vì sao?
 
 ## Checklist tạm thành thạo
 
-- [ ] Nhận diện đúng ít nhất 80% bài cơ bản.
-- [ ] Tự nói được state và transition.
-- [ ] Viết bảy skeleton từ trang trắng.
+- [ ] Nhìn đề và nói được “mình cần lưu biến gì” trước khi code.
+- [ ] Tự viết bảy khung từ trang trắng, không chép lại ví dụ.
+- [ ] Tự tạo được test rỗng, test một phần tử và test làm lộ luật hòa.
 - [ ] Làm đúng 3 bài cơ bản liên tiếp.
-- [ ] Làm được ít nhất 2 bài biến thể.
-- [ ] Sau 3 ngày vẫn tự viết lại được.
-- [ ] Giải thích được invariant và biên vòng lặp.
+- [ ] Sau 3 ngày vẫn viết lại được mà không mở tài liệu.
 
-## Mastery Gate
+## Khi nào nên học chương tiếp theo?
 
-Chương chỉ tạm thành thạo khi ít nhất 6/7 ID đạt mức 3, ít nhất 5/7 đạt mức 4, qua hai Transfer/Mixed Test liên tiếp, không xem full code và giải thích được invariant. Nếu sai tie quay lại `ARR-02`; sai biên/sentinel quay lại `ARR-06/07`; code đúng nhưng không giải thích được thì mức tối đa là 2.
+Bạn chưa cần chờ “thuộc hết”. Hãy sang chương tiếp theo khi tự giải được phần lớn bài cơ bản và giải thích được ý nghĩa các biến trong code. Nếu thường sai luật hòa, ôn lại `ARR-02`; nếu sai đầu/cuối mảng, ôn `ARR-06/07`; nếu nhìn lời giải thì hiểu nhưng đóng lại không viết được, quay về bài **Tự kiểm tra** thay vì đọc thêm lý thuyết.

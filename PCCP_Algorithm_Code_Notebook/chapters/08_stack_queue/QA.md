@@ -1,5 +1,13 @@
 # QA — Chapter 08 Stack và Queue
 
+## Bổ sung mastery learner-first — 10/08/2026
+
+- Entry point học mới: `00_Exam_Mastery_Guide.md` → `01_Core_From_Zero.md` → `02_Advanced_From_Zero.md` → Practice Ladder → đề thật.
+- Lesson mới giải thích state và test phá lỗi cho matching/reduction, monotonic stack, FIFO/batch queue, BFS, priority re-enqueue, capacity/time queue, circular queue và BFS state nhiều chiều.
+- Research được gắn trực tiếp vào mastery guide: Stack/Queue Kit chính thức, Practice Kit, PCCP preparation course và MDN `shift()`.
+- Behavioral assertions của code lesson Stack/Queue mới: **28/28** pass; mọi fence JavaScript mới của hai chapter Map/Set + Stack/Queue: **30/30** parse hợp lệ.
+- Coverage `SQ-*` cũ được giữ nguyên; learner vẫn phải qua Practice/Transfer/Mini-test để gọi là tự làm được.
+
 [← Index](../../08_Stack_Queue.md)
 
 ## Coverage lock

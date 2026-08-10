@@ -25,15 +25,18 @@ Chọn cấu trúc theo thứ tự state phải lấy ra: stack lấy mới nh�
 
 ## Lộ trình
 
-1. [Nhập môn Stack/Queue](chapters/08_stack_queue/00_Beginner_Guide.md)
-2. [Stack và monotonic stack](chapters/08_stack_queue/01_Stack_Monotonic.md)
-3. [Queue, circular queue và BFS](chapters/08_stack_queue/02_Queue_Circular_BFS.md)
-4. [Practice Ladder](chapters/08_stack_queue/03_Practice_Ladder.md)
-5. [Bộ 22 bài Programmers/PCCP](chapters/08_stack_queue/04_Programmers_PCCP_Set.md)
-6. [Audit Practice Kit](chapters/08_stack_queue/05_Programmers_Kit_Audit.md)
-7. [Concept rút ra từ bài thật](chapters/08_stack_queue/06_Programmers_Derived_Concepts.md)
-8. [Solutions nền](solutions/08_Stack_Queue_Solutions.md) và [solutions bộ bài thật](solutions/08_Stack_Queue_Programmers_Solutions.md) — chỉ mở sau nỗ lực.
-9. [QA và coverage lock](chapters/08_stack_queue/QA.md)
+1. [Lộ trình mastery Stack/Queue](chapters/08_stack_queue/00_Exam_Mastery_Guide.md): trang học chính — chọn theo thứ tự xử lý, bẫy và đề thật.
+2. [Nhập môn Stack/Queue](chapters/08_stack_queue/00_Beginner_Guide.md)
+3. [Stack/Queue phần lõi từ gốc](chapters/08_stack_queue/01_Core_From_Zero.md): lesson chính cho matching/reduction, monotonic stack, FIFO batch và BFS.
+4. [Theory Stack/monotonic tham chiếu](chapters/08_stack_queue/01_Stack_Monotonic.md)
+5. [Queue/BFS nâng cao từ gốc](chapters/08_stack_queue/02_Advanced_From_Zero.md): scheduling, capacity/time queue, circular buffer và BFS state nhiều chiều.
+6. [Theory Queue/circular/BFS tham chiếu](chapters/08_stack_queue/02_Queue_Circular_BFS.md)
+7. [Practice Ladder](chapters/08_stack_queue/03_Practice_Ladder.md)
+8. [Bộ 22 bài Programmers/PCCP](chapters/08_stack_queue/04_Programmers_PCCP_Set.md)
+9. [Audit Practice Kit](chapters/08_stack_queue/05_Programmers_Kit_Audit.md)
+10. [Concept rút ra từ bài thật](chapters/08_stack_queue/06_Programmers_Derived_Concepts.md)
+11. [Solutions nền](solutions/08_Stack_Queue_Solutions.md) và [solutions bộ bài thật](solutions/08_Stack_Queue_Programmers_Solutions.md) — chỉ mở sau nỗ lực.
+12. [QA và coverage lock](chapters/08_stack_queue/QA.md)
 
 ## Mastery Gate
 

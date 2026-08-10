@@ -4,6 +4,12 @@
 
 Đây là notebook luyện **chuyển đề bài thành state, transition, invariant và code JavaScript từ trang trắng**. Nó không thay thế kho bài hay cheatsheet. Nó biến kiến thức tra cứu thành bài tập active recall có đáp án tách riêng.
 
+## Đích thực sự: tự giải đề PCCP
+
+Không gọi notebook là hoàn thiện khi chỉ có template. Đọc [Chuẩn thành thạo PCCP](00_MASTERY_STANDARD.md) để biết mỗi bài phải học đến mức nào, và dùng [Danh mục đề PCCP công khai](PCCP_PUBLIC_PROBLEM_CATALOG.md) để biết chính xác đề nào đã có bài học/lời giải, đề nào còn thiếu.
+
+**Bắt đầu học ở đây:** [Bản đồ pattern PCCP](PCCP_EXAM_PATTERN_ATLAS.md). Trang này giải thích pattern theo dấu hiệu của đề thật, state cần giữ và các đề PCCP tương ứng; catalog chỉ dùng để kiểm tra coverage sau đó.
+
 > Nhìn code thấy hiểu ≠ tự viết được.  
 > Nhớ lời giải ≠ hiểu pattern.  
 > Chỉ được tính là đã học khi đóng đáp án và tự dựng lại được.
