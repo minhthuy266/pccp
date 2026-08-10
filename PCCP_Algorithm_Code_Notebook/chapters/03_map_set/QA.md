@@ -1,5 +1,13 @@
 # QA — Chương 03 Map/Set
 
+## Bổ sung mastery learner-first — 10/08/2026
+
+- Entry point học mới: `00_Exam_Mastery_Guide.md` → `01_Core_From_Zero.md` → `02_Advanced_From_Zero.md` → Practice Ladder → đề thật.
+- Lesson mới giải thích bằng state và test phá lỗi: frequency/duplicate, first/latest index, complement, group/rank, `Map<key, Set>`, window frequency, canonical key và state đồng bộ.
+- Research được gắn trực tiếp vào mastery guide: Hash Kit chính thức, Practice Kit, PCCP preparation course và MDN Map/Set.
+- Behavioral assertions của code lesson Map/Set mới: **24/24** pass; mọi fence JavaScript mới của hai chapter Map/Set + Stack/Queue: **30/30** parse hợp lệ.
+- Không đổi claim coverage cũ thành “người học đã thành thạo”; learner vẫn phải qua Practice/Transfer/Mini-test và có bằng chứng riêng.
+
 Ngày kiểm: 04/08/2026.
 
 ## Coverage

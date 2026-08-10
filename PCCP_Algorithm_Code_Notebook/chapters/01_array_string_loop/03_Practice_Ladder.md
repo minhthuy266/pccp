@@ -1,10 +1,47 @@
-# Chapter 01 — Practice Ladder
+# Chương 01 — Bài luyện từ nhận diện đến tự code
 
 [← Index](../../01_Array_String_Loop.md) · [Lời giải](../../solutions/01_Array_String_Loop_Solutions.md)
 
+## Cách dùng trang này
+
+Đây không phải danh sách phải cày hết trong một lần. Mỗi buổi chỉ nên làm một nhóm nhỏ:
+
+1. chọn 4 bài nhận diện ở Tầng 1;
+2. làm 1 bài điền khuyết ở Tầng 2;
+3. chọn 1 bài từ Tầng 3 hoặc 4 để viết cách nghĩ;
+4. cuối cùng mới tự code 1 bài ở Tầng 5.
+
+Nếu bí, quay lại đúng dạng trong phần lý thuyết và chỉ đọc đến mục **Cách nhận ra dạng này**. Chưa mở full solution. Mục tiêu là tự tìm ra biến cần lưu, không phải hoàn thành thật nhiều câu.
+
+### Mẫu trả lời cho bài nhận diện
+
+Ví dụ đề: “Tính tổng các số âm trong mảng.”
+
+```text
+Đề trả về: một tổng
+Duyệt: từng value từ trái sang phải
+Cần lưu: total = tổng các số âm đã gặp
+Cập nhật: nếu value < 0 thì total += value
+Khởi tạo: total = 0
+Return: total
+Dạng dự đoán: ARR-01
+```
+
+Nếu chưa đoán được mã `ARR-*` nhưng sáu dòng đầu đúng, cách nghĩ của bạn vẫn đúng. Mã chỉ dùng để tìm lại bài lý thuyết tương ứng.
+
+### Quy tắc xem lời giải
+
+Trước khi mở lời giải, hãy ghi lại ít nhất ba thứ:
+
+- biến bạn đã chọn;
+- dòng hoặc test đang làm bạn bí;
+- kết quả bạn nghĩ mảng rỗng hoặc một phần tử phải trả.
+
+Sau khi xem, đóng lời giải và viết lại từ đầu. “Đọc thấy hiểu” chưa được tính là đã làm được.
+
 ## Tầng 1 — Nhận diện (12)
 
-Chỉ ghi `Coverage ID`, state, hướng duyệt và return; chưa code.
+Chưa code. Với mỗi bài, ghi: **đề trả về gì → duyệt thế nào → cần lưu biến gì → cập nhật khi nào → return gì**. Coverage ID là phần cuối cùng.
 
 ### A01-R01 `[ARR-01]`
 Tính tổng `value²` của mọi số.

@@ -1,217 +1,331 @@
-# Xây output, duyệt ngược và đoạn liên tiếp — `ARR-05..07`
+# Tạo kết quả, nhìn về bên phải và xử lý đoạn liên tiếp — `ARR-05..07`
 
-[← Scan](01_Scan.md) · [Practice →](03_Practice_Ladder.md)
+[← Phần 1: quét mảng](01_Scan.md) · [Bài luyện theo tầng →](03_Practice_Ladder.md)
 
-## Dạng 5 `[ARR-05]` — Biến đổi/lọc và xây output
+Phần 1 chỉ trả về một số, một ứng viên hoặc `true/false`. Phần này xử lý ba tình huống mới:
 
-### A. Bản chất
+1. kết quả là một mảng mới;
+2. đáp án tại vị trí hiện tại phụ thuộc vào những gì nằm bên phải;
+3. đề hỏi về một đoạn các phần tử đứng liền nhau.
 
-Input và output không còn là một scalar; mỗi current có thể tạo 0, 1 hoặc nhiều phần tử output. State phải nói rõ output chứa kết quả của prefix nào. Không mutate input nếu đề không yêu cầu, vì alias/reference có thể làm test sau sai.
+Mỗi tình huống buộc ta thay đổi cách duyệt hoặc thông tin cần lưu.
 
-### B. Mental model
+---
 
-Dây chuyền: item đi qua bộ lọc, rồi nếu được nhận thì được đóng gói thành representation mới.
+## 5. Lọc, biến đổi và tạo mảng kết quả `[ARR-05]`
 
-### C. Template tư duy
+### Bài toán mở đầu
+
+Cho mảng số. Chỉ giữ số lẻ và bình phương chúng.
 
 ```text
-Duyệt: input theo order cần giữ.
-State: result chứa output đúng của prefix.
-Condition: current có được đưa vào không?
-Transform: output item được tạo từ current thế nào?
-Transition: result.push(transformed).
-Invariant: result đúng và đúng order cho prefix.
-Return: result; quyết định new collection hay in-place.
+[2, 3, 5, 6] → [9, 25]
 ```
 
-### D. Template code
+Ta cần một mảng `result`, ban đầu rỗng. Với mỗi số:
+
+1. kiểm tra có phải số lẻ không;
+2. nếu không phải, bỏ qua;
+3. nếu đúng, bình phương rồi thêm vào `result`.
 
 ```js
-const result = [];
-for (let index = 0; index < values.length; index += 1) {
-  const currentValue = values[index];
-  if (!shouldInclude(currentValue, index)) continue;
-  result.push(transform(currentValue, index));
+function squareOddNumbers(values) {
+  const result = [];
+
+  for (const value of values) {
+    if (value % 2 === 0) {
+      continue;
+    }
+
+    result.push(value * value);
+  }
+
+  return result;
 }
-return result;
 ```
 
-### E. Bài mẫu — Chuẩn hóa điểm hợp lệ
+Sau mỗi vòng, `result` chứa đúng kết quả của phần mảng đã đọc và vẫn giữ nguyên thứ tự ban đầu.
 
-1. **Đề:** bỏ điểm ngoài `[0,100]`; với điểm hợp lệ trả object `{index, grade}` trong đó grade A nếu ≥90, B nếu ≥80, còn lại C.  
-2. **I/O:** `[95,-1,82,70,120] → [{index:0,grade:'A'},{index:2,grade:'B'},{index:3,grade:'C'}]`.  
-3. **Kể lại:** filter invalid, transform valid, giữ index gốc.  
-4. **Brute:** filter rồi map; đúng nhưng index sau filter không còn index gốc nếu dùng callback thứ hai.  
-5. **Bottleneck:** representation/index, không phải runtime.  
-6. **Vì sao hợp:** một lượt vừa biết original index vừa xây output.  
-7. **State:** `result`.  
-8. **Transition:** invalid skip; valid compute grade rồi push object.  
-9. **Invariant:** result là output đúng cho scores `[0..i]`, order giữ nguyên.  
-10. **Pseudocode:** scan index; range check; derive grade; push index+grade.  
-11. **Full code:**
+### Một phần tử đầu vào tạo ra bao nhiêu phần tử đầu ra?
+
+Đây là cách dễ nhất để nhìn dạng bài:
+
+| Tình huống | Số phần tử được thêm |
+| --- | ---: |
+| Phần tử bị lọc bỏ | 0 |
+| Phần tử được giữ hoặc biến đổi | 1 |
+| Một phần tử được tách thành nhiều phần | nhiều hơn 1 |
+
+Ví dụ chuẩn hóa điểm hợp lệ:
+
+- bỏ điểm ngoài khoảng `0..100`;
+- điểm hợp lệ được đổi thành `{ index, grade }`;
+- `grade` là `A` nếu từ 90, `B` nếu từ 80, còn lại là `C`.
 
 ```js
 function normalizeValidScores(scores) {
   const result = [];
+
   for (let index = 0; index < scores.length; index += 1) {
     const score = scores[index];
-    if (score < 0 || score > 100) continue;
+
+    // Lọc trước: điểm không hợp lệ không được tạo output.
+    if (score < 0 || score > 100) {
+      continue;
+    }
 
     let grade;
-    if (score >= 90) grade = "A";
-    else if (score >= 80) grade = "B";
-    else grade = "C";
+    if (score >= 90) {
+      grade = "A";
+    } else if (score >= 80) {
+      grade = "B";
+    } else {
+      grade = "C";
+    }
 
     result.push({ index, grade });
   }
+
   return result;
 }
 ```
 
-12. Range check trước grade ngăn invalid 120 thành A. Grade conditions đi từ cao xuống; đảo thứ tự làm 95 nhận B nếu check ≥80 trước. Index lấy từ input loop.  
-13. **Dry run:**
+Chạy tay với `[95, -1, 82, 70, 120]`:
 
-| Bước | Phần tử/index | State trước | Điều kiện | Hành động | State sau |
-| --- | --- | --- | --- | --- | --- |
-| 0 | 95/0 | `[]` | valid, ≥90 | push A/0 | `[A0]` |
-| 1 | -1/1 | `[A0]` | invalid | skip | `[A0]` |
-| 2 | 82/2 | `[A0]` | valid, ≥80 | push B/2 | `[A0,B2]` |
-| 3 | 70/3 | ... | valid | push C/3 | `[...,C3]` |
-| 4 | 120/4 | ... | invalid | skip | không đổi |
+| `index` | Điểm | Hợp lệ? | Phần tử được thêm | `result` sau bước này |
+| ---: | ---: | --- | --- | --- |
+| 0 | 95 | có | `{index: 0, grade: "A"}` | `[A0]` |
+| 1 | -1 | không | không có | `[A0]` |
+| 2 | 82 | có | `{index: 2, grade: "B"}` | `[A0, B2]` |
+| 3 | 70 | có | `{index: 3, grade: "C"}` | `[A0, B2, C3]` |
+| 4 | 120 | không | không có | `[A0, B2, C3]` |
 
-14. `O(n)` time, `O(m)` output. 15. mất original index; mutate input; grade condition sai order; push trước filter. 16. Biến thể in-place compact chỉ value hợp lệ: chuyển sang `TP-02` vì có read/write indices.
+Ta dùng vòng lặp theo `index` vì output cần vị trí gốc. Nếu gọi `filter()` trước rồi mới `map()`, index trong bước `map()` là index của mảng đã lọc, không còn là index ban đầu.
 
-**Recall Card `[ARR-05]`:** filter quyết định 0/1 output; transform quyết định representation; push giữ order. **Blank Page:** normalize chuỗi trim + bỏ empty. **Mutation:** flatMap 0..many; output string; giữ reason của invalid. **Explain Back:** vì sao không chain filter/map? Invariant output là gì? Khi nào in-place tốt hơn?
+### Thứ tự kiểm tra quan trọng
 
-## Dạng 6 `[ARR-06]` — Duyệt ngược và suffix state
+Trong ví dụ trên:
 
-### A. Bản chất
+- phải kiểm tra hợp lệ trước khi xếp hạng, nếu không `120` có thể bị xếp hạng A;
+- phải kiểm tra `score >= 90` trước `score >= 80`, vì điểm `95` thỏa cả hai điều kiện.
 
-Khi câu hỏi tại index `i` cần thông tin ở bên phải, scan trái→phải chưa có dữ liệu tương lai. Đảo hướng biến suffix thành “quá khứ đã xử lý”. Không dùng duyệt ngược chỉ vì đề nói “cuối cùng”; hướng phải khớp dependency.
+Đây không phải mẹo JavaScript. Nó đến từ quan hệ giữa các điều kiện.
 
-### B. Mental model
+### Cách nhận ra dạng này
 
-Đứng từ cuối hàng nhìn ngược: mọi người “phía sau” current đã được ghi nhận.
+Đề yêu cầu “trả danh sách”, “lọc ra”, “biến đổi mỗi phần tử”, “chuẩn hóa”, “giữ nguyên thứ tự”. Biến chính thường là `result`.
 
-### C. Template tư duy
-
-```text
-Duyệt: i từ n-1 xuống 0.
-State: summary của suffix [i+1..n-1].
-Check/output current dựa trên suffix cũ.
-Update suffix bằng current sau khi tạo output nếu không được dùng chính current.
-Invariant đầu vòng: state không chứa index i.
-```
-
-### D. Template code
+Khung cần nhớ:
 
 ```js
-const result = Array(values.length);
-let suffixState = initialSuffix;
-for (let index = values.length - 1; index >= 0; index -= 1) {
-  result[index] = answerFrom(values[index], suffixState);
-  suffixState = updateSuffix(suffixState, values[index]);
+const result = [];
+
+for (const value of values) {
+  if (valueKhongHopLe) {
+    continue;
+  }
+
+  const newValue = bienDoi(value);
+  result.push(newValue);
 }
+
 return result;
 ```
 
-### E. Bài mẫu — Max nghiêm ngặt bên phải
+Các tên `valueKhongHopLe` và `bienDoi` chỉ đại diện cho logic của đề, không phải cú pháp có sẵn.
 
-1. **Đề:** output[i] là max của `values[i+1..]`; index cuối trả `null`.  
-2. **I/O:** `[3,1,5,2] → [5,5,2,null]`.  
-3. **Kể lại:** trước khi đưa current vào suffix, ghi max hiện có bên phải.  
-4. **Brute:** với mỗi i quét suffix.  
-5. **Bottleneck:** cùng suffix bị quét lặp `O(n²)`.  
-6. **Vì sao hợp:** suffixMax update được bằng max cũ và current.  
-7. **State:** `suffixMaximum`, ban đầu `null`; result fixed length.  
-8. **Transition:** result[i]=old suffix; rồi suffix=max(old,current).  
-9. **Invariant:** đầu vòng i, suffixMaximum là max nghiêm ngặt bên phải i.  
-10. **Pseudocode:** result n; suffix null; scan reverse; write result; update suffix.  
-11. **Full code:**
+### Có nên dùng `map()` và `filter()`?
+
+Có, khi cách đó làm code rõ hơn:
+
+```js
+const squaredOdds = values
+  .filter((value) => value % 2 !== 0)
+  .map((value) => value * value);
+```
+
+Trong lúc học thuật toán, vòng lặp đầy đủ thường dễ chạy tay hơn. Trong lúc thi, chọn cách giúp bạn kiểm soát index, thứ tự và trường hợp biên tốt nhất.
+
+### Lỗi hay gặp
+
+- `push` trước khi kiểm tra điều kiện lọc.
+- Làm mất index gốc sau khi lọc.
+- Sửa trực tiếp input dù đề không yêu cầu.
+- Tạo `result` bên trong vòng lặp khiến các phần tử trước bị mất.
+- Dùng `.fill([])` để tạo mảng hai chiều; các hàng sẽ cùng trỏ tới một array.
+
+### Tự kiểm tra
+
+Viết hàm nhận mảng chuỗi, `trim()` từng chuỗi, bỏ chuỗi rỗng và trả các chuỗi còn lại ở dạng chữ thường.
+
+```text
+["  An ", "   ", "BÌNH"] → ["an", "bình"]
+```
+
+---
+
+## 6. Đổi hướng duyệt khi câu hỏi nhìn về bên phải `[ARR-06]`
+
+### Bài toán mở đầu
+
+Với mỗi vị trí, trả số lớn nhất nằm **nghiêm ngặt bên phải**. Vị trí cuối không có phần tử bên phải nên trả `null`.
+
+```text
+[3, 1, 5, 2] → [5, 5, 2, null]
+```
+
+Cách trực tiếp là, tại mỗi vị trí, quét toàn bộ phần bên phải để tìm max. Nhưng nhiều phần bị quét lặp lại, khiến thời gian thành `O(n²)`.
+
+### Vì sao nên đi từ phải sang trái?
+
+Nếu bắt đầu ở cuối mảng, ta có thể giữ `maximumOnRight`: số lớn nhất trong phần đã đi qua. Khi đứng tại một vị trí, phần “đã đi qua” chính là phần nằm bên phải nó.
+
+Có một chi tiết quyết định đáp án:
+
+> Ghi kết quả trước, rồi mới đưa phần tử hiện tại vào max bên phải.
 
 ```js
 function maximumStrictlyToRight(values) {
   const result = Array(values.length);
-  let suffixMaximum = null;
+  let maximumOnRight = null;
 
   for (let index = values.length - 1; index >= 0; index -= 1) {
-    result[index] = suffixMaximum;
+    // maximumOnRight chưa chứa values[index], nên đây là max nghiêm ngặt bên phải.
+    result[index] = maximumOnRight;
+
     const currentValue = values[index];
-    if (suffixMaximum === null || currentValue > suffixMaximum) {
-      suffixMaximum = currentValue;
+    if (maximumOnRight === null || currentValue > maximumOnRight) {
+      maximumOnRight = currentValue;
     }
   }
+
   return result;
 }
 ```
 
-12. Write output trước update để suffix là “nghiêm ngặt bên phải”; đổi thứ tự làm output gồm current. `null` thay `-Infinity` vì return contract yêu cầu null và values có thể là `-Infinity`.  
-13. **Dry run:**
+Chạy tay:
 
-| Bước | Phần tử/index | State trước | Điều kiện | Hành động | State sau |
-| --- | --- | --- | --- | --- | --- |
-| 3 | 2/3 | suffix=null | cuối | result[3]=null; update | suffix=2 |
-| 2 | 5/2 | suffix=2 | 5>2 | result[2]=2; update | suffix=5 |
-| 1 | 1/1 | suffix=5 | 1>5 sai | result[1]=5 | suffix=5 |
-| 0 | 3/0 | suffix=5 | 3>5 sai | result[0]=5 | suffix=5 |
+| `index` | Giá trị | Max bên phải trước bước này | Ghi vào `result[index]` | Max sau khi thêm current |
+| ---: | ---: | ---: | ---: | ---: |
+| 3 | 2 | `null` | `null` | 2 |
+| 2 | 5 | 2 | 2 | 5 |
+| 1 | 1 | 5 | 5 | 5 |
+| 0 | 3 | 5 | 5 | 5 |
 
-14. `O(n)` time, `O(n)` output, `O(1)` extra. 15. loop condition `index>0` bỏ index0; update trước output; sentinel đụng dữ liệu; `push` làm reverse output. 16. Biến thể max kể cả current: update trước rồi ghi output.
+### “Nghiêm ngặt bên phải” và “từ current đến cuối” khác nhau ở đâu?
 
-**Recall Card `[ARR-06]`:** dependency bên phải → scan reverse; output-before-update cho strict suffix. **Blank Page:** suffix sum array. **Mutation:** next nonzero; min right; scan reverse build string. **Explain Back:** hướng scan do gì quyết định? Vì sao index>=0? Khi nào push rồi reverse được?
-
-## Dạng 7 `[ARR-07]` — Đoạn liên tiếp, sentinel và nhiều state
-
-### A. Bản chất
-
-Một run là nhóm phần tử kề nhau cùng quan hệ. State cần run đang mở và best/output đã chốt. Run cuối không có phần tử khác để kích hoạt flush, nên phải xử lý sau loop hoặc dùng sentinel có chứng minh không xung đột.
-
-### B. Mental model
-
-Ghi biên bản theo ca: khi loại công việc đổi, chốt ca cũ rồi mở ca mới; hết ngày cũng phải chốt ca cuối.
-
-### C. Template tư duy
-
-```text
-State: currentRunValue/start/length và best hoặc runs.
-Start: empty cần return riêng; nonempty mở run từ index0.
-Condition: current tiếp tục run cũ?
-Transition: đúng→extend; sai→flush old rồi reset new.
-After loop: flush run cuối.
-Invariant: mọi run kết thúc trước current đã chốt; state là run mở duy nhất.
-```
-
-### D. Template code
+Nếu đề hỏi max từ vị trí hiện tại đến cuối, current phải được tính vào đáp án. Chỉ cần đổi thứ tự:
 
 ```js
-if (values.length === 0) return emptyResult;
-let currentLength = 1;
-for (let index = 1; index < values.length; index += 1) {
-  if (continues(values[index - 1], values[index])) currentLength += 1;
-  else {
-    flush(currentLength);
-    currentLength = 1;
+function maximumFromCurrentToEnd(values) {
+  const result = Array(values.length);
+  let suffixMaximum = null;
+
+  for (let index = values.length - 1; index >= 0; index -= 1) {
+    const currentValue = values[index];
+
+    if (suffixMaximum === null || currentValue > suffixMaximum) {
+      suffixMaximum = currentValue;
+    }
+
+    result[index] = suffixMaximum;
   }
+
+  return result;
 }
-flush(currentLength);
 ```
 
-### E. Bài mẫu — Đoạn tăng nghiêm ngặt dài nhất
+- ghi rồi cập nhật → không gồm current;
+- cập nhật rồi ghi → có gồm current.
 
-1. **Đề:** length đoạn kề nhau dài nhất thỏa mỗi số lớn hơn số trước; empty trả 0.  
-2. **I/O:** `[1,2,3,2,4] → 3`; `[5]→1`.  
-3. **Kể lại:** kéo dài run khi tăng; khi giảm/bằng thì chốt và bắt đầu lại tại current.  
-4. **Brute:** thử mọi start rồi kéo end, `O(n²)`.  
-5. **Bottleneck:** cùng quan hệ kề bị kiểm tra lại.  
-6. **Vì sao hợp:** run hiện tại chỉ cần length và previous value.  
-7. **State:** `currentLength`, `bestLength`.  
-8. **Transition:** tăng→current++; không→current=1; sau đó best=max.  
-9. **Invariant:** sau xử lý i, current là run tăng kết thúc tại i; best là max trong prefix.  
-10. **Pseudocode:** empty0; current=best=1; loop i=1; extend/reset; update best; return.  
-11. **Full code:**
+### Ví dụ dễ hơn: tổng suffix
+
+Tính tổng từ mỗi vị trí đến cuối:
+
+```text
+[3, 1, 2] → [6, 3, 2]
+```
+
+```js
+function suffixSums(values) {
+  const result = Array(values.length);
+  let sum = 0;
+
+  for (let index = values.length - 1; index >= 0; index -= 1) {
+    sum += values[index];
+    result[index] = sum;
+  }
+
+  return result;
+}
+```
+
+### Cách nhận ra dạng này
+
+Đề hỏi thông tin “bên phải”, “sau vị trí hiện tại”, “suffix”, “phần tử gần cuối thỏa điều kiện”. Hướng duyệt phải đi từ phía đã có thông tin mà current cần.
+
+Khung cần nhớ:
+
+```js
+const result = Array(values.length);
+let informationOnRight = giaTriBanDau;
+
+for (let index = values.length - 1; index >= 0; index -= 1) {
+  result[index] = taoDapAn(informationOnRight);
+  informationOnRight = capNhat(informationOnRight, values[index]);
+}
+
+return result;
+```
+
+### Lỗi hay gặp
+
+- Viết `index > 0`, khiến vị trí `0` không bao giờ được xử lý; phải là `index >= 0`.
+- Cập nhật trước khi ghi trong bài “nghiêm ngặt bên phải”.
+- Dùng `push()` khi đi ngược, làm thứ tự output bị đảo.
+- Chọn giá trị ban đầu như `0` dù dữ liệu có thể toàn số âm.
+- Duyệt ngược chỉ vì đề có chữ “cuối cùng”; hướng duyệt phải do thông tin phụ thuộc quyết định.
+
+### Tự kiểm tra
+
+Viết hàm trả số lượng số `0` nằm nghiêm ngặt bên phải mỗi vị trí:
+
+```text
+[0, 4, 0, 0] → [2, 2, 1, 0]
+```
+
+Tự hỏi: ghi `countZeroOnRight` trước hay tăng nó trước?
+
+---
+
+## 7. Đo một đoạn các phần tử đứng liền nhau `[ARR-07]`
+
+### “Đếm phần tử” khác “độ dài đoạn liên tiếp”
+
+Với `[1, 2, -1, 3, 4]`:
+
+- có bốn số dương;
+- nhưng đoạn số dương liên tiếp dài nhất chỉ dài `2`.
+
+Bài đếm thông thường chỉ cần `count`. Bài đoạn liên tiếp cần biết:
+
+- đoạn đang chạy dài bao nhiêu;
+- đoạn tốt nhất từng thấy dài bao nhiêu.
+
+### Bài toán mở đầu
+
+Tìm độ dài đoạn tăng nghiêm ngặt dài nhất.
+
+```text
+[1, 2, 3, 2, 4] → 3
+```
+
+Đoạn `[1, 2, 3]` dài 3. Khi gặp `2` sau `3`, đoạn cũ bị đứt và một đoạn mới bắt đầu từ chính số `2` đó.
 
 ```js
 function longestStrictlyIncreasingRun(values) {
   if (values.length === 0) return 0;
+
   let currentLength = 1;
   let bestLength = 1;
 
@@ -221,35 +335,186 @@ function longestStrictlyIncreasingRun(values) {
     } else {
       currentLength = 1;
     }
+
     bestLength = Math.max(bestLength, currentLength);
   }
+
   return bestLength;
 }
 ```
 
-12. Loop từ 1 vì cần `i-1`; current reset 1 vì current tự tạo run length1. Update best sau extend/reset để gồm run kết thúc tại current; cách này không cần flush riêng vì best được cập nhật từng bước.  
-13. **Dry run:**
+### Vì sao các biến bắt đầu bằng `1`?
 
-| Bước | Phần tử/index | State trước | Điều kiện | Hành động | State sau |
-| --- | --- | --- | --- | --- | --- |
-| init | 1/0 | — | nonempty | current=best=1 | 1/1 |
-| 1 | 2/1 | 1/1 | 2>1 | extend, update | 2/2 |
-| 2 | 3/2 | 2/2 | 3>2 | extend, update | 3/3 |
-| 3 | 2/3 | 3/3 | 2>3 sai | reset, keep best | 1/3 |
-| 4 | 4/4 | 1/3 | 4>2 | extend | 2/3 |
+Với mảng không rỗng, một phần tử tự nó đã tạo thành đoạn dài 1. Khi đoạn tăng bị đứt, phần tử hiện tại cũng bắt đầu đoạn mới dài 1, nên ta reset về `1`, không phải `0`.
 
-14. `O(n)`/`O(1)`. 15. reset0; loop từ0 đọc index-1; dùng `>=` đổi strict; quên empty. 16. Biến thể longest equal run: condition đổi `===`; nếu cần value thắng tie, state thêm runValue/bestValue và comparator lúc flush.
+Vòng lặp bắt đầu tại index `1` vì mỗi bước so current với `values[index - 1]`.
 
-**Recall Card `[ARR-07]`:** open run + best; continue→extend, break→reset/flush; run cuối phải được tính. **Blank Page:** run ký tự giống nhau dài nhất. **Mutation:** run alternating; trả start/end; run-length encoding. **Explain Back:** vì sao reset1? Khi cần flush cuối? Sentinel có thể xung đột thế nào?
+Chạy tay:
 
-### Template Contrast — `ARR-03` và `ARR-07`
+| `index` | Cặp đang so | Tiếp tục đoạn cũ? | `currentLength` | `bestLength` |
+| ---: | --- | --- | ---: | ---: |
+| khởi tạo | chỉ có `[1]` | — | 1 | 1 |
+| 1 | `1 → 2` | có | 2 | 2 |
+| 2 | `2 → 3` | có | 3 | 3 |
+| 3 | `3 → 2` | không | 1 | 3 |
+| 4 | `2 → 4` | có | 2 | 3 |
 
-| Dạng | State | Condition | Transition | Dấu hiệu |
-| --- | --- | --- | --- | --- |
-| `ARR-03` | count độc lập | predicate current | true→count++ | bao nhiêu item |
-| `ARR-07` | run phụ thuộc kề nhau | relation previous/current | extend hoặc reset | đoạn liên tiếp |
+Sau khi xử lý index `i`:
 
-## Transfer Test B — Sau `ARR-05..07`
+- `currentLength` là độ dài đoạn tăng kết thúc đúng tại `i`;
+- `bestLength` là đoạn dài nhất trong phần mảng từ đầu đến `i`.
 
-Làm [A01-T02](03_Practice_Ladder.md#a01-t02--chuỗi-tín-hiệu). Đề yêu cầu return khác bài mẫu và có mã thiết bị gây nhiễu.
+Đó là hai câu quan trọng hơn việc thuộc tên `ARR-07`.
 
+### Khi cần trả vị trí đoạn
+
+Nếu đề yêu cầu `[start, end]`, ta phải lưu thêm vị trí bắt đầu của đoạn hiện tại và đoạn tốt nhất.
+
+```js
+function longestPositiveRun(values) {
+  let currentStart = -1;
+  let bestStart = -1;
+  let bestEnd = -1;
+
+  for (let index = 0; index < values.length; index += 1) {
+    if (values[index] <= 0) {
+      currentStart = -1;
+      continue;
+    }
+
+    if (currentStart === -1) {
+      currentStart = index;
+    }
+
+    const currentLength = index - currentStart + 1;
+    const bestLength = bestStart === -1 ? 0 : bestEnd - bestStart + 1;
+
+    if (currentLength > bestLength) {
+      bestStart = currentStart;
+      bestEnd = index;
+    }
+  }
+
+  return [bestStart, bestEnd];
+}
+```
+
+Dùng `>` giúp giữ đoạn xuất hiện sớm hơn khi hai đoạn dài bằng nhau. Nếu đề muốn đoạn muộn hơn, luật cập nhật phải đổi.
+
+### Khi cần tạo mọi đoạn: nhớ chốt đoạn cuối
+
+Nén `"aaabb"` thành `[["a", 3], ["b", 2]]`:
+
+```js
+function runLengthEncode(text) {
+  if (text.length === 0) return [];
+
+  const runs = [];
+  let currentCharacter = text[0];
+  let currentCount = 1;
+
+  for (let index = 1; index < text.length; index += 1) {
+    if (text[index] === currentCharacter) {
+      currentCount += 1;
+    } else {
+      runs.push([currentCharacter, currentCount]);
+      currentCharacter = text[index];
+      currentCount = 1;
+    }
+  }
+
+  // Không còn ký tự khác để kích hoạt nhánh else,
+  // nên đoạn đang mở cuối cùng phải được chốt tại đây.
+  runs.push([currentCharacter, currentCount]);
+
+  return runs;
+}
+```
+
+Có hai kiểu xử lý đoạn:
+
+- chỉ cần độ dài tốt nhất: cập nhật `best` sau mỗi bước, thường không cần chốt riêng;
+- cần lưu từng đoạn hoàn chỉnh: chốt khi đoạn bị đứt và chốt thêm một lần sau vòng lặp.
+
+### Cách nhận ra dạng này
+
+Đề có các từ “liên tiếp”, “đứng liền nhau”, “đoạn dài nhất”, “run”, “chuỗi ngày liên tục”. Điều kiện thường so current với phần tử trước hoặc hỏi current có tiếp tục đoạn đang mở không.
+
+Khung đo độ dài:
+
+```js
+if (values.length === 0) return 0;
+
+let currentLength = 1;
+let bestLength = 1;
+
+for (let index = 1; index < values.length; index += 1) {
+  if (currentTiepTucDoanCu) {
+    currentLength += 1;
+  } else {
+    currentLength = 1;
+  }
+
+  bestLength = Math.max(bestLength, currentLength);
+}
+
+return bestLength;
+```
+
+### Lỗi hay gặp
+
+- Reset độ dài về `0` dù current đã tạo đoạn mới dài `1`.
+- Bắt đầu vòng lặp từ `0` rồi đọc `values[-1]`.
+- Dùng `>=` trong bài yêu cầu tăng nghiêm ngặt.
+- Chỉ đếm tổng phần tử hợp lệ, không reset khi đoạn bị đứt.
+- Quên chốt đoạn cuối khi đang tạo danh sách các đoạn.
+- Cập nhật đoạn tốt nhất khi dài hơn hoặc bằng, vô tình đổi luật hòa từ sớm sang muộn.
+
+### Tự kiểm tra
+
+Viết hai hàm:
+
+1. độ dài đoạn ký tự giống nhau dài nhất: `"abbbaa" → 3`;
+2. `[start, end]` của đoạn số chẵn liên tiếp dài nhất, hòa lấy đoạn xuất hiện sớm hơn.
+
+---
+
+## So sánh ba dạng trong phần này
+
+| Đề hỏi | Điều quyết định cách làm | Biến chính |
+| --- | --- | --- |
+| Tạo danh sách mới | Mỗi current tạo 0, 1 hay nhiều output | `result` |
+| Thông tin nằm bên phải | Đổi hướng để dữ liệu cần thiết được xử lý trước | `suffixSum`, `maximumOnRight` |
+| Đoạn liên tiếp | Current tiếp tục hay làm đứt đoạn đang mở | `currentLength`, `bestLength` |
+
+## Bài kiểm tra chuyển giao
+
+Cho mảng tín hiệu:
+
+```js
+[
+  { device: "A", level: 2 },
+  { device: "B", level: 5 },
+  { device: "A", level: 8 },
+  { device: "C", level: 4 },
+  { device: "B", level: 7 }
+]
+```
+
+Trả `{start, end, length}` của đoạn dài nhất mà tính chẵn/lẻ của `level` luân phiên. Trường `device` không ảnh hưởng điều kiện. Nếu nhiều đoạn dài bằng nhau, lấy đoạn kết thúc muộn hơn.
+
+<details>
+<summary>Gợi ý 1 — Điều kiện tiếp tục đoạn</summary>
+
+Hai level kề nhau phải có parity khác nhau. Có thể so `level % 2`.
+
+</details>
+
+<details>
+<summary>Gợi ý 2 — Luật hòa</summary>
+
+Khi đoạn hiện tại dài bằng đoạn tốt nhất, đề muốn đoạn hiện tại đến sau thắng. Vì vậy điều kiện cập nhật best có chứa trường hợp bằng nhau.
+
+</details>
+
+Sau khi làm xong, đối chiếu với [A01-T02 trong Practice Ladder](03_Practice_Ladder.md#a01-t02--chuỗi-tín-hiệu). Nếu code đúng nhưng không giải thích được ý nghĩa từng biến, hãy chạy tay bằng bảng trước khi xem lời giải.

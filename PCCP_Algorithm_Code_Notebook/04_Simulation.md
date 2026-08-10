@@ -7,8 +7,9 @@
 1. [State machine, hướng và thời gian](chapters/04_simulation/01_State_Time.md): `SIM-01..03`.
 2. [Event đồng thời và integration](chapters/04_simulation/02_Events_Integration.md): `SIM-04..05`.
 3. [Practice Ladder](chapters/04_simulation/03_Practice_Ladder.md).
-4. [Lời giải](solutions/04_Simulation_Solutions.md).
-5. [QA](chapters/04_simulation/QA.md).
+4. [PCCP công khai — học theo từng đề](chapters/04_simulation/04_PCCP_Public_Problems.md).
+5. [Lời giải bài luyện](solutions/04_Simulation_Solutions.md) · [lời giải đề PCCP công khai](solutions/04_Simulation_PCCP_Solutions.md).
+6. [QA](chapters/04_simulation/QA.md).
 
 ## Phiếu simulation bắt buộc
 

@@ -4,16 +4,19 @@
 
 ## Điều hướng
 
-1. [Nhập môn Map/Set](chapters/03_map_set/00_Beginner_Guide.md): học từ trực giác, cú pháp và dry run; nên đọc trang này trước.
-2. [Phần lõi](chapters/03_map_set/01_Core.md): `MAP-01..06` — membership, deduplicate, frequency, first index, latest index, khoảng cách.
-3. [Phần kết hợp](chapters/03_map_set/02_Combinations.md): `MAP-07..14` — complement, compare frequency, group/relation, argmax, simulation, window frequency và nhiều Map.
-4. [Practice Ladder](chapters/03_map_set/03_Practice_Ladder.md): 12 nhận diện, 3 điền khuyết, 3 dựng logic, 3 pseudocode, 3 tự code, 4 biến thể, 3 Transfer Test và 1 mini-test.
-5. [Bộ 29 bài Programmers/PCCP](chapters/03_map_set/04_Programmers_PCCP_Set.md): Hash Kit, bài luyện sát đề, bài Hash ẩn trong Kit khác và đề PCCP công khai.
-6. [Báo cáo audit Practice Kit](chapters/03_map_set/05_Programmers_Kit_Audit.md): rà 47/47 bài trong 10 nhóm Kit và phân biệt Hash chính/phụ trợ.
-7. [Concept rút ra từ 29 bài thật](chapters/03_map_set/06_Programmers_Derived_Concepts.md): 10 bộ xương, invariant, decision tree và bảng ánh xạ bài → pattern.
-8. Chỉ sau khi làm: [lời giải nền](solutions/03_Map_Set_Solutions.md) và [lời giải bộ Programmers/PCCP](solutions/03_Map_Set_Programmers_Solutions.md).
-9. [Báo cáo tự kiểm chương](chapters/03_map_set/QA.md).
-10. [Coverage Matrix](PATTERN_COVERAGE_MATRIX.md) và [Template Contrasts](TEMPLATE_CONTRASTS.md).
+1. [Lộ trình mastery Map/Set](chapters/03_map_set/00_Exam_Mastery_Guide.md): trang học chính — chọn state, bẫy, test và thứ tự đề thật.
+2. [Nhập môn Map/Set](chapters/03_map_set/00_Beginner_Guide.md): học từ trực giác, cú pháp và dry run; đọc trước lộ trình mastery nếu bạn chưa dùng Map/Set bao giờ.
+3. [Map/Set phần lõi từ gốc](chapters/03_map_set/01_Core_From_Zero.md): lesson chính cho frequency, first/latest index và complement; học trang này trước theory cũ nếu bạn mới luyện đề.
+4. [Theory lõi tham chiếu](chapters/03_map_set/01_Core.md): `MAP-01..06` — membership, deduplicate, frequency, first index, latest index, khoảng cách.
+5. [Map/Set nâng cao từ gốc](chapters/03_map_set/02_Advanced_From_Zero.md): lesson chính cho group/rank, `Map<key, Set>`, window frequency, canonical key và state đồng bộ.
+6. [Theory kết hợp tham chiếu](chapters/03_map_set/02_Combinations.md): `MAP-07..14` — complement, compare frequency, group/relation, argmax, simulation, window frequency và nhiều Map.
+7. [Practice Ladder](chapters/03_map_set/03_Practice_Ladder.md): 12 nhận diện, 3 điền khuyết, 3 dựng logic, 3 pseudocode, 3 tự code, 4 biến thể, 3 Transfer Test và 1 mini-test.
+8. [Bộ 29 bài Programmers/PCCP](chapters/03_map_set/04_Programmers_PCCP_Set.md): Hash Kit, bài luyện sát đề, bài Hash ẩn trong Kit khác và đề PCCP công khai.
+9. [Báo cáo audit Practice Kit](chapters/03_map_set/05_Programmers_Kit_Audit.md): rà 47/47 bài trong 10 nhóm Kit và phân biệt Hash chính/phụ trợ.
+10. [Concept rút ra từ 29 bài thật](chapters/03_map_set/06_Programmers_Derived_Concepts.md): 10 bộ xương, invariant, decision tree và bảng ánh xạ bài → pattern.
+11. Chỉ sau khi làm: [lời giải nền](solutions/03_Map_Set_Solutions.md) và [lời giải bộ Programmers/PCCP](solutions/03_Map_Set_Programmers_Solutions.md).
+12. [Báo cáo tự kiểm chương](chapters/03_map_set/QA.md).
+13. [Coverage Matrix](PATTERN_COVERAGE_MATRIX.md) và [Template Contrasts](TEMPLATE_CONTRASTS.md).
 
 ## Bản đồ chọn cấu trúc
 

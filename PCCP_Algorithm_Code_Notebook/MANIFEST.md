@@ -20,7 +20,9 @@ Manifest này là hợp đồng nội dung của bộ sách. `Dạng` là đơn 
 
 ## Hợp đồng của một dạng đã hoàn thiện
 
-Mỗi dạng phải có: Bản chất, mental model, dấu hiệu và phản-dấu-hiệu, template tư duy theo pattern, template code tái sử dụng, một bài mẫu theo 16 bước, dry run đủ sáu cột, giải thích thứ tự code, edge case, Recall Card, Blank Page Test, Mutation Drill và Explain Back.
+Mỗi dạng phải giúp người mới đi được từ đề đến code theo mạch: bài nhỏ có I/O → chạy bằng lời → tìm biến cần lưu và lý do khởi tạo → full code → dry run vừa đủ → gọi tên state/invariant/transition → nhận diện và skeleton → lỗi gắn với test → bài tự kiểm tra/transfer. Complexity, edge case và thứ tự check/update phải được giải thích ngay cạnh phần code liên quan.
+
+Không bắt người học đi qua A–E hoặc checklist 16 bước trong từng bài mẫu. Các quota ở bảng trên dùng để kiểm tra độ phủ bài luyện, không được dùng thay cho chất lượng giải thích.
 
 Mỗi dạng dùng ID ổn định từ [PATTERN_COVERAGE_MATRIX.md](PATTERN_COVERAGE_MATRIX.md). Sau mỗi 3–5 dạng phải có một Transfer Test không lộ ID/pattern; sau mỗi cụm gần nhau phải có Template Contrast hoặc liên kết tới [TEMPLATE_CONTRASTS.md](TEMPLATE_CONTRASTS.md).
 

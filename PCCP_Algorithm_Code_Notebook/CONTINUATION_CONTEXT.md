@@ -17,6 +17,12 @@ Hoàn thiện `PCCP_Algorithm_Code_Notebook` thành bộ tài liệu tự học 
 
 Người học thích cách giải thích bằng tiếng Việt, trực tiếp, dễ đọc và có ví dụ cụ thể. Không giả định người học đã biết thuật ngữ nâng cao; khi dùng thuật ngữ phải giải thích bằng mental model hoặc state cụ thể.
 
+### Mục tiêu coverage đề thật (cập nhật 10/08/2026)
+
+Người học đã làm rõ rằng mục tiêu là **thành thạo mọi đề PCCP công khai được theo dõi**, không phải hoàn tất một danh sách pattern. [PCCP_PUBLIC_PROBLEM_CATALOG.md](PCCP_PUBLIC_PROBLEM_CATALOG.md) là nguồn sự thật cho 40 đề công khai trong `PROBLEM_BANK.csv`; mọi đề phải lần lượt có lesson từ gốc, solution JavaScript, recall/biến thể và trạng thái xác thực. Không gọi notebook “hoàn chỉnh” khi catalog vẫn còn `Cần viết` hoặc `Có tham chiếu`.
+
+Chuẩn mastery nằm tại [00_MASTERY_STANDARD.md](00_MASTERY_STANDARD.md). [PCCP_EXAM_PATTERN_ATLAS.md](PCCP_EXAM_PATTERN_ATLAS.md) là entrypoint học chính: phải giải thích từ gốc các pattern rút ra từ đề thật trước khi catalog/coverage được dùng để audit. Tài liệu/coverage pattern chỉ là công cụ để giải đề thật, không phải đích.
+
 ## 2. Yêu cầu quan trọng nhất: concept-first
 
 Từ chương Map/Set trở đi, không được chỉ thu thập đề và viết lời giải. Mỗi thuật toán/chương phải có ba tầng:
@@ -42,24 +48,25 @@ Thuật toán nào điều khiển thứ tự duyệt?
 Cấu trúc dữ liệu nào chỉ giữ state phụ?
 ```
 
-### Mẫu bắt buộc cho mỗi concept
+### Chuẩn trình bày learner-first (cập nhật 10/08/2026)
+
+Phản hồi trực tiếp của người học: bản cũ có cấu trúc đầy đủ nhưng nội dung lủng củng, giống đặc tả cho người đã biết thuật toán. Không được dồn các mục dưới đây thành checklist 14–16 bước trong mỗi bài mẫu.
+
+Thứ tự trình bày bắt buộc là:
 
 ```text
-1. Dấu hiệu nhận diện trong đề
-2. Mental model dễ nhớ
-3. Contract chung
-4. State và ý nghĩa từng biến
-5. Invariant
-6. Check-before-update hay update-before-check
-7. Transition
-8. Code skeleton
-9. Dry run state trước/sau
-10. Complexity
-11. Bẫy và revealing tests
-12. Các bài thật ánh xạ vào concept
-13. Một bài đại diện để recall
-14. Mutation/transfer sang bài lạ
+1. Một bài toán nhỏ, input/output cụ thể
+2. Chạy bằng lời để người học tự thấy thông tin cần nhớ
+3. Đặt tên biến và giải thích vì sao khởi tạo như vậy
+4. Full code ngắn, comment ở đúng chỗ quyết định
+5. Dry run chỉ giữ các cột thật sự giúp nhìn state đổi
+6. Sau khi đã hiểu ví dụ mới gọi tên state/invariant/transition
+7. Dấu hiệu nhận diện và code skeleton
+8. Lỗi hay gặp gắn với test làm lộ lỗi
+9. Một bài tự kiểm tra hoặc transfer có gợi ý đóng/mở
 ```
+
+Vẫn phải bao phủ contract, state, invariant, thứ tự check/update, complexity, edge case và transfer, nhưng đặt chúng tại nơi giúp giải thích bài. Không đưa thuật ngữ trước trực giác; không dùng quota hình thức thay cho mạch giải thích. Chương 01 learner-first là chuẩn gần nhất để tham khảo.
 
 ## 3. Thành quả Map/Set làm chuẩn tham chiếu
 
