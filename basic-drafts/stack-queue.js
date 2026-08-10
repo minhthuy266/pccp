@@ -115,3 +115,29 @@ const solution2 = (numbers) => {
 };
 
 console.log(solution2([2, 3, 3, 5]));
+
+const areBracketsValid = (text) => {
+  const expectedOpenByClose = new Map([[")", "("], ["]", "["], ["}", "{"]])
+
+  console.log("expectedOpenByClose", expectedOpenByClose)
+  const stack = []
+
+  for (const character of text) {
+    if (character === "(" || character === "[" || character === "{") {
+      stack.push(character)
+      continue;
+    }
+
+    const expectedOpen = expectedOpenByClose.get(character)
+
+    console.log("stack", stack)
+    console.log("expectedOpen", expectedOpen)
+    const actualOpen = stack.pop()
+
+    if (actualOpen !== expectedOpen) return false
+  }
+
+  return stack.length === 0
+}
+
+console.log("areBracketsValid", areBracketsValid("([)]"))
