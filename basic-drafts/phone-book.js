@@ -8,8 +8,6 @@ const checkPhone = (phone_book) => {
     for (let i = 1; i < phone.length; i++) {
       const prefix = phone.slice(0, i);
 
-      console.log("prefix", prefix);
-
       if (phoneSet.has(prefix)) {
         return false;
       }
