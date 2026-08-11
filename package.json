@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build:level1-docs": "python3 tools/rebuild_level1_documents.py",
+    "check:notebook-framework": "node tools/audit_notebook_framework.mjs",
     "check:templates": "node --check docs/JS_TEMPLATES_PCCP.js",
     "test": "node --test tests/*.test.js"
   },

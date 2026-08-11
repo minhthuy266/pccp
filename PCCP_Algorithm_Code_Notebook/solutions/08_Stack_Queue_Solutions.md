@@ -2,6 +2,8 @@
 
 [← Practice](../chapters/08_stack_queue/03_Practice_Ladder.md) · [Index](../08_Stack_Queue.md)
 
+Các lời giải `SQ-02` map về [canonical lesson](../chapters/08_stack_queue/01_Stack_Monotonic.md#sq-02--monotonic-stack-các-index-chưa-được-giải-quyết): ghi template right/left, variant knobs, phần giữ nguyên và phần đổi; không lặp lại 11 mục framework.
+
 ## Tầng 1 — Nhận diện
 
 ### S08-R01 `[SQ-01]`
@@ -123,6 +125,7 @@ Queue bảo toàn command order; stack semantics nằm ở `pending.pop()`. Mỗ
 ## Tầng 4 — Pseudocode
 
 ### S08-P01 `[SQ-02]`
+**Template/knobs:** left-query; smaller, strict, index, trả index, default `-1`. **Giữ nguyên:** pop mọi top không thể trả lời rồi đọc top gần nhất. **Thay đổi:** `>=` loại cả value bằng current.
 Scan trái→phải; pop khi top value `>= current` để top còn lại là previous **strictly** smaller; answer là top hoặc -1; push index.
 ```js
 function previousSmallerIndices(values) {
@@ -196,6 +199,7 @@ function isBalanced(text) {
 O(n)/O(n); empty true; trap là unmatched opening cuối.
 
 ### S08-C02 `[SQ-02]`
+**Template/knobs:** right-resolve; greater, strict, index, distance, default `0`, linear. **Giữ nguyên:** `while → pop → ghi → push`. **Edge case:** `[2,2]` không pop.
 ```js
 function distanceToNextGreater(values) {
   const answer=Array(values.length).fill(0), stack=[];
@@ -229,6 +233,7 @@ Mark bằng distance khi enqueue; O(V+E).
 ## Tầng 6 — Biến thể
 
 ### S08-V01 `[SQ-02]`
+**Template/knobs:** giống S08-C02, chỉ đổi strict → non-strict. **Phần thay đổi:** condition `>` thành `>=`; lifecycle và cách tính distance giữ nguyên.
 ```js
 function distanceToNextGreaterOrEqual(values) {
   const answer=Array(values.length).fill(0), stack=[];
@@ -336,4 +341,3 @@ function shortestNumberMoves(start, target, max) {
   return -1;
 }
 ```
-

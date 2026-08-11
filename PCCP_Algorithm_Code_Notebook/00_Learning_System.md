@@ -1,5 +1,9 @@
 # 00 — Learning System
 
+[Framework canonical](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md) · [Coverage audit](FRAMEWORK_COVERAGE_AUDIT.md)
+
+Framework 11 phần được áp dụng một lần ở cấp pattern/concept. Bài cụ thể chỉ map Pattern ID, template, variant knobs, phần giữ nguyên/thay đổi, edge case, solution và test; không lặp checklist làm đứt mạch học.
+
 ## 1. Đơn vị học không phải là “một đoạn code”
 
 Một template chỉ được coi là đã học khi bạn có thể phục hồi chuỗi sau mà không nhìn:
@@ -8,6 +12,8 @@ Một template chỉ được coi là đã học khi bạn có thể phục hồ
 Tín hiệu đề → bottleneck của brute force → state tối thiểu
 → check → update/transition → invariant → return → test làm lộ lỗi
 ```
+
+Chuỗi recall này là bản rút gọn để luyện. Hợp đồng xuất bản canonical đầy đủ nằm trong [Core → Template → Variants Framework](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md).
 
 `State` là phần quá khứ tối thiểu mà tương lai còn cần. `Transition` là quy tắc biến state cũ thành state mới khi đọc một phần tử/event. `Invariant` là câu luôn đúng tại một vị trí xác định trong vòng lặp; nó giải thích vì sao code không bỏ sót hoặc đếm trùng.
 

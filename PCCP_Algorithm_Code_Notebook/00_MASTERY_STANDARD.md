@@ -1,6 +1,6 @@
 # Chuẩn thành thạo PCCP: không học thuộc code
 
-[← README](README.md) · [Danh mục đề thật](PCCP_PUBLIC_PROBLEM_CATALOG.md)
+[← README](README.md) · [Framework canonical](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md) · [Danh mục đề thật](PCCP_PUBLIC_PROBLEM_CATALOG.md)
 
 Mục tiêu của notebook là giúp người học nhìn một đề mới và tự dựng được lời giải. Một bài chỉ được xem là **đã thành thạo** khi người học làm được cả chuỗi sau, không nhìn đáp án:
 
@@ -32,6 +32,8 @@ Mỗi lesson phải lần lượt có:
 7. Dry run gồm cả một edge case làm lộ bug.
 8. Lý do code đúng, độ phức tạp, các cách sai thường gặp.
 9. Gợi ý theo tầng, bài recall và biến thể.
+
+Danh sách trên áp dụng cho lesson tự chứa của đề thật. Với pattern dùng lại, canonical lesson phải đạt đủ 11 thành phần của framework; bài cụ thể map vào pattern và chỉ giải thích các variant knobs đã chọn. `FULL` trong Coverage Matrix không tự động đồng nghĩa `FRAMEWORK-FULL`; snapshot bằng chứng nằm ở [Framework Coverage Audit](FRAMEWORK_COVERAGE_AUDIT.md).
 
 ## Bốn mức thành thạo cho từng đề
 

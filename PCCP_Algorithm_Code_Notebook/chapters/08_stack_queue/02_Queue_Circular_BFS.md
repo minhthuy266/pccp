@@ -175,5 +175,4 @@ function bfsDistances(graph, start) {
 
 ## Transfer Test B
 
-Làm [S08-T02](03_Practice_Ladder.md#s08-t02--lan-truyền-có-undo-log).
-
+Làm [S08-T02](03_Practice_Ladder.md#s08-t02--lan-truyền-có-undo-log-sq-05sq-01).

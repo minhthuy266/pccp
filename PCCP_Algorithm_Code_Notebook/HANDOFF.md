@@ -4,6 +4,8 @@
 
 > Cập nhật: 2026-08-09 (Asia/Ho_Chi_Minh)
 
+> Cập nhật standard 2026-08-11: hợp đồng canonical nằm tại [00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md), audit toàn bộ ID tại [FRAMEWORK_COVERAGE_AUDIT.md](FRAMEWORK_COVERAGE_AUDIT.md), và `SQ-02` là pilot. Không đồng nhất `FULL` lịch sử với `FRAMEWORK-FULL`; không rewrite hàng loạt chapter khác trước khi pilot/QA đạt.
+
 ## Mục tiêu còn hiệu lực
 
 Hoàn thiện notebook để người học tự giải được mọi đề PCCP công khai trong `PROBLEM_BANK.csv`. Theo dõi tiến độ từng đề ở [PCCP_PUBLIC_PROBLEM_CATALOG.md](PCCP_PUBLIC_PROBLEM_CATALOG.md), không chỉ theo `PATTERN_COVERAGE_MATRIX.md`. Chỉ đổi trạng thái một đề sang `Đã hoàn tất` khi lesson → solution → recall → QA đều đạt; `FULL` của pattern không thay thế điều đó.

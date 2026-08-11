@@ -298,13 +298,13 @@ Có thể dùng `|| 0`, nhưng `?? 0` diễn đạt chính xác hơn: chỉ dùn
 
 ### Bẫy `get()` và `has()`
 
-```js
+```js-fill
 if (map.get(key)) { ... }
 ```
 
 Sai khi value hợp lệ có thể là `0`, `false` hoặc chuỗi rỗng. Khi cần kiểm tra key tồn tại, dùng:
 
-```js
+```js-fill
 if (map.has(key)) { ... }
 ```
 
@@ -396,7 +396,7 @@ String(7).padStart(2, "0"); // "07"
 
 ### Template tổng quát
 
-```js
+```js-fill
 let state = initialValue;
 
 for (let i = 0; i < values.length; i++) {
@@ -1869,7 +1869,7 @@ while (head < queue.length) {
 
 ### Matrix bounds
 
-```js
+```js-fill
 if (nr < 0 || nr >= H || nc < 0 || nc >= W) continue;
 ```
 

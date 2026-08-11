@@ -197,4 +197,4 @@ function partitionNegatives(values) {
 
 ## Transfer Test B
 
-Làm [S06-T02](03_Practice_Ladder.md#s06-t02--ghép-và-lọc-lịch-sử).
+Làm [S06-T02](03_Practice_Ladder.md#s06-t02--ghép-và-lọc-lịch-sử-tp-04tp-02).

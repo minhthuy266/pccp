@@ -165,5 +165,4 @@ function sortedOriginalIndices(values) {
 
 ## Transfer Test A
 
-Làm [S05-T01](03_Practice_Ladder.md#s05-t01--hồ-sơ-giao-hàng).
-
+Làm [S05-T01](03_Practice_Ladder.md#s05-t01--hồ-sơ-giao-hàng-sort-02sort-03).

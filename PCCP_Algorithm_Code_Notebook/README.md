@@ -16,7 +16,7 @@ Không gọi notebook là hoàn thiện khi chỉ có template. Đọc [Chuẩn 
 
 ## Bắt đầu ở đâu
 
-1. Đọc [00_Learning_System.md](00_Learning_System.md).
+1. Đọc [00_Learning_System.md](00_Learning_System.md), rồi xem hợp đồng [Core → Template → Variants](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md).
 2. Xem [PATTERN_COVERAGE_MATRIX.md](PATTERN_COVERAGE_MATRIX.md), rồi học chương ưu tiên [03_Map_Set.md](03_Map_Set.md).
 3. Chỉ mở [solutions/03_Map_Set_Solutions.md](solutions/03_Map_Set_Solutions.md) sau khi đã ghi lại nỗ lực của mình.
 4. Đặt lịch trong [98_Review_Schedule.md](98_Review_Schedule.md) và ghi lỗi vào [99_Personal_Error_Log.md](99_Personal_Error_Log.md).
@@ -42,9 +42,12 @@ Chi tiết các dạng nhỏ và quota bài nằm ở [MANIFEST.md](MANIFEST.md)
 
 ID ổn định, phân loại CORE/VARIANT/COMBINATION/OPTIONAL và trạng thái liên kết nằm trong [Coverage Matrix](PATTERN_COVERAGE_MATRIX.md). Ghi bằng chứng mức 0–4 trong [Mastery Tracker](MASTERY_TRACKER.md), và dùng [Template Contrasts](TEMPLATE_CONTRASTS.md) khi hai bộ xương dễ bị lẫn.
 
+Từ 11/08/2026, `FULL` lịch sử và `FRAMEWORK-FULL` được audit riêng. Một pattern chỉ đạt standard mới khi đủ Core, Recognition, Brute force, State, Invariant, Transition, Template, Variants, Dry run, Complexity, Transfer cùng practice/solution/QA; xem [Framework Coverage Audit](FRAMEWORK_COVERAGE_AUDIT.md). Pilot chuẩn là [`SQ-02`](chapters/08_stack_queue/01_Stack_Monotonic.md#sq-02--monotonic-stack-các-index-chưa-được-giải-quyết).
+
 | File | Trọng tâm | Trạng thái |
 | --- | --- | --- |
 | [00_Learning_System.md](00_Learning_System.md) | Active recall, blank-page, review, cách dùng lời giải | Hoàn thiện v1 |
+| [00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md) | Hợp đồng canonical pattern, bài cụ thể và tiêu chí FRAMEWORK-FULL | **Standard đã khóa** |
 | [01_Array_String_Loop.md](01_Array_String_Loop.md) | `ARR-01..07` | **Hoàn thiện v1** |
 | [02_Matrix.md](02_Matrix.md) | `MAT-01..05` | **Hoàn thiện v1** |
 | [03_Map_Set.md](03_Map_Set.md) | `MAP-01..14` | **Hoàn thiện v1** |
@@ -52,7 +55,7 @@ ID ổn định, phân loại CORE/VARIANT/COMBINATION/OPTIONAL và trạng thá
 | [05_Sorting.md](05_Sorting.md) | `SORT-01..05` | **Hoàn thiện v1** |
 | [06_Two_Pointers.md](06_Two_Pointers.md) | `TP-01..06`: hai con trỏ và chứng minh không bỏ sót | **Hoàn thiện v1** |
 | [07_Sliding_Window_Prefix_Sum.md](07_Sliding_Window_Prefix_Sum.md) | Cửa sổ và tổng tiền tố | Khung |
-| [08_Stack_Queue.md](08_Stack_Queue.md) | `SQ-01..05`: LIFO, monotonic stack, FIFO, circular queue, BFS queue | **Hoàn thiện v1** |
+| [08_Stack_Queue.md](08_Stack_Queue.md) | `SQ-01..05`: LIFO, monotonic stack, FIFO, circular queue, BFS queue | **Concept-first; SQ-02 FRAMEWORK-FULL** |
 | [09_Binary_Search.md](09_Binary_Search.md) | Search theo tính đơn điệu | Khung |
 | [10_BFS_DFS.md](10_BFS_DFS.md) | Duyệt graph/state | Khung |
 | [11_Heap_Greedy.md](11_Heap_Greedy.md) | Chọn phần tử/lựa chọn cục bộ | Khung |

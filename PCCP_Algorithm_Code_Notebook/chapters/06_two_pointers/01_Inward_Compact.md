@@ -180,5 +180,4 @@ function uniqueSortedInPlace(sortedValues) {
 
 ## Transfer Test A
 
-Làm [S06-T01](03_Practice_Ladder.md#s06-t01--chuẩn-hóa-log).
-
+Làm [S06-T01](03_Practice_Ladder.md#s06-t01--chuẩn-hóa-log-tp-02tp-03).

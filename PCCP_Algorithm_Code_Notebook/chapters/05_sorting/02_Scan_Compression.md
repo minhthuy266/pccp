@@ -114,4 +114,4 @@ function compressCoordinates(values) {
 
 ## Transfer Test B
 
-Làm [S05-T02](03_Practice_Ladder.md#s05-t02--mã-cảm-biến).
+Làm [S05-T02](03_Practice_Ladder.md#s05-t02--mã-cảm-biến-sort-05).

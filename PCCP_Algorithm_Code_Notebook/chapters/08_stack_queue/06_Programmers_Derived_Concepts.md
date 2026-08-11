@@ -129,6 +129,8 @@ Stack chứa đúng opening chưa match của prefix, theo thứ tự từ cũ �
 
 ## 4. Concept 3 — Monotonic unresolved stack
 
+Canonical lesson đầy đủ: [`SQ-02` — Core, hai template và tám variant knobs](01_Stack_Monotonic.md#sq-02--monotonic-stack-các-index-chưa-được-giải-quyết). Phần derived này giữ vai trò nén/mapping 22 bài, không lặp toàn bộ framework.
+
 ### Tín hiệu
 
 ```text
@@ -142,15 +144,19 @@ current có thể giải quyết nhiều vị trí trước đó
 const answer = Array(values.length).fill(defaultValue);
 const unresolvedIndexes = [];
 
+// TEMPLATE: scan và lifecycle unresolved index.
 for (let index = 0; index < values.length; index++) {
   while (
     unresolvedIndexes.length > 0 &&
+    // VARIANT: greater/smaller, strict/non-strict.
     currentResolvesPrevious(values, index, unresolvedIndexes.at(-1))
   ) {
     const previousIndex = unresolvedIndexes.pop();
+    // VARIANT: value/index/distance/count.
     answer[previousIndex] = buildAnswer(previousIndex, index, values);
   }
 
+  // TEMPLATE: current vào state sau khi resolve hết top.
   unresolvedIndexes.push(index);
 }
 ```
@@ -166,6 +172,8 @@ Stack chứa các index chưa có đáp án. Value của chúng monotonic theo c
 | Giá cổ phiếu | `currentPrice < topPrice` | khoảng cách |
 | Số lớn hơn phía sau | `current > topValue` | current value |
 | Tạo số lớn | `topDigit < currentDigit` và còn k | pop để tối ưu subsequence |
+
+Ba bài giữ cùng lifecycle pop nhiều top rồi push current, nhưng chọn vai trò pop khác nhau: `SQ-P06/P13` resolve answer của index cũ; `SQ-P07` loại ứng viên khỏi output và tiêu budget. Mapping chi tiết/edge case nằm trong canonical lesson.
 
 ### Vì sao `while` vẫn O(n)?
 

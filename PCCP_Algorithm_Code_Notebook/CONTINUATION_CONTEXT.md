@@ -3,6 +3,8 @@
 > Cập nhật: 09/08/2026 — Asia/Ho_Chi_Minh  
 > Đây là file handoff có tính chỉ dẫn. Phiên sau phải đọc **toàn bộ file này** trước khi lập kế hoạch hoặc sửa notebook.
 
+> Standard canonical khóa ngày 11/08/2026: đọc [00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md) và [FRAMEWORK_COVERAGE_AUDIT.md](FRAMEWORK_COVERAGE_AUDIT.md). Framework 11 phần áp dụng ở cấp pattern; không copy vào mọi lời giải. `SQ-02` là golden example và phải qua QA Chapter 08 trước khi batch-refactor chapter khác.
+
 ## 1. Mục tiêu của người học
 
 Hoàn thiện `PCCP_Algorithm_Code_Notebook` thành bộ tài liệu tự học và luyện thi PCCP bằng JavaScript, đủ để:

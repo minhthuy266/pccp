@@ -1,6 +1,19 @@
 # Template Contrasts — Chọn đúng bộ xương gần nhau
 
-Coverage ID tham chiếu [PATTERN_COVERAGE_MATRIX.md](PATTERN_COVERAGE_MATRIX.md). Bảng này là lớp nhận diện; khi chương tương ứng được hoàn thiện, contrast chi tiết sẽ nằm ngay sau cụm dạng.
+Coverage ID tham chiếu [PATTERN_COVERAGE_MATRIX.md](PATTERN_COVERAGE_MATRIX.md). Bảng này là lớp nhận diện; khi chương tương ứng được hoàn thiện, contrast chi tiết sẽ nằm ngay sau cụm dạng. Phần cố định/biến đổi trong code dùng quy ước `TEMPLATE`/`VARIANT` của [framework canonical](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md).
+
+## Monotonic stack: bên phải resolve top và bên trái đọc top
+
+Canonical golden example: [`SQ-02`](chapters/08_stack_queue/01_Stack_Monotonic.md#sq-02--monotonic-stack-các-index-chưa-được-giải-quyết).
+
+| Dạng | State giống nhau | Transition quyết định | Answer được ghi khi nào | Dấu hiệu chọn |
+| --- | --- | --- | --- | --- |
+| First greater/smaller **right** | stack index chưa được giải quyết | current thỏa relation → pop nhiều top | ghi cho index vừa pop | “đầu tiên bên phải”, “bao lâu tới khi” |
+| Previous greater/smaller **left** | stack ứng viên của prefix | pop top không thể trả lời current | sau while, đọc top cho current | “gần nhất bên trái” |
+| Tạo số lớn | output stack + budget | current tốt hơn → pop top khi còn budget | không có answer array; stack là output | xóa k phần tử, giữ order |
+| Histogram *(preview)* | stack index height tăng | current thấp hơn → pop chốt biên phải | lúc pop, dùng top mới làm biên trái | diện tích rectangle theo cột |
+
+Phản ví dụ `[3,1,2]`: previous greater của `2` là `3`; nếu dùng right-resolve và ghi answer cho item pop, ta đang trả một contract khác.
 
 ## Set membership và Map frequency
 
@@ -73,4 +86,3 @@ Trong `BS-04`, array đầu vào không nhất thiết sorted; thứ cần sorte
 | `BTD-01..03` | path/index/used thay đổi theo depth | base case + pruning | choose→explore→undo | số quyết định phụ thuộc input, cần sinh cây |
 
 Backtracking vẫn là brute force có cấu trúc; template riêng cần thiết vì shared state phải được hoàn tác.
-

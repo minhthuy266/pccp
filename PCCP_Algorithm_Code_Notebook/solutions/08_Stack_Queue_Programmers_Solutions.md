@@ -4,6 +4,8 @@
 
 > Mỗi code block độc lập. Khi nộp Programmers, đổi tên function thành `solution`. Comment tập trung vào ý nghĩa state và thứ tự transition.
 
+Các bài monotonic map về [canonical `SQ-02`](../chapters/08_stack_queue/01_Stack_Monotonic.md#sq-02--monotonic-stack-các-index-chưa-được-giải-quyết). Mỗi bài dưới đây chỉ ghi knobs và phần lệch khỏi template.
+
 ## SQ-P01 — Không thích số giống nhau
 
 ```js
@@ -168,6 +170,8 @@ function timeForAllTrucksToCross(bridgeLength, weightLimit, truckWeights) {
 
 ## SQ-P06 — Giá cổ phiếu
 
+**Pattern/knobs:** `SQ-02`, right-resolve; smaller, strict, index, distance tới cuối. **Giữ nguyên:** unresolved indices và `while→pop→write→push`. **Thay đổi:** flush index còn lại; giá bằng nhau không phải giảm. **Test riêng:** `[1,1]→[1,0]`.
+
 ```js
 function stockPriceDurations(prices) {
   const answer = Array(prices.length).fill(0);
@@ -199,6 +203,8 @@ function stockPriceDurations(prices) {
 **Complexity:** `O(n)` vì mỗi index push/pop tối đa một lần. **Bẫy:** dùng `<=` khiến giá bằng nhau bị coi là giảm.
 
 ## SQ-P07 — Tạo số lớn
+
+**Pattern/knobs:** `SQ-02`, dominated-pop; greater, strict, value stack, output string, budget `k`. **Giữ nguyên:** current pop liên tiếp top kém rồi được push. **Thay đổi:** pop loại ứng viên thay vì ghi answer; còn budget phải xóa đuôi. **Test riêng:** `"9876",2→"98"`.
 
 ```js
 function makeLargestNumberAfterRemoving(number, k) {
@@ -397,6 +403,8 @@ function minOperationsToEqualQueueSums(queue1, queue2) {
 **Complexity:** `O(n)` với bound số lần dịch pointer; `O(n)` copy. **Bẫy:** mô phỏng bằng `shift()`; tổng lẻ; không có termination bound.
 
 ## SQ-P13 — Số lớn hơn phía sau
+
+**Pattern/knobs:** `SQ-02`, right-resolve; greater, strict, index, trả value, default `-1`. **Giữ nguyên:** `while→pop→write→push`. **Thay đổi:** ghi `numbers[index]`, không tính distance. **Test riêng:** `[2,2]→[-1,-1]`.
 
 ```js
 function nextGreaterNumbers(numbers) {

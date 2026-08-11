@@ -2,6 +2,8 @@
 
 [← Index](../../08_Stack_Queue.md) · [Lời giải](../../solutions/08_Stack_Queue_Solutions.md)
 
+Với mọi bài `SQ-02`, dùng [canonical lesson và bảng variant knobs](01_Stack_Monotonic.md#sq-02--monotonic-stack-các-index-chưa-được-giải-quyết). Không chép lại framework: trước khi code chỉ ghi template right/left, knobs đã chọn, phần giữ nguyên và condition/return thay đổi.
+
 ## Tầng 1 — Nhận diện (12)
 
 Với mỗi đề ghi ID, order lấy state, state tối thiểu và invariant.
@@ -11,9 +13,9 @@ Kiểm tra ba loại dấu ngoặc lồng đúng.
 ### S08-R02 `[SQ-01]`
 Editor có lệnh `TYPE x` và `UNDO`; cần khôi phục thao tác mới nhất.
 ### S08-R03 `[SQ-02]`
-Với mỗi ngày, tìm nhiệt độ cao hơn đầu tiên bên phải và khoảng cách.
+Với mỗi ngày, tìm nhiệt độ cao hơn đầu tiên bên phải và khoảng cách. Map: right-resolve; greater, strict, index, distance, default `0`.
 ### S08-R04 `[SQ-02]`
-Next greater-or-equal: chỉ ra condition pop khác strict greater.
+Next greater-or-equal: chỉ ra condition pop khác strict greater và test duplicate. Phần `while→pop→write→push` phải giữ nguyên.
 ### S08-R05 `[SQ-03]`
 Xử lý ticket theo thứ tự đến, ticket mới có thể sinh ticket khác.
 ### S08-R06 `[SQ-03]`
@@ -77,7 +79,7 @@ Stream command FIFO gồm `ADD x`, `UNDO`, `COMMIT`. Queue đọc command theo o
 ## Tầng 4 — Pseudocode (3)
 
 ### S08-P01 `[SQ-02]`
-Previous smaller strict cho mỗi index; không có trả -1. Chọn chiều scan và condition pop.
+Previous smaller strict cho mỗi index; không có trả -1. Chọn template left-query, condition loại top, representation và kiểu return.
 ### S08-P02 `[SQ-03]`
 Mỗi batch xử lý đúng số item có ở đầu batch; item sinh ra để batch kế.
 ### S08-P03 `[SQ-05]`
@@ -88,14 +90,14 @@ Multi-source BFS trên grid 0/1; trả distance tới nguồn gần nhất cho m
 ### S08-C01 `[SQ-01]` — Bracket matcher
 Viết matcher ba loại ngoặc; ký tự khác bỏ qua; empty true.
 ### S08-C02 `[SQ-02]` — Next greater distance
-Trả distance tới value strict greater đầu tiên bên phải, không có trả 0.
+Trả distance tới value strict greater đầu tiên bên phải, không có trả 0. Map: right-resolve; phần cố định là `while→pop→write→push`, phần đổi là `buildAnswer=index-previous`.
 ### S08-C03 `[SQ-05]` — BFS distance
 Adjacency list; trả distance từ start, unreachable -1; mark khi enqueue.
 
 ## Tầng 6 — Biến thể (3)
 
 ### S08-V01 `[SQ-02]`
-Đổi next greater strict thành greater-or-equal; viết full implementation và revealing duplicate test.
+Đổi next greater strict thành greater-or-equal; viết full implementation và revealing duplicate test. Chỉ ra đúng một variant knob đổi và invariant value sau push thay đổi thế nào.
 ### S08-V02 `[SQ-04]`
 Circular queue khi full overwrite oldest thay vì reject; nêu update head/tail/size.
 ### S08-V03 `[SQ-05]`
@@ -112,4 +114,3 @@ BFS lan từ nhiều nguồn trên graph; mỗi lần discover node, push `{node
 1. **S08-M01.1 `[SQ-01]`:** simplify path tuyệt đối với `.`, `..` bằng stack.
 2. **S08-M01.2 `[SQ-03]`:** mô phỏng hot-potato queue bằng head index; item sống sót enqueue lại.
 3. **S08-M01.3 `[SQ-05]`:** shortest moves từ `start` tới `target` với transitions `x-1,x+1,2*x` trong bound `[0,max]`.
-

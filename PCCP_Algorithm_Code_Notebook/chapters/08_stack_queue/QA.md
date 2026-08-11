@@ -1,5 +1,16 @@
 # QA — Chapter 08 Stack và Queue
 
+## Framework pilot — 11/08/2026
+
+- [x] `SQ-02` là golden example của [Core → Template → Variants Framework](../../00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md), đủ Core, Recognition, Brute force, State, Invariant, Transition, hai Template, tám Variant knobs, hai dry run ngược relation, complexity amortized và transfer không lộ pattern.
+- [x] Hai template JavaScript đánh dấu `TEMPLATE`/`VARIANT`: right-resolve và left-query.
+- [x] Mapping giữ nguyên bài cũ: S08-C02/V01/P01, Giá cổ phiếu, Tạo số lớn và Số lớn hơn phía sau đều còn full solution; chỉ bổ sung knobs, phần giữ nguyên/thay đổi và edge case.
+- [x] `tests/notebook_chapter08.test.js`: **20/20** behavioral assertions pass, gồm SQ-01..05, hai Transfer Tests, hai template canonical và ba bài Programmers monotonic.
+- [x] `npm run check:notebook-framework`: JavaScript fences parse, Practice ID có solution, internal link/anchor, placeholder và bằng chứng FULL đều qua; audit hiện tại **1/83 FRAMEWORK-FULL**, **82/83 NEEDS-FRAMEWORK**.
+- [x] `npm test`, `npm run check:templates`, `npm run check:notebook-framework` và `git diff --check` đều exit 0.
+
+Kết luận pilot: giữ `SQ-02` ở trạng thái `FULL` lịch sử và đồng thời công nhận `FRAMEWORK-FULL`. Không đổi trạng thái 82 ID còn lại; [audit](../../FRAMEWORK_COVERAGE_AUDIT.md) ghi rõ từng ô thiếu để làm theo batch.
+
 ## Bổ sung mastery learner-first — 10/08/2026
 
 - Entry point học mới: `00_Exam_Mastery_Guide.md` → `01_Core_From_Zero.md` → `02_Advanced_From_Zero.md` → Practice Ladder → đề thật.
@@ -12,7 +23,7 @@
 
 ## Coverage lock
 
-- [x] `SQ-01..05` có A–E, bài mẫu 16 bước, dry run sáu cột và recall drills.
+- [x] `SQ-01`, `SQ-03..05` giữ nội dung A–E cũ; `SQ-02` đã chuyển toàn bộ giá trị sang canonical framework learner-first, không còn bài mẫu 16 bước nén.
 - [x] Practice đủ `12R/3F/3L/3P/3C/3V/1M` = 30 nhiệm vụ khi mini-test tính ba phần, cộng 2 Transfer Tests.
 - [x] Practice và Solution khớp đủ 32 ID `S08-*`.
 - [x] Solutions phân biệt order, state, check/update, invariant, complexity và traps.

@@ -13,7 +13,7 @@ Chọn cấu trúc theo thứ tự state phải lấy ra: stack lấy mới nh�
 | Tín hiệu | State | Dạng |
 | --- | --- | --- |
 | Matching lồng nhau, undo, rollback | `push/pop/top` | [SQ-01](chapters/08_stack_queue/01_Stack_Monotonic.md#dạng-1-sq-01--stack-matching-và-undo) |
-| Next greater/smaller, ứng viên bị value mới thống trị | stack index monotonic | [SQ-02](chapters/08_stack_queue/01_Stack_Monotonic.md#dạng-2-sq-02--monotonic-stack) |
+| Next greater/smaller, ứng viên bị value mới thống trị | stack index monotonic | [SQ-02 golden example](chapters/08_stack_queue/01_Stack_Monotonic.md#sq-02--monotonic-stack-các-index-chưa-được-giải-quyết) |
 | FIFO, xử lý theo lượt, batching | array + `head` | [SQ-03](chapters/08_stack_queue/02_Queue_Circular_BFS.md#dạng-3-sq-03--queue-bằng-head-index) |
 | Capacity cố định, tái sử dụng buffer | `buffer,head,tail,size` | [SQ-04](chapters/08_stack_queue/02_Queue_Circular_BFS.md#dạng-4-sq-04--circular-queue) |
 | Shortest unweighted/theo lớp | queue + visited/distance | [SQ-05](chapters/08_stack_queue/02_Queue_Circular_BFS.md#dạng-5-sq-05--bfs-queue) |
@@ -72,7 +72,7 @@ Hai lesson cần học theo bảng này là [phần lõi từ gốc](chapters/08
 3. [Stack/Queue phần lõi từ gốc](chapters/08_stack_queue/01_Core_From_Zero.md): matching/reduction, monotonic stack, FIFO batch, BFS.
 4. [Queue/BFS nâng cao từ gốc](chapters/08_stack_queue/02_Advanced_From_Zero.md): scheduling, capacity/time queue, circular buffer, BFS nhiều state.
 
-Hai file theory cũ — [Stack/monotonic](chapters/08_stack_queue/01_Stack_Monotonic.md) và [Queue/circular/BFS](chapters/08_stack_queue/02_Queue_Circular_BFS.md) — là **tài liệu tham chiếu**. Chỉ mở đúng mục liên quan khi bạn bí ở một concept hoặc cần thêm biến thể; không đọc nối tiếp ngay lượt đầu.
+Hai file theory tham chiếu — [Stack/monotonic](chapters/08_stack_queue/01_Stack_Monotonic.md) và [Queue/circular/BFS](chapters/08_stack_queue/02_Queue_Circular_BFS.md) — dùng để mở đúng mục khi cần thêm biến thể. Riêng `SQ-02` trong file Stack/monotonic là golden example của [framework canonical](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md), không còn dùng cấu trúc bài mẫu 16 bước.
 
 ### Lượt 2 — Biến cách nghĩ thành phản xạ
 

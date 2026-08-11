@@ -1,6 +1,6 @@
 # Manifest — PCCP Algorithm Code Notebook
 
-Manifest này là hợp đồng nội dung của bộ sách. `Dạng` là đơn vị học nhỏ; `R/F/L/P/C/V/M` lần lượt là số bài nhận diện, điền khuyết, dựng logic, pseudocode, tự code, biến thể và mini-test. Mỗi chương khi hoàn thiện phải có tối thiểu `10/3/3/3/3/2/1`; bài pseudocode có thể dùng chung đề với tầng dựng logic nhưng phải là một nhiệm vụ riêng.
+Manifest này là hợp đồng nội dung của bộ sách, cùng với [Core → Template → Variants Framework](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md). `Dạng` là đơn vị học nhỏ; `R/F/L/P/C/V/M` lần lượt là số bài nhận diện, điền khuyết, dựng logic, pseudocode, tự code, biến thể và mini-test. Mỗi chương khi hoàn thiện phải có tối thiểu `10/3/3/3/3/2/1`; bài pseudocode có thể dùng chung đề với tầng dựng logic nhưng phải là một nhiệm vụ riêng.
 
 | Chương | Các dạng nhỏ bắt buộc | R/F/L/P/C/V/M | Trạng thái |
 | --- | --- | ---: | --- |
@@ -21,6 +21,8 @@ Manifest này là hợp đồng nội dung của bộ sách. `Dạng` là đơn 
 ## Hợp đồng của một dạng đã hoàn thiện
 
 Mỗi dạng phải giúp người mới đi được từ đề đến code theo mạch: bài nhỏ có I/O → chạy bằng lời → tìm biến cần lưu và lý do khởi tạo → full code → dry run vừa đủ → gọi tên state/invariant/transition → nhận diện và skeleton → lỗi gắn với test → bài tự kiểm tra/transfer. Complexity, edge case và thứ tự check/update phải được giải thích ngay cạnh phần code liên quan.
+
+Ở cấp pattern, mạch này phải cung cấp đủ 11 bằng chứng canonical và đánh dấu `TEMPLATE`/`VARIANT`. Ở cấp bài, chỉ map vào Pattern ID và các nút đã chọn. Acceptance criteria chính xác và phân biệt CORE/VARIANT/COMBINATION/OPTIONAL nằm trong framework; audit hiện trạng nằm tại [FRAMEWORK_COVERAGE_AUDIT.md](FRAMEWORK_COVERAGE_AUDIT.md).
 
 Không bắt người học đi qua A–E hoặc checklist 16 bước trong từng bài mẫu. Các quota ở bảng trên dùng để kiểm tra độ phủ bài luyện, không được dùng thay cho chất lượng giải thích.
 
