@@ -11,6 +11,24 @@ Contract → Bound → Brute force → Bottleneck → State
 
 Mỗi chương gồm một ví dụ tự chứa, luồng suy luận, code mẫu và gate. Không đọc liên tục 12 chương và không mặc định một chương mỗi ngày. Chỉ đọc mục được plan chính chỉ định; một chương có thể kéo dài nhiều ngày. Sau đó đóng tài liệu và làm bài luyện của ngày đó.
 
+## Hợp đồng nguồn và code
+
+Phạm vi của handbook chỉ lấy từ [trang PCCP](https://certi.programmers.co.kr/about/pccp), [brochure chính thức](https://business.programmers.co.kr/static/business/certification_intro.pdf), [khóa luyện PCCP của Programmers](https://school.programmers.co.kr/learn/courses/14760) và [Algorithm Practice Kit](https://school.programmers.co.kr/learn/challenges?tab=algorithm_practice_kit). Mỗi bài `OFxxx` trỏ tới một lesson chính thức trong [`PCCP_OFFICIAL_PRACTICE_BANK.csv`](../../PCCP_OFFICIAL_PRACTICE_BANK.csv).
+
+Programmers hỗ trợ contract, constraint, sample và Level của từng lesson. Phần phân tích, invariant, proof và JavaScript trong handbook là implementation giáo dục do repo viết từ các dữ kiện đó; không tự nhận là editorial/lời giải chính thức. Code companion chạy được nằm ở [`docs/JS_TEMPLATES_PCCP.js`](../JS_TEMPLATES_PCCP.js) và được kiểm tra bằng `npm test`.
+
+Một mục chỉ đáng học khi trả lời đủ:
+
+```text
+Khi nào dùng? Khi nào không dùng?
+Brute force là gì? Bottleneck ở đâu?
+State giữ đúng thông tin nào?
+Invariant nào phải đúng sau mỗi transition?
+Vì sao transition không bỏ sót/đếm trùng?
+Complexity có chịu được constraint không?
+Test nào phá cách code sai phổ biến?
+```
+
 ---
 
 # Chương 0 — Hệ điều hành giải bài
@@ -921,6 +939,406 @@ Qua khi:
 - code AC trong 35–45 phút;
 - tự nêu được counterexample cho ít nhất một cách sai;
 - ở lần ôn kế tiếp code lại không nhìn.
+
+---
+
+# Lab implementation trọng tâm — từ invariant tới code chạy được
+
+Các lab dưới đây không thay bài official. Chúng cô lập đúng “engine” phải tự viết trước khi áp dụng vào lesson `OFxxx`. Mỗi code block có bản executable tương ứng trong [`docs/JS_TEMPLATES_PCCP.js`](../JS_TEMPLATES_PCCP.js).
+
+## Lab 0 — Implementation, mutation và event order
+
+**Bài official:** `OF051 — Game gắp thú`; nối matrix + stack + simulation. Đây là bài đã học nên lab không làm lộ reserved mock.
+
+Contract rút gọn từ lesson official: mỗi `move` chọn một cột; lấy con thú khác 0 đầu tiên từ trên xuống; ô đó trở thành 0. Nếu thú mới bằng top của basket, bỏ top và cộng 2; nếu không thì push. Trả tổng số thú bị loại.
+
+Đừng code ngay. Tách một event thành đúng thứ tự:
+
+```text
+1. Đổi cột 1-based của đề thành 0-based.
+2. Tìm hàng đầu tiên có doll != 0.
+3. Lưu doll trước khi mutate board.
+4. Gán ô board thành 0.
+5. So doll với basket top.
+6. Pop + cộng 2, hoặc push.
+7. Break: một move chỉ lấy tối đa một doll.
+```
+
+State:
+
+- `board`: trạng thái máy sau các lần gắp trước;
+- `basket`: đúng các doll chưa bị triệt tiêu, theo thứ tự vào;
+- `removed`: tổng doll đã biến mất;
+- vòng `row`: tìm doll đầu tiên của đúng một cột.
+
+Invariant sau mỗi `move`: board đã xóa đúng doll được lấy trong move đó; basket là kết quả rút gọn đúng của toàn bộ doll đã lấy; `removed` bằng hai lần số cặp đã pop.
+
+```js
+function craneGame(board, moves) {
+  const basket = [];
+  let removed = 0;
+
+  for (const move of moves) {
+    const col = move - 1;
+
+    for (let row = 0; row < board.length; row++) {
+      if (board[row][col] === 0) continue;
+
+      const doll = board[row][col];
+      board[row][col] = 0;
+
+      const top = basket[basket.length - 1];
+
+      if (top === doll) {
+        basket.pop();
+        removed += 2;
+      } else {
+        basket.push(doll);
+      }
+
+      break;
+    }
+  }
+
+  return removed;
+}
+```
+
+Dòng nguy hiểm nhất là:
+
+```js
+board[row][col] = 0;
+```
+
+`=` thay đổi state. `board[row][col] === 0` chỉ tạo boolean rồi vứt đi; doll vẫn nằm trên board và lần gắp sau có thể lấy lại. Đây không phải lỗi “stack”, mà là lỗi transition không commit.
+
+Dry run tối thiểu với một cột `[[1],[1]]`, moves `[1,1,1]`:
+
+| Move | Board trước | Doll | Basket trước → sau | Removed |
+|---:|---|---:|---|---:|
+| 1 | `[1,1]` | 1 | `[] → [1]` | 0 |
+| 2 | `[0,1]` | 1 | `[1] → []` | 2 |
+| 3 | `[0,0]` | không có | `[] → []` | 2 |
+
+Nếu dùng `=== 0`, board trước move 2 vẫn là `[1,1]`; chương trình vẫn có thể trả 2 trên test ngắn nhưng state đã sai và các move sau sẽ sai tiếp. Vì vậy test phải kiểm cả kết quả lẫn mutation hoặc dùng chuỗi move đủ dài để lỗi lộ ra.
+
+Complexity worst case `O(m*r)` với `m = moves.length`, `r = số hàng`; basket tối đa `O(m)`. Có thể preprocess từng cột bằng pointer, nhưng chỉ cần khi constraint chứng minh scan lại không đủ.
+
+## Lab A — Variable sliding window + frequency Map
+
+**Bài official để transfer:** `OF058 — Mua đá quý`; nền cố định ở `OF052`, positive two-pointers ở `OF053`.
+
+Contract cô lập: tìm độ dài lớn nhất của đoạn liên tiếp chứa không quá `k` giá trị khác nhau.
+
+Brute force mở mọi `[left, right]`, đếm lại số loại: ít nhất `O(n²)`. Bottleneck là cửa sổ kề nhau chỉ khác một phần tử vào và có thể vài phần tử ra, nhưng brute force xây lại toàn bộ count.
+
+State:
+
+- `left`: biên trái của cửa sổ hiện tại;
+- `right`: biên phải đang được thêm;
+- `count`: multiplicity của đúng các giá trị trong `[left, right]`;
+- `best`: độ dài hợp lệ lớn nhất đã thấy.
+
+Invariant sau vòng `while`: `[left, right]` có nhiều nhất `k` loại, và `left` là biên nhỏ nhất còn lại sau khi loại đủ phần tử khiến cửa sổ hợp lệ.
+
+```js
+function longestWindowAtMostKDistinct(values, k) {
+  if (k < 0) return 0;
+
+  const count = new Map();
+  let left = 0;
+  let best = 0;
+
+  for (let right = 0; right < values.length; right++) {
+    const entering = values[right];
+    count.set(entering, (count.get(entering) ?? 0) + 1);
+
+    while (count.size > k) {
+      const leaving = values[left++];
+      const remaining = count.get(leaving) - 1;
+
+      if (remaining === 0) count.delete(leaving);
+      else count.set(leaving, remaining);
+    }
+
+    best = Math.max(best, right - left + 1);
+  }
+
+  return best;
+}
+```
+
+Vì sao phải `delete` key có count bằng 0? `Map.size` phải bằng số loại **đang có trong cửa sổ**, không phải số loại từng xuất hiện. Nếu chỉ set về 0, vòng `while` có thể co mãi hoặc trả sai.
+
+Mỗi index vào cửa sổ một lần và rời nhiều nhất một lần: `O(n)` time, `O(d)` space với `d` là số loại trong cửa sổ. Template này không tự động áp dụng cho mọi điều kiện; phải chứng minh rằng mở phải rồi co trái có tính đơn điệu phù hợp.
+
+Dry run với `[1,2,1,3]`, `k=2`:
+
+| `right` | thêm | cửa sổ trước co | thao tác co | cửa sổ hợp lệ | `best` |
+|---:|---:|---|---|---|---:|
+| 0 | 1 | `[1]` | — | `[1]` | 1 |
+| 1 | 2 | `[1,2]` | — | `[1,2]` | 2 |
+| 2 | 1 | `[1,2,1]` | — | `[1,2,1]` | 3 |
+| 3 | 3 | `[1,2,1,3]` | bỏ `1`, rồi `2` | `[1,3]` | 3 |
+
+## Lab B — Monotonic stack: mỗi index chỉ được giải quyết một lần
+
+**Bài official:** `OF011 — Giá cổ phiếu`, `OF027 — Tạo số lớn`, `OF061 — Số lớn hơn phía sau`.
+
+Contract cô lập: với mỗi vị trí, trả giá trị lớn hơn **strictly** đầu tiên bên phải, không có thì `-1`.
+
+Brute force quét phần đuôi cho từng index: `O(n²)`. Stack không lưu “các số lớn”; nó lưu index **chưa có đáp án**. Khi `values[index]` lớn hơn top, current chính là phần tử lớn hơn đầu tiên của top vì mọi vị trí giữa đã được duyệt mà không giải quyết top.
+
+```js
+function nextGreaterValues(values) {
+  const answer = Array(values.length).fill(-1);
+  const unresolved = [];
+
+  for (let index = 0; index < values.length; index++) {
+    while (
+      unresolved.length > 0 &&
+      values[unresolved[unresolved.length - 1]] < values[index]
+    ) {
+      answer[unresolved.pop()] = values[index];
+    }
+
+    unresolved.push(index);
+  }
+
+  return answer;
+}
+```
+
+Invariant: giá trị tại các index trong stack giảm không nghiêm ngặt từ đáy lên đỉnh; mọi index trong đó chưa gặp giá trị strictly greater ở phần prefix đã đọc.
+
+Dấu `<` là contract. Đổi thành `<=` nghĩa là “greater-or-equal”, làm duplicate bị pop và thay đổi bài toán. Mỗi index push một lần, pop nhiều nhất một lần nên tổng vòng `while` là `O(n)`, space `O(n)`.
+
+Test phá code sai:
+
+- `[2,2]` phải ra `[-1,-1]`, bắt lỗi dùng `<=`;
+- `[3,2,1]` giữ cả ba tới cuối;
+- `[2,1,2,4]` cần một current giải quyết nhiều index.
+
+## Lab C — Binary search on answer: tìm first feasible
+
+**Bài official:** `OF043 — Kiểm tra nhập cảnh`; transfer `OF067` chỉ mở đúng ngày past set, stretch `OF044`.
+
+Contract cô lập: tìm thời gian nhỏ nhất để các máy xử lý đủ `jobs` công việc. Trong thời gian `t`, máy mất `machineTime` xử lý được `floor(t / machineTime)` việc.
+
+Predicate `can(t)` đơn điệu: nếu đủ việc ở `t`, mọi thời gian lớn hơn cũng đủ. Miền có dạng `false ... false, true ... true`, nên tìm `first true`.
+
+```js
+function minimumProcessingTime(jobs, times) {
+  let low = 0;
+  let high = Math.max(...times) * jobs;
+
+  while (low < high) {
+    const mid = low + Math.floor((high - low) / 2);
+    let completed = 0;
+
+    for (const machineTime of times) {
+      completed += Math.floor(mid / machineTime);
+      if (completed >= jobs) break;
+    }
+
+    if (completed >= jobs) high = mid;
+    else low = mid + 1;
+  }
+
+  return low;
+}
+```
+
+Proof của boundary:
+
+- `high` khả thi vì ngay cả máy chậm nhất cũng có thể làm `jobs` việc trong khoảng đó;
+- nếu `mid` khả thi, đáp án thuộc `[low, mid]`, không được bỏ `mid`;
+- nếu không khả thi, toàn bộ `[low, mid]` bị loại;
+- interval giảm nghiêm ngặt nên loop kết thúc tại first feasible.
+
+Complexity `O(m log H)` với `m = times.length`, `H = max(times) * jobs`; space `O(1)`. Không dùng `>> 1` vì JavaScript ép bitwise về signed 32-bit. Trước khi dùng `number`, kiểm tra bound không vượt `Number.MAX_SAFE_INTEGER`.
+
+## Lab D — Multi-source BFS
+
+**Bài official để nối kiến thức:** `OF038`, `OF045`, `OF055`; transfer shortest weighted là `OF059` và phải dùng Dijkstra, không dùng lab này.
+
+Khi nhiều nguồn cùng bắt đầu tại thời điểm/khoảng cách 0, không chạy BFS riêng từng nguồn. Seed tất cả nguồn vào cùng queue; các layer tự biểu diễn khoảng cách tới nguồn gần nhất.
+
+```js
+function multiSourceBfs(rows, cols, sources, isPassable = () => true) {
+  const distance = Array.from(
+    { length: rows },
+    () => Array(cols).fill(-1),
+  );
+  const queue = [];
+  let head = 0;
+
+  for (const [row, col] of sources) {
+    if (row < 0 || row >= rows || col < 0 || col >= cols) continue;
+    if (!isPassable(row, col) || distance[row][col] !== -1) continue;
+    distance[row][col] = 0;
+    queue.push([row, col]);
+  }
+
+  const directions = [[-1,0], [1,0], [0,-1], [0,1]];
+
+  while (head < queue.length) {
+    const [row, col] = queue[head++];
+
+    for (const [dr, dc] of directions) {
+      const nextRow = row + dr;
+      const nextCol = col + dc;
+
+      if (nextRow < 0 || nextRow >= rows) continue;
+      if (nextCol < 0 || nextCol >= cols) continue;
+      if (!isPassable(nextRow, nextCol)) continue;
+      if (distance[nextRow][nextCol] !== -1) continue;
+
+      distance[nextRow][nextCol] = distance[row][col] + 1;
+      queue.push([nextRow, nextCol]);
+    }
+  }
+
+  return distance;
+}
+```
+
+Invariant: khi một ô được enqueue lần đầu, `distance` của nó đã là khoảng cách ngắn nhất từ bất kỳ source nào. Mark lúc enqueue để không có hai parent cùng đưa một state vào queue. Complexity `O(rows*cols)`, vì mỗi ô hợp lệ vào queue tối đa một lần.
+
+BFS chỉ đúng cho cạnh đồng cost. Có weight khác nhau → Dijkstra; có thêm quyền phá tường/chìa khóa → state và `visited` phải thêm chiều.
+
+## Lab E — Greedy interval bằng earliest finish
+
+**Bài official:** `OF057 — Hệ thống đánh chặn`; transfer `OF030 — Camera kiểm soát`.
+
+Contract cô lập: chọn nhiều interval half-open `[start,end)` không chồng nhau nhất.
+
+Greedy chọn interval kết thúc sớm nhất. Exchange argument: trong một nghiệm tối ưu, thay interval đầu bằng interval có end sớm nhất không làm giảm khoảng trống còn lại cho các interval sau; do đó luôn tồn tại nghiệm tối ưu bắt đầu bằng lựa chọn greedy.
+
+```js
+function maximumNonOverlappingIntervals(intervals) {
+  const sorted = [...intervals].sort(
+    ([startA, endA], [startB, endB]) =>
+      endA - endB || startA - startB,
+  );
+  let selected = 0;
+  let lastEnd = -Infinity;
+
+  for (const [start, end] of sorted) {
+    if (start < lastEnd) continue;
+    selected++;
+    lastEnd = end;
+  }
+
+  return selected;
+}
+```
+
+Với interval half-open, `start === lastEnd` là không overlap. Nếu đề dùng đoạn đóng hoặc định nghĩa va chạm khác, dấu so sánh phải đổi theo contract. Complexity `O(n log n)` do sort, scan `O(n)`, space phụ thuộc implementation sort/copy.
+
+## Lab F — Difference array 2D
+
+**Bài official transfer:** `OF060 — Tòa nhà không bị phá`.
+
+Khi có nhiều update cộng `delta` lên toàn rectangle, cập nhật từng ô tốn `O(q*rows*cols)`. Difference 2D đánh dấu bốn góc trong `O(1)` rồi prefix hai chiều một lần.
+
+Với rectangle inclusive `(r1,c1)..(r2,c2)`:
+
+```text
+diff[r1][c1]         += delta
+diff[r1][c2 + 1]     -= delta
+diff[r2 + 1][c1]     -= delta
+diff[r2 + 1][c2 + 1] += delta
+```
+
+Hai dấu cộng và hai dấu trừ tạo hiệu ứng bắt đầu ở góc trên-trái, dừng sau biên phải/dưới, và bù lại phần bị trừ hai lần ở góc chéo.
+
+```js
+function applyRectangleUpdates(rows, cols, updates) {
+  const diff = Array.from(
+    { length: rows + 1 },
+    () => Array(cols + 1).fill(0),
+  );
+
+  for (const [r1, c1, r2, c2, delta] of updates) {
+    diff[r1][c1] += delta;
+    diff[r1][c2 + 1] -= delta;
+    diff[r2 + 1][c1] -= delta;
+    diff[r2 + 1][c2 + 1] += delta;
+  }
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 1; col < cols; col++) {
+      diff[row][col] += diff[row][col - 1];
+    }
+  }
+
+  for (let col = 0; col < cols; col++) {
+    for (let row = 1; row < rows; row++) {
+      diff[row][col] += diff[row - 1][col];
+    }
+  }
+
+  return diff.slice(0, rows).map((line) => line.slice(0, cols));
+}
+```
+
+Complexity `O(q + rows*cols)` time, `O(rows*cols)` space. Hai chiều `+1` là sentinel để update chạm biên không cần `if`. Test bắt buộc: rectangle một ô, toàn grid, chạm hàng/cột cuối, delta âm và các rectangle overlap.
+
+## Lab G — Grid DP và thứ tự iteration
+
+**Bài official:** `OF032 — Tam giác số nguyên`, `OF033 — Đường đến trường`.
+
+Contract cô lập: đếm số đường từ góc trên-trái tới góc dưới-phải, chỉ đi phải/xuống; `1` đi được, `0` bị chặn.
+
+State 2D là `ways[row][col]`. Có thể nén còn `dp[col]`:
+
+- trước update, `dp[col]` là số cách từ ô phía trên;
+- `dp[col - 1]` đã update ở vòng hiện tại, là số cách từ ô bên trái;
+- ô block phải reset `dp[col] = 0`, nếu không đường từ hàng trước “đi xuyên” vật cản.
+
+```js
+function countGridPaths(grid, modulo = 1_000_000_007) {
+  const rows = grid.length;
+  const cols = grid[0].length;
+  const dp = Array(cols).fill(0);
+  dp[0] = grid[0][0] === 1 ? 1 : 0;
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      if (grid[row][col] === 0) {
+        dp[col] = 0;
+        continue;
+      }
+
+      if (col > 0) {
+        dp[col] = (dp[col] + dp[col - 1]) % modulo;
+      }
+    }
+  }
+
+  return dp[cols - 1];
+}
+```
+
+Invariant sau khi xử lý `(row,col)`: `dp[col]` là số đường hợp lệ tới đúng ô đó; các cột bên trái thuộc hàng hiện tại, các cột bên phải vẫn thuộc hàng trước. Vì dependency chỉ từ trên/trái, thứ tự row-major là đúng. Complexity `O(rows*cols)` time, `O(cols)` space.
+
+DP không bắt đầu bằng “tạo mảng”. Nó bắt đầu bằng nghĩa của state, transition, base và dependency order. Nếu không nói được bốn dòng này, chưa được code.
+
+## Ma trận transfer bắt buộc
+
+| Engine | CORE phải làm | TRANSFER chỉ mở sau core | Sai thì quay lại |
+|---|---|---|---|
+| Hash/sort | `OF001, OF003, OF004, OF016` | `OF005, OF017` | Chương 2–3 |
+| Window/two pointers | `OF028, OF052, OF053` | `OF058` | Chương 3–4 + Lab A |
+| Stack/queue/heap | `OF007–OF013, OF027` | `OF054, OF061` | Chương 5 + Lab B |
+| Backtracking/greedy | `OF022, OF028, OF036, OF057` | `OF020, OF030` | Chương 7–8 + Lab E |
+| Binary search | `OF043` | `OF044` chỉ khi core đã chắc | Chương 9 + Lab C |
+| BFS/graph/tree | `OF023, OF037–OF039, OF045, OF055` | `OF056, OF059` | Chương 10 + Lab D |
+| DP | `OF032, OF033` | `OF031` | Chương 11 + Lab G |
+| Prefix 2D | không bắt buộc trước foundation gate | `OF060` | Lab F |
+
+`OF062–OF069` không xuất hiện trong lab vì là `RESERVED_MOCK`; cấm mở trước timer.
 
 ---
 

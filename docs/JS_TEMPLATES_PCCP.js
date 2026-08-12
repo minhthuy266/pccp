@@ -28,6 +28,34 @@ function sortedAscending(values) {
   return [...values].sort((a, b) => a - b);
 }
 
+// Official practice application: matrix scan + mutation + reduction stack.
+function craneGame(board, moves) {
+  const basket = [];
+  let removed = 0;
+
+  for (const move of moves) {
+    const col = move - 1;
+
+    for (let row = 0; row < board.length; row++) {
+      if (board[row][col] === 0) continue;
+
+      const doll = board[row][col];
+      board[row][col] = 0;
+
+      if (basket[basket.length - 1] === doll) {
+        basket.pop();
+        removed += 2;
+      } else {
+        basket.push(doll);
+      }
+
+      break;
+    }
+  }
+
+  return removed;
+}
+
 // ---------- Prefix sum ----------
 
 function buildPrefixSum(values) {
@@ -72,6 +100,59 @@ function rectangleSum(prefix, row1, col1, row2, col2) {
     prefix[row2 + 1][col1] +
     prefix[row1][col1]
   );
+}
+
+// Apply inclusive rectangle additions, then materialize the final grid.
+// Each update is [row1, col1, row2, col2, delta].
+function applyRectangleUpdates(rows, cols, updates) {
+  const difference = makeGrid(rows + 1, cols + 1, 0);
+
+  for (const [row1, col1, row2, col2, delta] of updates) {
+    difference[row1][col1] += delta;
+    difference[row1][col2 + 1] -= delta;
+    difference[row2 + 1][col1] -= delta;
+    difference[row2 + 1][col2 + 1] += delta;
+  }
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 1; col < cols; col++) {
+      difference[row][col] += difference[row][col - 1];
+    }
+  }
+
+  for (let col = 0; col < cols; col++) {
+    for (let row = 1; row < rows; row++) {
+      difference[row][col] += difference[row - 1][col];
+    }
+  }
+
+  return difference.slice(0, rows).map((line) => line.slice(0, cols));
+}
+
+// Longest contiguous segment containing at most `maxDistinct` distinct values.
+function longestWindowAtMostKDistinct(values, maxDistinct) {
+  if (maxDistinct < 0) return 0;
+
+  const count = new Map();
+  let left = 0;
+  let best = 0;
+
+  for (let right = 0; right < values.length; right++) {
+    const entering = values[right];
+    count.set(entering, (count.get(entering) ?? 0) + 1);
+
+    while (count.size > maxDistinct) {
+      const leaving = values[left++];
+      const remaining = count.get(leaving) - 1;
+
+      if (remaining === 0) count.delete(leaving);
+      else count.set(leaving, remaining);
+    }
+
+    best = Math.max(best, right - left + 1);
+  }
+
+  return best;
 }
 
 // ---------- Queue / Deque ----------
@@ -200,6 +281,25 @@ class Heap {
 
     return root;
   }
+}
+
+// For every index, return the first strictly greater value to its right.
+function nextGreaterValues(values) {
+  const answer = Array(values.length).fill(-1);
+  const unresolved = [];
+
+  for (let index = 0; index < values.length; index++) {
+    while (
+      unresolved.length > 0 &&
+      values[unresolved[unresolved.length - 1]] < values[index]
+    ) {
+      answer[unresolved.pop()] = values[index];
+    }
+
+    unresolved.push(index);
+  }
+
+  return answer;
 }
 
 // Usage:
@@ -427,6 +527,42 @@ function bfsGrid(board, startRow, startCol) {
   return distance;
 }
 
+// All sources start at distance 0 and expand together.
+// `isPassable(row, col)` decides whether a cell can be entered.
+function multiSourceBfs(rows, cols, sources, isPassable = () => true) {
+  const distance = makeGrid(rows, cols, -1);
+  const queue = [];
+  let head = 0;
+
+  for (const [row, col] of sources) {
+    if (row < 0 || row >= rows || col < 0 || col >= cols) continue;
+    if (!isPassable(row, col) || distance[row][col] !== -1) continue;
+
+    distance[row][col] = 0;
+    queue.push([row, col]);
+  }
+
+  while (head < queue.length) {
+    const [row, col] = queue[head++];
+
+    for (let direction = 0; direction < 4; direction++) {
+      const nextRow = row + DIRECTION_ROW[direction];
+      const nextCol = col + DIRECTION_COL[direction];
+
+      if (nextRow < 0 || nextRow >= rows || nextCol < 0 || nextCol >= cols) {
+        continue;
+      }
+      if (!isPassable(nextRow, nextCol)) continue;
+      if (distance[nextRow][nextCol] !== -1) continue;
+
+      distance[nextRow][nextCol] = distance[row][col] + 1;
+      queue.push([nextRow, nextCol]);
+    }
+  }
+
+  return distance;
+}
+
 // ---------- Weighted graph / Dijkstra ----------
 
 // graph[from] contains [to, nonNegativeWeight].
@@ -522,4 +658,44 @@ function knapsack01(items, capacity) {
   }
 
   return dp[capacity];
+}
+
+// Intervals use half-open semantics [start, end). Select the maximum number
+// of pairwise non-overlapping intervals.
+function maximumNonOverlappingIntervals(intervals) {
+  const sorted = [...intervals].sort(
+    ([startA, endA], [startB, endB]) => endA - endB || startA - startB,
+  );
+  let selected = 0;
+  let lastEnd = -Infinity;
+
+  for (const [start, end] of sorted) {
+    if (start < lastEnd) continue;
+    selected++;
+    lastEnd = end;
+  }
+
+  return selected;
+}
+
+// Number of paths from top-left to bottom-right in a 0/1 grid.
+// 1 is passable, 0 is blocked. Moves are only right or down.
+function countGridPaths(grid, modulo = 1_000_000_007) {
+  const rows = grid.length;
+  const cols = grid[0].length;
+  const dp = Array(cols).fill(0);
+  dp[0] = grid[0][0] === 1 ? 1 : 0;
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      if (grid[row][col] === 0) {
+        dp[col] = 0;
+        continue;
+      }
+
+      if (col > 0) dp[col] = (dp[col] + dp[col - 1]) % modulo;
+    }
+  }
+
+  return dp[cols - 1];
 }

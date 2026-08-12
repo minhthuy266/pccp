@@ -11,11 +11,14 @@ new Function(
   "module",
   "exports",
   `${source}\nmodule.exports = {
-    makeGrid, countFrequency, sortedAscending,
+    makeGrid, countFrequency, sortedAscending, craneGame,
     buildPrefixSum, rangeSum, buildPrefixSum2D, rectangleSum,
+    applyRectangleUpdates, longestWindowAtMostKDistinct,
     Deque, Heap, lowerBound, upperBound, firstFeasible, lastFeasible,
+    nextGreaterValues,
     permutations, combinations, buildUndirectedGraph, dfsGraph, bfsGraph,
-    bfsGrid, dijkstra, UnionFind, maxNonAdjacentSum, knapsack01
+    bfsGrid, multiSourceBfs, dijkstra, UnionFind, maxNonAdjacentSum, knapsack01,
+    maximumNonOverlappingIntervals, countGridPaths
   };`,
 )(moduleUnderTest, moduleUnderTest.exports);
 
@@ -35,6 +38,10 @@ test("array and prefix-sum helpers", () => {
   );
   assert.deepEqual(templates.sortedAscending([3, 1, 2]), [1, 2, 3]);
 
+  const craneBoard = [[1], [1]];
+  assert.equal(templates.craneGame(craneBoard, [1, 1, 1]), 2);
+  assert.deepEqual(craneBoard, [[0], [0]]);
+
   const prefix = templates.buildPrefixSum([2, 4, 6]);
   assert.equal(templates.rangeSum(prefix, 1, 2), 10);
 
@@ -43,6 +50,24 @@ test("array and prefix-sum helpers", () => {
     [3, 4],
   ]);
   assert.equal(templates.rectangleSum(prefix2D, 0, 1, 1, 1), 6);
+
+  assert.deepEqual(
+    templates.applyRectangleUpdates(3, 3, [
+      [0, 0, 1, 1, 2],
+      [1, 1, 2, 2, 3],
+    ]),
+    [
+      [2, 2, 0],
+      [2, 5, 3],
+      [0, 3, 3],
+    ],
+  );
+
+  assert.equal(
+    templates.longestWindowAtMostKDistinct([1, 2, 1, 3, 4, 3], 2),
+    3,
+  );
+  assert.equal(templates.longestWindowAtMostKDistinct([1, 1], 0), 0);
 });
 
 test("deque, heap and binary-search helpers", () => {
@@ -72,6 +97,11 @@ test("deque, heap and binary-search helpers", () => {
   assert.equal(
     templates.lastFeasible(0, 10, (x) => x <= 7),
     7,
+  );
+
+  assert.deepEqual(
+    templates.nextGreaterValues([2, 1, 2, 4, 3]),
+    [4, 2, 4, -1, -1],
   );
 });
 
@@ -115,6 +145,11 @@ test("graph, union-find and dynamic-programming helpers", () => {
     ],
   );
 
+  assert.deepEqual(templates.multiSourceBfs(2, 3, [[0, 0], [1, 2]]), [
+    [0, 1, 1],
+    [1, 1, 0],
+  ]);
+
   const weighted = [
     [
       [1, 5],
@@ -142,5 +177,23 @@ test("graph, union-find and dynamic-programming helpers", () => {
       5,
     ),
     7,
+  );
+
+  assert.equal(
+    templates.maximumNonOverlappingIntervals([
+      [1, 4],
+      [2, 3],
+      [3, 5],
+      [5, 7],
+    ]),
+    3,
+  );
+  assert.equal(
+    templates.countGridPaths([
+      [1, 1, 1],
+      [1, 0, 1],
+      [1, 1, 1],
+    ]),
+    2,
   );
 });

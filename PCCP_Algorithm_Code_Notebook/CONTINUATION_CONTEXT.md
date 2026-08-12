@@ -21,7 +21,7 @@ Người học thích cách giải thích bằng tiếng Việt, trực tiếp, 
 
 ### Mục tiêu coverage đề thật (cập nhật 10/08/2026)
 
-Người học đã làm rõ rằng mục tiêu là **thành thạo mọi đề PCCP công khai được theo dõi**, không phải hoàn tất một danh sách pattern. [PCCP_PUBLIC_PROBLEM_CATALOG.md](PCCP_PUBLIC_PROBLEM_CATALOG.md) là nguồn sự thật cho 40 đề công khai trong `PROBLEM_BANK.csv`; mọi đề phải lần lượt có lesson từ gốc, solution JavaScript, recall/biến thể và trạng thái xác thực. Không gọi notebook “hoàn chỉnh” khi catalog vẫn còn `Cần viết` hoặc `Có tham chiếu`.
+Người học đã làm rõ rằng mục tiêu là **thành thạo phạm vi PCCP bằng bài chính thức**, không phải hoàn tất một danh sách pattern. Catalog legacy theo dõi 40 bài non-mock gồm 8 bài PCCP public và 32 bài luyện; bank source-first hiện hành nằm ở [`../PCCP_OFFICIAL_PRACTICE_BANK.csv`](../PCCP_OFFICIAL_PRACTICE_BANK.csv). Không gọi notebook “hoàn chỉnh” khi catalog vẫn còn `Cần viết` hoặc `Có tham chiếu`.
 
 Chuẩn mastery nằm tại [00_MASTERY_STANDARD.md](00_MASTERY_STANDARD.md). [PCCP_EXAM_PATTERN_ATLAS.md](PCCP_EXAM_PATTERN_ATLAS.md) là entrypoint học chính: phải giải thích từ gốc các pattern rút ra từ đề thật trước khi catalog/coverage được dùng để audit. Tài liệu/coverage pattern chỉ là công cụ để giải đề thật, không phải đích.
 

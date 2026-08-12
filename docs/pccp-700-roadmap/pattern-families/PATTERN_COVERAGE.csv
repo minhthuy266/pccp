@@ -1,0 +1,68 @@
+lesson_id,pattern_id,pattern_family,role
+OF001,PF01,Counting grouping and direct lookup,frequency multiset
+OF002,PF01,Counting grouping and direct lookup,distinct cardinality and cap
+OF004,PF01,Counting grouping and direct lookup,group count and product rule
+OF005,PF01,Counting grouping and direct lookup,group aggregate and ranked members
+OF048,PF01,Counting grouping and direct lookup,parsed key lookup
+OF050,PF01,Counting grouping and direct lookup,inverse index lookup
+OF003,PF02,Sort normalize and ordering,adjacent after lexicographic sort
+OF015,PF02,Sort normalize and ordering,slice sort rank
+OF016,PF02,Sort normalize and ordering,custom comparator
+OF017,PF02,Sort normalize and ordering,rank boundary
+OF018,PF02,Sort normalize and ordering,orientation normalization
+OF006,PF03,Linear stream reduction and chunking,consecutive deduplication
+OF019,PF03,Linear stream reduction and chunking,cyclic stream by modulo
+SR002,PF03,Linear stream reduction and chunking,chunk run length encoding
+OF008,PF04,Stack matching reduction and unresolved indices,prefix balance
+OF011,PF04,Stack matching reduction and unresolved indices,next strict drop distance
+OF027,PF04,Stack matching reduction and unresolved indices,greedy monotonic deletion
+OF051,PF04,Stack matching reduction and unresolved indices,stack pair cancellation
+OF061,PF04,Stack matching reduction and unresolved indices,next strict greater value
+SR003,PF04,Stack matching reduction and unresolved indices,multi bracket matching
+OF007,PF05,Queue order and event simulation,batch boundary
+OF009,PF05,Queue order and event simulation,round robin priority
+OF010,PF05,Queue order and event simulation,capacity and exit events
+OF054,PF05,Queue order and event simulation,two logical queues
+SR004,PF05,Queue order and event simulation,two FIFO sources
+SR005,PF05,Queue order and event simulation,preemption and LIFO resume
+OF012,PF06,Heap selection and scheduling,repeated two minima
+OF013,PF06,Heap selection and scheduling,available job scheduling
+OF014,PF06,Heap selection and scheduling,double ended priority queue
+OF020,PF07,Choice tree backtracking and enumeration,permutation and dedupe
+OF022,PF07,Choice tree backtracking and enumeration,resource constrained permutation
+OF024,PF07,Choice tree backtracking and enumeration,preorder enumeration
+OF036,PF07,Choice tree backtracking and enumeration,binary choices
+OF021,PF08,Bounded candidate and case analysis,factor candidates
+OF026,PF08,Bounded candidate and case analysis,route turning cases
+OF025,PF09,Line greedy and extreme pairing,neighbor allocation
+OF028,PF09,Line greedy and extreme pairing,lightest heaviest pairing
+OF030,PF10,Interval greedy,closed interval stabbing
+OF057,PF10,Interval greedy,open interval interception
+OF032,PF11,Local state dynamic programming,triangle best path
+OF033,PF11,Local state dynamic programming,grid path count
+OF035,PF11,Local state dynamic programming,circular independent selection
+OF031,PF12,Set and interval dynamic programming,resource count set DP
+OF034,PF12,Set and interval dynamic programming,interval min max DP
+OF023,PF13,DFS components trees and canonical shapes,tree edge cut
+OF037,PF13,DFS components trees and canonical shapes,component counting
+OF042,PF13,DFS components trees and canonical shapes,component shape canonicalization
+OF038,PF14,Unweighted shortest path BFS,grid shortest path
+OF039,PF14,Unweighted shortest path BFS,implicit string graph
+OF040,PF14,Unweighted shortest path BFS,scaled border graph
+OF045,PF14,Unweighted shortest path BFS,graph distance layers
+OF055,PF14,Unweighted shortest path BFS,multi phase mandatory waypoint
+OF056,PF14,Unweighted shortest path BFS,implicit numeric graph
+OF029,PF15,Minimum spanning tree and DSU,Kruskal cycle rejection
+OF041,PF16,Euler trail using every edge,lexical Hierholzer
+OF046,PF17,Reachability and transitive closure,rank comparability
+OF047,PF18,Planar traversal and topology,new edge room counting
+OF043,PF19,Binary search on answer,first feasible capacity
+OF044,PF19,Binary search on answer,last feasible distance
+OF049,PF20,Matrix and atomic simulation,validate then commit movement
+SR001,PF20,Matrix and atomic simulation,shape preserving traversal
+OF052,PF21,Sliding window and two pointers,fixed frequency window
+OF053,PF21,Sliding window and two pointers,positive sum window
+OF058,PF21,Sliding window and two pointers,minimum covering window
+OF059,PF22,Weighted shortest path Dijkstra,nonnegative weighted graph
+OF060,PF23,Difference arrays and prefix reconstruction,rectangle range updates
+SR006,PF24,Parent chain propagation,tree revenue propagation

@@ -1,0 +1,156 @@
+path,disposition,reason
+.DS_Store,REMOVE_CANDIDATE,"Stale, trùng hoặc metadata; không dùng để học"
+.gitignore,SUPPORT,Cấu hình repository
+BASIC copy.js,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
+BASIC.js,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
+CHATGPT_WORK_HANDOFF.md,REMOVE_CANDIDATE,"Stale, trùng hoặc metadata; không dùng để học"
+PCCP_700_MASTER_NAVIGATOR.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+PCCP_Algorithm_Code_Notebook/00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/00_Learning_System.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/00_MASTERY_STANDARD.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/01_Array_String_Loop.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/02_Matrix.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/03_Map_Set.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/04_Simulation.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/05_Sorting.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/06_Two_Pointers.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/07_Sliding_Window_Prefix_Sum.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/08_Stack_Queue.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/09_Binary_Search.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/10_BFS_DFS.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/11_Heap_Greedy.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/12_Backtracking_DP_Basic.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/90_Mixed_Pattern_Tests.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/98_Review_Schedule.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/99_Personal_Error_Log.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/CONTINUATION_CONTEXT.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/FRAMEWORK_COVERAGE_AUDIT.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/HANDOFF.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/MANIFEST.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/MASTERY_TRACKER.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/PATTERN_COVERAGE_MATRIX.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/PCCP_EXAM_PATTERN_ATLAS.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/PCCP_PUBLIC_PROBLEM_CATALOG.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/README.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/TEMPLATE_CONTRASTS.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/01_array_string_loop/01_Scan.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/01_array_string_loop/02_Sequences.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/01_array_string_loop/03_Practice_Ladder.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/01_array_string_loop/QA.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/02_matrix/01_Traversal.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/02_matrix/02_Transform_Movement.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/02_matrix/03_Practice_Ladder.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/02_matrix/QA.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/00_Beginner_Guide.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/00_Exam_Mastery_Guide.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/01_Core.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/01_Core_From_Zero.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/02_Advanced_From_Zero.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/02_Combinations.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/03_Practice_Ladder.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/04_Programmers_PCCP_Set.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/05_Programmers_Kit_Audit.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/06_Programmers_Derived_Concepts.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/QA.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/04_simulation/01_State_Time.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/04_simulation/02_Events_Integration.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/04_simulation/03_Practice_Ladder.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/04_simulation/04_PCCP_Public_Problems.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/04_simulation/QA.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/05_sorting/01_Comparators.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/05_sorting/02_Scan_Compression.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/05_sorting/03_Practice_Ladder.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/05_sorting/QA.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/06_two_pointers/01_Inward_Compact.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/06_two_pointers/02_Merge_Pair_Partition.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/06_two_pointers/03_Practice_Ladder.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/06_two_pointers/QA.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/07_prefix_window/01_Prefix_Sum_From_Zero.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/00_Beginner_Guide.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/00_Exam_Mastery_Guide.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/01_Core_From_Zero.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/01_Stack_Monotonic.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/02_Advanced_From_Zero.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/02_Queue_Circular_BFS.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/03_Practice_Ladder.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/04_Programmers_PCCP_Set.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/05_Programmers_Kit_Audit.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/06_Programmers_Derived_Concepts.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/QA.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/01_Array_String_Loop_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/02_Matrix_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/03_Map_Set_Programmers_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/03_Map_Set_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/04_Simulation_PCCP_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/04_Simulation_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/05_Sorting_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/06_Two_Pointers_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/07_Sliding_Window_Prefix_Sum_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/08_Stack_Queue_Programmers_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/08_Stack_Queue_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/09_Binary_Search_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/10_BFS_DFS_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/11_Heap_Greedy_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/12_Backtracking_DP_Basic_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/solutions/90_Mixed_Pattern_Tests_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Algorithm_Code_Notebook/summary/PCCP_TONG_HOP_TOAN_BO_KIEN_THUC_DA_HOC.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+PCCP_Level_1_Full_De_Bai_Tieng_Viet_84_Bai.docx,REFERENCE_ONLY,Snapshot/generated document; Markdown canonical mới hơn
+PCCP_Level_1_Full_De_Bai_Tieng_Viet_84_Bai.pdf,REFERENCE_ONLY,Snapshot/generated document; Markdown canonical mới hơn
+PCCP_Level_1_Luyen_Thi_Phan_Tich_Day_Du_Vol_1.docx,REFERENCE_ONLY,Snapshot/generated document; Markdown canonical mới hơn
+PCCP_Level_1_Luyen_Thi_Phan_Tich_Day_Du_Vol_1_Full_84.docx,REFERENCE_ONLY,Snapshot/generated document; Markdown canonical mới hơn
+PCCP_OFFICIAL_ONLY_CURRICULUM.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+PCCP_OFFICIAL_PRACTICE_BANK.csv,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+PCCP_OFFICIAL_SYLLABUS_RESERVE.csv,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+PLAN_PCCP_700_REBUILD_2026-09-12.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+PROBLEM_BANK.csv,REFERENCE_ONLY,Bank Pxx legacy; chỉ dùng mapping
+README.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+REPO_CONTENT_AUDIT_2026-08-12.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+REPO_FILE_INVENTORY.csv,SUPPORT,Inventory sinh tự động; không phải bài học
+TRACKER_PCCP_REBUILD_2026.csv,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+archive/PLAN_PCCP_700_2026-09-05.md,ARCHIVE,Lịch sử; không mở trong lộ trình hiện tại
+archive/README.md,ARCHIVE,Lịch sử; không mở trong lộ trình hiện tại
+archive/TRACKER_PCCP_2026.csv,ARCHIVE,Lịch sử; không mở trong lộ trình hiện tại
+archive/docs/pccp-700-roadmap/PCCP_37_Day_Daily_Plan.md,ARCHIVE,Lịch sử; không mở trong lộ trình hiện tại
+archive/docs/pccp-700-roadmap/PCCP_700_Roadmap_JavaScript_2026.md,ARCHIVE,Lịch sử; không mở trong lộ trình hiện tại
+archive/docs/pccp-700-roadmap/PCCP_Error_Log_Template.csv,ARCHIVE,Lịch sử; không mở trong lộ trình hiện tại
+archive/docs/pccp-700-roadmap/PCCP_Problem_Tracker.csv,ARCHIVE,Lịch sử; không mở trong lộ trình hiện tại
+archive/generated-documents/PCCP_Level_1_Luyen_Thi_Phan_Tich_Day_Du_Vol_1.docx,ARCHIVE,Lịch sử; không mở trong lộ trình hiện tại
+archive/generated-documents/PCCP_Level_1_Luyen_Thi_Phan_Tich_Day_Du_Vol_1_Full_84.docx,ARCHIVE,Lịch sử; không mở trong lộ trình hiện tại
+archive/generated-documents/README.md,ARCHIVE,Lịch sử; không mở trong lộ trình hiện tại
+assets/fonts/OFL-NotoSansKR.txt,SUPPORT,Asset/license cho tài liệu xuất bản
+assets/fonts/PCCP-Hangul-Subset.ttf,SUPPORT,Asset/license cho tài liệu xuất bản
+assets/fonts/README.md,SUPPORT,Asset/license cho tài liệu xuất bản
+basic-drafts/arrays-and-matrices.js,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
+basic-drafts/energy-and-health.js,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
+basic-drafts/map-set.js,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
+basic-drafts/park-walk.js,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
+basic-drafts/phone-book.js,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
+basic-drafts/robot-movement.js,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
+basic-drafts/stack-queue.js,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
+docs/.DS_Store,REMOVE_CANDIDATE,"Stale, trùng hoặc metadata; không dùng để học"
+docs/CHEATSHEET_THUAT_TOAN_JS_PCCP.md,REFERENCE_ONLY,Tra cứu rộng nhưng trùng handbook/templates
+docs/JS_TEMPLATES_PCCP.js,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+docs/pccp-700-roadmap/OFFICIAL_RESEARCH_AUDIT_2026-08-12.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+docs/pccp-700-roadmap/PCCP_700_Roadmap_JavaScript_2026.docx,REFERENCE_ONLY,Snapshot/generated document; Markdown canonical mới hơn
+docs/pccp-700-roadmap/PCCP_700_Roadmap_JavaScript_2026.pdf,REFERENCE_ONLY,Snapshot/generated document; Markdown canonical mới hơn
+docs/pccp-700-roadmap/PCCP_Error_Log.csv,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+docs/pccp-700-roadmap/PCCP_Final_Cheat_Sheet.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+docs/pccp-700-roadmap/PCCP_JavaScript_Templates.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+docs/pccp-700-roadmap/PCCP_Thinking_Curriculum.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+docs/pccp-700-roadmap/sources.md,REFERENCE_ONLY,Ledger cũ trộn nguồn official/community; audit official mới thay thế
+locked/MIXED_MOCK_D29.csv,REMOVE_CANDIDATE,"Stale, trùng hoặc metadata; không dùng để học"
+locked/OFFICIAL_MOCK_BANK.md,LOCKED,Có spoiler/mock; chỉ mở theo unlock rule
+locked/POST_MOCK_ANALYSIS.csv,LOCKED,Có spoiler/mock; chỉ mở theo unlock rule
+package-lock.json,SUPPORT,Hạ tầng build/test/audit
+package.json,SUPPORT,Hạ tầng build/test/audit
+pccp-700-curriculum.patch,REMOVE_CANDIDATE,"Stale, trùng hoặc metadata; không dùng để học"
+playground/BASIC.js,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
+playground/README.md,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
+tests/js_templates_smoke.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/notebook_chapter08.test.js,SUPPORT,Hạ tầng build/test/audit
+tools/audit_canonical.mjs,SUPPORT,Hạ tầng build/test/audit
+tools/audit_notebook_framework.mjs,SUPPORT,Hạ tầng build/test/audit
+tools/format_code_blocks.mjs,SUPPORT,Hạ tầng build/test/audit
+tools/generate_repo_inventory.mjs,SUPPORT,Hạ tầng build/test/audit
+tools/rebuild_level1_documents.py,SUPPORT,Hạ tầng build/test/audit
+tools/requirements-docs.txt,SUPPORT,Hạ tầng build/test/audit

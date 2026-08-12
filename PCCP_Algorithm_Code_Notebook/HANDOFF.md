@@ -20,7 +20,7 @@ Hoàn thiện notebook để người học tự giải được mọi đề PCC
 
 ## Điểm dừng hiện tại
 
-Đã tạo catalog 40 đề công khai và bài học/lời giải đầu tiên theo chuẩn mới: `P01 — Băng bó` tại `chapters/04_simulation/04_PCCP_Public_Problems.md` và `solutions/04_Simulation_PCCP_Solutions.md`. Chapter 07 vẫn là stub; `PRE-01..05`, `SW-01..06` còn `PLANNED`.
+Đã tạo catalog legacy 40 bài non-mock (8 bài PCCP public + 32 bài luyện) và bài học/lời giải đầu tiên theo chuẩn mới: `P01 — Băng bó` tại `chapters/04_simulation/04_PCCP_Public_Problems.md` và `solutions/04_Simulation_PCCP_Solutions.md`. Chapter 07 vẫn là stub; `PRE-01..05`, `SW-01..06` còn `PLANNED`.
 
 ## Scope vừa hoàn tất — Chapter 08
 
@@ -46,4 +46,4 @@ Chapter 08 đã được nâng từ v1 lên concept-first và khóa lại tại 
 
 - Lấp từng đề `Cần viết` trong public catalog, bắt đầu từ P05/P17/P18/P19 và đồng thời viết các chapter nền còn thiếu theo chuẩn learner-first.
 - Hoàn thiện PRE/SW, BS, BFS, Heap/Greedy, Backtracking/DP để các đề P02–P48 có nền giải thích từ gốc.
-- Completion audit phải có 40/40 đề công khai `Đã hoàn tất`, không chỉ đủ 83 IDs.
+- Completion audit legacy phải có 40/40 bài non-mock `Đã hoàn tất`, không chỉ đủ 83 IDs; curriculum học hiện hành dùng bank source-first ở root repo.

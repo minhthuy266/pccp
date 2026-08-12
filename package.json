@@ -3,8 +3,12 @@
   "private": true,
   "scripts": {
     "build:level1-docs": "python3 tools/rebuild_level1_documents.py",
+    "check:canonical": "node tools/audit_canonical.mjs",
+    "check:lessons": "node tools/audit_official_lessons.mjs",
+    "check:patterns": "node tools/audit_pattern_families.mjs",
     "check:notebook-framework": "node tools/audit_notebook_framework.mjs",
     "check:templates": "node --check docs/JS_TEMPLATES_PCCP.js",
+    "inventory": "node tools/generate_repo_inventory.mjs",
     "test": "node --test tests/*.test.js"
   },
   "devDependencies": {

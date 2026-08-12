@@ -4,14 +4,14 @@
 
 ## Cam kết phạm vi
 
-Notebook này không được gọi là tài liệu PCCP hoàn chỉnh chỉ vì đã có các tên pattern. Mỗi đề PCCP công khai được theo dõi trong [PROBLEM_BANK.csv](../PROBLEM_BANK.csv) phải có đủ bốn lớp trước khi mang trạng thái **Đã hoàn tất**:
+Notebook này không được gọi là tài liệu PCCP hoàn chỉnh chỉ vì đã có các tên pattern. Mỗi bài được theo dõi trong [PROBLEM_BANK.csv](../PROBLEM_BANK.csv) phải có đủ bốn lớp trước khi mang trạng thái **Đã hoàn tất**:
 
 1. Link chính thức và bản diễn giải tiếng Việt tự chứa.
 2. Bài học từ gốc: điều đề đang mô phỏng/tối ưu, ví dụ nhỏ, state, rule order, dry run, bẫy.
 3. Lời giải JavaScript độc lập, có comment ở transition quan trọng, test biên và complexity.
 4. Bài recall/biến thể, cùng bằng chứng người học đã tự làm sau ít nhất một lần ôn lại.
 
-Không sao chép nội dung mock chưa công khai. Hiện danh mục có **40 bài công khai** và **8 bài mock bị khóa**; mock chỉ được ghi metadata, không ghi hay suy đoán nội dung.
+Không sao chép nội dung mock chưa công khai. Danh mục legacy này có **40 bài non-mock**, gồm **8 bài PCCP public** và **32 bài Programmers luyện pattern**, cùng **8 placeholder mock bị khóa**. Bank source-first hiện hành nằm tại [`PCCP_OFFICIAL_PRACTICE_BANK.csv`](../PCCP_OFFICIAL_PRACTICE_BANK.csv).
 
 ## Cách đọc trạng thái
 
@@ -24,7 +24,7 @@ Không sao chép nội dung mock chưa công khai. Hiện danh mục có **40 b�
 
 Không được đổi sang `Đã hoàn tất` chỉ vì pattern liên quan đã `FULL`.
 
-## Toàn bộ đề công khai đang theo dõi
+## Toàn bộ bài non-mock legacy đang theo dõi
 
 | ID | Đề | Trọng tâm chính | Nơi phải học | Trạng thái hiện tại |
 | --- | --- | --- | --- | --- |
