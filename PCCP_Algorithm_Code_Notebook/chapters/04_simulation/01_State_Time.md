@@ -4,6 +4,8 @@
 
 ## Dạng 1 `[SIM-01]` — Simulation tuần tự / state machine
 
+**Dấu hiệu nhận dạng:** output phụ thuộc đúng thứ tự command và mỗi event đọc state cũ rồi commit state mới theo luật đề.
+
 ### A. Bản chất
 
 Đề cho một state ban đầu và chuỗi event có thứ tự. Mỗi event đọc state cũ, tạo candidate, áp dụng rule theo đúng thứ tự rồi commit. Không dùng brute-force theo từng giây nếu state chỉ đổi ở event.
@@ -76,6 +78,8 @@ function completionTimes(requests) {
 **Recall Card `[SIM-01]`:** state/event/candidate/check/commit/stop; nhảy idle. **Blank Page:** account transactions. **Mutation:** invalid ignored; rollback; output state before event. **Explain Back:** state tối thiểu vì sao chỉ finishTime? Rule order? Event loop khác time loop?
 
 ## Dạng 2 `[SIM-02]` — Vị trí và hướng
+
+**Dấu hiệu nhận dạng:** state tối thiểu chứa coordinate/direction; command tạo candidate position trước khi bounds/obstacle validation.
 
 ### A. Bản chất
 
@@ -167,6 +171,8 @@ function navigateRobot(grid, start, commands) {
 
 ## Dạng 3 `[SIM-03]` — Chuẩn hóa thời gian
 
+**Dấu hiệu nhận dạng:** input/output dùng `mm:ss`, timestamp hoặc wrap/clamp nhưng transition dễ hơn khi đổi toàn bộ về một scalar unit.
+
 ### A. Bản chất
 
 Chuỗi thời gian là representation hiển thị; phép toán nên dùng một scalar (thường total seconds). Parse một lần, simulate bằng number, clamp theo bounds, format cuối. Phải chốt interval inclusive/exclusive.
@@ -250,4 +256,3 @@ function movePlayback(durationText, startText, commands) {
 ## Transfer Test A
 
 Làm [S04-T01](03_Practice_Ladder.md#s04-t01--thang-máy).
-

@@ -44,7 +44,7 @@ Kết quả: **16/16 behavioral assertions pass**, **0 syntax error**.
 - [x] 0 broken local links; root → theory → practice → solution → QA tồn tại.
 - [x] `BASIC.js` ngoài notebook được khôi phục nguyên byte, không còn deletion.
 
-`SQ-01..05` đủ điều kiện `FULL`. Chapter 07 vẫn `PLANNED` và sẽ được làm sau theo thứ tự ưu tiên mới.
+`SQ-01..05` đủ điều kiện `FRAMEWORK-FULL`; toàn bộ 89 Coverage ID hiện đã qua framework audit.
 
 ## Concept-first extension — 09/08/2026
 

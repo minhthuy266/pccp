@@ -1,6 +1,6 @@
 # 03 — Map và Set: nhớ đúng thông tin của quá khứ
 
-> Trạng thái: `MAP-01..14` hoàn thiện v1. Học theo thứ tự; không mở thư mục `solutions/` trước khi đã tự làm.
+> Trạng thái: `MAP-01..14` đạt `FRAMEWORK-FULL`. Học theo thứ tự; không mở thư mục `solutions/` trước khi đã tự làm.
 
 ## Điều hướng
 

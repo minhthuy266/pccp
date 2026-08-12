@@ -4,6 +4,8 @@
 
 ## Dạng 4 `[SORT-04]` — Sort rồi quét hàng xóm/đoạn
 
+**Dấu hiệu nhận dạng:** sau khi sort, candidate liên quan trở thành adjacent hoặc interval có một chiều monotonic. **Brute force bottleneck:** so mọi pair/interval là quadratic; transition scan neighbor hoặc cập nhật boundary sau sort.
+
 ### A. Bản chất
 
 Sort không phải đích cuối mà là phép biến đổi làm quan hệ cần xét trở thành cục bộ. Sau khi sort điểm, cặp gần nhất nằm cạnh nhau; sau khi sort interval theo đầu trái, ta chỉ cần so interval mới với đoạn đã gộp cuối cùng. Chi phí thường là `O(n log n)` cho sort và `O(n)` cho scan.
@@ -57,6 +59,8 @@ function mergeClosedIntervals(intervals) {
 **Recall Card `[SORT-04]`:** sort key → prefix summary → local check. **Blank Page:** merge `[[1,4],[4,5],[-2,0]]`. **Mutation:** half-open; count groups; nearest adjacent. **Explain Back:** vì sao chỉ so `last`? Vì sao cần `Math.max`? Khi sort không đáng giá?
 
 ## Dạng 5 `[SORT-05]` — Coordinate compression
+
+**Dấu hiệu nhận dạng:** chỉ relative order của giá trị lớn/thưa quan trọng. **Brute force bottleneck:** map mỗi value bằng linear search trên unique list là `O(n²)`; transition sort unique rồi tạo `value→rank` Map một lần.
 
 ### A. Bản chất
 

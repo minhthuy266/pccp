@@ -4,6 +4,8 @@
 
 ## Dạng 7 `[MAP-07]` — Phần bù / Two Sum
 
+**Dấu hiệu nhận dạng:** cần pair với `other = target-current`; Map/Set prefix trả lời complement tồn tại mà không thử mọi cặp.
+
 ### A. Bản chất
 
 Brute force thử mọi cặp. Khi đang ở `current`, ta không cần hỏi mọi phần tử cũ; chỉ hỏi đúng `target-current` đã xuất hiện chưa. Dấu hiệu: cặp có quan hệ xác định được đối tác. Không dùng khi đối tác không tính trực tiếp được hoặc cần liệt kê số cặp rất lớn mà output tự nó đã lớn.
@@ -64,6 +66,8 @@ function twoSum(values, target) {
 **Recall Card `[MAP-07]`:** tính needed; check old; update current. **Blank Page:** test `[3,3]`. **Mutation:** difference target; count pairs; earliest pair. **Explain Back:** vì sao không dùng cùng phần tử? Map cần index hay count? Duplicate xử lý ra sao?
 
 ## Dạng 8 `[MAP-08]` — So sánh tần suất
+
+**Dấu hiệu nhận dạng:** hai collection tương đương theo multiplicity. **Brute force bottleneck:** xóa/tìm matching item lặp lại là `O(n²)`; transition tăng count phía A, giảm theo B và xóa key khi về zero.
 
 ### A. Bản chất
 
@@ -127,6 +131,8 @@ function sameFrequencies(leftValues, rightValues) {
 
 ## Dạng 9 `[MAP-09]` — Gom nhóm `key → array`
 
+**Dấu hiệu nhận dạng:** nhiều record chung group key và mỗi group còn cần danh sách/order. **Brute force bottleneck:** filter toàn input cho từng key lặp công việc; transition khởi tạo bucket đúng một lần rồi push record.
+
 ### A. Bản chất
 
 Một key có nhiều record và ta cần giữ record, không chỉ count. Nếu không group, mỗi key lại filter toàn input.
@@ -182,6 +188,8 @@ function groupByFirstCharacter(words) {
 **Recall Card `[MAP-09]`:** group giữ items; count chỉ giữ số. **Blank Page:** implement generic groupBy. **Mutation:** sort trong group; unique group; group hai tầng. **Explain Back:** Vì sao count không đủ? Array nào được mutate? Output order đến từ đâu?
 
 ## Dạng 10 `[MAP-10]` — Quan hệ `key → Set`
+
+**Dấu hiệu nhận dạng:** mỗi key liên hệ nhiều value nhưng duplicate relation không có ý nghĩa. **Brute force bottleneck:** array bucket làm membership lặp tuyến tính; nested Set cho expected `O(1)` add/has.
 
 ### A. Bản chất
 
@@ -250,6 +258,8 @@ Làm [M03-T02](03_Practice_Ladder.md#m03-t02--cảm-biến-kho) trước khi h�
 
 ## Dạng 11 `[MAP-11]` — Key có value lớn/nhỏ nhất
 
+**Dấu hiệu nhận dạng:** aggregate theo key xong phải chọn winner theo value/tie. **Brute force bottleneck:** sort mọi entry làm thừa full order; transition scan entries và replace best theo comparator đầy đủ.
+
 ### A. Bản chất
 
 Map xây dữ liệu; biến `best` chọn đáp án. Không nên sort toàn bộ chỉ để lấy một cực trị.
@@ -314,6 +324,8 @@ function mostFrequentFirstTie(values) {
 
 ## Dạng 12 `[MAP-12]` — Map kết hợp Simulation
 
+**Dấu hiệu nhận dạng:** event nhắc tới entity bằng id và state phải sống qua nhiều event. **Brute force bottleneck:** tìm entity trong array mỗi command là `O(events·entities)`; transition lookup, validate candidate rồi commit đúng record.
+
 ### A. Bản chất
 
 Event gọi đúng thực thể bằng id; Map lưu state hiện tại của từng id. Khó nhất là thứ tự validate và commit.
@@ -372,6 +384,8 @@ function firstInvalidInventoryEvent(initialInventory, events) {
 **Recall Card `[MAP-12]`:** Map định vị entity; event tạo transition; validate rồi commit. **Blank Page:** trace một event invalid. **Mutation:** delete khi zero; cùng timestamp; state object nhiều field. **Explain Back:** old/next khác gì? Khi nào delete key? Event order ảnh hưởng invariant ra sao?
 
 ## Dạng 13 `[MAP-13]` — Frequency Map trong cửa sổ
+
+**Dấu hiệu nhận dạng:** multiplicity chỉ tính trong interval động; pointer điều khiển biên còn Map giữ count và zero↔positive transitions.
 
 ### A. Bản chất
 
@@ -469,6 +483,8 @@ function distinctCountsInFixedWindows(values, k) {
 | `MAP-13` | frequency `[left..right]` | window length/validity | increment khi vào, decrement/delete khi ra | thống kê đoạn liên tiếp động |
 
 ## Dạng 14 `[MAP-14]` — Nhiều Map biểu diễn nhiều loại state
+
+**Dấu hiệu nhận dạng:** một key cần nhiều quan hệ có nghĩa khác nhau; tách Map theo invariant thay vì nhét dữ liệu mơ hồ vào một value.
 
 ### A. Bản chất
 

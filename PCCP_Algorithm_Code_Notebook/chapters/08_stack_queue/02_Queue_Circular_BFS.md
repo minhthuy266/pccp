@@ -4,6 +4,8 @@
 
 ## Dạng 3 `[SQ-03]` — Queue bằng head index
 
+**Dấu hiệu nhận dạng:** item đến trước phải xử lý trước và item mới có thể nối vào tail trong lúc chạy. **Brute force bottleneck:** JavaScript `shift()` reindex phần còn lại nên lặp có thể `O(n²)`; transition dequeue bằng `current=queue[head++]`, enqueue bằng `push`, pending interval luôn là `[head,queue.length)`.
+
 ### A. Bản chất
 
 Queue xử lý FIFO. JavaScript enqueue bằng `push`, dequeue logic bằng `queue[head++]`; `shift()` O(length) do reindex. Với batch/layer, chụp pending count trước vòng con.
@@ -63,6 +65,8 @@ function completionTimes(durations) {
 
 ## Dạng 4 `[SQ-04]` — Circular queue
 
+**Dấu hiệu nhận dạng:** capacity cố định, cần enqueue/dequeue `O(1)` và tái sử dụng slot sau khi head đi qua. **Brute force bottleneck:** dồn/copy buffer sau mỗi dequeue là tuyến tính; transition guard full/empty trước, read/write tại pointer hiện tại rồi modulo pointer và update `size`.
+
 ### A. Bản chất
 
 Buffer capacity cố định tái sử dụng ô bằng modulo. `head` là front, `tail` là ô enqueue kế, `size` phân biệt empty/full khi hai index bằng nhau.
@@ -120,6 +124,8 @@ class CircularQueue {
 **Recall Card `[SQ-04]`:** head read, tail write, size phân biệt. **Blank Page:** capacity1. **Mutation:** overwrite oldest. **Explain Back:** vì sao head=tail mơ hồ?
 
 ## Dạng 5 `[SQ-05]` — BFS queue
+
+**Dấu hiệu nhận dạng:** shortest theo số bước/cạnh trên graph không trọng số hoặc cần lan từng layer. **Brute force bottleneck:** enumerate mọi walk lặp cycle/exponential; transition mark visited **khi enqueue**, gán `distance[next]=distance[current]+1`, rồi push để mỗi state vào queue tối đa một lần.
 
 ### A. Bản chất
 

@@ -4,6 +4,8 @@
 
 ## Dạng 4 `[TP-04]` — Merge hoặc giao hai dãy sort
 
+**Dấu hiệu nhận dạng:** hai input đã sorted và cần merge/intersection. **Brute force bottleneck:** concat+sort làm `O((n+m)log(n+m))`; transition advance pointer có value nhỏ hơn, equality xử lý cả hai theo multiplicity contract.
+
 ### A. Bản chất
 
 Mỗi pointer là phần tử nhỏ nhất chưa xử lý của một dãy. Với merge, lấy phần tử nhỏ hơn; với intersection, nhỏ hơn không thể match về sau nên bỏ nó, bằng nhau thì lấy và dịch cả hai.
@@ -75,6 +77,8 @@ function intersectSorted(first, second) {
 
 ## Dạng 5 `[TP-05]` — Pair sum và Three Sum
 
+**Dấu hiệu nhận dạng:** sorted values, sum so với target cho biết phải tăng left hay giảm right. **Brute force bottleneck:** thử mọi pair là `O(n²)`; transition loại cả một dải candidate nhờ monotonic sum.
+
 ### A. Bản chất
 
 Pair sum là TP-01. Three Sum cố định một phần tử rồi giải pair sum trên suffix; sort tạo tính đơn điệu và cho phép skip duplicate. Việc skip phải ở đúng tầng: outer duplicate sau lần đầu; inner duplicate sau khi đã ghi một nghiệm.
@@ -136,6 +140,8 @@ function threeSumZero(values) {
 **Recall Card `[TP-05]`:** fix one → pair sum suffix → duplicate discipline. **Blank Page:** three sum zero. **Mutation:** target bất kỳ. **Explain Back:** vì sao O(n²), và skip ở đâu?
 
 ## Dạng 6 `[TP-06]` — Partition cơ bản
+
+**Dấu hiệu nhận dạng:** cần chia array quanh predicate/pivot, thường cho phép mutation. **Brute force bottleneck:** build/copy nhiều subarray làm thừa memory; transition advance hai phía, swap khi cả hai đứng sai vùng rồi tiếp tục.
 
 ### A. Bản chất
 

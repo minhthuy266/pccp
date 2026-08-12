@@ -1,6 +1,6 @@
 # Context tiếp tục xây PCCP Algorithm Code Notebook
 
-> Cập nhật: 09/08/2026 — Asia/Ho_Chi_Minh  
+> Cập nhật: 12/08/2026 — Asia/Ho_Chi_Minh
 > Đây là file handoff có tính chỉ dẫn. Phiên sau phải đọc **toàn bộ file này** trước khi lập kế hoạch hoặc sửa notebook.
 
 > Standard canonical khóa ngày 11/08/2026: đọc [00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md) và [FRAMEWORK_COVERAGE_AUDIT.md](FRAMEWORK_COVERAGE_AUDIT.md). Framework 11 phần áp dụng ở cấp pattern; không copy vào mọi lời giải. `SQ-02` là golden example và phải qua QA Chapter 08 trước khi batch-refactor chapter khác.
@@ -114,8 +114,8 @@ Theo handoff trước:
 
 - Chương 01–06 đã hoàn thiện v1.
 - Chương 08 Stack/Queue đã hoàn tất concept-first: beginner guide, 22 bài thật, 22 solutions, audit 47 bài Kit, 10 derived concepts và QA mở rộng.
-- Chương 07 Prefix Sum/Sliding Window còn cần hoàn thiện theo workflow mới.
-- Các chương Binary Search, BFS/DFS, Heap/Greedy, Backtracking/DP và Mixed Tests cần được audit lại mức concept-first, kể cả khi đã có file khung hoặc nội dung cũ.
+- Audit đã đạt 89/89 `FRAMEWORK-FULL`; toàn bộ Coverage ID đã hoàn thiện theo canonical framework.
+- Mixed Pattern Tests và hardening đã hoàn thiện: 8 đề synthetic, 4 gate official public, solution/tracker/test tách riêng; `npm run check:all` khóa release. Không còn batch authoring bắt buộc.
 
 Không mặc định “có file” đồng nghĩa “đã hoàn thiện”. Một chương chỉ hoàn thiện khi đủ:
 

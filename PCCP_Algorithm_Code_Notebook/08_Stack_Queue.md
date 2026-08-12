@@ -1,6 +1,6 @@
 # 08 — Stack và Queue
 
-> Trạng thái: **Hoàn thiện concept-first**; theory nền, 22 bài thật, audit 47 bài Kit, derived concepts và bằng chứng tại [QA.md](chapters/08_stack_queue/QA.md).
+> Trạng thái: **5/5 FRAMEWORK-FULL**; theory nền, 22 bài thật, audit 47 bài Kit, derived concepts và bằng chứng tại [QA.md](chapters/08_stack_queue/QA.md).
 
 ## Mục tiêu
 

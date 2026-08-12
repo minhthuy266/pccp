@@ -20,6 +20,8 @@ Ngày kiểm gần nhất: 10/08/2026.
 
 ## Kiểm tra kỹ thuật
 
+[Executable module](../../../solutions/notebook/ch01_array_loop.js) · chạy `node --test tests/notebook_ch01.test.js`.
+
 - [x] 16/16 behavioral assertions cho code theory viết lại đều qua.
 - [x] 42 JavaScript fence trong theory, practice và solution của chương parse hợp lệ.
 - [x] 12 local links trong index, theory và practice không gãy.

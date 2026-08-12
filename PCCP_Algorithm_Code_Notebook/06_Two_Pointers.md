@@ -1,6 +1,6 @@
 # 06 — Two Pointers
 
-> Trạng thái: **Hoàn thiện v1**; bằng chứng kiểm tra tại [QA.md](chapters/06_two_pointers/QA.md).
+> Trạng thái: **6/6 FRAMEWORK-FULL**; bằng chứng kiểm tra tại [QA.md](chapters/06_two_pointers/QA.md).
 
 ## Mục tiêu
 

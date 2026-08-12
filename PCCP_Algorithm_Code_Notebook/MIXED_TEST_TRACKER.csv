@@ -1,0 +1,13 @@
+attempt_id,type,item,date,start_time,minutes,submitted_pass,recognition,state,transition,proof,test,complexity,predicted_ids,actual_ids,main_error,next_review
+MX01-1,MIXED,MX01,,,,,0,0,0,0,0,0,,,NOT_ATTEMPTED,
+MX02-1,MIXED,MX02,,,,,0,0,0,0,0,0,,,NOT_ATTEMPTED,
+MX03-1,MIXED,MX03,,,,,0,0,0,0,0,0,,,NOT_ATTEMPTED,
+MX04-1,MIXED,MX04,,,,,0,0,0,0,0,0,,,NOT_ATTEMPTED,
+MX05-1,MIXED,MX05,,,,,0,0,0,0,0,0,,,NOT_ATTEMPTED,
+MX06-1,MIXED,MX06,,,,,0,0,0,0,0,0,,,NOT_ATTEMPTED,
+MX07-1,MIXED,MX07,,,,,0,0,0,0,0,0,,,NOT_ATTEMPTED,
+MX08-1,MIXED,MX08,,,,,0,0,0,0,0,0,,,NOT_ATTEMPTED,
+GATE-01-1,GATE,GATE-01,,,,,0,0,0,0,0,0,,,NOT_ATTEMPTED,
+GATE-02-1,GATE,GATE-02,,,,,0,0,0,0,0,0,,,NOT_ATTEMPTED,
+GATE-03-1,GATE,GATE-03,,,,,0,0,0,0,0,0,,,NOT_ATTEMPTED,
+GATE-04-1,GATE,GATE-04,,,,,0,0,0,0,0,0,,,NOT_ATTEMPTED,

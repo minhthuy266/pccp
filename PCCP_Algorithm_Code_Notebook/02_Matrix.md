@@ -1,6 +1,6 @@
 # 02 — Matrix: tọa độ, biên và phép biến đổi
 
-> Trạng thái: `MAT-01..05` hoàn thiện v1 và đã qua QA.
+> Trạng thái: `MAT-01..05` đạt `FRAMEWORK-FULL` và đã qua QA.
 
 ## Điều hướng
 

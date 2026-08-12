@@ -1,6 +1,6 @@
 # 05 — Sorting: tạo trật tự để lộ cấu trúc
 
-> Trạng thái: **Hoàn thiện v1** — `SORT-01..05` đã qua [QA](chapters/05_sorting/QA.md).
+> Trạng thái: **5/5 FRAMEWORK-FULL** — `SORT-01..05` đã qua [QA](chapters/05_sorting/QA.md).
 
 ## Điều hướng
 

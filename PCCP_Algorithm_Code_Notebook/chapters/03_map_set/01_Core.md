@@ -6,6 +6,8 @@ Mỗi bài mẫu đi theo 16 mục. Code “khung” mô tả họ bài; “full
 
 ## Dạng 1 `[MAP-01]` — Kiểm tra đã xuất hiện (`Set` membership)
 
+**Dấu hiệu nhận dạng:** mỗi query chỉ hỏi key đã xuất hiện/chấp nhận chưa; `Set.has` thay cho scan lại prefix và giữ membership invariant.
+
 ### A. Bản chất
 
 Ta cần trả lời lặp lại câu “giá trị này đã nằm trong phần bên trái chưa?”. Không có Set, mỗi phần tử phải quét lại prefix, thành `O(n²)`. Dấu hiệu: duplicate, visited, đã dùng, tồn tại. Không nên dùng khi cần count/index hoặc miền số nhỏ dùng boolean array rõ hơn.
@@ -83,6 +85,8 @@ function hasDuplicate(values) {
 
 ## Dạng 2 `[MAP-02]` — Loại trùng, giữ thứ tự
 
+**Dấu hiệu nhận dạng:** output giữ lần xuất hiện đầu theo input order; scan trái→phải, chỉ push khi `seen.has(value)` còn false.
+
 ### A. Bản chất
 
 Ta vừa cần biết đã thấy chưa, vừa cần xây output. Không dùng `new Set(values)` khi còn rule chuẩn hóa/filter hoặc cần giữ representation gốc.
@@ -143,6 +147,8 @@ function uniqueInOrder(emails) {
 **Recall Card `[MAP-02]`:** membership + output; add và push cùng nhánh. **Blank Page:** viết bản normalize. **Mutation:** giữ lần cuối; đếm số bị loại; chỉ unique sau filter. **Explain Back:** Set và output khác vai trò gì? Normalize lúc nào? Vì sao Map không bắt buộc?
 
 ## Dạng 3 `[MAP-03]` — Đếm tần suất (`Map<key,count>`)
+
+**Dấu hiệu nhận dạng:** multiplicity quan trọng, không chỉ distinct. **Brute force bottleneck:** đếm lại toàn mảng cho mỗi key là `O(n²)`; transition `count.set(key,(count.get(key) ?? 0)+1)` xử lý mỗi occurrence một lần.
 
 ### A. Bản chất
 
@@ -209,6 +215,8 @@ function valuesAppearingOnce(values) {
 
 ## Dạng 4 `[MAP-04]` — Lưu index đầu tiên
 
+**Dấu hiệu nhận dạng:** future query cần vị trí xuất hiện đầu. **Brute force bottleneck:** tìm ngược prefix mỗi lần là `O(n²)`; chỉ set khi `!firstIndex.has(key)` để không overwrite witness đầu.
+
 ### A. Bản chất
 
 Mục tiêu là lịch sử sớm nhất; ghi đè sẽ phá dữ liệu cần giữ. Không dùng dạng này khi tương lai cần lần gần nhất.
@@ -262,6 +270,8 @@ function firstPositions(words) {
 **Recall Card `[MAP-04]`:** first = conditional write. **Blank Page:** test key ở index 0. **Mutation:** latest index; first positive index; first pair. **Explain Back:** Tại sao `has` bắt buộc? Invariant chứng minh min thế nào? Khi không cần index?
 
 ## Dạng 5 `[MAP-05]` — Lưu index gần nhất
+
+**Dấu hiệu nhận dạng:** query tại current cần occurrence gần nhất bên trái. **Brute force bottleneck:** scan lùi mỗi index là `O(n²)`; đọc `lastIndex` trước rồi transition overwrite bằng current index.
 
 ### A. Bản chất
 
@@ -335,6 +345,8 @@ function distanceToPrevious(values) {
 Làm [M03-T01](03_Practice_Ladder.md#m03-t01--thẻ-ra-vào) trước khi học tiếp. Không dùng khung `state/check/update` cho sẵn.
 
 ## Dạng 6 `[MAP-06]` — Khoảng cách giữa các lần xuất hiện
+
+**Dấu hiệu nhận dạng:** đáp án tại index phụ thuộc khoảng cách tới same-key trước đó. **Brute force bottleneck:** tìm ngược từng prefix là quadratic; check last index, tính `i-last`, rồi update last—không đảo thứ tự.
 
 ### A. Bản chất
 

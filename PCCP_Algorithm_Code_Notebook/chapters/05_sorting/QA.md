@@ -2,6 +2,8 @@
 
 [← Index](../../05_Sorting.md)
 
+[Executable module](../../../solutions/notebook/ch05_sorting.js) · chạy `node --test tests/notebook_ch05.test.js`.
+
 ## Coverage lock
 
 - [x] `SORT-01..05` đều có bản chất, mental model, template tư duy, JavaScript template và bài mẫu 16 bước.

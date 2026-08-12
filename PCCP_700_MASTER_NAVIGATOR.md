@@ -8,6 +8,10 @@
 
 **Tầng transfer/biến thể:** [Pattern Families — navigator 67 bài → 24 pattern](docs/pccp-700-roadmap/pattern-families/README.md). Hoàn tất 67/67 bài được map và 24/24 family đã viết chi tiết. Chạy `npm run check:patterns` để audit coverage.
 
+**Tầng lý thuyết canonical:** [PCCP Algorithm Code Notebook](PCCP_Algorithm_Code_Notebook/README.md) đã đạt **89/89 `FRAMEWORK-FULL`**. [Crosswalk](PCCP_Algorithm_Code_Notebook/NOTEBOOK_PATTERN_OFFICIAL_CROSSWALK.csv) khóa đủ 89/89 ID ↔ 24/24 family ↔ 67/67 bài official; chạy `npm run check:notebook-integration` để audit.
+
+**Tầng kiểm tra trộn:** [8 Mixed Tests và 4 gate 120 phút](PCCP_Algorithm_Code_Notebook/90_Mixed_Pattern_Tests.md) đã có đề, solution tách riêng, tracker, rubric và executable revealing tests. Các gate chỉ dùng official public, không dùng 8 bài mock khóa.
+
 Tìm nhanh:
 
 - [Bắt đầu ngay](#0-bắt-đầu-ngay)

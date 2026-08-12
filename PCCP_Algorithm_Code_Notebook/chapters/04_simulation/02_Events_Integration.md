@@ -4,6 +4,8 @@
 
 ## Dạng 4 `[SIM-04]` — Event đồng thời và collision
 
+**Dấu hiệu nhận dạng:** nhiều event có cùng timestamp hoặc cùng target nên xử lý tuần tự sẽ làm kết quả phụ thuộc input order; cần collect → resolve → commit.
+
 ### A. Bản chất
 
 Event cùng timestamp phải được xét trên cùng snapshot nếu contract nói xảy ra đồng thời. Mutate state sau từng event có thể làm event sau nhìn thấy “tương lai” trong cùng batch. Quy trình: collect batch → tính intents/result từ old state → resolve collision/tie → commit.
@@ -91,6 +93,8 @@ function resolveRobotMoves(initialPositions, events) {
 **Recall Card `[SIM-04]`:** collect snapshot intents→resolve→commit; same time not sequential unless contract says. **Blank Page:** swap positions simultaneous. **Mutation:** exit/enter tie; collision count; same position after paths. **Explain Back:** why two passes? What rule uses target counts? When snapshot copy needed?
 
 ## Dạng 5 `[SIM-05]` — Simulation kết hợp resource/Map/Queue/Matrix
+
+**Dấu hiệu nhận dạng:** event loop điều phối nhiều subsystem; mỗi cấu trúc giữ một phần state và phải duy trì invariant liên cấu trúc sau mỗi commit.
 
 ### A. Bản chất
 
@@ -181,4 +185,3 @@ function scheduleRooms(roomCount, bookings) {
 ## Transfer Test B
 
 Làm [S04-T02](03_Practice_Ladder.md#s04-t02--cổng-sạc).
-

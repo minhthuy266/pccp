@@ -134,6 +134,7 @@ function filesContaining(id, predicate) {
 const chapterNumberByPrefix = {
   ARR: "01", MAT: "02", MAP: "03", SIM: "04", SORT: "05", TP: "06",
   PRE: "07", SW: "07", SQ: "08", BS: "09", BFS: "10", HG: "11", BTD: "12",
+  TREE: "10", GR: "13",
 };
 
 function belongsToIdChapter(file, id) {

@@ -12,6 +12,8 @@ Ngày kiểm: 04/08/2026.
 
 ## Kiểm tra kỹ thuật
 
+[Executable module](../../../solutions/notebook/ch04_simulation.js) · chạy `node --test tests/notebook_ch04.test.js`.
+
 - [x] 8 behavioral tests trên các full-code fence trọng yếu đã qua.
 - [x] JavaScript fences toàn notebook parse hợp lệ.
 - [x] Đã test idle jump, wall rejection, negative time wrap, same-time collision, batch tie và car overlap.
@@ -21,4 +23,3 @@ Ngày kiểm: 04/08/2026.
 ## Điểm dừng
 
 Heap resource selection thuộc `HG-01/HG-03`; queue chi tiết thuộc `SQ-03`; chapter này chỉ giữ vai trò orchestration. File tiếp theo là Sorting theo dependency manifest.
-

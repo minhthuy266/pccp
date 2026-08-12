@@ -1,14 +1,16 @@
-# 10 — BFS và DFS
+# 10 — Graph Traversal và Tree
 
-> Trạng thái: khung theo [MANIFEST.md](MANIFEST.md); chưa dùng làm chương học hoàn chỉnh.
+> Chương dạy modeling trước traversal; BFS/DFS là engine sau khi node, edge và state đã đúng.
 
-## Phạm vi đã chốt
+## Bắt đầu ở đâu
 
-Graph modeling; grid; shortest path; components; adjacency list; DFS lặp; multi-source/state; tree.
+1. [Canonical `BFS-01..07`, `TREE-01`](chapters/10_graph_tree/01_Graph_Tree_Canonical.md).
+2. [Practice Ladder](chapters/10_graph_tree/02_Practice_Ladder.md).
+3. Sau nỗ lực mới mở [Solutions](solutions/10_BFS_DFS_Solutions.md).
 
-## Hợp đồng khi hoàn thiện
+## Decision contrast
 
-Mỗi dạng sẽ có Bản chất, Mental model, Template tư duy, Template code, bài mẫu 16 bước, dry run, Recall Card, Blank Page Test, Mutation Drill và Explain Back; sau đó là Practice Ladder đủ sáu tầng. Đáp án sẽ nằm trong thư mục solutions, không đặt tại đây.
+Component/reachability dùng DFS hoặc BFS; shortest unweighted bắt buộc layer BFS; weighted shortest chuyển Dijkstra; event node→root dùng parent chain.
 
 ## Checklist tạm thành thạo
 
@@ -19,4 +21,3 @@ Mỗi dạng sẽ có Bản chất, Mental model, Template tư duy, Template cod
 - [ ] Làm được ít nhất 2 bài biến thể.
 - [ ] Sau 3 ngày vẫn tự viết lại được.
 - [ ] Giải thích được vì sao thuật toán không bỏ sót đáp án.
-

@@ -4,6 +4,8 @@
 
 ## Dạng 1 `[SORT-01]` — Numeric sort tăng/giảm và mutation
 
+**Dấu hiệu nhận dạng:** cần global numeric order/rank. **Brute force bottleneck:** repeatedly chọn min là `O(n²)`; transition của comparator phải trả số âm/0/dương, và copy trước sort nếu input không được mutate.
+
 ### A. Bản chất
 
 Sort thay thứ tự để các value có quan hệ toàn cục. JavaScript mặc định chuyển value thành string, nên `[2,10]` thành `[10,2]`. Clone nếu input order còn cần hoặc đề không cho mutate. Không sort nếu chỉ cần min/max một phần tử: scan O(n) tốt hơn O(n log n).
@@ -61,6 +63,8 @@ function minimumDifference(values) {
 
 ## Dạng 2 `[SORT-02]` — Comparator nhiều tiêu chí và tie
 
+**Dấu hiệu nhận dạng:** contract ghi “nếu bằng nhau thì…”. **Brute force bottleneck:** nhiều pass sort làm rule khó kiểm soát; transition comparator xét key chính trước, chỉ khi bằng mới xét key phụ và cuối cùng trả 0.
+
 ### A. Bản chất
 
 So tiêu chí theo thứ tự ưu tiên; chỉ khi tiêu chí trước hòa mới xét tiêu chí sau. Comparator cần nhất quán: cùng cặp không được lúc trước/lúc sau tùy trạng thái ngoài.
@@ -116,6 +120,8 @@ function rankNames(records) {
 **Recall Card `[SORT-02]`:** criteria order → first difference → sign. **Blank Page:** three-key tuple. **Mutation:** null last; case-insensitive; custom category rank. **Explain Back:** why no boolean? Why not add differences? When return0 safe?
 
 ## Dạng 3 `[SORT-03]` — Giữ index gốc bằng decoration
+
+**Dấu hiệu nhận dạng:** cần sort theo value nhưng output/proof vẫn dùng vị trí ban đầu. **Brute force bottleneck:** tìm lại index bằng `indexOf` vừa `O(n²)` vừa sai với duplicate; transition decorate `{value,index}` trước sort.
 
 ### A. Bản chất
 

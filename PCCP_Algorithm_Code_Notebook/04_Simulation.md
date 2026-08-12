@@ -1,6 +1,6 @@
 # 04 — Simulation: từ câu chuyện thành state machine
 
-> Trạng thái: `SIM-01..05` hoàn thiện v1 và đã qua QA.
+> Trạng thái: `SIM-01..05` đạt `FRAMEWORK-FULL` và đã qua QA.
 
 ## Điều hướng
 

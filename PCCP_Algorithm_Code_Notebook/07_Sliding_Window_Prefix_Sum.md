@@ -1,11 +1,13 @@
 # 07 — Prefix Sum và Sliding Window: làm chủ bài đoạn liên tiếp
 
-> Chương đang được viết lại theo chuẩn learner-first. Bắt đầu bằng nội dung, không học thuộc tên pattern.
+> Chương đã có canonical theory, practice, solution và test. Bắt đầu bằng nội dung, không học thuộc tên pattern.
 
 ## Bắt đầu ở đâu?
 
-1. [Prefix Sum từ gốc](chapters/07_prefix_window/01_Prefix_Sum_From_Zero.md): khi cần hỏi nhanh tổng/đếm trên nhiều đoạn, hoặc biến bài “tổng đoạn” thành tra cứu quá khứ.
-2. Sliding Window: sẽ học sau prefix; khi biên trái/phải phải di chuyển và state có thể thêm/bớt rẻ.
+1. [Prefix Sum từ gốc](chapters/07_prefix_window/01_Prefix_Sum_From_Zero.md): beginner guide.
+2. [Prefix canonical PRE-01..05](chapters/07_prefix_window/02_Prefix_Canonical.md): state, invariant, template và variants.
+3. [Sliding Window canonical SW-01..06](chapters/07_prefix_window/03_Sliding_Window_Canonical.md): fixed, variable, frequency, counting và decision contrast.
+4. [Practice Ladder](chapters/07_prefix_window/04_Practice_Ladder.md), rồi mới mở [Solutions](solutions/07_Sliding_Window_Prefix_Sum_Solutions.md).
 
 ## Câu hỏi để không chọn nhầm
 
@@ -26,3 +28,10 @@
 - [ ] Nhìn target-sum và nói được Map đang lưu “prefix sum đã gặp bao nhiêu lần”.
 - [ ] Phân biệt được update nhiều đoạn với query nhiều đoạn.
 - [ ] Làm được P32 Sự kiện giảm giá sau khi học sliding window.
+
+## Gate máy
+
+```bash
+node --test tests/notebook_ch07.test.js
+npm run check:notebook-framework
+```

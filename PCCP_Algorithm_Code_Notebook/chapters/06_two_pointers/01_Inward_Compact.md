@@ -4,6 +4,8 @@
 
 ## Dạng 1 `[TP-01]` — Hai đầu đi vào
 
+**Dấu hiệu nhận dạng:** input sorted hoặc hai extreme cho phép loại chắc một phía. Transition dựa trên monotonic rule: sau so sánh, move đúng pointer có thể chứng minh không chứa đáp án bị bỏ.
+
 ### A. Bản chất
 
 Hai pointer đứng ở hai biên của một không gian **có order**. Mỗi lần so sánh phải chứng minh được một biên không thể tham gia đáp án cần tìm, rồi mới dịch biên đó. Sorted pair dùng tính đơn điệu của tổng; palindrome dùng contract đối xứng. Không có quy tắc loại trừ thì hai pointer chỉ là brute force bị viết thiếu.
@@ -69,6 +71,8 @@ function pairSumIndices(sortedValues, target) {
 
 ## Dạng 2 `[TP-02]` — Fast/slow compact in-place
 
+**Dấu hiệu nhận dạng:** phải filter/compact tại chỗ trong một scan. **Brute force bottleneck:** splice giữa array dịch suffix và thành `O(n²)`; transition read luôn tiến, item giữ lại ghi tại write rồi tăng write.
+
 ### A. Bản chất
 
 `read` duyệt vùng chưa xử lý; `write` là độ dài vùng output hợp lệ. Khi item đạt predicate, ghi vào `values[write]` rồi tăng `write`. Đây là filter ổn định in-place: prefix `[0,write)` luôn là output đúng của prefix đã đọc.
@@ -130,6 +134,8 @@ function moveNonZeroToFront(values) {
 **Recall Card `[TP-02]`:** read khám phá, write cam kết prefix. **Blank Page:** compact số dương. **Mutation:** trả slice thay vì length. **Explain Back:** invariant nào bảo toàn thứ tự?
 
 ## Dạng 3 `[TP-03]` — Loại duplicate trên sorted array
+
+**Dấu hiệu nhận dạng:** duplicate đã nằm liên tiếp nhờ sorted order. **Brute force bottleneck:** Set/output phụ tốn space khi contract yêu cầu in-place; transition copy chỉ khi current khác last unique tại `write-1`.
 
 ### A. Bản chất
 

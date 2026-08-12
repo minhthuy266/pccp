@@ -1,6 +1,6 @@
 # 01 — Array, String và Loop: học cách nghĩ trước khi học pattern
 
-> Trạng thái: `ARR-01..07` hoàn thiện v1. Không mở solutions trước khi lưu nỗ lực.
+> Trạng thái: `ARR-01..07` đạt `FRAMEWORK-FULL`. Không mở solutions trước khi lưu nỗ lực.
 
 ## Bắt đầu như thế nào?
 

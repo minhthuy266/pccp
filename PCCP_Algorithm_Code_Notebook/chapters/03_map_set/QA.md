@@ -1,5 +1,7 @@
 # QA — Chương 03 Map/Set
 
+[Executable module](../../../solutions/notebook/ch03_map_set.js) · chạy `node --test tests/notebook_ch03.test.js`.
+
 ## Bổ sung mastery learner-first — 10/08/2026
 
 - Entry point học mới: `00_Exam_Mastery_Guide.md` → `01_Core_From_Zero.md` → `02_Advanced_From_Zero.md` → Practice Ladder → đề thật.
@@ -34,4 +36,4 @@ Ngày kiểm: 04/08/2026.
 
 ## Giới hạn có chủ đích
 
-Các chương khác mới là khung manifest và `PLANNED` trong Coverage Matrix, chưa được đánh dấu hoàn thiện. Bài luyện là bài tự chứa trong notebook, không sao chép nguyên đề có bản quyền và không mở nội dung trong `locked/`.
+Toàn bộ Coverage Matrix hiện đã đạt `FRAMEWORK-FULL`; câu này thay trạng thái lịch sử trước Batch 0–9. Bài luyện là bài tự chứa trong notebook, không sao chép nguyên đề có bản quyền và không mở nội dung trong `locked/`.

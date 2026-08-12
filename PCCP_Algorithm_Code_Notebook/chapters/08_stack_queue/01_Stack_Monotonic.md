@@ -4,6 +4,8 @@
 
 ## Dạng 1 `[SQ-01]` — Stack matching và undo
 
+**Dấu hiệu nhận dạng:** thao tác mới nhất chưa khép phải được xử lý trước: opening/closing lồng nhau, undo/rollback hoặc postfix evaluation. **Brute force bottleneck:** liên tục tìm/xóa opening gần nhất hay replay lịch sử có thể thành `O(n²)`; stack giữ đúng frontier chưa khép. **Transition:** opening/action mới thì push; closing/undo phải check top rồi pop; cuối contract matching yêu cầu stack rỗng.
+
 ### A. Bản chất
 
 Stack giữ state chưa khép lại theo LIFO. Closing token chỉ ghép opening gần nhất; undo chỉ đảo thao tác mới nhất. Nếu phần tử cũ nhất phải ra trước thì đó là queue.

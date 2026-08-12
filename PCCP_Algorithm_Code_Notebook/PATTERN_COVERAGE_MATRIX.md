@@ -1,6 +1,6 @@
 # Pattern Coverage Matrix — PCCP 700+ JavaScript
 
-Matrix này lập bản đồ **83 bộ xương triển khai có khả năng tái sử dụng**, không tuyên bố bao phủ mọi đề PCCP. Trong đó 70 dòng là `CORE` hoặc `VARIANT`; phần còn lại là `COMBINATION`/`OPTIONAL`. Hai bối cảnh dùng cùng state–condition–transition được gộp thành một dòng.
+Matrix này lập bản đồ **89 bộ xương triển khai có khả năng tái sử dụng**, không tuyên bố bao phủ mọi đề PCCP. Trong đó 76 dòng là `CORE` hoặc `VARIANT`; phần còn lại là `COMBINATION`/`OPTIONAL`. Hai bối cảnh dùng cùng state–condition–transition được gộp thành một dòng.
 
 ## Cách đọc và trạng thái
 
@@ -51,53 +51,59 @@ Matrix này lập bản đồ **83 bộ xương triển khai có khả năng tá
 | SIM-03 | Simulation | Đồng hồ/thời gian chuẩn hóa | `mm:ss`, duration | scalar time | parse→clamp/update→format | VARIANT · Có | SIM-01 | Cao | FULL |
 | SIM-04 | Simulation | Va chạm/event đồng thời | cùng time/position | occupancy/event batch | collect cùng mốc rồi resolve | VARIANT · Có | SIM-01 | Cao | FULL |
 | SIM-05 | Simulation | Resource/queue/Map/matrix integration | nhiều thực thể/tài nguyên | subsystem states | event order + delegated DS update | COMBINATION · Không | SIM-01 + MAP/SQ/MAT | Rất cao | FULL |
-| PRE-01 | Prefix Sum | Prefix 1D | nhiều tổng prefix | `prefix[i+1]` | next=previous+value | CORE · Có | — | Rất cao | PLANNED |
-| PRE-02 | Prefix Sum | Range sum | nhiều query `[l,r]` | prefix | `prefix[r+1]-prefix[l]` | VARIANT · Không | PRE-01 | Rất cao | PLANNED |
-| PRE-03 | Prefix Sum | Prefix count/nhiều thuộc tính | đếm loại trong range | one/multiple prefix arrays | mỗi thuộc tính cộng indicator | VARIANT · Có | PRE-01 | Cao | PLANNED |
-| PRE-04 | Prefix Sum | Prefix 2D | rectangle queries | prefix matrix | inclusion–exclusion | VARIANT · Có | PRE-01 | Trung bình | PLANNED |
-| PRE-05 | Prefix Sum | Difference array / prefix+Map | range updates hoặc subarray target | diff hoặc prefix-frequency Map | mark endpoints/lookup complement prefix | COMBINATION · Không | PRE-01 + MAP-07 | Cao | PLANNED |
+| PRE-01 | Prefix Sum | Prefix 1D | nhiều tổng prefix | `prefix[i+1]` | next=previous+value | CORE · Có | — | Rất cao | FULL |
+| PRE-02 | Prefix Sum | Range sum | nhiều query `[l,r]` | prefix | `prefix[r+1]-prefix[l]` | VARIANT · Không | PRE-01 | Rất cao | FULL |
+| PRE-03 | Prefix Sum | Prefix count/nhiều thuộc tính | đếm loại trong range | one/multiple prefix arrays | mỗi thuộc tính cộng indicator | VARIANT · Có | PRE-01 | Cao | FULL |
+| PRE-04 | Prefix Sum | Prefix 2D | rectangle queries | prefix matrix | inclusion–exclusion | VARIANT · Có | PRE-01 | Trung bình | FULL |
+| PRE-05 | Prefix Sum | Difference array / prefix+Map | range updates hoặc subarray target | diff hoặc prefix-frequency Map | mark endpoints/lookup complement prefix | COMBINATION · Không | PRE-01 + MAP-07 | Cao | FULL |
 | TP-01 | Two Pointers | Hai đầu đi vào | sorted pair, palindrome | left,right | loại một phía theo monotonic rule | CORE · Có | — | Rất cao | FULL |
 | TP-02 | Two Pointers | Fast/slow cùng chiều | compact/filter in-place | read,write | read scan; condition→write++ | CORE · Có | — | Cao | FULL |
 | TP-03 | Two Pointers | Loại duplicate sorted | unique in-place | read,write,last | different→copy/advance | VARIANT · Có | TP-02 | Cao | FULL |
 | TP-04 | Two Pointers | Merge/giao hai dãy sort | hai danh sách có thứ tự | i,j,output | advance smaller/both | CORE · Có | — | Cao | FULL |
 | TP-05 | Two Pointers | Pair sum / Three Sum outer loop | tổng cặp/bộ ba sorted | fixed + left/right | move pointer theo sum | VARIANT · Có | TP-01 | Cao | FULL |
 | TP-06 | Two Pointers | Partition cơ bản | chia theo predicate/pivot | left,right | swap và advance | OPTIONAL · Có | TP-01 | Thấp | FULL |
-| SW-01 | Sliding Window | Cửa sổ cố định + aggregate | đúng K phần tử | left/right + sum/count | add right, remove expired | CORE · Có | — | Rất cao | PLANNED |
-| SW-02 | Sliding Window | Co giãn tìm dài nhất | at most K/không trùng | left,right + validity state | add; while invalid remove; maximize | CORE · Có | — | Rất cao | PLANNED |
-| SW-03 | Sliding Window | Co giãn tìm ngắn nhất | sum/coverage at least target | window state + best | add; while valid minimize/remove | VARIANT · Có | SW-02 | Rất cao | PLANNED |
-| SW-04 | Sliding Window | Map frequency/distinct/K loại | unique, K categories | count Map + distinct | zero↔positive updates distinct | VARIANT · Có | SW-02 + MAP-03 | Rất cao | PLANNED |
-| SW-05 | Sliding Window | Đếm số cửa sổ hợp lệ | bao nhiêu subarray at most/exact K | left + answer | shrink; add number ending at right | VARIANT · Có | SW-02 | Cao | PLANNED |
-| SW-06 | Sliding Window | Contrast window vs TP/prefix | contiguous + monotonic update | tùy contract | chọn add/remove hoặc subtraction | COMBINATION · Không | SW-01/PRE-02/TP-01 | Rất cao | PLANNED |
+| SW-01 | Sliding Window | Cửa sổ cố định + aggregate | đúng K phần tử | left/right + sum/count | add right, remove expired | CORE · Có | — | Rất cao | FULL |
+| SW-02 | Sliding Window | Co giãn tìm dài nhất | at most K/không trùng | left,right + validity state | add; while invalid remove; maximize | CORE · Có | — | Rất cao | FULL |
+| SW-03 | Sliding Window | Co giãn tìm ngắn nhất | sum/coverage at least target | window state + best | add; while valid minimize/remove | VARIANT · Có | SW-02 | Rất cao | FULL |
+| SW-04 | Sliding Window | Map frequency/distinct/K loại | unique, K categories | count Map + distinct | zero↔positive updates distinct | VARIANT · Có | SW-02 + MAP-03 | Rất cao | FULL |
+| SW-05 | Sliding Window | Đếm số cửa sổ hợp lệ | bao nhiêu subarray at most/exact K | left + answer | shrink; add number ending at right | VARIANT · Có | SW-02 | Cao | FULL |
+| SW-06 | Sliding Window | Contrast window vs TP/prefix | contiguous + monotonic update | tùy contract | chọn add/remove hoặc subtraction | COMBINATION · Không | SW-01/PRE-02/TP-01 | Rất cao | FULL |
 | SQ-01 | Stack/Queue | Stack thao tác/matching/undo | LIFO, dấu ngoặc, rollback | stack | push current/pop match | CORE · Có | — | Rất cao | FULL |
 | SQ-02 | Stack/Queue | Monotonic stack | next greater, bỏ ứng viên | stack indices monotonic | while dominated pop; push | CORE · Có | SQ-01 | Cao | FULL |
 | SQ-03 | Stack/Queue | Queue head-index | FIFO, xử lý đến lượt | array + head | enqueue push; dequeue `queue[head++]` | CORE · Có | — | Rất cao | FULL |
 | SQ-04 | Stack/Queue | Circular queue index | capacity cố định | buffer,head,tail,size | modulo advance | OPTIONAL · Có | SQ-03 | Thấp | FULL |
 | SQ-05 | Stack/Queue | BFS queue | theo lớp/khoảng cách | queue + visited | mark khi enqueue | COMBINATION · Không | SQ-03 + BFS-01 | Rất cao | FULL |
-| BS-01 | Binary Search | Tìm exact trong sorted | có bằng target không | low,high | discard half by comparison | CORE · Có | — | Cao | PLANNED |
-| BS-02 | Binary Search | Lower bound / first true | vị trí đầu `>=`, boundary | half-open bounds | true→high, false→low | CORE · Có | — | Rất cao | PLANNED |
-| BS-03 | Binary Search | Upper bound / last true | đầu `>`, cuối thỏa | bounds | condition boundary tương ứng | VARIANT · Có | BS-02 | Cao | PLANNED |
-| BS-04 | Binary Search | Binary search on answer | đáp án đơn điệu, min feasible | answer bounds + predicate | feasible→keep mid side | CORE · Có | BS-02 | Rất cao | PLANNED |
-| BS-05 | Binary Search | Bound/termination safety | infinite loop, off-by-one | interval convention | mid + strict interval shrink | VARIANT · Không | BS-01..04 | Rất cao | PLANNED |
-| BFS-01 | BFS/DFS | Graph traversal adjacency | duyệt node/edge | adjacency + visited + frontier | visit neighbor once | CORE · Có | — | Rất cao | PLANNED |
-| BFS-02 | BFS/DFS | Grid/flood fill/components | vùng liên thông | coordinate visited | 4/8-neighbor traversal | CORE · Có | BFS-01 + MAT-03 | Rất cao | PLANNED |
-| BFS-03 | BFS/DFS | BFS shortest unweighted | ít bước/cạnh nhất | queue + distance | enqueue unseen with dist+1 | CORE · Có | BFS-01 | Rất cao | PLANNED |
-| BFS-04 | BFS/DFS | Multi-source BFS | nhiều nguồn cùng lúc | queue seeded all sources | expand by layers | VARIANT · Có | BFS-03 | Cao | PLANNED |
-| BFS-05 | BFS/DFS | DFS recursive vs iterative | explore sâu/component | call stack hoặc explicit stack | push/call neighbor | VARIANT · Có | BFS-01 | Rất cao | PLANNED |
-| BFS-06 | BFS/DFS | Visited nhiều chiều theo state | cùng node, resource khác | visited tuple/state | transition đủ chiều rồi mark | VARIANT · Có | BFS-01 | Rất cao | PLANNED |
-| BFS-07 | BFS/DFS | Directed/undirected/tree traversal | hướng cạnh, parent | adjacency + parent/visited | add đúng chiều; skip parent | VARIANT · Không | BFS-01 | Cao | PLANNED |
-| HG-01 | Heap/Greedy | Heap lấy min/max liên tục | luôn lấy tốt nhất động | heap | push/pop root | CORE · Có | — | Cao | PLANNED |
-| HG-02 | Heap/Greedy | Top K / K nhỏ-lớn nhất | chỉ giữ K ứng viên | bounded heap | push; size>K pop | VARIANT · Có | HG-01 | Cao | PLANNED |
-| HG-03 | Heap/Greedy | Scheduling/priority simulation | job khả dụng theo time | sorted events + heap | add available; pop priority | COMBINATION · Không | HG-01 + SIM-01 | Cao | PLANNED |
-| HG-04 | Heap/Greedy | Greedy sau sort / interval selection | chọn nhiều nhất, endpoint | sorted candidates + lastEnd | accept compatible candidate | CORE · Có | SORT-04 | Rất cao | PLANNED |
-| HG-05 | Heap/Greedy | Chứng minh greedy vs cần heap | lựa chọn cục bộ | invariant/exchange argument | commit choice chỉ khi safe | VARIANT · Không | HG-04 | Rất cao | PLANNED |
-| BTD-01 | Backtracking/DP | Sinh tổ hợp: choose/unchoose | chọn K, không xét order | path,start | choose→recurse next→undo | CORE · Có | — | Cao | PLANNED |
-| BTD-02 | Backtracking/DP | Sinh hoán vị | mọi thứ tự, dùng mỗi item | path,used | choose unused→recurse→undo | VARIANT · Có | BTD-01 | Cao | PLANNED |
-| BTD-03 | Backtracking/DP | Chọn/không chọn + pruning | subset, target | index,current state | branch include/exclude; bound prune | CORE · Có | — | Cao | PLANNED |
-| BTD-04 | Backtracking/DP | Brute force loop vs backtracking | số tầng lựa chọn thay đổi | explicit loops hoặc search path | enumerate candidates | COMBINATION · Không | BTD-01/03 | Cao | PLANNED |
-| BTD-05 | Backtracking/DP | Memoization | state lặp giữa nhánh | memo state→answer | cache result before return | CORE · Có | BTD-03 | Rất cao | PLANNED |
-| BTD-06 | Backtracking/DP | DP 1D count/min/max | bài con theo index/value | `dp[i]` | combine predecessor states | CORE · Có | BTD-05 | Rất cao | PLANNED |
-| BTD-07 | Backtracking/DP | DP 2D/grid | hai chiều state | `dp[i][j]` | combine valid prior cells | VARIANT · Có | BTD-06 | Cao | PLANNED |
-| BTD-08 | Backtracking/DP | Contrast greedy/DP/search | overlap hay local proof | state/base/order/proof | chọn engine theo property | COMBINATION · Không | HG-05 + BTD-03/06 | Rất cao | PLANNED |
+| BS-01 | Binary Search | Tìm exact trong sorted | có bằng target không | low,high | discard half by comparison | CORE · Có | — | Cao | FULL |
+| BS-02 | Binary Search | Lower bound / first true | vị trí đầu `>=`, boundary | half-open bounds | true→high, false→low | CORE · Có | — | Rất cao | FULL |
+| BS-03 | Binary Search | Upper bound / last true | đầu `>`, cuối thỏa | bounds | condition boundary tương ứng | VARIANT · Có | BS-02 | Cao | FULL |
+| BS-04 | Binary Search | Binary search on answer | đáp án đơn điệu, min feasible | answer bounds + predicate | feasible→keep mid side | CORE · Có | BS-02 | Rất cao | FULL |
+| BS-05 | Binary Search | Bound/termination safety | infinite loop, off-by-one | interval convention | mid + strict interval shrink | VARIANT · Không | BS-01..04 | Rất cao | FULL |
+| BFS-01 | BFS/DFS | Graph traversal adjacency | duyệt node/edge | adjacency + visited + frontier | visit neighbor once | CORE · Có | — | Rất cao | FULL |
+| BFS-02 | BFS/DFS | Grid/flood fill/components | vùng liên thông | coordinate visited | 4/8-neighbor traversal | CORE · Có | BFS-01 + MAT-03 | Rất cao | FULL |
+| BFS-03 | BFS/DFS | BFS shortest unweighted | ít bước/cạnh nhất | queue + distance | enqueue unseen with dist+1 | CORE · Có | BFS-01 | Rất cao | FULL |
+| BFS-04 | BFS/DFS | Multi-source BFS | nhiều nguồn cùng lúc | queue seeded all sources | expand by layers | VARIANT · Có | BFS-03 | Cao | FULL |
+| BFS-05 | BFS/DFS | DFS recursive vs iterative | explore sâu/component | call stack hoặc explicit stack | push/call neighbor | VARIANT · Có | BFS-01 | Rất cao | FULL |
+| BFS-06 | BFS/DFS | Visited nhiều chiều theo state | cùng node, resource khác | visited tuple/state | transition đủ chiều rồi mark | VARIANT · Có | BFS-01 | Rất cao | FULL |
+| BFS-07 | BFS/DFS | Directed/undirected/tree traversal | hướng cạnh, parent | adjacency + parent/visited | add đúng chiều; skip parent | VARIANT · Không | BFS-01 | Cao | FULL |
+| HG-01 | Heap/Greedy | Heap lấy min/max liên tục | luôn lấy tốt nhất động | heap | push/pop root | CORE · Có | — | Cao | FULL |
+| HG-02 | Heap/Greedy | Top K / K nhỏ-lớn nhất | chỉ giữ K ứng viên | bounded heap | push; size>K pop | VARIANT · Có | HG-01 | Cao | FULL |
+| HG-03 | Heap/Greedy | Scheduling/priority simulation | job khả dụng theo time | sorted events + heap | add available; pop priority | COMBINATION · Không | HG-01 + SIM-01 | Cao | FULL |
+| HG-04 | Heap/Greedy | Greedy sau sort / interval selection | chọn nhiều nhất, endpoint | sorted candidates + lastEnd | accept compatible candidate | CORE · Có | SORT-04 | Rất cao | FULL |
+| HG-05 | Heap/Greedy | Chứng minh greedy vs cần heap | lựa chọn cục bộ | invariant/exchange argument | commit choice chỉ khi safe | VARIANT · Không | HG-04 | Rất cao | FULL |
+| BTD-01 | Backtracking/DP | Sinh tổ hợp: choose/unchoose | chọn K, không xét order | path,start | choose→recurse next→undo | CORE · Có | — | Cao | FULL |
+| BTD-02 | Backtracking/DP | Sinh hoán vị | mọi thứ tự, dùng mỗi item | path,used | choose unused→recurse→undo | VARIANT · Có | BTD-01 | Cao | FULL |
+| BTD-03 | Backtracking/DP | Chọn/không chọn + pruning | subset, target | index,current state | branch include/exclude; bound prune | CORE · Có | — | Cao | FULL |
+| BTD-04 | Backtracking/DP | Brute force loop vs backtracking | số tầng lựa chọn thay đổi | explicit loops hoặc search path | enumerate candidates | COMBINATION · Không | BTD-01/03 | Cao | FULL |
+| BTD-05 | Backtracking/DP | Memoization | state lặp giữa nhánh | memo state→answer | cache result before return | CORE · Có | BTD-03 | Rất cao | FULL |
+| BTD-06 | Backtracking/DP | DP 1D count/min/max | bài con theo index/value | `dp[i]` | combine predecessor states | CORE · Có | BTD-05 | Rất cao | FULL |
+| BTD-07 | Backtracking/DP | DP 2D/grid | hai chiều state | `dp[i][j]` | combine valid prior cells | VARIANT · Có | BTD-06 | Cao | FULL |
+| BTD-08 | Backtracking/DP | Contrast greedy/DP/search | overlap hay local proof | state/base/order/proof | chọn engine theo property | COMBINATION · Không | HG-05 + BTD-03/06 | Rất cao | FULL |
+| TREE-01 | Tree | Parent-chain propagation | event truyền từ node lên root | current,parent,value | apply tại node rồi chuyển phần còn lại lên parent | VARIANT · Có | BFS-07 + MAP-12 | Cao | FULL |
+| GR-01 | Advanced Graph | Dijkstra + stale heap | shortest path, trọng số không âm | distance + min-heap records | pop current best; relax edge; skip stale | CORE · Có | BFS-03 + HG-01 | Rất cao | FULL |
+| GR-02 | Advanced Graph | Kruskal MST + DSU | nối mọi node, tổng cost nhỏ nhất | sorted edges + DSU components | nhận edge iff union hai root khác nhau | CORE · Có | SORT-04 | Cao | FULL |
+| GR-03 | Advanced Graph | Transitive closure | quan hệ gián tiếp, all-pairs reachability | reachable matrix | mở path qua intermediate node | CORE · Có | BFS-01 | Cao | FULL |
+| GR-04 | Advanced Graph | Hierholzer Euler trail | dùng mọi edge đúng một lần | adjacency multiplicity + traversal stack | consume edge; append vertex khi dead end | CORE · Có | SQ-01 + BFS-07 | Cao | FULL |
+| GR-05 | Advanced Graph | Planar walk topology | cạnh hình học tạo vùng/phòng | visited vertices + undirected edges | edge mới tới vertex cũ tạo face | CORE · Có | SIM-02 + MAP-01 | Trung bình | FULL |
 
 ## Những mục đã gộp có chủ đích
 
@@ -134,15 +140,15 @@ Ví dụ `MAP-13`: Sliding Window chịu trách nhiệm biên duyệt; frequency
 
 | Chỉ số | Hiện tại |
 | --- | ---: |
-| Tổng số dạng | 83 |
-| CORE | 38 |
-| VARIANT | 32 |
+| Tổng số dạng | 89 |
+| CORE | 43 |
+| VARIANT | 33 |
 | COMBINATION | 10 |
 | OPTIONAL | 3 |
-| CORE + VARIANT | 70 |
-| Dạng đã viết đầy đủ | 47 (`ARR-01..07`, `MAT-01..05`, `MAP-01..14`, `SIM-01..05`, `SORT-01..05`, `TP-01..06`, `SQ-01..05`) |
-| Bài luyện đã viết | 211 nhiệm vụ + 15 Transfer Test |
+| CORE + VARIANT | 76 |
+| Dạng đã viết đầy đủ | 89 (toàn bộ taxonomy lịch sử đã có nội dung; framework audit vẫn chấm riêng) |
+| Bài luyện đã viết | 260 nhiệm vụ + 15 Transfer Test |
 | Transfer Test | 15 |
-| Dạng còn thiếu | 36 dòng `PLANNED` |
+| Dạng còn thiếu | 0 dòng `PLANNED`; 89/89 đạt `FRAMEWORK-FULL` theo audit |
 | Mục trùng đã gộp | 6 cụm, liệt kê phía trên |
-| File làm tiếp | Theo ưu tiên hiện tại: hoàn tất audit Chapter 08; sau đó quay lại `07_Sliding_Window_Prefix_Sum.md` |
+| File làm tiếp | Theo [plan hợp nhất](../PLAN_NOTEBOOK_PATTERN_INTEGRATION.md): khóa crosswalk, sau đó hoàn thiện Chapter 07 |

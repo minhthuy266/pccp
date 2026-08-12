@@ -144,6 +144,12 @@ return answer;
 
 Nếu bạn chưa nói được câu “biến của mình có ý nghĩa gì sau mỗi vòng”, hãy chạy tay lại trước khi sang dạng 2.
 
+### Framework supplement: state, transition và biến thể
+
+**Brute force bottleneck:** nếu với mỗi prefix lại cộng từ đầu, cùng phần tử bị đọc lặp và tổng thời gian thành `O(n²)`. **State sentence:** `total` là kết quả gộp của đúng prefix đã xử lý. **Transition:** đọc một value rồi gán `total = combine(total, value)`; invariant này cho phép mỗi phần tử chỉ góp đúng một lần. Complexity là `O(n)` time, `O(1)` extra space.
+
+**Biến thể:** tổng/tích/min/max đổi identity và phép combine; modulo phải áp dụng sau mỗi bước; `BigInt` không được trộn với `Number`. Counterexample quan trọng: product khởi tạo 0 làm mọi non-empty input trả 0. Transfer: tự đổi `sumScores` thành checksum có trọng số mà không đổi skeleton scan.
+
 ---
 
 ## 2. Giữ ứng viên tốt nhất `[ARR-02]`
@@ -287,6 +293,12 @@ Viết hàm trả vị trí **cuối cùng** chứa giá trị **nhỏ nhất**.
 
 Tự trả lời trước khi code: khởi tạo ở đâu, vòng lặp bắt đầu từ đâu, dùng `<` hay `<=`?
 
+### Framework supplement: state, invariant và biến thể
+
+**Brute force bottleneck:** sort để lấy một winner làm thừa full order `O(n log n)` và có thể mất index gốc. **State sentence:** `bestValue/bestIndex` là ứng viên thắng theo toàn bộ comparator trên prefix đã đọc. **Transition:** chỉ replace cả record khi current tốt hơn; equality update hay không chính là luật tie. Invariant bảo đảm mọi phần tử đã xét đều không tốt hơn best. Complexity `O(n)` time, `O(1)` extra space.
+
+**Biến thể:** min/max, first/last tie và comparator nhiều key chỉ đổi predicate `isBetter`. Counterexample cập nhật value mà quên index tạo một record không từng tồn tại trong input. Transfer: chọn record theo score giảm, time tăng, index tăng.
+
 ---
 
 ## 3. Đếm phần tử thỏa điều kiện `[ARR-03]`
@@ -409,6 +421,12 @@ character >= "0" && character <= "9"
 
 Test: `"a1-b20" → 3`, chuỗi rỗng trả `0`.
 
+### Framework supplement: state, transition và biến thể
+
+**Brute force bottleneck:** tạo một mảng filtered chỉ để lấy `.length` tốn thêm `O(n)` space. **State sentence:** `count` là số item trong prefix thỏa toàn bộ predicate. **Transition:** mỗi item đóng góp indicator 0 hoặc 1; invariant là `count` không bao giờ gồm item chưa đọc. Complexity `O(n)` time, `O(1)` space.
+
+**Biến thể:** đếm theo nhiều loại cần nhiều counter/Map; tổng item hợp lệ đổi update từ `+1` thành `+value`. Counterexample dùng `||` thay `&&` làm tính cả item chỉ thỏa một nửa contract. Transfer: vừa đếm lỗi vừa cộng penalty bằng hai accumulator có nghĩa độc lập.
+
 ---
 
 ## 4. Kết luận sớm khi đã có đủ bằng chứng `[ARR-04]`
@@ -511,6 +529,12 @@ Viết hai hàm:
 2. `isNonDecreasing(values)`: mọi cặp kề đều thỏa `values[i] >= values[i - 1]`.
 
 Với bài 2, vòng lặp phải bắt đầu từ `index = 1`, vì phần tử đầu tiên không có phần tử đứng trước để so sánh.
+
+### Bản chất và framework supplement
+
+**Bản chất:** existential cần một witness đúng; universal cần một counterexample sai. **Brute force bottleneck:** đếm hết rồi mới kết luận làm việc thừa sau khi answer đã chắc chắn. **State sentence và invariant:** trước mỗi vòng chưa có witness/counterexample đủ để kết luận ngược lại. **Transition:** gặp bằng chứng thì return ngay; đi hết mới trả identity (`some([])=false`, `every([])=true`). Complexity worst-case `O(n)`, best-case `O(1)`, extra space `O(1)`.
+
+**Dry run:** `[4,-1,9]` cho `containsNegative`: đọc 4 chưa kết luận; đọc -1 return true, không đọc 9. **Biến thể:** predicate theo cặp kề bắt đầu index 1; nếu cần vị trí witness thì return index thay boolean. Counterexample return true khi gặp một item đúng trong bài `every` chưa chứng minh phần còn lại. Transfer: kiểm tra non-decreasing bằng cách tìm cặp kề vi phạm đầu tiên.
 
 ---
 

@@ -12,6 +12,8 @@ Ngày kiểm: 04/08/2026.
 
 ## Kiểm tra kỹ thuật
 
+[Executable module](../../../solutions/notebook/ch02_matrix.js) · chạy `node --test tests/notebook_ch02.test.js`.
+
 - [x] 14 behavioral tests chương qua.
 - [x] JavaScript fences toàn notebook parse hợp lệ.
 - [x] Đã test matrix chữ nhật 2×3, 1×1 semantics, corner neighbor, center diagonal và rotate shape.
@@ -22,4 +24,3 @@ Ngày kiểm: 04/08/2026.
 ## Điểm dừng
 
 Không thêm prefix 2D vào chương này: skeleton đó thuộc `PRE-04`. Flood fill ở đây chỉ là bridge; engine đầy đủ thuộc `BFS-02`.
-

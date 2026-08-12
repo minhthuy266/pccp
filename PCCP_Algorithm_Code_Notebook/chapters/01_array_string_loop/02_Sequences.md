@@ -162,6 +162,12 @@ Viết hàm nhận mảng chuỗi, `trim()` từng chuỗi, bỏ chuỗi rỗng 
 ["  An ", "   ", "BÌNH"] → ["an", "bình"]
 ```
 
+### Framework supplement: state, transition và biến thể
+
+**Brute force bottleneck:** liên tục nối/spread array trong loop có thể copy prefix nhiều lần thành `O(n²)`; `push` xây output amortized tuyến tính. **State sentence và invariant:** `result` chứa đúng projection của prefix đã đọc, đúng thứ tự. **Transition:** validate/filter trước, transform sau, rồi push 0/1/n output item. Complexity thường `O(n + outputSize)` time và `O(outputSize)` space.
+
+**Biến thể:** filter-only, map-only, flat-map và in-place compact khác mutation contract. Counterexample dùng `.fill([])` khi tạo output 2D làm các hàng chung reference. Transfer: giữ index gốc bằng cách decorate trước khi filter.
+
 ---
 
 ## 6. Đổi hướng duyệt khi câu hỏi nhìn về bên phải `[ARR-06]`
@@ -295,6 +301,12 @@ Viết hàm trả số lượng số `0` nằm nghiêm ngặt bên phải mỗi 
 ```
 
 Tự hỏi: ghi `countZeroOnRight` trước hay tăng nó trước?
+
+### Framework supplement: state, transition và biến thể
+
+**Brute force bottleneck:** scan suffix từ mỗi index đọc lặp cùng vùng và tốn `O(n²)`. **State sentence:** trước khi xử lý index i, suffix state mô tả đúng đoạn `(i,n)`. **Transition:** bài strictly-right phải ghi answer trước rồi mới absorb current; bài inclusive suffix đảo thứ tự đó. Invariant theo chiều phải→trái cho `O(n)` time, `O(n)` output và `O(1)` extra state.
+
+**Biến thể:** suffix sum/max/count đổi combine và identity; next greater gần nhất không còn đủ một scalar, cần monotonic stack. Counterexample identity 0 cho suffix max trên toàn số âm. Transfer OF019 và bài suffix compression.
 
 ---
 
@@ -439,6 +451,12 @@ Có hai kiểu xử lý đoạn:
 ### Cách nhận ra dạng này
 
 Đề có các từ “liên tiếp”, “đứng liền nhau”, “đoạn dài nhất”, “run”, “chuỗi ngày liên tục”. Điều kiện thường so current với phần tử trước hoặc hỏi current có tiếp tục đoạn đang mở không.
+
+### Framework supplement: state, transition và biến thể
+
+**Brute force bottleneck:** thử mọi start/end rồi kiểm lại đoạn có thể `O(n³)`; ngay cả mở rộng từ mọi start vẫn `O(n²)`. **State sentence:** `currentLength` là run kết thúc đúng tại current; `bestLength` là run tốt nhất trong prefix. **Transition:** extend nếu condition nối tiếp đúng, nếu không flush/reset; invariant bảo mọi run kết thúc trước đó đã được best xét. Complexity `O(n)` time, `O(1)` space ngoài output.
+
+**Biến thể:** strict/non-strict đổi comparator; cần mọi run thì phải flush đoạn cuối bằng sentinel hoặc sau loop; circular run cần xử lý nối đầu-cuối có bound. Counterexample reset về 0 trong bài non-empty làm mất chính current là run dài 1. Transfer OF006 và SR002.
 
 Khung đo độ dài:
 

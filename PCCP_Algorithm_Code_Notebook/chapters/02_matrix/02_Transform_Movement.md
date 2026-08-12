@@ -4,6 +4,8 @@
 
 ## Dạng 4 `[MAT-04]` — Transpose, rotate và reflect
 
+**Dấu hiệu nhận dạng:** mỗi source cell đi tới đúng một tọa độ output theo công thức shape/coordinate; không phải di chuyển theo command.
+
 ### A. Bản chất
 
 Mỗi source cell đi tới đúng một destination coordinate. Cách an toàn là viết công thức shape output và mapping tọa độ trước code. Transpose matrix `rows×cols` tạo `cols×rows`; rotate 90° clockwise cũng đổi shape thành `cols×rows`.
@@ -83,6 +85,8 @@ function rotateClockwise(matrix) {
 **Recall Card `[MAT-04]`:** shape trước, formula sau, allocate independent rows. **Blank Page:** rotate 2×3 với coordinate labels. **Mutation:** transpose; counterclockwise; reflect. **Explain Back:** vì sao output cols×rows? Công thức được suy từ góc nào? Mapping có collision không?
 
 ## Dạng 5 `[MAT-05]` — Di chuyển và bridge sang flood fill
+
+**Dấu hiệu nhận dạng:** state có vị trí/frontier và transition sang neighbor phải qua bounds, obstacle, visited hoặc rule hợp lệ.
 
 ### A. Bản chất
 
@@ -187,4 +191,3 @@ function moveRobot(grid, commands) {
 ## Transfer Test B
 
 Làm [M02-T02](03_Practice_Ladder.md#m02-t02--tem-kiểm-kho). Bối cảnh có mã sản phẩm gây nhiễu và yêu cầu mapping ngược.
-

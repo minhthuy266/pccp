@@ -2,6 +2,8 @@
 
 [← Index](../../06_Two_Pointers.md)
 
+[Executable module](../../../solutions/notebook/ch06_two_pointers.js) · chạy `node --test tests/notebook_ch06.test.js`.
+
 ## Coverage lock
 
 - [x] `TP-01..06` đều có A–E: bản chất, mental model, template tư duy/code và bài mẫu 16 bước.
@@ -31,4 +33,3 @@ Kết quả chạy: **16/16 behavioral assertions pass**, **0 syntax error**.
 ## Kết luận
 
 `TP-01..06` đủ điều kiện `FULL`. Chương tiếp theo được phép triển khai là `07_Sliding_Window_Prefix_Sum.md` cho `PRE-01..05` và `SW-01..06`.
-

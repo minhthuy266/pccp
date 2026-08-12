@@ -4,6 +4,8 @@
 
 ## Dạng 1 `[MAT-01]` — Duyệt toàn bộ, theo hàng/cột và tổng
 
+**Dấu hiệu nhận dạng:** đề xử lý mọi ô hoặc cần aggregate riêng theo hàng/cột; không có frontier hay rectangle query lặp lại.
+
 ### A. Bản chất
 
 Matrix là array các row; nested loop phải theo shape thật. State có thể là một total chung, accumulator reset theo row, hoặc array totals theo column. Dấu hiệu: mọi ô, tổng/hạng mục theo hàng/cột. Không áp dụng trực tiếp nếu rows có độ dài khác nhau mà đề không đảm bảo rectangular.
@@ -86,6 +88,8 @@ function sumRowsAndColumns(matrix) {
 
 ## Dạng 2 `[MAT-02]` — Hai đường chéo
 
+**Dấu hiệu nhận dạng:** matrix vuông và đề chỉ hỏi main/secondary diagonal; một index xác định cả row lẫn column.
+
 ### A. Bản chất
 
 Với matrix vuông `n×n`, chéo chính có `(i,i)`, chéo phụ có `(i,n-1-i)`. Chỉ cần một loop. Nếu đề hỏi tổng union của hai chéo, ô giữa khi n lẻ trùng nhau và chỉ được tính một lần.
@@ -156,6 +160,8 @@ function sumDiagonalUnion(matrix) {
 **Recall Card `[MAT-02]`:** main col=i; anti col=n-1-i; union cần center condition. **Blank Page:** trace n=1 và n=2. **Mutation:** product diagonals; replace diagonal; X border. **Explain Back:** vì sao O(n)? Khi center tồn tại? Hai sums riêng có đếm center hai lần “sai” không?
 
 ## Dạng 3 `[MAT-03]` — Láng giềng 4/8 hướng và kiểm tra biên
+
+**Dấu hiệu nhận dạng:** từ một cell cần xét các ô kề theo cùng bộ delta; bounds phải được kiểm trước khi đọc matrix.
 
 ### A. Bản chất
 

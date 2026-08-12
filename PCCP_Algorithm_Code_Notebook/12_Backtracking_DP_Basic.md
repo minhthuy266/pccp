@@ -1,22 +1,25 @@
-# 12 — Backtracking và DP cơ bản
+# 12 — Backtracking và Dynamic Programming cơ bản
 
-> Trạng thái: khung theo [MANIFEST.md](MANIFEST.md); chưa dùng làm chương học hoàn chỉnh.
+> Search liệt kê các quyết định; memo/DP gộp những bài toán con tương đương. Chương này dạy cách nhìn state để biết khi nào phải đổi engine.
 
-## Phạm vi đã chốt
+1. [Canonical `BTD-01..08`](chapters/12_backtracking_dp/01_Backtracking_DP_Canonical.md)
+2. [Practice Ladder](chapters/12_backtracking_dp/02_Practice_Ladder.md)
+3. Sau khi tự làm mới mở [Solutions](solutions/12_Backtracking_DP_Basic_Solutions.md)
+4. Chạy `node --test tests/notebook_ch12.test.js` để kiểm tra code mẫu.
 
-Choose/explore/unchoose; permutation/combination; pruning; memo; DP 1D/2D; base/transition/order.
+## Thứ tự học bắt buộc
 
-## Hợp đồng khi hoàn thiện
+`BTD-01 → BTD-02 → BTD-03 → BTD-04 → BTD-05 → BTD-06 → BTD-07 → BTD-08`.
 
-Mỗi dạng sẽ có Bản chất, Mental model, Template tư duy, Template code, bài mẫu 16 bước, dry run, Recall Card, Blank Page Test, Mutation Drill và Explain Back; sau đó là Practice Ladder đủ sáu tầng. Đáp án sẽ nằm trong thư mục solutions, không đặt tại đây.
+Đừng học thuộc từng hàm. Với mỗi bài, phải nói được: một lời gọi/ô `dp` có nghĩa gì; lựa chọn nào tạo transition; base case trả gì; vì sao thứ tự duyệt không đếm thiếu hoặc đếm trùng.
 
 ## Checklist tạm thành thạo
 
-- [ ] Nhận diện đúng ít nhất 80% bài cơ bản.
-- [ ] Tự nói được state và transition.
-- [ ] Viết template từ trang trắng.
-- [ ] Làm đúng 3 bài cơ bản liên tiếp.
-- [ ] Làm được ít nhất 2 bài biến thể.
-- [ ] Sau 3 ngày vẫn tự viết lại được.
-- [ ] Giải thích được vì sao thuật toán không bỏ sót đáp án.
-
+- [ ] Phân biệt combination, permutation và include/exclude trước khi code.
+- [ ] Nói chính xác state và base case.
+- [ ] Tự viết choose → explore → unchoose từ trang trắng.
+- [ ] Chỉ dùng pruning khi chứng minh nhánh bị cắt không thể sinh đáp án.
+- [ ] Nhận ra state lặp để thêm memo, rồi chuyển được sang bottom-up DP.
+- [ ] Chọn đúng thứ tự vòng lặp cho 0/1 và unbounded transition.
+- [ ] Tạo counterexample khi một scalar `dp[i]` làm mất thông tin tương lai.
+- [ ] Giải thích được vì sao thuật toán không bỏ sót và không đếm trùng.

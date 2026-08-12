@@ -42,25 +42,30 @@ Chi tiết các dạng nhỏ và quota bài nằm ở [MANIFEST.md](MANIFEST.md)
 
 ID ổn định, phân loại CORE/VARIANT/COMBINATION/OPTIONAL và trạng thái liên kết nằm trong [Coverage Matrix](PATTERN_COVERAGE_MATRIX.md). Ghi bằng chứng mức 0–4 trong [Mastery Tracker](MASTERY_TRACKER.md), và dùng [Template Contrasts](TEMPLATE_CONTRASTS.md) khi hai bộ xương dễ bị lẫn.
 
+Crosswalk máy đọc được nối toàn bộ 89 Coverage ID với 24 Pattern Family và 67 bài official nằm tại [Notebook–Pattern–Official Crosswalk](NOTEBOOK_PATTERN_OFFICIAL_CROSSWALK.csv). `npm run check:notebook-integration` sẽ fail nếu một ID, family hoặc bài official bị rơi/map sai.
+
+Release hiện tại đã đạt `89/89 FRAMEWORK-FULL`, có [8 Mixed Tests + 4 gate 120 phút](90_Mixed_Pattern_Tests.md) và 184 behavioral tests. Chạy `npm run check:all` để kiểm toàn bộ framework, crosswalk, pattern, official lesson, release boundary, JavaScript và test suite.
+
 Từ 11/08/2026, `FULL` lịch sử và `FRAMEWORK-FULL` được audit riêng. Một pattern chỉ đạt standard mới khi đủ Core, Recognition, Brute force, State, Invariant, Transition, Template, Variants, Dry run, Complexity, Transfer cùng practice/solution/QA; xem [Framework Coverage Audit](FRAMEWORK_COVERAGE_AUDIT.md). Pilot chuẩn là [`SQ-02`](chapters/08_stack_queue/01_Stack_Monotonic.md#sq-02--monotonic-stack-các-index-chưa-được-giải-quyết).
 
 | File | Trọng tâm | Trạng thái |
 | --- | --- | --- |
 | [00_Learning_System.md](00_Learning_System.md) | Active recall, blank-page, review, cách dùng lời giải | Hoàn thiện v1 |
 | [00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md) | Hợp đồng canonical pattern, bài cụ thể và tiêu chí FRAMEWORK-FULL | **Standard đã khóa** |
-| [01_Array_String_Loop.md](01_Array_String_Loop.md) | `ARR-01..07` | **Hoàn thiện v1** |
-| [02_Matrix.md](02_Matrix.md) | `MAT-01..05` | **Hoàn thiện v1** |
-| [03_Map_Set.md](03_Map_Set.md) | `MAP-01..14` | **Hoàn thiện v1** |
-| [04_Simulation.md](04_Simulation.md) | `SIM-01..05` | **Hoàn thiện v1** |
-| [05_Sorting.md](05_Sorting.md) | `SORT-01..05` | **Hoàn thiện v1** |
-| [06_Two_Pointers.md](06_Two_Pointers.md) | `TP-01..06`: hai con trỏ và chứng minh không bỏ sót | **Hoàn thiện v1** |
-| [07_Sliding_Window_Prefix_Sum.md](07_Sliding_Window_Prefix_Sum.md) | Cửa sổ và tổng tiền tố | Khung |
-| [08_Stack_Queue.md](08_Stack_Queue.md) | `SQ-01..05`: LIFO, monotonic stack, FIFO, circular queue, BFS queue | **Concept-first; SQ-02 FRAMEWORK-FULL** |
-| [09_Binary_Search.md](09_Binary_Search.md) | Search theo tính đơn điệu | Khung |
-| [10_BFS_DFS.md](10_BFS_DFS.md) | Duyệt graph/state | Khung |
-| [11_Heap_Greedy.md](11_Heap_Greedy.md) | Chọn phần tử/lựa chọn cục bộ | Khung |
-| [12_Backtracking_DP_Basic.md](12_Backtracking_DP_Basic.md) | Search tree và bài toán con | Khung |
-| [90_Mixed_Pattern_Tests.md](90_Mixed_Pattern_Tests.md) | Đề trộn không báo pattern | Khung |
+| [01_Array_String_Loop.md](01_Array_String_Loop.md) | `ARR-01..07` | **7/7 FRAMEWORK-FULL** |
+| [02_Matrix.md](02_Matrix.md) | `MAT-01..05` | **5/5 FRAMEWORK-FULL** |
+| [03_Map_Set.md](03_Map_Set.md) | `MAP-01..14` | **14/14 FRAMEWORK-FULL** |
+| [04_Simulation.md](04_Simulation.md) | `SIM-01..05` | **5/5 FRAMEWORK-FULL** |
+| [05_Sorting.md](05_Sorting.md) | `SORT-01..05` | **5/5 FRAMEWORK-FULL** |
+| [06_Two_Pointers.md](06_Two_Pointers.md) | `TP-01..06`: hai con trỏ và chứng minh không bỏ sót | **6/6 FRAMEWORK-FULL** |
+| [07_Sliding_Window_Prefix_Sum.md](07_Sliding_Window_Prefix_Sum.md) | `PRE-01..05`, `SW-01..06`: prefix, difference và cửa sổ | **11/11 FRAMEWORK-FULL** |
+| [08_Stack_Queue.md](08_Stack_Queue.md) | `SQ-01..05`: LIFO, monotonic stack, FIFO, circular queue, BFS queue | **5/5 FRAMEWORK-FULL** |
+| [09_Binary_Search.md](09_Binary_Search.md) | `BS-01..05`: exact, boundary và answer space | **5/5 FRAMEWORK-FULL** |
+| [10_BFS_DFS.md](10_BFS_DFS.md) | `BFS-01..07`, `TREE-01`: traversal, shortest và tree | **8/8 FRAMEWORK-FULL** |
+| [11_Heap_Greedy.md](11_Heap_Greedy.md) | `HG-01..05`: heap, scheduling và greedy proof | **5/5 FRAMEWORK-FULL** |
+| [12_Backtracking_DP_Basic.md](12_Backtracking_DP_Basic.md) | `BTD-01..08`: search tree, memo, DP và engine contrast | **8/8 FRAMEWORK-FULL** |
+| [13_Advanced_Graph.md](13_Advanced_Graph.md) | `GR-01..05`: Dijkstra, MST/DSU, closure, Euler và planar topology | **5/5 FRAMEWORK-FULL** |
+| [90_Mixed_Pattern_Tests.md](90_Mixed_Pattern_Tests.md) | 8 đề trộn + 4 gate official public, không báo pattern | **Hoàn thiện v1** |
 
 ## Checklist tạm thành thạo
 
