@@ -225,10 +225,6 @@ class Heap {
     return this.data.length;
   }
 
-  isEmpty() {
-    return this.data.length === 0;
-  }
-
   peek() {
     return this.data[0];
   }
@@ -573,7 +569,7 @@ function dijkstra(graph, start) {
   distance[start] = 0;
   heap.push([0, start]);
 
-  while (!heap.isEmpty()) {
+  while (heap.size > 0) {
     const [currentDistance, current] = heap.pop();
     if (currentDistance !== distance[current]) continue;
 

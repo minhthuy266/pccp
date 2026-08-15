@@ -1,5 +1,7 @@
 # Plan hợp nhất PCCP Algorithm Code Notebook với 24 Pattern Families
 
+> **Baseline lịch sử ngày 12/08/2026 — kế hoạch đã hoàn tất.** Các số `1/83`, `47 FULL` và backlog bên dưới được giữ để giải thích quá trình xây repo, không phải trạng thái live hay việc cần làm tiếp. Đi từ [Master Navigator](PCCP_700_MASTER_NAVIGATOR.md); lấy trạng thái hiện hành bằng `npm run check:all`.
+
 Ngày lập: 12/08/2026  
 Mục tiêu: biến repo thành một hệ thống học 700+ có một đường đi duy nhất từ lý thuyết → nhận dạng pattern → bài official → biến thể → kiểm tra trộn.
 

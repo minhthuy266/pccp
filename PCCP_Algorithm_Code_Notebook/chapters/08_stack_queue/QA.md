@@ -1,15 +1,17 @@
 # QA — Chapter 08 Stack và Queue
 
-## Framework pilot — 11/08/2026
+## Framework pilot — baseline lịch sử 11/08/2026
+
+> Mục này ghi lại mốc khởi động framework, không phải trạng thái coverage hiện hành. Snapshot live ngày 15/08/2026 là **89/89 `FRAMEWORK-FULL`**, **24/24** family có owner và **67/67** official lesson có anchor; xem [audit sinh tự động](../../FRAMEWORK_COVERAGE_AUDIT.md).
 
 - [x] `SQ-02` là golden example của [Core → Template → Variants Framework](../../00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md), đủ Core, Recognition, Brute force, State, Invariant, Transition, hai Template, tám Variant knobs, hai dry run ngược relation, complexity amortized và transfer không lộ pattern.
 - [x] Hai template JavaScript đánh dấu `TEMPLATE`/`VARIANT`: right-resolve và left-query.
 - [x] Mapping giữ nguyên bài cũ: S08-C02/V01/P01, Giá cổ phiếu, Tạo số lớn và Số lớn hơn phía sau đều còn full solution; chỉ bổ sung knobs, phần giữ nguyên/thay đổi và edge case.
 - [x] `tests/notebook_chapter08.test.js`: **20/20** behavioral assertions pass, gồm SQ-01..05, hai Transfer Tests, hai template canonical và ba bài Programmers monotonic.
-- [x] `npm run check:notebook-framework`: JavaScript fences parse, Practice ID có solution, internal link/anchor, placeholder và bằng chứng FULL đều qua; audit hiện tại **1/83 FRAMEWORK-FULL**, **82/83 NEEDS-FRAMEWORK**.
+- [x] Ở mốc pilot, `npm run check:notebook-framework` xác nhận JavaScript fences parse, Practice ID có solution, internal link/anchor, placeholder và bằng chứng FULL đều qua; matrix lúc đó là **1/83 `FRAMEWORK-FULL`**, **82/83 `NEEDS-FRAMEWORK`**.
 - [x] `npm test`, `npm run check:templates`, `npm run check:notebook-framework` và `git diff --check` đều exit 0.
 
-Kết luận pilot: giữ `SQ-02` ở trạng thái `FULL` lịch sử và đồng thời công nhận `FRAMEWORK-FULL`. Không đổi trạng thái 82 ID còn lại; [audit](../../FRAMEWORK_COVERAGE_AUDIT.md) ghi rõ từng ô thiếu để làm theo batch.
+Kết luận tại thời điểm pilot: giữ `SQ-02` ở trạng thái `FULL` lịch sử và đồng thời công nhận `FRAMEWORK-FULL`; 82 ID còn lại chưa đổi trong batch đó. Các batch tiếp theo đã mở rộng matrix lên 89 Coverage ID và hoàn tất toàn bộ; kết quả audit sinh tự động hiện hành luôn thay thế con số baseline này.
 
 ## Bổ sung mastery learner-first — 10/08/2026
 

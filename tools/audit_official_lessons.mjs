@@ -1,14 +1,21 @@
 import fs from "node:fs";
+import { createRequire } from "node:module";
 import path from "node:path";
 import vm from "node:vm";
 
 const root = process.cwd();
+const hostRequire = createRequire(import.meta.url);
 const lessonDirectory = path.join(root, "docs/pccp-700-roadmap/official-lessons");
 const solutionDirectory = path.join(root, "solutions/official");
-const testText = fs
+const officialTestFiles = fs
   .readdirSync(path.join(root, "tests"))
-  .filter((name) => name.endsWith(".test.js"))
-  .map((name) => fs.readFileSync(path.join(root, "tests", name), "utf8"))
+  .filter((name) => /^official_batch\d+\.test\.js$/.test(name))
+  .map((name) => {
+    const absolutePath = path.join(root, "tests", name);
+    return { name, absolutePath, text: fs.readFileSync(absolutePath, "utf8") };
+  });
+const testText = officialTestFiles
+  .map((file) => file.text)
   .join("\n");
 
 function parseCsvLine(line) {
@@ -54,6 +61,8 @@ const catalog = [...bank, ...reserve];
 const errors = [];
 const completed = [];
 const partial = [];
+let completeCodeBehaviorChecked = 0;
+let completeCodeBehaviorPassed = 0;
 
 const requiredHeadings = [
   "01. Contract",
@@ -76,10 +85,172 @@ const requiredHeadings = [
   "18. Bài transfer cùng pattern",
 ];
 
+const completeCodeSmokeCases = new Map([
+  ["OF012", { expression: "minimumScovilleMixes([1, 2, 3, 9, 10, 12], 7)", expected: 2 }],
+  ["OF013", { expression: "averageDiskTurnaround([[0, 3], [1, 9], [2, 6]])", expected: 9 }],
+  [
+    "OF014",
+    {
+      expression:
+        'doublePriorityQueue(["I 16", "I -5643", "D -1", "D 1", "D 1", "I 123", "D -1"])',
+      expected: [0, 0],
+    },
+  ],
+  ["OF020", { expression: 'primePermutationCount("17")', expected: 3 }],
+  [
+    "OF029",
+    {
+      expression:
+        "minimumIslandConnectionCost(4, [[0, 1, 1], [0, 2, 2], [1, 2, 5], [1, 3, 1], [2, 3, 8]])",
+      expected: 4,
+    },
+  ],
+  ["OF035", { expression: "maximumCircularRobbery([1, 2, 3, 1])", expected: 4 }],
+  [
+    "OF039",
+    {
+      expression:
+        'minimumWordTransformations("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"])',
+      expected: 4,
+    },
+  ],
+  [
+    "OF042",
+    {
+      expression: "filledPuzzleCells([[0, 0], [1, 0]], [[1, 0], [1, 1]])",
+      expected: 3,
+    },
+  ],
+  [
+    "OF048",
+    {
+      expression:
+        'expiredPrivacyIndices("2022.05.19", ["A 6", "B 12", "C 3"], ' +
+        '["2021.05.02 A", "2021.07.01 B", "2022.02.19 C", "2022.02.20 C"])',
+      expected: [1, 3],
+    },
+  ],
+  ["OF055", { expression: 'mazeEscapeTime(["SLE"])', expected: 2 }],
+  ["SR002", { expression: 'shortestCompressedLength("aabbaccc")', expected: 7 }],
+  ["SR003", { expression: 'countValidBracketRotations("[](){}")', expected: 3 }],
+  [
+    "SR005",
+    {
+      expression:
+        'homeworkCompletionOrder([["A", "12:00", "30"], ["B", "12:10", "10"], ' +
+        '["C", "12:20", "10"]])',
+      expected: ["B", "C", "A"],
+    },
+  ],
+]);
+
+function extractCompleteCode(markdown) {
+  const heading = "## 14. Code hoàn chỉnh";
+  const sectionStart = markdown.indexOf(heading);
+  if (sectionStart === -1) return null;
+  const nextHeading = markdown.indexOf("\n## 15.", sectionStart + heading.length);
+  const section = markdown.slice(
+    sectionStart + heading.length,
+    nextHeading === -1 ? markdown.length : nextHeading,
+  );
+  const matches = [...section.matchAll(/^```(?:js|javascript)[ \t]*\r?\n([\s\S]*?)^```[ \t]*$/gm)];
+  return { code: matches[0]?.[1] ?? null, fenceCount: matches.length };
+}
+
+function auditCompleteCodeBehavior(item, completeCode, solutionPath, itemErrors) {
+  if (!fs.existsSync(solutionPath) || completeCode === null) return;
+
+  const requiredSpecifier = `../solutions/official/${item.id}.js`;
+  const matchingTests = officialTestFiles.filter((file) => file.text.includes(requiredSpecifier));
+  if (matchingTests.length !== 1) {
+    itemErrors.push(`section 14 cần đúng một official batch test; nhận ${matchingTests.length}`);
+    return;
+  }
+
+  let exportNames;
+  try {
+    exportNames = Object.keys(hostRequire(solutionPath));
+  } catch (error) {
+    itemErrors.push(`không đọc được exports của solution: ${error.message}`);
+    return;
+  }
+  if (exportNames.length === 0 || exportNames.some((name) => !/^[A-Za-z_$][\w$]*$/.test(name))) {
+    itemErrors.push("solution phải export ít nhất một tên JavaScript hợp lệ");
+    return;
+  }
+
+  const context = vm.createContext(Object.create(null));
+  const exportEntries = exportNames.map(
+    (name) => `${JSON.stringify(name)}: typeof ${name} === "undefined" ? undefined : ${name}`,
+  );
+  try {
+    const lessonScript = new vm.Script(
+      `"use strict";\n((require, module, exports, process) => {\n${completeCode}\n` +
+        `globalThis.__lessonExports = {${exportEntries.join(",")}};\n` +
+        `})(undefined, undefined, undefined, undefined);`,
+      { filename: `${item.id}#section-14` },
+    );
+    lessonScript.runInContext(context, { timeout: 2_000 });
+  } catch (error) {
+    itemErrors.push(`section 14 không self-contained: ${error.message}`);
+    return;
+  }
+
+  for (const name of exportNames) {
+    if (context.__lessonExports?.[name] === undefined) {
+      itemErrors.push(`section 14 thiếu export callable ${name}`);
+    }
+  }
+  if (itemErrors.some((error) => error.startsWith("section 14 thiếu export"))) return;
+
+  const testFile = matchingTests[0];
+  const testRequire = createRequire(testFile.absolutePath);
+  const callbacks = [];
+  const registerTest = (name, callback) => {
+    if (new RegExp(`^${item.id}\\s*[—-]`).test(name)) callbacks.push({ name, callback });
+  };
+  context.require = (specifier) => {
+    if (specifier === "node:test") return registerTest;
+    const resolved = testRequire.resolve(specifier);
+    if (path.resolve(resolved) === path.resolve(solutionPath)) return context.__lessonExports;
+    return testRequire(specifier);
+  };
+
+  try {
+    new vm.Script(testFile.text, { filename: testFile.name })
+      .runInContext(context, { timeout: 2_000 });
+  } catch (error) {
+    itemErrors.push(`không nạp được official test cho section 14: ${error.message}`);
+    return;
+  }
+  if (callbacks.length === 0) {
+    itemErrors.push("section 14 chưa có test callback mang đúng ID");
+    return;
+  }
+
+  context.__lessonTestCallbacks = callbacks.map((entry) => entry.callback);
+  callbacks.forEach((entry, index) => {
+    try {
+      const result = new vm.Script(`__lessonTestCallbacks[${index}]()`, {
+        filename: `${item.id}#${entry.name}`,
+      }).runInContext(context, { timeout: 2_000 });
+      if (result && typeof result.then === "function") {
+        itemErrors.push(`section 14 test async chưa được audit hỗ trợ: ${entry.name}`);
+      }
+    } catch (error) {
+      itemErrors.push(`section 14 sai hành vi — ${entry.name}: ${error.message}`);
+    }
+  });
+}
+
 for (const item of catalog.filter((entry) => !entry.locked)) {
   const markdownPath = path.join(lessonDirectory, `${item.id}.md`);
   const solutionPath = path.join(solutionDirectory, `${item.id}.js`);
-  if (!fs.existsSync(markdownPath)) continue;
+  if (!fs.existsSync(markdownPath)) {
+    partial.push(item.id);
+    errors.push(`${item.id}: thiếu lesson Markdown`);
+    continue;
+  }
 
   const itemErrors = [];
   const markdown = fs.readFileSync(markdownPath, "utf8");
@@ -109,6 +280,55 @@ for (const item of catalog.filter((entry) => !entry.locked)) {
   }
   if (codeBlockCount < 4) itemErrors.push(`chỉ có ${codeBlockCount}/4 JavaScript blocks`);
 
+  const completeSection = extractCompleteCode(markdown);
+  const completeCode = completeSection.code;
+  if (completeSection.fenceCount !== 1) {
+    itemErrors.push(`section 14 phải có đúng một JavaScript fence; nhận ${completeSection.fenceCount}`);
+  }
+  const behaviorErrorStart = itemErrors.length;
+  completeCodeBehaviorChecked++;
+  auditCompleteCodeBehavior(item, completeCode, solutionPath, itemErrors);
+  if (
+    completeSection.fenceCount === 1 &&
+    completeCode !== null &&
+    fs.existsSync(solutionPath) &&
+    itemErrors.length === behaviorErrorStart
+  ) {
+    completeCodeBehaviorPassed++;
+  }
+
+  const smokeCase = completeCodeSmokeCases.get(item.id);
+  if (smokeCase) {
+    if (completeCode === null) {
+      itemErrors.push("section 14 thiếu JavaScript fence để smoke test");
+    } else {
+      if (fs.existsSync(solutionPath)) {
+        const solutionSource = fs.readFileSync(solutionPath, "utf8");
+        const exportMarker = solutionSource.lastIndexOf("\nmodule.exports");
+        const executableSource = (
+          exportMarker === -1 ? solutionSource : solutionSource.slice(0, exportMarker)
+        ).trim();
+        if (completeCode.trim() !== executableSource) {
+          itemErrors.push("section 14 lệch executable source trước module.exports");
+        }
+      }
+
+      try {
+        const script = new vm.Script(
+          `"use strict";\n${completeCode}\nJSON.stringify(${smokeCase.expression});`,
+          { filename: `${item.id}#complete-code-smoke` },
+        );
+        const actual = script.runInNewContext(Object.create(null), { timeout: 1_000 });
+        const expected = JSON.stringify(smokeCase.expected);
+        if (actual !== expected) {
+          itemErrors.push(`section 14 smoke sai: nhận ${actual}, cần ${expected}`);
+        }
+      } catch (error) {
+        itemErrors.push(`section 14 không self-contained: ${error.message}`);
+      }
+    }
+  }
+
   if (fs.existsSync(solutionPath)) {
     try {
       new vm.Script(fs.readFileSync(solutionPath, "utf8"), { filename: solutionPath });
@@ -130,6 +350,10 @@ const remainingCount = exposedCount - completed.length;
 console.log(
   `Official lessons: ${completed.length}/${exposedCount} certified; ` +
     `${remainingCount} exposed remaining; ${lockedCount} mock locked.`,
+);
+console.log(
+  `Section 14 behavior: ${completeCodeBehaviorPassed}/${completeCodeBehaviorChecked} ` +
+    `complete-code blocks executed against their official batch tests.`,
 );
 if (completed.length > 0) console.log(`Certified: ${completed.join(", ")}`);
 if (partial.length > 0) console.log(`Partial: ${partial.join(", ")}`);

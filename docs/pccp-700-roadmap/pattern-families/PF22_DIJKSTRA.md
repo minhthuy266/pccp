@@ -48,7 +48,7 @@ function dijkstra(vertexCount, adjacency, source, heap) {
   distance[source] = 0;
   heap.push([0, source]);
 
-  while (heap.size() > 0) {
+  while (heap.size > 0) {
     const [cost, node] = heap.pop();
     if (cost !== distance[node]) continue;
     for (const [next, weight] of adjacency[node]) {

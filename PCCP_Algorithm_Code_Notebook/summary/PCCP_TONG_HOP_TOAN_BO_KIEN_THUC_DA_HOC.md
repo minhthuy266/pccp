@@ -722,7 +722,7 @@ function binarySearch(numbers, target) {
   let right = numbers.length - 1;
 
   while (left <= right) {
-    const mid = Math.floor((left + right) / 2);
+    const mid = left + Math.floor((right - left) / 2);
 
     if (numbers[mid] === target) return mid;
     if (numbers[mid] < target) left = mid + 1;
@@ -750,7 +750,7 @@ function findMinimumAnswer(low, high) {
   let answer = high;
 
   while (low <= high) {
-    const mid = Math.floor((low + high) / 2);
+    const mid = low + Math.floor((high - low) / 2);
 
     if (can(mid)) {
       answer = mid;
@@ -1877,7 +1877,7 @@ if (nr < 0 || nr >= H || nc < 0 || nc >= W) continue;
 
 ```js
 while (left <= right) {
-  const mid = Math.floor((left + right) / 2);
+  const mid = left + Math.floor((right - left) / 2);
 }
 ```
 

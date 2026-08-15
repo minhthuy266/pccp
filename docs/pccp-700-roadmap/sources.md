@@ -1,5 +1,7 @@
 # Nguồn đã kiểm chứng
 
+> **Ledger lịch sử 30/07/2026.** Không dùng file này để điều hướng hoặc xác nhận vận hành hiện hành; dùng [Master Navigator](../../PCCP_700_MASTER_NAVIGATOR.md) và [Official Research Audit](OFFICIAL_RESEARCH_AUDIT_2026-08-12.md). Các mô tả kế hoạch dưới đây chỉ ghi provenance tại thời điểm crawl.
+
 **Ngày truy cập:** 30/07/2026  
 **Kiểm tra liên kết:** 85/85 URL trả HTTP 200 khi kiểm tra tự động ngày 30/07/2026. Một số trang có thể yêu cầu đăng nhập/enroll để chạy code dù URL vẫn truy cập được.  
 **Quy tắc sử dụng:** nguồn chính thức của Programmers/PCCP quyết định các dữ kiện về kỳ thi; MDN quyết định các cảnh báo JavaScript; nguồn cộng đồng chỉ dùng để tham khảo cách vận hành và được ghi rõ là không chính thức.
@@ -28,11 +30,11 @@
 | 9 | Official Mock 2 | LOCKED | Chính thức – Programmers School | URL chỉ nằm trong vùng locked; mở khi bắt đầu timer | 30/07/2026 |
 | 10 | PCCP 기출문제 | https://school.programmers.co.kr/learn/courses/19344 | Chính thức – Programmers School | Course gom một phần bài PCCP công khai; không xem là danh sách đầy đủ cả 8 bài | 30/07/2026 |
 | 11 | PCCP 기출문제 해설 강의 (Python) | https://school.programmers.co.kr/learn/courses/24542 | Chính thức – Programmers School | Khóa giải thích miễn phí; chỉ xem sau khi tự giải bằng JavaScript | 30/07/2026 |
-| 12 | 프로그래머스와 함께하는 PCCP 합격 대비 : 실전 모의고사 해설 강의(Python편) | https://school.programmers.co.kr/learn/courses/14760 | Chính thức – Programmers School, trả phí | Tài nguyên bổ sung bằng Python; không phải lựa chọn chính cho kế hoạch JavaScript 37 ngày | 30/07/2026 |
+| 12 | 프로그래머스와 함께하는 PCCP 합격 대비 : 실전 모의고사 해설 강의(Python편) | https://school.programmers.co.kr/learn/courses/14760 | Chính thức – Programmers School, trả phí | Tài nguyên bổ sung bằng Python; không phải lựa chọn chính cho sprint JavaScript hiện hành | 30/07/2026 |
 | 13 | Hello, JavaScript: 자바스크립트 입문 | https://school.programmers.co.kr/learn/courses/3 | Chính thức – Programmers School | 2h16/35 bài; chọn biến, kiểu, string, array, condition, loop, function; hoãn môi trường/comment/`this`/closure ở lượt đầu | 30/07/2026 |
 | 14 | 코딩테스트 광탈 방지 A to Z : JavaScript | https://school.programmers.co.kr/learn/courses/13213 | Chính thức – Programmers School, trả phí | 4h35/15 bài; DSA bằng JS; yêu cầu biết ES6; chọn stack/queue/hash/heap/sort/DFS/BFS/greedy | 30/07/2026 |
 | 15 | 코딩테스트 고득점 Kit | https://school.programmers.co.kr/learn/challenges?tab=algorithm_practice_kit | Chính thức – Programmers School | Bộ pattern được Programmers tuyển chọn từ dạng hay gặp/hay sai; nguồn của một phần bài bổ sung, phần còn lại từ kho chính thức | 30/07/2026 |
-| 16 | 코딩 테스트 합격자 되기: 자바스크립트 편 | https://product.kyobobook.co.kr/detail/S000213641007 | Nhà sách/nhà xuất bản; sách được trang chứng chỉ giới thiệu | Sách JavaScript coding test tùy chọn; không bắt buộc trong 37 ngày | 30/07/2026 |
+| 16 | 코딩 테스트 합격자 되기: 자바스크립트 편 | https://product.kyobobook.co.kr/detail/S000213641007 | Nhà sách/nhà xuất bản; sách được trang chứng chỉ giới thiệu | Sách JavaScript coding test tùy chọn; không thay các bài CORE trong sprint | 30/07/2026 |
 | 17 | MDN — Array.prototype.fill() | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill | Kỹ thuật – MDN | `fill` với object/array dùng cùng reference; cảnh báo tạo matrix | 30/07/2026 |
 | 18 | MDN — Array.prototype.sort() | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort | Kỹ thuật – MDN | Sort mặc định theo chuỗi và mutate; comparator số | 30/07/2026 |
 | 19 | MDN — Array.prototype.shift() | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift | Kỹ thuật – MDN | `shift()` mutate và dịch index; cơ sở khuyến nghị queue-head | 30/07/2026 |

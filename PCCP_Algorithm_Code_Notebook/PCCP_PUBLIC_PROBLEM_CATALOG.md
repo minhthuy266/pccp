@@ -1,84 +1,75 @@
-# Danh mục đề PCCP công khai — học đến khi tự giải được
+# Crosswalk danh mục đề PCCP công khai legacy
 
-[← README](README.md) · [Chuẩn thành thạo](00_MASTERY_STANDARD.md)
+[← Master Navigator](../PCCP_700_MASTER_NAVIGATOR.md) · [Bank official hiện hành](../PCCP_OFFICIAL_PRACTICE_BANK.csv) · [Chuẩn thành thạo notebook](00_MASTERY_STANDARD.md)
 
-## Cam kết phạm vi
+> **Vai trò hiện hành:** đây chỉ là bảng đổi mã `Pxx` legacy sang ID `OFxxx`. Nó không phải tracker coverage, không tự quyết định thứ tự học và không phải entrypoint. Luôn bắt đầu ở Master Navigator.
 
-Notebook này không được gọi là tài liệu PCCP hoàn chỉnh chỉ vì đã có các tên pattern. Mỗi bài được theo dõi trong [PROBLEM_BANK.csv](../PROBLEM_BANK.csv) phải có đủ bốn lớp trước khi mang trạng thái **Đã hoàn tất**:
+## Snapshot hiện hành — 15/08/2026
 
-1. Link chính thức và bản diễn giải tiếng Việt tự chứa.
-2. Bài học từ gốc: điều đề đang mô phỏng/tối ưu, ví dụ nhỏ, state, rule order, dry run, bẫy.
-3. Lời giải JavaScript độc lập, có comment ở transition quan trọng, test biên và complexity.
-4. Bài recall/biến thể, cùng bằng chứng người học đã tự làm sau ít nhất một lần ôn lại.
+- Bank có 69 ID `OF`: `OF001..OF061` đang mở và `OF062..OF069` là past-paper `RESERVED_MOCK`.
+- Sáu bài reserve `SR001..SR006` cùng 61 bài OF đang mở tạo thành **67/67 official lesson** hiện hành.
+- Toàn bộ **32** dòng luyện tập legacy `P17..P48` đã map sang lesson `OF` được chứng nhận.
+- Tám dòng `P01..P08` map sang `OF062..OF069`; chỉ mở theo unlock rule mà Navigator chỉ định.
+- `P09..P16` là placeholder của cấu trúc cũ, đã nghỉ hưu và không phải ID canonical hiện hành.
 
-Không sao chép nội dung mock chưa công khai. Danh mục legacy này có **40 bài non-mock**, gồm **8 bài PCCP public** và **32 bài Programmers luyện pattern**, cùng **8 placeholder mock bị khóa**. Bank source-first hiện hành nằm tại [`PCCP_OFFICIAL_PRACTICE_BANK.csv`](../PCCP_OFFICIAL_PRACTICE_BANK.csv).
+Con số **67/67** là coverage của toàn bộ lớp official lesson, không chỉ 32 dòng legacy trong bảng dưới. Nguồn máy đọc là [`PCCP_OFFICIAL_PRACTICE_BANK.csv`](../PCCP_OFFICIAL_PRACTICE_BANK.csv) và [`PCCP_OFFICIAL_SYLLABUS_RESERVE.csv`](../PCCP_OFFICIAL_SYLLABUS_RESERVE.csv); trạng thái live được xác nhận bởi `npm run check:lessons` và `npm run check:notebook-integration`.
 
-## Cách đọc trạng thái
+## Trạng thái dùng trong crosswalk
 
 | Trạng thái | Nghĩa chính xác |
 | --- | --- |
-| `Cần viết` | Chưa có bài học PCCP tự chứa và lời giải riêng. |
-| `Có tham chiếu` | Xuất hiện trong audit/khái niệm hoặc có lời giải ở một bộ khác; chưa đủ chuẩn từng đề. |
-| `Đang viết` | Đã có trang đề/hướng dẫn hoặc solution riêng, còn thiếu một lớp. |
-| `Đã hoàn tất` | Đủ cả bốn lớp phía trên và qua kiểm tra code/link. |
+| `LESSON-CERTIFIED` | Có lesson 18 section, link official, implementation executable, test theo ID và qua lesson audit. Đây là chứng nhận nội dung repo, không phải bằng chứng người học đã tự giải được. |
+| `RESERVED-MOCK` | Bài past paper đã định danh nhưng bị khóa để giữ giá trị mock; không mở lesson/solution trực tiếp từ catalog. |
+| `RETIRED-ID` | Placeholder legacy không còn tham gia bank, plan hoặc coverage hiện hành. |
 
-Không được đổi sang `Đã hoàn tất` chỉ vì pattern liên quan đã `FULL`.
+## P01–P08 — past paper bị khóa
 
-## Toàn bộ bài non-mock legacy đang theo dõi
-
-| ID | Đề | Trọng tâm chính | Nơi phải học | Trạng thái hiện tại |
+| Legacy ID | Đề | ID hiện hành | Trạng thái | Điều hướng |
 | --- | --- | --- | --- | --- |
-| P01 | Băng bó | simulation theo thời gian, reset combo | [Simulation — P01](chapters/04_simulation/04_PCCP_Public_Problems.md#p01--băng-bó) | Đang viết |
-| P02 | Khai thác dầu | BFS component + cộng theo cột | BFS/DFS | Có tham chiếu |
-| P03 | Đồng hồ analog | mô phỏng/giao điểm thời gian | Simulation/Math | Có tham chiếu |
-| P04 | Di chuyển xe kéo | backtracking hai thực thể | Backtracking | Có tham chiếu |
-| P05 | Trình phát video | parse thời gian, interval rule | Simulation | Có tham chiếu |
-| P06 | Thử thách game xếp hình | binary search đáp án | Binary Search | Có tham chiếu |
-| P07 | Tìm nguy cơ va chạm | batch time + Map count | Simulation + Map | Có tham chiếu |
-| P08 | Khôi phục biểu thức | parsing + brute force | Backtracking/Parsing | Có tham chiếu |
-| P17 | Hạn lưu trữ dữ liệu cá nhân | parse date + Map | Map/Simulation | Cần viết |
-| P18 | Dạo công viên | grid move + bounds | Matrix/Simulation | Có tham chiếu |
-| P19 | Game gắp thú bằng cần cẩu | matrix + stack reduction | Matrix/Stack | Cần viết |
-| P20 | Cuộc đua chạy | array order + Map index | Map/Array | Có tham chiếu |
-| P21 | Người chưa hoàn thành | frequency Map | Map/Set | Có tham chiếu |
-| P22 | Ponketmon | Set và giới hạn chọn | Map/Set | Có tham chiếu |
-| P23 | Danh bạ điện thoại | prefix + sort/Set | Map/Set/Sort | Có tham chiếu |
-| P24 | Trang phục | frequency + tổ hợp | Map/Set | Có tham chiếu |
-| P25 | Số thứ K | slice, sort, index | Sorting | Cần viết |
-| P26 | Phát triển tính năng | queue batch | Stack/Queue | Có tham chiếu |
-| P27 | Tiến trình | queue + priority | Stack/Queue | Cần viết |
-| P28 | Cay hơn | min-heap | Heap | Cần viết |
-| P29 | Xuồng cứu sinh | greedy + two pointers | Two Pointers/Greedy | Cần viết |
-| P30 | Số mục tiêu | choose/undo | Backtracking | Cần viết |
-| P31 | Đường ngắn nhất trên bản đồ game | BFS shortest path | BFS/DFS | Cần viết |
-| P32 | Sự kiện giảm giá | fixed sliding window + frequency | Sliding Window | Có tham chiếu |
-| P33 | Tổng dãy con liên tiếp | two pointers, tie | Two Pointers | Cần viết |
-| P34 | Số lớn nhất | comparator proof | Sorting | Cần viết |
-| P35 | Xe tải qua cầu | queue + capacity state | Stack/Queue | Có tham chiếu |
-| P36 | Giá cổ phiếu | monotonic stack | Stack/Queue | Có tham chiếu |
-| P37 | Tạo số lớn | greedy monotonic stack | Stack/Queue/Greedy | Có tham chiếu |
-| P38 | Hệ thống đánh chặn | interval greedy | Greedy | Cần viết |
-| P39 | Độ mệt mỏi | backtracking | Backtracking | Có tham chiếu |
-| P40 | Mạng lưới | DFS/BFS component | BFS/DFS | Có tham chiếu |
-| P41 | Thoát mê cung | BFS có checkpoint | BFS/DFS | Có tham chiếu |
-| P42 | Biến đổi số | BFS/DP state | BFS/DFS/DP | Có tham chiếu |
-| P43 | Tam giác số nguyên | DP bottom-up | DP | Cần viết |
-| P44 | Đường đến trường | grid DP | DP | Có tham chiếu |
-| P45 | Bộ điều khiển đĩa | scheduling heap | Heap | Cần viết |
-| P46 | Chuyển đổi từ | BFS word graph | BFS/DFS | Có tham chiếu |
-| P47 | Kiểm tra nhập cảnh | binary search feasibility | Binary Search | Cần viết |
-| P48 | Node xa nhất | BFS distance | BFS/DFS | Có tham chiếu |
+| P01 | Băng bó | OF062 | `RESERVED-MOCK` | [Mở theo Navigator](../PCCP_700_MASTER_NAVIGATOR.md) |
+| P02 | Khai thác dầu | OF063 | `RESERVED-MOCK` | [Mở theo Navigator](../PCCP_700_MASTER_NAVIGATOR.md) |
+| P03 | Đồng hồ analog | OF064 | `RESERVED-MOCK` | [Mở theo Navigator](../PCCP_700_MASTER_NAVIGATOR.md) |
+| P04 | Di chuyển xe kéo | OF065 | `RESERVED-MOCK` | [Mở theo Navigator](../PCCP_700_MASTER_NAVIGATOR.md) |
+| P05 | Trình phát video | OF066 | `RESERVED-MOCK` | [Mở theo Navigator](../PCCP_700_MASTER_NAVIGATOR.md) |
+| P06 | Thử thách game xếp hình | OF067 | `RESERVED-MOCK` | [Mở theo Navigator](../PCCP_700_MASTER_NAVIGATOR.md) |
+| P07 | Tìm nguy cơ va chạm | OF068 | `RESERVED-MOCK` | [Mở theo Navigator](../PCCP_700_MASTER_NAVIGATOR.md) |
+| P08 | Khôi phục biểu thức | OF069 | `RESERVED-MOCK` | [Mở theo Navigator](../PCCP_700_MASTER_NAVIGATOR.md) |
 
-## Thứ tự lấp lỗ hổng
+## P17–P48 — lesson đã được chứng nhận
 
-Học viên cần làm được câu 1–2 trước, sau đó mới ổn định câu 3–4. Vì vậy thứ tự viết không theo alphabet mà theo dependency:
+| Legacy ID | Đề | ID hiện hành | Trọng tâm | Lesson |
+| --- | --- | --- | --- | --- |
+| P17 | Hạn lưu trữ dữ liệu cá nhân | OF048 | parsing date + hash | [OF048](../docs/pccp-700-roadmap/official-lessons/OF048.md) |
+| P18 | Dạo công viên | OF049 | grid simulation | [OF049](../docs/pccp-700-roadmap/official-lessons/OF049.md) |
+| P19 | Game gắp thú | OF051 | matrix + reduction stack | [OF051](../docs/pccp-700-roadmap/official-lessons/OF051.md) |
+| P20 | Cuộc đua chạy | OF050 | array order + hash index | [OF050](../docs/pccp-700-roadmap/official-lessons/OF050.md) |
+| P21 | Người chưa hoàn thành | OF001 | frequency map | [OF001](../docs/pccp-700-roadmap/official-lessons/OF001.md) |
+| P22 | Ponketmon | OF002 | set cardinality | [OF002](../docs/pccp-700-roadmap/official-lessons/OF002.md) |
+| P23 | Danh bạ điện thoại | OF003 | prefix + sort/hash | [OF003](../docs/pccp-700-roadmap/official-lessons/OF003.md) |
+| P24 | Trang phục | OF004 | frequency + combinatorics | [OF004](../docs/pccp-700-roadmap/official-lessons/OF004.md) |
+| P25 | Số thứ K | OF015 | slice + numeric sort + index | [OF015](../docs/pccp-700-roadmap/official-lessons/OF015.md) |
+| P26 | Phát triển tính năng | OF007 | queue batching | [OF007](../docs/pccp-700-roadmap/official-lessons/OF007.md) |
+| P27 | Tiến trình | OF009 | queue + priority | [OF009](../docs/pccp-700-roadmap/official-lessons/OF009.md) |
+| P28 | Cay hơn | OF012 | min-heap | [OF012](../docs/pccp-700-roadmap/official-lessons/OF012.md) |
+| P29 | Xuồng cứu sinh | OF028 | greedy + two pointers | [OF028](../docs/pccp-700-roadmap/official-lessons/OF028.md) |
+| P30 | Số mục tiêu | OF036 | DFS choice tree | [OF036](../docs/pccp-700-roadmap/official-lessons/OF036.md) |
+| P31 | Đường ngắn nhất bản đồ game | OF038 | BFS grid shortest path | [OF038](../docs/pccp-700-roadmap/official-lessons/OF038.md) |
+| P32 | Sự kiện giảm giá | OF052 | fixed window + frequency | [OF052](../docs/pccp-700-roadmap/official-lessons/OF052.md) |
+| P33 | Tổng dãy con liên tiếp | OF053 | positive two pointers | [OF053](../docs/pccp-700-roadmap/official-lessons/OF053.md) |
+| P34 | Số lớn nhất | OF016 | custom comparator | [OF016](../docs/pccp-700-roadmap/official-lessons/OF016.md) |
+| P35 | Xe tải qua cầu | OF010 | queue time/capacity | [OF010](../docs/pccp-700-roadmap/official-lessons/OF010.md) |
+| P36 | Giá cổ phiếu | OF011 | monotonic stack | [OF011](../docs/pccp-700-roadmap/official-lessons/OF011.md) |
+| P37 | Tạo số lớn | OF027 | greedy monotonic stack | [OF027](../docs/pccp-700-roadmap/official-lessons/OF027.md) |
+| P38 | Hệ thống đánh chặn | OF057 | interval greedy | [OF057](../docs/pccp-700-roadmap/official-lessons/OF057.md) |
+| P39 | Độ mệt mỏi | OF022 | backtracking | [OF022](../docs/pccp-700-roadmap/official-lessons/OF022.md) |
+| P40 | Mạng lưới | OF037 | connected components | [OF037](../docs/pccp-700-roadmap/official-lessons/OF037.md) |
+| P41 | Thoát mê cung | OF055 | multi-phase BFS | [OF055](../docs/pccp-700-roadmap/official-lessons/OF055.md) |
+| P42 | Biến đổi số | OF056 | BFS/DP state | [OF056](../docs/pccp-700-roadmap/official-lessons/OF056.md) |
+| P43 | Tam giác số nguyên | OF032 | table DP | [OF032](../docs/pccp-700-roadmap/official-lessons/OF032.md) |
+| P44 | Đường đến trường | OF033 | grid DP | [OF033](../docs/pccp-700-roadmap/official-lessons/OF033.md) |
+| P45 | Bộ điều khiển đĩa | OF013 | heap event scheduling | [OF013](../docs/pccp-700-roadmap/official-lessons/OF013.md) |
+| P46 | Chuyển đổi từ | OF039 | implicit-graph BFS | [OF039](../docs/pccp-700-roadmap/official-lessons/OF039.md) |
+| P47 | Kiểm tra nhập cảnh | OF043 | binary search on answer | [OF043](../docs/pccp-700-roadmap/official-lessons/OF043.md) |
+| P48 | Node xa nhất | OF045 | graph BFS distance | [OF045](../docs/pccp-700-roadmap/official-lessons/OF045.md) |
 
-```text
-P01, P05, P17, P18, P19
-→ P20–P27
-→ P29, P32–P38
-→ P02, P31, P40–P48
-→ P03, P04, P06–P08 (đề nặng, nhiều concept kết hợp)
-```
-
-Mỗi lần thêm một đề, cập nhật trạng thái ở bảng này và thêm link tới lesson/solution. Bảng này là nguồn sự thật cho coverage đề thật; `PATTERN_COVERAGE_MATRIX.md` chỉ là coverage kỹ thuật.
+Mọi dòng `P17..P48` trong bảng này có trạng thái `LESSON-CERTIFIED`. Tiến độ cá nhân vẫn phải ghi ở tracker được Navigator liên kết; không hạ hoặc nâng chứng nhận nội dung theo việc một người học đã làm bài hay chưa.

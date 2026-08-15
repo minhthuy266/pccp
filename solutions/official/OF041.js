@@ -9,13 +9,17 @@ function travelItinerary(tickets) {
   }
 
   const routeReversed = [];
-  function visit(airport) {
+  const traversalStack = ["ICN"];
+  while (traversalStack.length > 0) {
+    const airport = traversalStack[traversalStack.length - 1];
     const destinations = destinationsByAirport.get(airport);
-    while (destinations && destinations.length > 0) visit(destinations.pop());
-    routeReversed.push(airport);
+    if (destinations && destinations.length > 0) {
+      traversalStack.push(destinations.pop());
+    } else {
+      routeReversed.push(traversalStack.pop());
+    }
   }
 
-  visit("ICN");
   return routeReversed.reverse();
 }
 

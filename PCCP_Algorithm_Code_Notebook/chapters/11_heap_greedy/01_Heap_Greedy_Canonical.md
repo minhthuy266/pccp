@@ -17,7 +17,7 @@ State array heap + comparator. Min-heap invariant: parent không lớn hơn chil
 ```js
 class Heap {
   constructor(compare=(a,b)=>a-b){ this.data=[]; this.compare=compare; }
-  size(){ return this.data.length; }
+  get size(){ return this.data.length; }
   push(value){ this.data.push(value); for(let i=this.data.length-1;i>0;){const p=Math.floor((i-1)/2);if(this.compare(this.data[p],this.data[i])<=0)break;[this.data[p],this.data[i]]=[this.data[i],this.data[p]];i=p;} }
   pop(){ if(!this.data.length)return undefined; const root=this.data[0],last=this.data.pop(); if(this.data.length){this.data[0]=last;for(let i=0;;){let b=i,l=i*2+1,r=l+1;if(l<this.data.length&&this.compare(this.data[l],this.data[b])<0)b=l;if(r<this.data.length&&this.compare(this.data[r],this.data[b])<0)b=r;if(b===i)break;[this.data[i],this.data[b]]=[this.data[b],this.data[i]];i=b;}}return root; }
 }
@@ -43,8 +43,8 @@ Invariant sau prefix: heap chứa k largest của prefix (hoặc toàn prefix n�
 function topKLargest(values,k,HeapClass){
   if(k<=0)return [];
   const heap=new HeapClass((a,b)=>a-b);
-  for(const value of values){heap.push(value);if(heap.size()>k)heap.pop();}
-  const result=[];while(heap.size())result.push(heap.pop());
+  for(const value of values){heap.push(value);if(heap.size>k)heap.pop();}
+  const result=[];while(heap.size)result.push(heap.pop());
   return result.reverse();
 }
 ```
@@ -68,8 +68,8 @@ State jobs sort arrival, pointer, currentTime, ready heap. Invariant trước se
 ```js
 function schedulingSkeleton(jobs,heap){
   const ordered=[...jobs].sort((a,b)=>a.arrival-b.arrival);let i=0,time=0;const order=[];
-  while(i<ordered.length||heap.size()){
-    if(!heap.size()&&time<ordered[i].arrival)time=ordered[i].arrival;
+  while(i<ordered.length||heap.size){
+    if(!heap.size&&time<ordered[i].arrival)time=ordered[i].arrival;
     while(i<ordered.length&&ordered[i].arrival<=time)heap.push(ordered[i++]);
     const job=heap.pop();time+=job.duration;order.push(job.id);
   }

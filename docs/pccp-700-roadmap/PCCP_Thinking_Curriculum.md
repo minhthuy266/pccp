@@ -1,6 +1,6 @@
 # PCCP 700+ — Giáo trình tư duy từ đề đến code JavaScript
 
-Tài liệu này không phải lịch học. Luôn đi từ [`README.md`](../../README.md) đến [`PLAN_PCCP_700_REBUILD_2026-09-12.md`](../../PLAN_PCCP_700_REBUILD_2026-09-12.md), rồi chỉ đọc mục được chỉ định; kết quả thực tế được ghi trong [`TRACKER_PCCP_REBUILD_2026.csv`](../../TRACKER_PCCP_REBUILD_2026.csv).
+Tài liệu này không phải lịch học. Luôn đi từ [`README.md`](../../README.md) đến **[`PCCP_700_MASTER_NAVIGATOR.md`](../../PCCP_700_MASTER_NAVIGATOR.md)**, rồi chỉ đọc mục được Navigator chỉ định; kết quả thực tế được ghi trong [`TRACKER_PCCP_REBUILD_2026.csv`](../../TRACKER_PCCP_REBUILD_2026.csv). Plan chỉ giải thích thiết kế, không quyết định buổi học.
 
 Tài liệu này không cố nhồi thêm template. Mục tiêu là biến một đề chưa gặp thành một chuỗi quyết định có thể lặp lại:
 
@@ -9,7 +9,7 @@ Contract → Bound → Brute force → Bottleneck → State
 → Invariant → Transition → Complexity → Code → Test
 ```
 
-Mỗi chương gồm một ví dụ tự chứa, luồng suy luận, code mẫu và gate. Không đọc liên tục 12 chương và không mặc định một chương mỗi ngày. Chỉ đọc mục được plan chính chỉ định; một chương có thể kéo dài nhiều ngày. Sau đó đóng tài liệu và làm bài luyện của ngày đó.
+Mỗi chương gồm một ví dụ tự chứa, luồng suy luận, code mẫu và gate. Không đọc liên tục 12 chương và không mặc định một chương mỗi ngày. Chỉ đọc mục được Master Navigator chỉ định; một chương có thể kéo dài nhiều ngày. Sau đó đóng tài liệu và làm bài luyện của ngày đó.
 
 ## Hợp đồng nguồn và code
 
@@ -93,6 +93,10 @@ Invariant là cầu nối giữa ý tưởng và code. Nếu không nói đượ
 ## 0.5 Gate chương
 
 Lấy ba đề bất kỳ, chưa code. Trong 60 giây/đề, chỉ viết Contract, Bound và brute force. Qua khi không bỏ sót tie-break, vô nghiệm hoặc constraint chính.
+
+## 0.6 Chế độ editor thi thật
+
+Gate/mock phải code trong editor không autocomplete, không external IDE, không search và không mở template. API quên giữa buổi được ghi vào Error Log; chỉ tra sau timer rồi recode từ trắng. Đến ngày được Navigator giao từng cluster, phải viết được numeric sort, `Map`/`Set`, queue-head, heap và BFS skeleton mà không nhìn. Mục tiêu là loại lỗi syntax/API vốn bị môi trường thi khuếch đại, không phải thuộc mọi hàm JavaScript.
 
 ---
 
@@ -535,9 +539,113 @@ Phải chốt thứ tự rõ ràng: `exit` trước `enter`, hay ngược lại?
 - transition có commit từng phần trước khi biết hợp lệ không?
 - nhiều event cùng thời điểm được xử lý theo thứ tự nào?
 
+## Lab H — String và parsing contract-first
+
+Parsing không phải thao tác phụ. Nó là transition từ **biểu diễn đầu vào** sang **state có nghĩa**. Trước khi code, viết một dòng grammar, ví dụ:
+
+```text
+privacy := YYYY.MM.DD + một whitespace + termCode
+chunk run := các chunk độ dài unit giống nhau liên tiếp + phần dư cuối
+rotation := n ký tự bắt đầu tại offset trong chuỗi s+s
+```
+
+### Tokenization và whitespace
+
+Chỉ chuẩn hóa whitespace khi contract nói mọi khoảng trắng đều là separator. Nếu space nằm trong dữ liệu, `trim()` hoặc `/\s+/` có thể làm đổi nghĩa input.
+
+```js
+function whitespaceTokens(text) {
+  const normalized = text.trim();
+  return normalized === "" ? [] : normalized.split(/\s+/);
+}
+
+function parseDateToken(date) {
+  const fields = date.split(".");
+  if (fields.length !== 3 || fields.some((field) => !/^\d+$/.test(field))) {
+    throw new Error("Invalid YYYY.MM.DD token");
+  }
+  return fields.map(Number);
+}
+```
+
+Checklist tokenization:
+
+- input có thể rỗng không? `"".trim().split(/\s+/)` cho `['']`, nên phải chặn riêng;
+- delimiter là whitespace bất kỳ hay đúng một ký tự như `.`, `,`, `-`?
+- token có cần giữ leading zero hoặc chữ hoa/thường không?
+- `Number("12x")` là `NaN`, còn `parseInt("12x", 10)` âm thầm trả `12`; nếu toàn token phải hợp lệ, validate toàn token;
+- parse đúng một lần rồi giữ state đã chuẩn hóa, không `split` lại trong mỗi vòng lặp.
+
+### Prefix, suffix và biên substring
+
+- prefix dùng `word.startsWith(prefix)` hoặc `word.slice(0, prefix.length) === prefix`, không dùng `includes`;
+- suffix dùng `word.endsWith(suffix)` hoặc `word.slice(-suffix.length) === suffix`;
+- `slice(start, end)` là half-open `[start,end)`, nên chunk thứ `k` độ dài `unit` là `slice(k*unit, (k+1)*unit)`;
+- sau khi sort string để tìm quan hệ prefix, chỉ được so cặp kề nhau nếu đã chứng minh mọi cặp prefix sẽ trở thành kề nhau.
+
+### Chunk/run parsing
+
+Với một `unit` cố định, state tối thiểu là `previousChunk`, `runCount` và kết quả đã chốt. Mỗi lần chunk đổi, flush run cũ; sau loop phải flush lần cuối. `slice` cuối tự giữ phần dư ngắn hơn `unit`.
+
+```js
+function chunkRuns(text, unit) {
+  if (!Number.isInteger(unit) || unit <= 0) {
+    throw new Error("unit must be a positive integer");
+  }
+  if (text.length === 0) return [];
+
+  const runs = [];
+  let previousChunk = text.slice(0, unit);
+  let runCount = 1;
+
+  for (let start = unit; start < text.length; start += unit) {
+    const chunk = text.slice(start, start + unit);
+    if (chunk === previousChunk) {
+      runCount++;
+      continue;
+    }
+    runs.push([previousChunk, runCount]);
+    previousChunk = chunk;
+    runCount = 1;
+  }
+
+  runs.push([previousChunk, runCount]);
+  return runs;
+}
+```
+
+Invariant: `runs` chứa đúng mọi run đã đóng; `previousChunk/runCount` mô tả đúng run đang mở. Đây là lõi của [SR002 — Nén chuỗi](official-lessons/SR002.md). Với rotation, không `shift()` chuỗi lặp lại; duyệt `offset` trên `s+s`, còn matching nằm ở stack riêng như [SR003 — Xoay dấu ngoặc](official-lessons/SR003.md).
+
+### Base conversion, số lớn và chuỗi dài
+
+Với số nhỏ đã validate, dùng `Number.parseInt(token, base)` và `value.toString(base)`. Nếu token có thể vượt `Number.MAX_SAFE_INTEGER`, parse từng digit bằng `BigInt`; không đổi qua `Number` ở giữa.
+
+```js
+function parseBigIntInBase(raw, base) {
+  if (!Number.isInteger(base) || base < 2 || base > 36) {
+    throw new Error("base must be in [2,36]");
+  }
+  const digits = "0123456789abcdefghijklmnopqrstuvwxyz";
+  const token = raw.toLowerCase();
+  if (token.length === 0) throw new Error("empty digit sequence");
+
+  let value = 0n;
+  for (const character of token) {
+    const digit = digits.indexOf(character);
+    if (digit < 0 || digit >= base) throw new Error("invalid digit");
+    value = value * BigInt(base) + BigInt(digit);
+  }
+  return value;
+}
+```
+
+Đổi ngược bằng `value.toString(base)`. Không trộn `BigInt` và `Number` trong cùng phép toán. Với chuỗi dài, ưu tiên một lượt scan `O(n)`, queue-head thay cho `shift()`, và gom nhiều mảnh vào array rồi `join("")` thay vì tạo lại chuỗi lớn trong nested loop.
+
+[OF048 — Hạn lưu trữ dữ liệu cá nhân](official-lessons/OF048.md) là mẫu “parse → normalize → compare”: tách token ngày/điều khoản, đổi lịch 28 ngày thành scalar rồi mới mô phỏng boundary. Không dùng `Date` nếu đề định nghĩa lịch riêng.
+
 ## 6.6 Gate chương
 
-Từ một đề simulation, viết bảng `state/event/transition/stop` và trace bằng tay ba bước trước khi code.
+Từ một đề simulation, viết bảng `state/event/transition/stop` và trace bằng tay ba bước. Từ một đề string, viết grammar, delimiter, state của scan, boundary cuối và complexity trước khi code.
 
 ---
 
@@ -673,30 +781,31 @@ Mỗi máy mất `times[i]` cho một job. Trong `time`, máy đó làm được
 
 ```js
 function minimumProcessingTime(jobs, times) {
-  let low = 0;
-  let high = Math.max(...times) * jobs;
+  const target = BigInt(jobs);
+  const durations = times.map(BigInt);
+  let low = 0n;
+  let high = durations.reduce(
+    (minimum, value) => value < minimum ? value : minimum,
+  ) * target;
 
   while (low < high) {
-    const mid = Math.floor((low + high) / 2);
-    let completed = 0;
+    const mid = low + (high - low) / 2n;
+    let completed = 0n;
 
-    for (const machineTime of times) {
-      completed += Math.floor(mid / machineTime);
-      if (completed >= jobs) break;
+    for (const machineTime of durations) {
+      completed += mid / machineTime;
+      if (completed >= target) break;
     }
 
-    if (completed >= jobs) {
-      high = mid;
-    } else {
-      low = mid + 1;
-    }
+    if (completed >= target) high = mid;
+    else low = mid + 1n;
   }
 
   return low;
 }
 ```
 
-Invariant: đáp án nhỏ nhất luôn nằm trong đoạn đóng `[low, high]`. Khi `mid` khả thi, không vứt `mid` vì chính nó có thể là đáp án; đặt `high = mid`.
+Invariant: đáp án nhỏ nhất luôn nằm trong đoạn đóng `[low, high]`. Khi `mid` khả thi, không vứt `mid` vì chính nó có thể là đáp án; đặt `high = mid`. Dùng máy nhanh nhất để tạo `high` chặt hơn và không dùng `Math.max(...times)`. Core arithmetic là `BigInt`; chỉ đổi kiểu ở adapter cuối nếu output contract bắt buộc và đã chứng minh giá trị an toàn.
 
 ## 9.3 Bốn thứ phải chứng minh
 
@@ -713,7 +822,7 @@ Invariant: đáp án nhỏ nhất luôn nằm trong đoạn đóng `[low, high]`
 
 ## 9.5 Gate chương
 
-Làm sáu drill chỉ viết `low`, `high`, predicate và hướng cập nhật, chưa code toàn bài. Qua khi không lẫn first true với last true.
+Làm đủ sáu drill cụ thể trong Lab C. Với mỗi drill chỉ viết `Contract`, `low/high`, predicate, dạng đơn điệu, first/last true và hướng cập nhật; chưa code toàn bài. Qua khi tự chọn đúng upper/lower midpoint và không lẫn first true với last true.
 
 ---
 
@@ -789,6 +898,46 @@ visited[row][col][usedSpecial ? 1 : 0] = true;
 
 Đừng gộp `(row, col, false)` và `(row, col, true)`: cùng vị trí nhưng quyền hành động trong tương lai khác nhau.
 
+### Ba drill thiết kế state cho D14
+
+Chưa code traversal. Với mỗi drill, viết đúng năm dòng: `node/state`, `transition`, `visited key`, `search order`, `stop`. Sau đó đối chiếu đáp án thiết kế dưới đây.
+
+#### Drill 1 — Mê cung được phá tối đa một tường
+
+Từ góc trái tới góc phải, mỗi bước đi bốn hướng có cost 1. Ô `0` đi được, ô `1` là tường; được phá tối đa một tường.
+
+- **State:** `(row, col, usedBreak)`, trong đó `usedBreak` là `0/1`.
+- **Transition:** sang ô trống giữ nguyên cờ; sang tường chỉ khi `usedBreak === 0`, state mới có cờ `1`.
+- **Visited key:** `visited[row][col][usedBreak]`; không được chỉ lưu `(row,col)`.
+- **Search:** BFS vì mọi action có cost 1; mark khi enqueue.
+- **Stop:** lần đầu dequeue bất kỳ state nào ở đích là số bước nhỏ nhất; queue hết thì unreachable.
+
+Counterexample cho visited 2D: tới cùng ô bằng đường ngắn đã dùng quyền phá tường có thể kém một đường dài hơn chưa dùng quyền, vì phần còn lại còn một tường bắt buộc.
+
+#### Drill 2 — Robot có hướng quay
+
+Robot đứng ở `(row,col)` và quay mặt theo một trong bốn hướng. Một action hoặc quay trái/phải 90 độ, hoặc tiến một ô nếu không bị chặn; mỗi action cost 1. Đích yêu cầu cả vị trí lẫn hướng.
+
+- **State:** `(row, col, direction)`, với `direction ∈ {0,1,2,3}`.
+- **Transition:** `(row,col,(direction+3)%4)`, `(row,col,(direction+1)%4)`, hoặc ô phía trước cùng `direction`.
+- **Visited key:** `visited[row][col][direction]`.
+- **Search:** BFS; cạnh là **action**, không phải chỉ là di chuyển sang ô kế.
+- **Stop:** lần đầu dequeue đúng `(targetRow,targetCol,targetDirection)`.
+
+Cùng một ô nhưng quay khác hướng có tập action tương lai và số bước còn lại khác nhau, nên direction là một chiều của state chứ không phải metadata bỏ được.
+
+#### Drill 3 — Chuyển đổi từ trên graph ẩn
+
+Mỗi bước đổi đúng một ký tự và từ mới phải nằm trong dictionary. Tìm số bước ít nhất từ `begin` tới `target`.
+
+- **State:** chính string hiện tại, hoặc index của nó trong danh sách từ.
+- **Transition:** mọi từ chưa thăm có đúng một vị trí ký tự khác state hiện tại; adjacency được sinh khi cần, không nhất thiết dựng matrix trước.
+- **Visited key:** string/index; mark khi enqueue để không sinh lại cùng từ qua nhiều parent.
+- **Search:** BFS vì mỗi lần đổi một ký tự có cost 1.
+- **Stop:** dequeue `target`; nếu target không thuộc miền state hoặc queue cạn thì trả unreachable theo contract.
+
+Đây là **implicit graph**: đề không đưa edge, nhưng rule “khác đúng một ký tự” chính là edge. [OF039 — Chuyển đổi từ](official-lessons/OF039.md) là bài nối kiến thức; trọng tâm trước code là định nghĩa node và neighbor, không phải nhìn thấy từ khóa “graph”.
+
 ## 10.5 Tree traversal
 
 Tree là graph liên thông không chu trình. Với cạnh hai chiều, truyền `parent` hoặc dùng `visited` để không quay lại cha.
@@ -814,9 +963,126 @@ function treeDepths(graph, root) {
 }
 ```
 
-## 10.6 Gate chương
+## 10.6 Dijkstra cho cạnh có trọng số không âm
 
-Trước code, viết một câu hoàn chỉnh: “Mỗi node/state là ..., cạnh/transition là ..., visited lưu ..., BFS/DFS dừng khi ...”.
+Chọn engine từ weight, không từ việc đề có chữ “đường đi”:
+
+| Loại cạnh | Engine ưu tiên |
+|---|---|
+| mọi cạnh cùng cost | BFS |
+| weight chỉ `0/1` | 0-1 BFS hoặc Dijkstra |
+| weight không âm và không đồng nhất | Dijkstra + min-heap |
+| có weight âm | không dùng Dijkstra; xét Bellman–Ford hoặc DAG shortest path |
+
+Counterexample phá BFS: cạnh `A→B` cost 10, `A→C` cost 1, `C→B` cost 1. Ít cạnh nhất tới `B` có cost 10, nhưng shortest weighted path có cost 2.
+
+Dijkstra giữ:
+
+- `distance[node]`: cost tốt nhất đã biết, ban đầu `Infinity`, source bằng `0`;
+- min-heap chứa candidate `[distance,node]`;
+- relaxation: từ `(node,next,weight)`, thử `candidate = currentDistance + weight`;
+- lazy deletion: một node có thể có nhiều record trong heap; record không còn bằng `distance[node]` là stale và bị bỏ.
+
+Min-heap JavaScript tối thiểu dùng thống nhất API getter `.size`:
+
+```js
+class MinHeap {
+  constructor(compare = (a, b) => a - b) {
+    this.data = [];
+    this.compare = compare;
+  }
+
+  get size() {
+    return this.data.length;
+  }
+
+  push(value) {
+    this.data.push(value);
+    let index = this.data.length - 1;
+
+    while (index > 0) {
+      const parent = Math.floor((index - 1) / 2);
+      if (this.compare(this.data[parent], this.data[index]) <= 0) break;
+      [this.data[parent], this.data[index]] = [this.data[index], this.data[parent]];
+      index = parent;
+    }
+  }
+
+  pop() {
+    if (this.data.length === 0) return undefined;
+    const root = this.data[0];
+    const last = this.data.pop();
+    if (this.data.length === 0) return root;
+
+    this.data[0] = last;
+    let index = 0;
+
+    while (true) {
+      const left = index * 2 + 1;
+      const right = left + 1;
+      let best = index;
+
+      if (
+        left < this.data.length &&
+        this.compare(this.data[left], this.data[best]) < 0
+      ) {
+        best = left;
+      }
+      if (
+        right < this.data.length &&
+        this.compare(this.data[right], this.data[best]) < 0
+      ) {
+        best = right;
+      }
+      if (best === index) break;
+
+      [this.data[index], this.data[best]] = [this.data[best], this.data[index]];
+      index = best;
+    }
+
+    return root;
+  }
+}
+```
+
+Core Dijkstra nhận adjacency list; mỗi `adjacency[node]` chứa `[next,weight]`:
+
+```js
+function dijkstra(adjacency, source) {
+  const distance = Array(adjacency.length).fill(Infinity);
+  const heap = new MinHeap(
+    ([distanceA, nodeA], [distanceB, nodeB]) =>
+      distanceA - distanceB || nodeA - nodeB,
+  );
+
+  distance[source] = 0;
+  heap.push([0, source]);
+
+  while (heap.size > 0) {
+    const [currentDistance, node] = heap.pop();
+    if (currentDistance !== distance[node]) continue;
+
+    for (const [next, weight] of adjacency[node]) {
+      if (weight < 0) throw new Error("Dijkstra requires nonnegative weights");
+      const candidate = currentDistance + weight;
+      if (candidate >= distance[next]) continue;
+
+      distance[next] = candidate;
+      heap.push([candidate, next]);
+    }
+  }
+
+  return distance;
+}
+```
+
+Invariant: khi pop một record không stale có distance nhỏ nhất trong heap, distance đó là shortest path đã final. Nếu tồn tại đường rẻ hơn đi qua một state chưa xử lý, prefix đầu tiên chưa xử lý của đường ấy phải có cost không lớn hơn đáp án giả định; vì mọi weight không âm, heap đã phải pop prefix đó trước — mâu thuẫn.
+
+Không mark visited lúc push như BFS: một đường tốt hơn có thể tới sau. Graph vô hướng phải add cả hai chiều; parallel edge vẫn đúng; node unreachable giữ `Infinity`. Với lazy heap, complexity `O((V+E) log E)` time và `O(V+E)` space. [OF059 — Giao hàng](official-lessons/OF059.md) là transfer weighted; [OF045 — Node xa nhất](official-lessons/OF045.md) có cạnh đồng cost nên BFS đơn giản hơn.
+
+## 10.7 Gate chương
+
+Trước code, viết một câu hoàn chỉnh: “Mỗi node/state là ..., cạnh/transition là ..., visited/distance lưu ..., traversal dừng khi ...”. Phải giải thích được vì sao BFS hoặc Dijkstra phù hợp với weight của cạnh.
 
 ---
 
@@ -1121,28 +1387,34 @@ Test phá code sai:
 
 ## Lab C — Binary search on answer: tìm first feasible
 
-**Bài official:** `OF043 — Kiểm tra nhập cảnh`; transfer `OF067` chỉ mở đúng ngày past set, stretch `OF044`.
+**Bài official:** `OF043 — Kiểm tra nhập cảnh`; stretch `OF044`. Bài past set chỉ mở đúng ngày được khóa trong Navigator.
 
 Contract cô lập: tìm thời gian nhỏ nhất để các máy xử lý đủ `jobs` công việc. Trong thời gian `t`, máy mất `machineTime` xử lý được `floor(t / machineTime)` việc.
 
 Predicate `can(t)` đơn điệu: nếu đủ việc ở `t`, mọi thời gian lớn hơn cũng đủ. Miền có dạng `false ... false, true ... true`, nên tìm `first true`.
 
+Bound của `OF043` có thể vượt `Number.MAX_SAFE_INTEGER`, nên core arithmetic dùng `BigInt`:
+
 ```js
-function minimumProcessingTime(jobs, times) {
-  let low = 0;
-  let high = Math.max(...times) * jobs;
+function minimumProcessingTimeBigInt(jobs, times) {
+  const target = BigInt(jobs);
+  const durations = times.map(BigInt);
+  let low = 0n;
+  let high = durations.reduce(
+    (minimum, value) => value < minimum ? value : minimum,
+  ) * target;
 
   while (low < high) {
-    const mid = low + Math.floor((high - low) / 2);
-    let completed = 0;
+    const mid = low + (high - low) / 2n;
+    let completed = 0n;
 
-    for (const machineTime of times) {
-      completed += Math.floor(mid / machineTime);
-      if (completed >= jobs) break;
+    for (const machineTime of durations) {
+      completed += mid / machineTime;
+      if (completed >= target) break;
     }
 
-    if (completed >= jobs) high = mid;
-    else low = mid + 1;
+    if (completed >= target) high = mid;
+    else low = mid + 1n;
   }
 
   return low;
@@ -1151,12 +1423,100 @@ function minimumProcessingTime(jobs, times) {
 
 Proof của boundary:
 
-- `high` khả thi vì ngay cả máy chậm nhất cũng có thể làm `jobs` việc trong khoảng đó;
+- `high` khả thi vì riêng máy nhanh nhất cũng có thể làm `jobs` việc trong khoảng đó;
 - nếu `mid` khả thi, đáp án thuộc `[low, mid]`, không được bỏ `mid`;
 - nếu không khả thi, toàn bộ `[low, mid]` bị loại;
 - interval giảm nghiêm ngặt nên loop kết thúc tại first feasible.
 
-Complexity `O(m log H)` với `m = times.length`, `H = max(times) * jobs`; space `O(1)`. Không dùng `>> 1` vì JavaScript ép bitwise về signed 32-bit. Trước khi dùng `number`, kiểm tra bound không vượt `Number.MAX_SAFE_INTEGER`.
+Complexity `O(m log H)` với `m = times.length`, `H = min(times) * jobs`; space `O(m)` vì mảng `BigInt`. Không dùng `>> 1` vì JavaScript ép bitwise về signed 32-bit; không trộn `BigInt` và `Number`. Chỉ đổi kết quả theo output contract ở adapter cuối, không đổi qua `Number` giữa binary search.
+
+### Sáu drill predicate bắt buộc
+
+Mỗi drill dưới đây là một contract độc lập, không phải bài past set. Che phần “Đáp án thiết kế”, tự viết đủ năm dòng rồi mới đối chiếu:
+
+```text
+Contract:
+Bounds low/high:
+Predicate:
+Monotonic direction + first/last true:
+Update khi predicate đúng/sai:
+```
+
+#### Drill 1 — Sức chứa nhỏ nhất để giao hàng đúng hạn
+
+`weights` không rỗng, gồm các khối lượng dương theo đúng thứ tự phải giao; `days >= 1`. Mỗi ngày chở một đoạn liên tiếp tiếp theo, không đổi thứ tự. Tìm sức chứa nguyên nhỏ nhất để giao hết trong không quá `days` ngày.
+
+**Đáp án thiết kế:**
+
+- **Contract:** minimize capacity, giữ nguyên thứ tự, mỗi kiện đi nguyên khối.
+- **Bounds:** `low = max(weights)`, `high = sum(weights)`; high chắc chắn giao trong một ngày.
+- **Predicate:** `can(capacity) :=` greedy scan cần không quá `days` đoạn/ngày, mỗi đoạn có tổng `<= capacity`.
+- **Direction:** capacity tăng thì không thể cần nhiều ngày hơn: `false ... true`, tìm **first true**.
+- **Update:** lower midpoint; true → `high = mid`, false → `low = mid + 1`.
+
+#### Drill 2 — Tốc độ nhỏ nhất để xử lý các pile
+
+Có một mảng pile dương không rỗng; trong một giờ chỉ xử lý một pile và xử lý tối đa `speed` đơn vị của pile đó. Biết `hours >= piles.length`. Tìm speed nguyên dương nhỏ nhất để hoàn tất trong `hours` giờ.
+
+**Đáp án thiết kế:**
+
+- **Contract:** minimize speed; một pile cần `ceil(pile/speed)` giờ.
+- **Bounds:** `low = 1`, `high = max(piles)`; high xử lý mỗi pile trong một giờ.
+- **Predicate:** `can(speed) := sum(ceil(pile/speed)) <= hours`, cutoff khi tổng vượt `hours`.
+- **Direction:** speed tăng thì số giờ không tăng: `false ... true`, **first true**.
+- **Update:** lower midpoint; true → `high = mid`, false → `low = mid + 1`.
+
+#### Drill 3 — Chia mảng để minimize tổng đoạn lớn nhất
+
+Chia array số dương không rỗng thành không quá `groups` đoạn liên tiếp, không đổi thứ tự, với `1 <= groups <= values.length`. Tìm giá trị nhỏ nhất có thể của tổng đoạn lớn nhất.
+
+**Đáp án thiết kế:**
+
+- **Contract:** minimize maximum segment sum; mọi phần tử thuộc đúng một đoạn liên tiếp.
+- **Bounds:** `low = max(values)`, `high = sum(values)`.
+- **Predicate:** `can(limit) :=` greedy tạo đoạn mới ngay trước khi tổng vượt `limit`, và số đoạn cần `<= groups`.
+- **Direction:** limit lớn hơn không làm số đoạn cần tăng: `false ... true`, **first true**.
+- **Update:** lower midpoint; true → `high = mid`, false → `low = mid + 1`.
+
+Predicate greedy đúng vì với một `limit` cố định và số dương, kéo mỗi đoạn dài nhất có thể không làm tăng cơ hội dùng ít đoạn hơn của bất kỳ cách cắt sớm nào.
+
+#### Drill 4 — Khoảng cách nhỏ nhất lớn nhất giữa các trạm
+
+Cho ít nhất hai tọa độ nguyên phân biệt trên một đường thẳng; chọn đúng `stations` vị trí, với `2 <= stations <= coordinates.length`. Tối đa hóa khoảng cách nhỏ nhất giữa hai trạm được chọn.
+
+**Đáp án thiết kế:**
+
+- **Contract:** maximize minimum adjacent gap sau khi chọn đủ `stations`.
+- **Bounds:** sort tọa độ; `low = 0`, `high = last - first`.
+- **Predicate:** `can(gap) :=` greedy đặt trạm đầu ở vị trí nhỏ nhất, rồi luôn chọn vị trí sớm nhất cách trạm trước ít nhất `gap`; đặt được `>= stations`.
+- **Direction:** gap tăng làm điều kiện khó hơn: `true ... false`, tìm **last true**.
+- **Update:** dùng upper midpoint `mid = low + ceil((high-low)/2)`; true → `low = mid`, false → `high = mid - 1`.
+
+#### Drill 5 — Độ dài đoạn cắt đồng đều lớn nhất
+
+Cho một mảng không rỗng các thanh có độ dài nguyên dương và cần ít nhất `pieces` đoạn bằng nhau; input bảo đảm độ dài 1 là khả thi. Tìm độ dài nguyên lớn nhất của mỗi đoạn.
+
+**Đáp án thiết kế:**
+
+- **Contract:** maximize positive piece length; phần dư của mỗi thanh được bỏ.
+- **Bounds:** `low = 1`, `high = max(lengths)`.
+- **Predicate:** `can(length) := sum(floor(rod/length)) >= pieces`, cutoff khi đã đủ.
+- **Direction:** length tăng thì số mảnh không tăng: `true ... false`, **last true**.
+- **Update:** upper midpoint; true → `low = mid`, false → `high = mid - 1`.
+
+#### Drill 6 — Trần ngân sách lớn nhất
+
+Mỗi địa phương trong mảng không rỗng yêu cầu một ngân sách nguyên dương; `budget >= 0`. Chọn một cap nguyên không âm; nơi xin ít hơn cap nhận đủ, nơi xin nhiều hơn chỉ nhận cap. Tìm cap lớn nhất sao cho tổng cấp không vượt `budget`.
+
+**Đáp án thiết kế:**
+
+- **Contract:** maximize cap với allocation `sum(min(request,cap)) <= budget`.
+- **Bounds:** `low = 0`, `high = max(requests)`; nếu cấp đủ toàn bộ vẫn trong budget thì high chính là đáp án.
+- **Predicate:** `can(cap) := sum(min(request,cap)) <= budget`, cutoff khi tổng đã vượt budget.
+- **Direction:** cap tăng làm tổng cấp không giảm: `true ... false`, **last true**.
+- **Update:** upper midpoint; true → `low = mid`, false → `high = mid - 1`.
+
+Gate sáu drill: với mỗi predicate phải đưa được một cặp `x < y` để giải thích chiều đơn điệu; xác nhận endpoint cần thiết là khả thi; và dùng test boundary nơi `mid` nằm đúng tại first/last true. Predicate chỉ trả boolean, không mutate input hay phụ thuộc state từ lần gọi trước.
 
 ## Lab D — Multi-source BFS
 

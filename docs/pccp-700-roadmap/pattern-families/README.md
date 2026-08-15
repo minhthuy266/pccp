@@ -1,5 +1,7 @@
 # PCCP Pattern Families — 67 bài public
 
+> **Linked layer, không phải lịch học.** Chỉ mở family mà [Master Navigator](../../../PCCP_700_MASTER_NAVIGATOR.md) hoặc Error Log chỉ định sau khi đã tự làm bài gốc.
+
 Đây là tầng học **sau lời giải bài gốc**. Mục tiêu không phải nhớ thêm 67 đáp án, mà biến 67 bài thành 24 mô hình có thể điều chỉnh khi đề đổi dữ kiện.
 
 ## Cách dùng một pattern family
@@ -48,9 +50,9 @@ Không học bằng cách đọc liền 24 file. Với mỗi family: tự nói d
 
 Mapping máy đọc được: [PATTERN_COVERAGE.csv](PATTERN_COVERAGE.csv). Mỗi lesson public phải xuất hiện đúng một lần với vai trò chính; một bài vẫn có thể được nhắc như transfer ở family khác.
 
-## Thứ tự học
+## Dependency map nội bộ — không phải thứ tự sprint
 
-Học theo dependency, không theo số bài:
+Nếu Navigator giao nhiều family trong cùng một cluster, dùng dependency dưới đây; không tự học tuần tự cả 24 file:
 
 ```text
 PF01–PF04  →  cấu trúc dữ liệu tuyến tính và cách giữ invariant

@@ -9,6 +9,7 @@
     "check:notebook-framework": "node tools/audit_notebook_framework.mjs",
     "check:notebook-integration": "node tools/audit_notebook_integration.mjs",
     "check:release": "node tools/audit_pccp_700_release.mjs",
+    "check:route": "node tools/audit_learning_route.mjs",
     "check:all": "node tools/audit_all.mjs",
     "check:templates": "node --check docs/JS_TEMPLATES_PCCP.js",
     "inventory": "node tools/generate_repo_inventory.mjs",

@@ -178,6 +178,7 @@ const allowedDomains = new Set([
   "certi.programmers.co.kr",
   "business.programmers.co.kr",
   "school.programmers.co.kr",
+  "user-guide.grepp.co",
   "developer.mozilla.org",
 ]);
 for (const relative of sourceBearing) {
@@ -213,11 +214,93 @@ for (const term of syllabusTerms) {
   if (!navigator.includes(term)) errors.push(`Navigator thiếu syllabus term: ${term}`);
 }
 
-const plan = fs.readFileSync(path.join(root, "PLAN_PCCP_700_REBUILD_2026-09-12.md"), "utf8");
-const learningSection = plan.split("| D23 |", 1)[0];
-for (const reserved of rows.filter((row) => row.priority === "RESERVED_MOCK")) {
-  if (learningSection.includes(reserved.bank_id)) {
-    errors.push(`Reserved mock xuất hiện trước D23: ${reserved.bank_id}`);
+function expandOfficialIds(text) {
+  const result = new Set();
+
+  for (const match of text.matchAll(/\bOF(\d{3})\b/g)) {
+    result.add(`OF${match[1]}`);
+  }
+
+  for (const match of text.matchAll(/\bOF(\d{3})\s*[–—−-]\s*(?:OF)?(\d{3})\b/g)) {
+    const start = Number(match[1]);
+    const end = Number(match[2]);
+    if (start > end || end - start > 100) continue;
+    for (let number = start; number <= end; number++) {
+      result.add(`OF${String(number).padStart(3, "0")}`);
+    }
+  }
+
+  return result;
+}
+
+const navigatorDayRows = new Map();
+for (const line of navigator.split(/\r?\n/)) {
+  const match = line.match(/^\|\s*D(\d+)\s*·[^|]*\|/);
+  if (!match) continue;
+  const day = Number(match[1]);
+  if (navigatorDayRows.has(day)) errors.push(`Navigator có nhiều dòng schedule D${day}`);
+  navigatorDayRows.set(day, line);
+}
+
+const reservedRows = rows.filter((row) => row.priority === "RESERVED_MOCK");
+const expectedReservedIds = new Set(
+  Array.from({ length: 8 }, (_, index) => `OF${String(index + 62).padStart(3, "0")}`),
+);
+const actualReservedIds = new Set(reservedRows.map((row) => row.bank_id));
+if (
+  actualReservedIds.size !== expectedReservedIds.size ||
+  [...expectedReservedIds].some((id) => !actualReservedIds.has(id))
+) {
+  errors.push(`RESERVED_MOCK phải đúng OF062–OF069; nhận ${[...actualReservedIds].sort().join(", ")}`);
+}
+const expectedReservedByDay = new Map([
+  [22, new Set(["OF062", "OF063", "OF064", "OF065"])],
+  [24, new Set(["OF066", "OF067", "OF068", "OF069"])],
+]);
+
+for (const [day, expected] of expectedReservedByDay) {
+  const line = navigatorDayRows.get(day) ?? "";
+  const actual = new Set(
+    [...expandOfficialIds(line)].filter((id) => reservedRows.some((row) => row.bank_id === id)),
+  );
+  if ([...expected].some((id) => !actual.has(id)) || [...actual].some((id) => !expected.has(id))) {
+    errors.push(`Navigator D${day} phải honor-unlock đúng ${[...expected].join("–")}`);
+  }
+  if (!/honor[- ]unlock/i.test(line)) {
+    errors.push(`Navigator D${day} thiếu nhãn honor-unlock`);
+  }
+}
+
+for (const [day, line] of navigatorDayRows) {
+  if (day === 22 || day === 24) continue;
+  const exposed = [...expandOfficialIds(line)].filter((id) =>
+    reservedRows.some((row) => row.bank_id === id),
+  );
+  if (exposed.length > 0) {
+    errors.push(`Reserved mock chỉ được xếp ở D22/D24; D${day} có ${exposed.join(", ")}`);
+  }
+}
+
+const publicRouteDocuments = [
+  "README.md",
+  "PCCP_700_MASTER_NAVIGATOR.md",
+  "PLAN_PCCP_700_REBUILD_2026-09-12.md",
+  "TRACKER_PCCP_REBUILD_2026.csv",
+  "TRACKER_PCCP_MOCK_ATTEMPTS.csv",
+  "PCCP_OFFICIAL_ONLY_CURRICULUM.md",
+  "docs/pccp-700-roadmap/PCCP_Final_Cheat_Sheet.md",
+  "docs/pccp-700-roadmap/PCCP_Thinking_Curriculum.md",
+];
+for (const reserved of reservedRows) {
+  for (const relative of publicRouteDocuments) {
+    const text = fs.readFileSync(path.join(root, relative), "utf8");
+    if (text.includes(reserved.problem_name)) {
+      errors.push(`${relative}: lộ tên reserved mock ${reserved.bank_id}`);
+    }
+    const escapedLessonId = reserved.lesson_id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    if (new RegExp(`/lessons/${escapedLessonId}(?:\\b|\\?)`).test(text)) {
+      errors.push(`${relative}: lộ link reserved mock ${reserved.bank_id}`);
+    }
   }
 }
 

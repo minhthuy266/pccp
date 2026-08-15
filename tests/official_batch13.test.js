@@ -26,6 +26,26 @@ test("OF041 — dùng mọi ticket đúng một lần và lexical Euler route", 
   assert.deepEqual(travelItinerary([["ICN","A"],["ICN","A"],["A","ICN"]]), ["ICN","A","ICN","A"]);
 });
 
+test("OF041 — xử lý chain 10,000 ticket mà không tràn call stack", () => {
+  const airportCode = (index) => String.fromCharCode(
+    65 + Math.floor(index / (26 * 26)),
+    65 + Math.floor(index / 26) % 26,
+    65 + index % 26,
+  );
+  const ticketCount = 10_000;
+  const airports = ["ICN"];
+  for (let index = 0; airports.length <= ticketCount; index += 1) {
+    const airport = airportCode(index);
+    if (airport !== "ICN") airports.push(airport);
+  }
+  const tickets = Array.from(
+    { length: ticketCount },
+    (_, index) => [airports[index], airports[index + 1]],
+  );
+
+  assert.deepEqual(travelItinerary(tickets), airports);
+});
+
 test("OF042 — component normalize và bốn rotation match hole", () => {
   assert.deepEqual(rotateShape([[0,0],[1,0],[1,1]]), [[0,0],[0,1],[1,0]]);
   assert.equal(filledPuzzleCells(

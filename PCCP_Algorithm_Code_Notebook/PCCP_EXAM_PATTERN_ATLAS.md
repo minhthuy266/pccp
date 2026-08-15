@@ -2,6 +2,8 @@
 
 [← README](README.md) · [Danh mục đề công khai](PCCP_PUBLIC_PROBLEM_CATALOG.md)
 
+> Đây là bản đồ tra cứu bên trong notebook. Nó không quyết định ngày học; lịch duy nhất nằm ở [Master Navigator](../PCCP_700_MASTER_NAVIGATOR.md).
+
 Đây là trang học để **chọn cách nghĩ**, không phải bảng thuật ngữ. Khi gặp đề mới, không hỏi “đây là bài Map hay BFS?”. Hỏi lần lượt:
 
 ```text

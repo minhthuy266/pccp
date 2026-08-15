@@ -1,6 +1,7 @@
 # Bộ template JavaScript tối thiểu cho PCCP
 
-> Phiên bản nghiên cứu: 30/07/2026  
+> Nghiên cứu gốc: 30/07/2026 · hardening/API audit: 15/08/2026
+>
 > Mục tiêu: viết được trong editor của Programmers, không dùng thư viện ngoài, không phụ thuộc autocomplete.
 
 Tài liệu này không phải danh sách 22 đoạn code cần học thuộc ngay. Hãy học theo ba mức:
@@ -580,7 +581,7 @@ function binarySearch(sortedValues, target) {
     let right = sortedValues.length - 1;
 
     while (left <= right) {
-        const middle = Math.floor((left + right) / 2);
+        const middle = left + Math.floor((right - left) / 2);
         const value = sortedValues[middle];
 
         if (value === target) {
@@ -622,7 +623,7 @@ function lowerBound(sortedValues, target) {
     let right = sortedValues.length;
 
     while (left < right) {
-        const middle = Math.floor((left + right) / 2);
+        const middle = left + Math.floor((right - left) / 2);
 
         if (sortedValues[middle] >= target) {
             right = middle;
@@ -648,7 +649,7 @@ function firstTrue(low, high, isEnough) {
     let right = high;
 
     while (left <= right) {
-        const middle = Math.floor((left + right) / 2);
+        const middle = left + Math.floor((right - left) / 2);
 
         if (isEnough(middle)) {
             answer = middle;
@@ -684,6 +685,8 @@ Nếu không có giá trị nào trong `[low, high]` thỏa, hàm trả sentinel
 
 Quy ước: `compare(a, b) < 0` nghĩa là `a` có ưu tiên cao hơn `b`.
 
+API canonical duy nhất trong repo: đọc kích thước bằng thuộc tính `heap.size`, giống `Map.size`/`Set.size`; không dùng `heap.size()`. Mọi lesson, pattern family và notebook phải giữ cùng giao diện này.
+
 ```js
 class PriorityQueue {
     constructor(compare = (a, b) => a - b) {
@@ -691,12 +694,8 @@ class PriorityQueue {
         this.compare = compare;
     }
 
-    size() {
+    get size() {
         return this.heap.length;
-    }
-
-    isEmpty() {
-        return this.heap.length === 0;
     }
 
     peek() {
@@ -1134,7 +1133,7 @@ function dijkstra(nodeCount, graph, start) {
     distance[start] = 0;
     queue.push([0, start]);
 
-    while (!queue.isEmpty()) {
+    while (queue.size > 0) {
         const [currentDistance, node] = queue.pop();
 
         if (currentDistance !== distance[node]) {

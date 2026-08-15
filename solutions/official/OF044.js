@@ -15,7 +15,7 @@ function maximumMinimumRockDistance(distance, rocks, removalsAllowed) {
   let low = 0;
   let high = distance + 1;
   while (low < high) {
-    const middle = Math.floor((low + high) / 2);
+    const middle = low + Math.floor((high - low) / 2);
     if (feasible(middle)) low = middle + 1;
     else high = middle;
   }

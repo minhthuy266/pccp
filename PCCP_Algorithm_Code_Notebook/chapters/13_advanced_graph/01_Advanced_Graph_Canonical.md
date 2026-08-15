@@ -6,7 +6,7 @@
 
 ### Core problem, recognition và brute force bottleneck
 
-Tìm shortest distance từ một source trên graph có trọng số **không âm**. BFS tối ưu số cạnh chứ không tối ưu tổng weight: cạnh `A→B=10` thua đường `A→C=1,C→B=1`. Scan toàn bộ node chưa chốt để lấy distance nhỏ nhất cho `O(V²)`; min-heap giảm graph thưa xuống `O((V+E)log V)`.
+Tìm shortest distance từ một source trên graph có trọng số **không âm**. BFS tối ưu số cạnh chứ không tối ưu tổng weight: cạnh `A→B=10` thua đường `A→C=1,C→B=1`. Scan toàn bộ node chưa chốt để lấy distance nhỏ nhất cho `O(V²)`; với min-heap lazy và `E` là số edge record kể cả parallel edge, bound tổng quát là `O(V + E log(E+1))`.
 
 Counter-signal: equal weight dùng BFS; weight 0/1 cân nhắc 0-1 BFS; negative edge phá proof Dijkstra; minimum total network là MST.
 
@@ -22,7 +22,7 @@ Invariant: khi pop record không stale có distance nhỏ nhất toàn frontier,
 function dijkstra(adjacency, source, heap) {
   const distance = Array(adjacency.length).fill(Infinity);
   distance[source] = 0; heap.push([0, source]);
-  while (heap.size()) {
+  while (heap.size) {
     const [cost, node] = heap.pop();
     if (cost !== distance[node]) continue;
     for (const [next, weight] of adjacency[node]) {
@@ -38,7 +38,7 @@ function dijkstra(adjacency, source, heap) {
 
 ### Dry run, complexity, variants và transfer
 
-`0→1(10),0→2(1),2→1(1)`: heap từng có `[10,1]`, sau đó `[2,1]`; pop 2 chốt node 1, record 10 bị skip stale. Time `O((V+E)log V)`, space `O(V+E)` kể adjacency/heap.
+`0→1(10),0→2(1),2→1(1)`: heap từng có `[10,1]`, sau đó `[2,1]`; pop 2 chốt node 1, record 10 bị skip stale. Mỗi strict relaxation tạo tối đa một heap record, nên kể cả stale/parallel edge: time `O(V + E log(E+1))`, space `O(V+E)` cho adjacency, distance và heap.
 
 Biến thể: directed/undirected; parallel edge; parent để dựng path; state `(node,couponUsed)`; multi-source seed nhiều distance 0. Counterexample mark visited lúc push sẽ khóa node 1 ở cost 10. Transfer OF059.
 
@@ -136,7 +136,7 @@ Dấu hiệu nhận dạng là phải dùng mỗi **cạnh/ticket occurrence** �
 
 ### State sentence, transition và invariant
 
-Adjacency lưu từng occurrence, kể cả parallel edge. `stack/path recursion` là walk đang mở; khi node còn edge thì consume một edge và đi tiếp; chỉ append node vào route khi không còn outgoing edge. Route được tạo ngược.
+Adjacency lưu từng occurrence, kể cả parallel edge. `traversalStack` là walk đang mở; khi node còn edge thì consume một edge và push destination; chỉ pop node sang route khi không còn outgoing edge. Route được tạo ngược.
 
 Invariant: mỗi edge bị pop đúng một lần. Khi append một vertex lúc dead end, suffix Euler từ vertex đó đã hoàn chỉnh; reverse postorder ghép mọi consumed edge liên tục.
 
@@ -145,28 +145,38 @@ Invariant: mỗi edge bị pop đúng một lần. Khi append một vertex lúc 
 ```js
 function eulerTrailDirected(edges, start) {
   const graph = new Map();
+  const remaining = new Map();
   for (const [from,to] of edges) {
     if (!graph.has(from)) graph.set(from, []);
     graph.get(from).push(to);
+    const key = JSON.stringify([from,to]);
+    remaining.set(key, (remaining.get(key) ?? 0) + 1);
   }
   for (const list of graph.values()) list.sort((a,b) => b.localeCompare(a));
-  const reversed=[];
-  function visit(node) {
+  const stack=[start], reversed=[];
+  while (stack.length) {
+    const node=stack[stack.length-1];
     const list=graph.get(node);
-    while (list?.length) visit(list.pop());
-    reversed.push(node);
+    if (list?.length) stack.push(list.pop());
+    else reversed.push(stack.pop());
   }
-  visit(start);
   const route=reversed.reverse();
-  return route.length===edges.length+1 ? route : null;
+  if (route.length!==edges.length+1) return null;
+  for (let index=1; index<route.length; index++) {
+    const key=JSON.stringify([route[index-1],route[index]]);
+    const count=remaining.get(key) ?? 0;
+    if (count===0) return null;
+    remaining.set(key,count-1);
+  }
+  return route;
 }
 ```
 
 ### Dry run, complexity, variants và transfer
 
-Tickets `A→B, A→B, B→A`: cả hai occurrence `A→B` phải nằm riêng trong adjacency; route có 4 vertex. Sort adjacency `O(E log E)`, consume `O(E)`, space `O(E)`. Recursive depth E có thể overflow; iterative stack là variant an toàn.
+Tickets `A→B, A→B, B→A`: cả hai occurrence `A→B` phải nằm riêng trong adjacency; route có 4 vertex. Sort adjacency `O(E log E)`, consume/validate `O(E)`, space `O(E)`. Explicit stack chịu chain 10.000 ticket mà không phụ thuộc call-stack JavaScript.
 
-Biến thể lexical-smallest route cần sort reverse rồi pop nhỏ nhất; recursive depth lớn đổi sang iterative stack. Phải validate route length và degree/connectivity contract; Hierholzer skeleton không tự biến input vô nghiệm thành hợp lệ. Counterexample Set adjacency làm mất parallel ticket. Transfer OF041.
+Biến thể lexical-smallest route cần sort reverse rồi pop nhỏ nhất. Phải validate route length và chính các edge occurrence; Hierholzer skeleton không tự biến input vô nghiệm thành hợp lệ. Counterexample Set adjacency làm mất parallel ticket. Transfer OF041.
 
 ### Recall Card / Blank Page / Explain Back
 

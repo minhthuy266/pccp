@@ -1,6 +1,6 @@
 class Heap {
   constructor(compare = (a, b) => a - b) { this.data = []; this.compare = compare; }
-  size() { return this.data.length; }
+  get size() { return this.data.length; }
   peek() { return this.data[0]; }
   push(value) {
     this.data.push(value);
@@ -34,9 +34,9 @@ class Heap {
 function topKLargest(values, k) {
   if (k <= 0) return [];
   const heap = new Heap();
-  for (const value of values) { heap.push(value); if (heap.size() > k) heap.pop(); }
+  for (const value of values) { heap.push(value); if (heap.size > k) heap.pop(); }
   const result = [];
-  while (heap.size()) result.push(heap.pop());
+  while (heap.size) result.push(heap.pop());
   return result.reverse();
 }
 
@@ -46,8 +46,8 @@ function shortestJobOrder(jobs) {
   const ready = new Heap((a, b) => a.duration - b.duration || a.arrival - b.arrival || a.index - b.index);
   const result = [];
   let pointer = 0, time = 0;
-  while (pointer < ordered.length || ready.size()) {
-    if (!ready.size() && time < ordered[pointer].arrival) time = ordered[pointer].arrival;
+  while (pointer < ordered.length || ready.size) {
+    if (!ready.size && time < ordered[pointer].arrival) time = ordered[pointer].arrival;
     while (pointer < ordered.length && ordered[pointer].arrival <= time) ready.push(ordered[pointer++]);
     const job = ready.pop();
     time += job.duration;

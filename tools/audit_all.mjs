@@ -7,6 +7,7 @@ const commands = [
   ["node", ["tools/audit_pattern_families.mjs"]],
   ["node", ["tools/audit_official_lessons.mjs"]],
   ["node", ["tools/audit_canonical.mjs"]],
+  ["node", ["tools/audit_learning_route.mjs"]],
   ["node", ["tools/audit_pccp_700_release.mjs"]],
   ["node", ["--check", "docs/JS_TEMPLATES_PCCP.js"]],
   ["node", ["--test", ...fs.readdirSync("tests").filter((name) => name.endsWith(".test.js")).sort().map((name) => `tests/${name}`)]],

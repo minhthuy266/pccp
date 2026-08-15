@@ -18,7 +18,7 @@ Signal: minimum integer answer và predicate “sản xuất đủ” monotonic.
 
 ### MX04 — Mapping và lời giải
 
-Signal: weighted nonnegative shortest từ source. `GR-01`, phụ `HG-01/BFS-01`. State distance + min-heap record; stale check trước relax. BFS sai ở cạnh 10 so với hai cạnh tổng 2. `O((V+E)log V)`. Negative edge bị reject.
+Signal: weighted nonnegative shortest từ source. `GR-01`, phụ `HG-01/BFS-01`. State distance + min-heap record; stale check trước relax. BFS sai ở cạnh 10 so với hai cạnh tổng 2. Với `E` tính từng edge record kể cả parallel edge và lazy heap: `O(V + E log(E+1))` time, `O(V+E)` space. Negative edge bị reject.
 
 ### MX05 — Mapping và lời giải
 

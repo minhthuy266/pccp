@@ -3,110 +3,136 @@ path,disposition,reason
 .gitignore,SUPPORT,Cấu hình repository
 BASIC copy.js,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
 BASIC.js,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
-CHATGPT_WORK_HANDOFF.md,REMOVE_CANDIDATE,"Stale, trùng hoặc metadata; không dùng để học"
-PCCP_700_MASTER_NAVIGATOR.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
-PCCP_Algorithm_Code_Notebook/00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/00_Learning_System.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/00_MASTERY_STANDARD.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/01_Array_String_Loop.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/02_Matrix.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/03_Map_Set.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/04_Simulation.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/05_Sorting.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/06_Two_Pointers.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/07_Sliding_Window_Prefix_Sum.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/08_Stack_Queue.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/09_Binary_Search.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/10_BFS_DFS.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/11_Heap_Greedy.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/12_Backtracking_DP_Basic.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/90_Mixed_Pattern_Tests.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/98_Review_Schedule.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/99_Personal_Error_Log.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/CONTINUATION_CONTEXT.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/FRAMEWORK_COVERAGE_AUDIT.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/HANDOFF.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/MANIFEST.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/MASTERY_TRACKER.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/PATTERN_COVERAGE_MATRIX.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/PCCP_EXAM_PATTERN_ATLAS.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/PCCP_PUBLIC_PROBLEM_CATALOG.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/README.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/TEMPLATE_CONTRASTS.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/01_array_string_loop/01_Scan.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/01_array_string_loop/02_Sequences.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/01_array_string_loop/03_Practice_Ladder.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/01_array_string_loop/QA.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/02_matrix/01_Traversal.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/02_matrix/02_Transform_Movement.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/02_matrix/03_Practice_Ladder.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/02_matrix/QA.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/03_map_set/00_Beginner_Guide.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/03_map_set/00_Exam_Mastery_Guide.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/03_map_set/01_Core.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/03_map_set/01_Core_From_Zero.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/03_map_set/02_Advanced_From_Zero.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/03_map_set/02_Combinations.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/03_map_set/03_Practice_Ladder.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/03_map_set/04_Programmers_PCCP_Set.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/03_map_set/05_Programmers_Kit_Audit.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/03_map_set/06_Programmers_Derived_Concepts.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/03_map_set/QA.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/04_simulation/01_State_Time.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/04_simulation/02_Events_Integration.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/04_simulation/03_Practice_Ladder.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/04_simulation/04_PCCP_Public_Problems.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/04_simulation/QA.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/05_sorting/01_Comparators.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/05_sorting/02_Scan_Compression.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/05_sorting/03_Practice_Ladder.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/05_sorting/QA.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/06_two_pointers/01_Inward_Compact.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/06_two_pointers/02_Merge_Pair_Partition.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/06_two_pointers/03_Practice_Ladder.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/06_two_pointers/QA.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/07_prefix_window/01_Prefix_Sum_From_Zero.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/00_Beginner_Guide.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/00_Exam_Mastery_Guide.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/01_Core_From_Zero.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/01_Stack_Monotonic.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/02_Advanced_From_Zero.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/02_Queue_Circular_BFS.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/03_Practice_Ladder.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/04_Programmers_PCCP_Set.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/05_Programmers_Kit_Audit.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/06_Programmers_Derived_Concepts.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/QA.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/01_Array_String_Loop_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/02_Matrix_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/03_Map_Set_Programmers_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/03_Map_Set_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/04_Simulation_PCCP_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/04_Simulation_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/05_Sorting_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/06_Two_Pointers_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/07_Sliding_Window_Prefix_Sum_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/08_Stack_Queue_Programmers_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/08_Stack_Queue_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/09_Binary_Search_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/10_BFS_DFS_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/11_Heap_Greedy_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/12_Backtracking_DP_Basic_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/solutions/90_Mixed_Pattern_Tests_Solutions.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
-PCCP_Algorithm_Code_Notebook/summary/PCCP_TONG_HOP_TOAN_BO_KIEN_THUC_DA_HOC.md,REFERENCE_ONLY,Notebook nhiều drill nhưng dang dở; không phải handbook canonical
+CHATGPT_WORK_HANDOFF.md,REDIRECT,Context dạy học cho AI; mọi quyết định lịch đều chuyển về Master Navigator
+PCCP_700_MASTER_NAVIGATOR.md,ENTRYPOINT,Entrypoint duy nhất; quyết định thứ tự và thời điểm mở mọi layer
+PCCP_Algorithm_Code_Notebook/00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/00_Learning_System.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/00_MASTERY_STANDARD.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/01_Array_String_Loop.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/02_Matrix.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/03_Map_Set.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/04_Simulation.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/05_Sorting.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/06_Two_Pointers.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/07_Sliding_Window_Prefix_Sum.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/08_Stack_Queue.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/09_Binary_Search.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/10_BFS_DFS.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/11_Heap_Greedy.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/12_Backtracking_DP_Basic.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/13_Advanced_Graph.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/90_Mixed_Pattern_Tests.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/98_Review_Schedule.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/99_Personal_Error_Log.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/CONTINUATION_CONTEXT.md,HISTORICAL_BASELINE,Handoff triển khai cũ; không dùng để điều hướng học
+PCCP_Algorithm_Code_Notebook/FRAMEWORK_COVERAGE_AUDIT.md,GOVERNANCE,Nguồn audit/ID được máy kiểm tra; không phải entrypoint học
+PCCP_Algorithm_Code_Notebook/HANDOFF.md,HISTORICAL_BASELINE,Handoff triển khai cũ; không dùng để điều hướng học
+PCCP_Algorithm_Code_Notebook/MANIFEST.md,GOVERNANCE,Nguồn audit/ID được máy kiểm tra; không phải entrypoint học
+PCCP_Algorithm_Code_Notebook/MASTERY_TRACKER.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/MIXED_TEST_TRACKER.csv,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/NOTEBOOK_PATTERN_OFFICIAL_CROSSWALK.csv,GOVERNANCE,Nguồn audit/ID được máy kiểm tra; không phải entrypoint học
+PCCP_Algorithm_Code_Notebook/PATTERN_COVERAGE_MATRIX.md,GOVERNANCE,Nguồn audit/ID được máy kiểm tra; không phải entrypoint học
+PCCP_Algorithm_Code_Notebook/PCCP_EXAM_PATTERN_ATLAS.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/PCCP_PUBLIC_PROBLEM_CATALOG.md,GOVERNANCE,Nguồn audit/ID được máy kiểm tra; không phải entrypoint học
+PCCP_Algorithm_Code_Notebook/README.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/TEMPLATE_CONTRASTS.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/01_array_string_loop/01_Scan.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/01_array_string_loop/02_Sequences.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/01_array_string_loop/03_Practice_Ladder.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/01_array_string_loop/QA.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/02_matrix/01_Traversal.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/02_matrix/02_Transform_Movement.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/02_matrix/03_Practice_Ladder.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/02_matrix/QA.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/00_Beginner_Guide.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/00_Exam_Mastery_Guide.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/01_Core.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/01_Core_From_Zero.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/02_Advanced_From_Zero.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/02_Combinations.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/03_Practice_Ladder.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/04_Programmers_PCCP_Set.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/05_Programmers_Kit_Audit.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/06_Programmers_Derived_Concepts.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/03_map_set/QA.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/04_simulation/01_State_Time.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/04_simulation/02_Events_Integration.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/04_simulation/03_Practice_Ladder.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/04_simulation/04_PCCP_Public_Problems.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/04_simulation/QA.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/05_sorting/01_Comparators.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/05_sorting/02_Scan_Compression.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/05_sorting/03_Practice_Ladder.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/05_sorting/QA.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/06_two_pointers/01_Inward_Compact.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/06_two_pointers/02_Merge_Pair_Partition.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/06_two_pointers/03_Practice_Ladder.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/06_two_pointers/QA.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/07_prefix_window/01_Prefix_Sum_From_Zero.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/07_prefix_window/02_Prefix_Canonical.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/07_prefix_window/03_Sliding_Window_Canonical.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/07_prefix_window/04_Practice_Ladder.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/07_prefix_window/QA.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/00_Beginner_Guide.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/00_Exam_Mastery_Guide.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/01_Core_From_Zero.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/01_Stack_Monotonic.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/02_Advanced_From_Zero.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/02_Queue_Circular_BFS.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/03_Practice_Ladder.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/04_Programmers_PCCP_Set.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/05_Programmers_Kit_Audit.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/06_Programmers_Derived_Concepts.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/08_stack_queue/QA.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/09_binary_search/01_Binary_Search_Canonical.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/09_binary_search/02_Practice_Ladder.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/09_binary_search/QA.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/10_graph_tree/01_Graph_Tree_Canonical.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/10_graph_tree/02_Practice_Ladder.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/10_graph_tree/QA.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/11_heap_greedy/01_Heap_Greedy_Canonical.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/11_heap_greedy/02_Practice_Ladder.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/11_heap_greedy/QA.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/12_backtracking_dp/01_Backtracking_DP_Canonical.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/12_backtracking_dp/02_Practice_Ladder.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/12_backtracking_dp/QA.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/13_advanced_graph/01_Advanced_Graph_Canonical.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/13_advanced_graph/02_Practice_Ladder.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/13_advanced_graph/QA.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/chapters/90_mixed/QA.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/01_Array_String_Loop_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/02_Matrix_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/03_Map_Set_Programmers_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/03_Map_Set_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/04_Simulation_PCCP_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/04_Simulation_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/05_Sorting_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/06_Two_Pointers_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/07_Sliding_Window_Prefix_Sum_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/08_Stack_Queue_Programmers_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/08_Stack_Queue_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/09_Binary_Search_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/10_BFS_DFS_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/11_Heap_Greedy_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/12_Backtracking_DP_Basic_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/13_Advanced_Graph_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/solutions/90_Mixed_Pattern_Tests_Solutions.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
+PCCP_Algorithm_Code_Notebook/summary/PCCP_TONG_HOP_TOAN_BO_KIEN_THUC_DA_HOC.md,LINKED_LAYER,Notebook 89/89 Coverage ID; lớp luyện sâu chỉ mở qua Navigator
 PCCP_Level_1_Full_De_Bai_Tieng_Viet_84_Bai.docx,REFERENCE_ONLY,Snapshot/generated document; Markdown canonical mới hơn
 PCCP_Level_1_Full_De_Bai_Tieng_Viet_84_Bai.pdf,REFERENCE_ONLY,Snapshot/generated document; Markdown canonical mới hơn
 PCCP_Level_1_Luyen_Thi_Phan_Tich_Day_Du_Vol_1.docx,REFERENCE_ONLY,Snapshot/generated document; Markdown canonical mới hơn
 PCCP_Level_1_Luyen_Thi_Phan_Tich_Day_Du_Vol_1_Full_84.docx,REFERENCE_ONLY,Snapshot/generated document; Markdown canonical mới hơn
-PCCP_OFFICIAL_ONLY_CURRICULUM.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
-PCCP_OFFICIAL_PRACTICE_BANK.csv,CANONICAL,Nằm trong luồng học/kiểm chứng chính
-PCCP_OFFICIAL_SYLLABUS_RESERVE.csv,CANONICAL,Nằm trong luồng học/kiểm chứng chính
-PLAN_PCCP_700_REBUILD_2026-09-12.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+PCCP_OFFICIAL_ONLY_CURRICULUM.md,LINKED_LAYER,Lớp học được kiểm chứng; chỉ mở từ link đúng chỗ trong Navigator
+PCCP_OFFICIAL_PRACTICE_BANK.csv,GOVERNANCE,Nguồn audit/ID được máy kiểm tra; không phải entrypoint học
+PCCP_OFFICIAL_SYLLABUS_RESERVE.csv,GOVERNANCE,Nguồn audit/ID được máy kiểm tra; không phải entrypoint học
+PLAN_NOTEBOOK_PATTERN_INTEGRATION.md,HISTORICAL_BASELINE,Plan tích hợp ngày 12/08 đã hoàn thành; số 1/83 chỉ là baseline lịch sử
+PLAN_PCCP_700_REBUILD_2026-09-12.md,LINKED_LAYER,Lớp học được kiểm chứng; chỉ mở từ link đúng chỗ trong Navigator
 PROBLEM_BANK.csv,REFERENCE_ONLY,Bank Pxx legacy; chỉ dùng mapping
-README.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
-REPO_CONTENT_AUDIT_2026-08-12.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+README.md,REDIRECT,Trang chào chỉ chuyển người học tới Master Navigator
+REPO_CONTENT_AUDIT_2026-08-12.md,GOVERNANCE,Nguồn audit/ID được máy kiểm tra; không phải entrypoint học
 REPO_FILE_INVENTORY.csv,SUPPORT,Inventory sinh tự động; không phải bài học
-TRACKER_PCCP_REBUILD_2026.csv,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+TRACKER_PCCP_MOCK_ATTEMPTS.csv,LINKED_LAYER,Lớp học được kiểm chứng; chỉ mở từ link đúng chỗ trong Navigator
+TRACKER_PCCP_REBUILD_2026.csv,LINKED_LAYER,Lớp học được kiểm chứng; chỉ mở từ link đúng chỗ trong Navigator
 archive/PLAN_PCCP_700_2026-09-05.md,ARCHIVE,Lịch sử; không mở trong lộ trình hiện tại
 archive/README.md,ARCHIVE,Lịch sử; không mở trong lộ trình hiện tại
 archive/TRACKER_PCCP_2026.csv,ARCHIVE,Lịch sử; không mở trong lộ trình hiện tại
@@ -129,27 +155,236 @@ basic-drafts/robot-movement.js,PERSONAL,Bài làm/sandbox người học; không
 basic-drafts/stack-queue.js,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
 docs/.DS_Store,REMOVE_CANDIDATE,"Stale, trùng hoặc metadata; không dùng để học"
 docs/CHEATSHEET_THUAT_TOAN_JS_PCCP.md,REFERENCE_ONLY,Tra cứu rộng nhưng trùng handbook/templates
-docs/JS_TEMPLATES_PCCP.js,CANONICAL,Nằm trong luồng học/kiểm chứng chính
-docs/pccp-700-roadmap/OFFICIAL_RESEARCH_AUDIT_2026-08-12.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+docs/JS_TEMPLATES_PCCP.js,LINKED_LAYER,Lớp học được kiểm chứng; chỉ mở từ link đúng chỗ trong Navigator
+docs/pccp-700-roadmap/OFFICIAL_RESEARCH_AUDIT_2026-08-12.md,GOVERNANCE,Nguồn audit/ID được máy kiểm tra; không phải entrypoint học
 docs/pccp-700-roadmap/PCCP_700_Roadmap_JavaScript_2026.docx,REFERENCE_ONLY,Snapshot/generated document; Markdown canonical mới hơn
 docs/pccp-700-roadmap/PCCP_700_Roadmap_JavaScript_2026.pdf,REFERENCE_ONLY,Snapshot/generated document; Markdown canonical mới hơn
-docs/pccp-700-roadmap/PCCP_Error_Log.csv,CANONICAL,Nằm trong luồng học/kiểm chứng chính
-docs/pccp-700-roadmap/PCCP_Final_Cheat_Sheet.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
-docs/pccp-700-roadmap/PCCP_JavaScript_Templates.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
-docs/pccp-700-roadmap/PCCP_Thinking_Curriculum.md,CANONICAL,Nằm trong luồng học/kiểm chứng chính
+docs/pccp-700-roadmap/PCCP_Error_Log.csv,LINKED_LAYER,Lớp học được kiểm chứng; chỉ mở từ link đúng chỗ trong Navigator
+docs/pccp-700-roadmap/PCCP_Final_Cheat_Sheet.md,LINKED_LAYER,Lớp học được kiểm chứng; chỉ mở từ link đúng chỗ trong Navigator
+docs/pccp-700-roadmap/PCCP_JavaScript_Templates.md,LINKED_LAYER,Lớp học được kiểm chứng; chỉ mở từ link đúng chỗ trong Navigator
+docs/pccp-700-roadmap/PCCP_Thinking_Curriculum.md,LINKED_LAYER,Lớp học được kiểm chứng; chỉ mở từ link đúng chỗ trong Navigator
+docs/pccp-700-roadmap/official-lessons/OF001.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF002.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF003.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF004.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF005.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF006.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF007.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF008.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF009.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF010.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF011.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF012.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF013.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF014.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF015.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF016.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF017.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF018.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF019.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF020.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF021.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF022.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF023.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF024.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF025.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF026.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF027.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF028.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF029.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF030.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF031.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF032.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF033.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF034.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF035.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF036.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF037.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF038.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF039.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF040.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF041.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF042.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF043.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF044.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF045.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF046.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF047.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF048.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF049.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF050.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF051.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF052.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF053.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF054.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF055.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF056.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF057.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF058.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF059.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF060.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/OF061.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/SR001.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/SR002.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/SR003.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/SR004.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/SR005.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/official-lessons/SR006.md,LINKED_LAYER,Lớp 67/67 official lesson đã kiểm chứng; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PATTERN_COVERAGE.csv,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF01_COUNTING_GROUPING_LOOKUP.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF02_SORT_NORMALIZE_ORDER.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF03_LINEAR_STREAM_CHUNKING.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF04_STACK_FAMILY.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF05_QUEUE_EVENT_SIMULATION.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF06_HEAP_SELECTION_SCHEDULING.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF07_BACKTRACKING_ENUMERATION.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF08_BOUNDED_CASE_ANALYSIS.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF09_LINE_GREEDY_PAIRING.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF10_INTERVAL_GREEDY.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF11_LOCAL_STATE_DP.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF12_SET_INTERVAL_DP.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF13_DFS_COMPONENT_TREE_SHAPE.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF14_UNWEIGHTED_BFS.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF15_MST_DSU.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF16_EULER_TRAIL.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF17_REACHABILITY_CLOSURE.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF18_PLANAR_TOPOLOGY.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF19_BINARY_SEARCH_ANSWER.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF20_MATRIX_ATOMIC_SIMULATION.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF21_SLIDING_WINDOW_TWO_POINTERS.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF22_DIJKSTRA.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF23_DIFFERENCE_PREFIX.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/PF24_PARENT_CHAIN_PROPAGATION.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
+docs/pccp-700-roadmap/pattern-families/README.md,LINKED_LAYER,Lớp 24/24 pattern family; không phải entrypoint độc lập
 docs/pccp-700-roadmap/sources.md,REFERENCE_ONLY,Ledger cũ trộn nguồn official/community; audit official mới thay thế
 locked/MIXED_MOCK_D29.csv,REMOVE_CANDIDATE,"Stale, trùng hoặc metadata; không dùng để học"
 locked/OFFICIAL_MOCK_BANK.md,LOCKED,Có spoiler/mock; chỉ mở theo unlock rule
+locked/PAST_SET_A_LAUNCH.md,LOCKED,Có spoiler/mock; chỉ mở theo unlock rule
+locked/PAST_SET_B_LAUNCH.md,LOCKED,Có spoiler/mock; chỉ mở theo unlock rule
 locked/POST_MOCK_ANALYSIS.csv,LOCKED,Có spoiler/mock; chỉ mở theo unlock rule
 package-lock.json,SUPPORT,Hạ tầng build/test/audit
 package.json,SUPPORT,Hạ tầng build/test/audit
 pccp-700-curriculum.patch,REMOVE_CANDIDATE,"Stale, trùng hoặc metadata; không dùng để học"
 playground/BASIC.js,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
 playground/README.md,PERSONAL,Bài làm/sandbox người học; không dùng làm lời giải chuẩn
+solutions/notebook/ch01_array_loop.js,LINKED_LAYER,Implementation executable của notebook; mở qua notebook/Navigator
+solutions/notebook/ch02_matrix.js,LINKED_LAYER,Implementation executable của notebook; mở qua notebook/Navigator
+solutions/notebook/ch03_map_set.js,LINKED_LAYER,Implementation executable của notebook; mở qua notebook/Navigator
+solutions/notebook/ch04_simulation.js,LINKED_LAYER,Implementation executable của notebook; mở qua notebook/Navigator
+solutions/notebook/ch05_sorting.js,LINKED_LAYER,Implementation executable của notebook; mở qua notebook/Navigator
+solutions/notebook/ch06_two_pointers.js,LINKED_LAYER,Implementation executable của notebook; mở qua notebook/Navigator
+solutions/notebook/ch07_prefix_window.js,LINKED_LAYER,Implementation executable của notebook; mở qua notebook/Navigator
+solutions/notebook/ch09_binary_search.js,LINKED_LAYER,Implementation executable của notebook; mở qua notebook/Navigator
+solutions/notebook/ch10_graph_tree.js,LINKED_LAYER,Implementation executable của notebook; mở qua notebook/Navigator
+solutions/notebook/ch11_heap_greedy.js,LINKED_LAYER,Implementation executable của notebook; mở qua notebook/Navigator
+solutions/notebook/ch12_backtracking_dp.js,LINKED_LAYER,Implementation executable của notebook; mở qua notebook/Navigator
+solutions/notebook/ch13_advanced_graph.js,LINKED_LAYER,Implementation executable của notebook; mở qua notebook/Navigator
+solutions/notebook/ch90_mixed.js,LINKED_LAYER,Implementation executable của notebook; mở qua notebook/Navigator
+solutions/official/OF001.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF002.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF003.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF004.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF005.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF006.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF007.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF008.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF009.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF010.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF011.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF012.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF013.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF014.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF015.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF016.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF017.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF018.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF019.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF020.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF021.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF022.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF023.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF024.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF025.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF026.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF027.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF028.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF029.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF030.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF031.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF032.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF033.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF034.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF035.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF036.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF037.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF038.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF039.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF040.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF041.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF042.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF043.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF044.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF045.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF046.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF047.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF048.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF049.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF050.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF051.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF052.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF053.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF054.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF055.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF056.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF057.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF058.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF059.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF060.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/OF061.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/SR001.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/SR002.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/SR003.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/SR004.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/SR005.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
+solutions/official/SR006.js,LINKED_LAYER,Implementation executable của official lesson; mở qua lesson/Navigator
 tests/js_templates_smoke.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/notebook_ch01.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/notebook_ch02.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/notebook_ch03.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/notebook_ch04.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/notebook_ch05.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/notebook_ch06.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/notebook_ch07.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/notebook_ch09.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/notebook_ch10.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/notebook_ch11.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/notebook_ch12.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/notebook_ch13.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/notebook_ch90.test.js,SUPPORT,Hạ tầng build/test/audit
 tests/notebook_chapter08.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch01.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch02.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch03.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch04.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch05.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch06.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch07.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch08.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch09.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch10.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch11.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch12.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch13.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch14.test.js,SUPPORT,Hạ tầng build/test/audit
+tests/official_batch15.test.js,SUPPORT,Hạ tầng build/test/audit
+tools/audit_all.mjs,SUPPORT,Hạ tầng build/test/audit
 tools/audit_canonical.mjs,SUPPORT,Hạ tầng build/test/audit
+tools/audit_learning_route.mjs,SUPPORT,Hạ tầng build/test/audit
 tools/audit_notebook_framework.mjs,SUPPORT,Hạ tầng build/test/audit
+tools/audit_notebook_integration.mjs,SUPPORT,Hạ tầng build/test/audit
+tools/audit_official_lessons.mjs,SUPPORT,Hạ tầng build/test/audit
+tools/audit_pattern_families.mjs,SUPPORT,Hạ tầng build/test/audit
+tools/audit_pccp_700_release.mjs,SUPPORT,Hạ tầng build/test/audit
 tools/format_code_blocks.mjs,SUPPORT,Hạ tầng build/test/audit
 tools/generate_repo_inventory.mjs,SUPPORT,Hạ tầng build/test/audit
 tools/rebuild_level1_documents.py,SUPPORT,Hạ tầng build/test/audit

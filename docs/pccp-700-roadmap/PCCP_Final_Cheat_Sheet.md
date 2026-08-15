@@ -1,6 +1,6 @@
 # PCCP JavaScript — Final Cheat Sheet
 
-**Mục tiêu:** đọc lại trong 15–20 phút trước kỳ thi. Không học thuật toán mới từ tài liệu này.  
+**Mục tiêu:** đọc lại trong 15–20 phút trước kỳ thi. Không học thuật toán mới từ tài liệu này. Đây là tài liệu ôn **trước khi vào phòng thi**, không phải tài liệu được mang vào kỳ thi; guide hiện hành chỉ cho phép một tờ A4 trắng và bút.
 **Quy ước:** `R = số hàng`, `C = số cột`, `V = số đỉnh`, `E = số cạnh`.
 
 ## Trang 1/4 — Complexity và JavaScript nền tảng
@@ -182,7 +182,7 @@ function firstTrue(left, right, isPossible) {
   let answer = right + 1;
 
   while (left <= right) {
-    const mid = Math.floor((left + right) / 2);
+    const mid = left + Math.floor((right - left) / 2);
 
     if (isPossible(mid)) {
       answer = mid;
@@ -204,7 +204,7 @@ Trước khi code, viết một câu: “Nếu `x` làm được thì mọi giá
 const pq = new PriorityQueue((a, b) => a.cost - b.cost);
 pq.push({ node: start, cost: 0 });
 
-while (!pq.isEmpty()) {
+while (pq.size > 0) {
   const current = pq.pop();
   // Bỏ stale entry nếu current.cost !== distance[current.node]
 }
@@ -302,13 +302,13 @@ for (let state = 1; state <= n; state++) {
 
 | Mốc | Việc cần làm |
 |---:|---|
-| **0–8** | Scan cả 4 bài; ghi pattern, constraints, rủi ro; xếp theo độ phù hợp với bản thân |
-| **8–28** | Bài chắc nhất; code rõ; submit; kiểm test biên |
-| **28–58** | Bài thứ hai |
-| **58–92** | Bài thứ ba khả thi nhất |
-| **92–102** | Bài còn lại hoặc hoàn thiện bài gần xong; chỉ code partial khi có hướng rõ |
+| **0–5** | Scan cả 4 bài; ghi pattern, constraints, rủi ro; xếp theo độ phù hợp với bản thân |
+| **5–25** | Bài chắc nhất; code rõ; submit; kiểm test biên |
+| **25–55** | Bài thứ hai |
+| **55–90** | Bài thứ ba khả thi nhất |
+| **90–102** | Bài còn lại hoặc hoàn thiện bài gần xong; chỉ code partial khi có hướng rõ |
 | **102–116** | Audit hidden test, complexity, index, state, sort, Number |
-| **116–120** | Chạy lại sample, kiểm return và submit từng bài |
+| **116–120** | Chạy lại sample; kiểm trạng thái `Submit Code` của cả bốn bài. Code chưa submit không được chấm |
 
 **Quy tắc tạm bỏ bài**
 

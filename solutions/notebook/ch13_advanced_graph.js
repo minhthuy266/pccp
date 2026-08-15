@@ -1,6 +1,6 @@
 class MinHeap {
   constructor(compare = (a, b) => a - b) { this.data = []; this.compare = compare; }
-  size() { return this.data.length; }
+  get size() { return this.data.length; }
   push(value) {
     this.data.push(value);
     for (let child = this.data.length - 1; child > 0;) {
@@ -38,7 +38,7 @@ function dijkstra(adjacency, source) {
   const heap = new MinHeap((a, b) => a[0] - b[0]);
   distance[source] = 0;
   heap.push([0, source]);
-  while (heap.size()) {
+  while (heap.size) {
     const [cost, node] = heap.pop();
     if (cost !== distance[node]) continue;
     for (const [next, weight] of adjacency[node]) {

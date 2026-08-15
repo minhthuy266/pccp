@@ -34,6 +34,13 @@ test("GR-04 — Euler giữ parallel occurrence, lexical và reject unused edge"
   assert.equal(g.eulerTrailDirected([["A", "B"], ["A", "C"]], "A"), null);
 });
 
+test("GR-04 — Euler chain 10.000 edge không phụ thuộc call stack", () => {
+  const edges = Array.from({ length: 10_000 }, (_, index) => [`N${index}`, `N${index + 1}`]);
+  const route = g.eulerTrailDirected(edges, "N0");
+  assert.equal(route.length, 10_001);
+  assert.equal(route[10_000], "N10000");
+});
+
 test("GR-05 — planar square/retrace và midpoint crossing", () => {
   assert.equal(g.countPlanarRooms([0, 2, 4, 6]), 1);
   assert.equal(g.countPlanarRooms([0, 4]), 0);

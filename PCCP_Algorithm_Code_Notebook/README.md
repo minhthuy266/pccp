@@ -1,6 +1,6 @@
 # PCCP Algorithm Code Notebook – Từ hiểu đến tự viết được
 
-> Tiếp tục xây notebook ở phiên mới: đọc [CONTINUATION_CONTEXT.md](CONTINUATION_CONTEXT.md) trước, sau đó đọc [HANDOFF.md](HANDOFF.md).
+> **Đây là tầng drill sâu, không phải entrypoint học. Chỉ mở từ D26, sau khi đã hoàn tất Past Set B ở D24.** Quay về [PCCP 700+ Master Navigator](../PCCP_700_MASTER_NAVIGATOR.md) để biết đúng pattern cần repair. Các atlas/catalog/solution bên dưới có thể làm lộ tên hoặc pattern của past set; `CONTINUATION_CONTEXT.md`/`HANDOFF.md` chỉ là baseline authoring lịch sử.
 
 Đây là notebook luyện **chuyển đề bài thành state, transition, invariant và code JavaScript từ trang trắng**. Nó không thay thế kho bài hay cheatsheet. Nó biến kiến thức tra cứu thành bài tập active recall có đáp án tách riêng.
 
@@ -8,18 +8,18 @@
 
 Không gọi notebook là hoàn thiện khi chỉ có template. Đọc [Chuẩn thành thạo PCCP](00_MASTERY_STANDARD.md) để biết mỗi bài phải học đến mức nào, và dùng [Danh mục đề PCCP công khai](PCCP_PUBLIC_PROBLEM_CATALOG.md) để biết chính xác đề nào đã có bài học/lời giải, đề nào còn thiếu.
 
-**Bắt đầu học ở đây:** [Bản đồ pattern PCCP](PCCP_EXAM_PATTERN_ATLAS.md). Trang này giải thích pattern theo dấu hiệu của đề thật, state cần giữ và các đề PCCP tương ứng; catalog chỉ dùng để kiểm tra coverage sau đó.
+**Khi Navigator giao một drill notebook:** dùng [Bản đồ pattern PCCP](PCCP_EXAM_PATTERN_ATLAS.md) hoặc chapter được link để tra đúng cluster. Trang này giải thích pattern theo dấu hiệu của đề thật, state cần giữ và các đề PCCP tương ứng; catalog chỉ dùng để kiểm tra coverage sau đó.
 
 > Nhìn code thấy hiểu ≠ tự viết được.  
 > Nhớ lời giải ≠ hiểu pattern.  
 > Chỉ được tính là đã học khi đóng đáp án và tự dựng lại được.
 
-## Bắt đầu ở đâu
+## Khi Navigator giao notebook drill
 
-1. Đọc [00_Learning_System.md](00_Learning_System.md), rồi xem hợp đồng [Core → Template → Variants](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md).
-2. Xem [PATTERN_COVERAGE_MATRIX.md](PATTERN_COVERAGE_MATRIX.md), rồi học chương ưu tiên [03_Map_Set.md](03_Map_Set.md).
-3. Chỉ mở [solutions/03_Map_Set_Solutions.md](solutions/03_Map_Set_Solutions.md) sau khi đã ghi lại nỗ lực của mình.
-4. Đặt lịch trong [98_Review_Schedule.md](98_Review_Schedule.md) và ghi lỗi vào [99_Personal_Error_Log.md](99_Personal_Error_Log.md).
+1. Đọc nhanh [00_Learning_System.md](00_Learning_System.md) và hợp đồng [Core → Template → Variants](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md) ở lần đầu dùng notebook.
+2. Chỉ mở chapter/pattern được Navigator hoặc Error Log chỉ định; không tự học tuần tự toàn bộ notebook.
+3. Tự làm practice trước, rồi mới mở solution cùng ID sau khi đã ghi nỗ lực và test.
+4. Tiến độ sprint vẫn ghi ở tracker/error log root; review schedule notebook chỉ dùng cho drill sâu được chọn.
 
 ## Quy trình học một chương
 
@@ -44,7 +44,7 @@ ID ổn định, phân loại CORE/VARIANT/COMBINATION/OPTIONAL và trạng thá
 
 Crosswalk máy đọc được nối toàn bộ 89 Coverage ID với 24 Pattern Family và 67 bài official nằm tại [Notebook–Pattern–Official Crosswalk](NOTEBOOK_PATTERN_OFFICIAL_CROSSWALK.csv). `npm run check:notebook-integration` sẽ fail nếu một ID, family hoặc bài official bị rơi/map sai.
 
-Release hiện tại đã đạt `89/89 FRAMEWORK-FULL`, có [8 Mixed Tests + 4 gate 120 phút](90_Mixed_Pattern_Tests.md) và 184 behavioral tests. Chạy `npm run check:all` để kiểm toàn bộ framework, crosswalk, pattern, official lesson, release boundary, JavaScript và test suite.
+Release hiện tại đã đạt `89/89 FRAMEWORK-FULL`, có [8 Mixed Tests + 4 gate 120 phút](90_Mixed_Pattern_Tests.md). Số behavioral test hiện hành lấy từ `npm test`, không hardcode trong Navigator; chạy `npm run check:all` để kiểm toàn bộ framework, crosswalk, pattern, official lesson, release boundary, JavaScript và test suite.
 
 Từ 11/08/2026, `FULL` lịch sử và `FRAMEWORK-FULL` được audit riêng. Một pattern chỉ đạt standard mới khi đủ Core, Recognition, Brute force, State, Invariant, Transition, Template, Variants, Dry run, Complexity, Transfer cùng practice/solution/QA; xem [Framework Coverage Audit](FRAMEWORK_COVERAGE_AUDIT.md). Pilot chuẩn là [`SQ-02`](chapters/08_stack_queue/01_Stack_Monotonic.md#sq-02--monotonic-stack-các-index-chưa-được-giải-quyết).
 

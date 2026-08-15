@@ -26,6 +26,14 @@ test("OF059 — Dijkstra xử lý parallel edge và stale heap entry", () => {
   assert.equal(deliverableVillageCount(3, [[1,2,10],[1,2,1],[2,3,1]], 2), 3);
 });
 
+test("OF059 — 2,000 parallel road ở official bound vẫn xử lý hết stale heap entry", () => {
+  const roads = Array.from(
+    { length: 2_000 },
+    (_, index) => [1, 2, 2_000 - index],
+  );
+  assert.equal(deliverableVillageCount(2, roads, 1), 2);
+});
+
 test("OF032 — bottom-up DP chọn child tốt nhất", () => {
   assert.equal(maximumTrianglePath([[7],[3,8],[8,1,0],[2,7,4,4],[4,5,2,6,5]]), 30);
   assert.equal(maximumTrianglePath([[5]]), 5);
