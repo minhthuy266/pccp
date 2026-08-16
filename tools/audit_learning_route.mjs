@@ -271,6 +271,20 @@ const reserveById = new Map(reserve.rows.map((row) => [row.reserve_id, row]));
 const coreIds = new Set(bank.rows.filter((row) => row.priority === "CORE").map((row) => row.bank_id));
 if (coreIds.size !== 32) errors.push(`${files.bank}: cần đúng 32 CORE, nhận ${coreIds.size}`);
 
+const masterLinkTargets = new Set(markdownLinks(masterText).map((link) => link.href));
+let directlyNavigableBankCount = 0;
+for (const row of bank.rows.filter((item) => item.priority !== "RESERVED_MOCK")) {
+  const lessonLink = `docs/pccp-700-roadmap/official-lessons/${row.bank_id}.md`;
+  const hasOfficial = masterLinkTargets.has(row.link);
+  const hasLesson = masterLinkTargets.has(lessonLink);
+  if (!hasOfficial) errors.push(`${files.master}: catalog ${row.bank_id} thiếu direct official link`);
+  if (!hasLesson) errors.push(`${files.master}: catalog ${row.bank_id} thiếu direct lesson link`);
+  if (hasOfficial && hasLesson) directlyNavigableBankCount++;
+}
+if (directlyNavigableBankCount !== 61) {
+  errors.push(`${files.master}: catalog phải điều hướng trực tiếp 61/61 bài non-mock`);
+}
+
 function validateCoreCoverage(label, idsByDay) {
   const counts = new Map();
   for (let day = 1; day <= 17; day++) {
@@ -301,6 +315,27 @@ for (let day = 1; day <= 28; day++) {
       `Route D${day} lệch: Master=[${sorted(masterIds)}], Tracker=[${sorted(trackerIds)}]`,
     );
   }
+}
+
+const scheduledIds = new Set();
+for (let day = 1; day <= 28; day++) {
+  for (const id of expandLearningIds(masterDays.get(day)?.raw ?? "")) scheduledIds.add(id);
+}
+const scheduledOfIds = new Set([...scheduledIds].filter((id) => id.startsWith("OF")));
+const scheduledPastIds = new Set(
+  [...scheduledOfIds].filter((id) => bankById.get(id)?.priority === "RESERVED_MOCK"),
+);
+const unscheduledBank = bank.rows.filter((row) => !scheduledOfIds.has(row.bank_id));
+if (scheduledIds.size !== 44 || scheduledOfIds.size !== 43 || !scheduledIds.has("SR002")) {
+  errors.push(`${files.master}: lịch phải có 43 OF + SR002 = 44 ID thực thi`);
+}
+if (scheduledPastIds.size !== 8) errors.push(`${files.master}: lịch phải có đủ 8 past-paper ID`);
+if (
+  unscheduledBank.length !== 26 ||
+  unscheduledBank.filter((row) => row.priority === "TRANSFER").length !== 19 ||
+  unscheduledBank.filter((row) => row.priority === "STRETCH").length !== 7
+) {
+  errors.push(`${files.master}: kho ngoài lịch phải đúng 19 TRANSFER + 7 STRETCH`);
 }
 
 let directAssignmentCount = 0;
@@ -554,6 +589,7 @@ for (const [day, expected] of [[18, "15008"], [20, "15009"]]) {
     errors.push(`${files.lockedMock}: D${day} thiếu course ${expected}`);
   }
 }
+let pastLauncherDirectCount = 0;
 for (const [day, launcher, expectedIds] of [
   [22, files.pastSetA, new Set(["OF062", "OF063", "OF064", "OF065"])],
   [24, files.pastSetB, new Set(["OF066", "OF067", "OF068", "OF069"])],
@@ -572,9 +608,10 @@ for (const [day, launcher, expectedIds] of [
     const expectedLink = bankById.get(id)?.link;
     if (!expectedLink || !markdownLinks(launcherText).some((link) => link.href === expectedLink)) {
       errors.push(`${launcher}: ${id} thiếu direct official link ${expectedLink ?? "<missing bank row>"}`);
-    }
+    } else pastLauncherDirectCount++;
   }
 }
+if (pastLauncherDirectCount !== 8) errors.push("Hai launcher phải điều hướng đủ 8/8 past-paper");
 
 function walk(directory) {
   if (!fs.existsSync(directory)) return [];
@@ -698,5 +735,6 @@ if (errors.length > 0) {
 console.log(
   `Learning route audit: 32/32 CORE; 28/28 days + EXAM; ` +
     `${directAssignmentCount} direct assignment links; 6/6 predicate drills; ` +
-    `3/3 state drills; 16/16 mock rows; heap .size API consistent.`,
+    `3/3 state drills; 16/16 mock rows; 69/69 bank navigable ` +
+    `(61 catalog + 8 honor-launcher); heap .size API consistent.`,
 );

@@ -15,6 +15,7 @@
 Tìm nhanh:
 
 - [Bắt đầu ngay](#0-bắt-đầu-ngay)
+- [Bản đồ navigation 69/69](#01-bản-đồ-navigation-6969)
 - [Nguồn và độ tin cậy](#1-vì-sao-phạm-vi-này-đáng-tin)
 - [100% syllabus PCCP](#2-100-syllabus-pccp-được-công-bố)
 - [100% public course outline](#3-100-public-outline-của-khóa-luyện-pccp-chính-thức)
@@ -37,6 +38,25 @@ Tìm nhanh:
 5. Kết thúc buổi: điền kết quả thật vào Tracker và lỗi thật vào [Error Log](docs/pccp-700-roadmap/PCCP_Error_Log.csv).
 
 Tracker được reset theo sprint khả thi 15/08 → 11/09. Nếu chưa có dòng nào ghi `completed_at`, điểm bắt đầu là **D1**. Nếu đã hoàn thành bài ở ngoài tracker, ghi kết quả/submission thật rồi dùng thời gian đó để recode hoặc repair; không tự thêm bài STRETCH.
+
+### 0.1 Bản đồ navigation 69/69
+
+Navigator **điều hướng đủ 69/69 ID**, nhưng lịch ngày không bắt làm cả 69 trước kỳ thi:
+
+| Dải ID | Đi đâu từ đây? | Vai trò trong lịch |
+|---|---|---|
+| `OF001–OF047` | [47 dòng riêng trong Algorithm Practice Kit](#4-100-algorithm-practice-kit-10-nhóm-47-bài); mỗi dòng có link đề Programmers và lesson 18 phần | 32 CORE được chọn xuyên suốt D1–D16; các TRANSFER/STRETCH còn lại dùng khi repair hoặc sau khi CORE chắc |
+| `OF048–OF061` | [14 dòng riêng trong bài official bổ sung](#5-bài-official-bổ-sung-ngoài-kit); mỗi dòng có link đề và lesson | Bổ sung các bridge còn thiếu; lịch gọi đúng bài cần thiết |
+| `OF062–OF065` | [Launcher Past Set A](locked/PAST_SET_A_LAUNCH.md) | Bốn link chỉ honor-unlock ở D22 khi timer đã chạy |
+| `OF066–OF069` | [Launcher Past Set B](locked/PAST_SET_B_LAUNCH.md) | Bốn link chỉ honor-unlock ở D24 khi timer đã chạy |
+
+Con số phải hiểu đúng:
+
+- **69/69 có đường điều hướng:** 61 bài hiện link riêng trong §4–5 + 8 bài nằm trong hai launcher khóa.
+- **43/69 OF được giao ngày cụ thể:** 32 CORE + `OF054`, `OF056`, `OF059` + 8 past-paper; thêm `SR002` là String gate, thành 44 ID thực thi trong lịch.
+- **26 OF không bị thiếu:** đó là 19 TRANSFER + 7 STRETCH còn lại, có direct link ở §4–5 nhưng không bị ép vào sprint 28 ngày.
+
+Việc không lịch hóa cả 69 là quyết định tải học cho mục tiêu 700+, không phải thiếu tài liệu. Nếu hoàn tất lịch sớm, lấy bài TRANSFER/STRETCH theo root cause trong Error Log; không làm tuần tự chỉ để tăng số lượng.
 
 Luồng cố định:
 
@@ -254,7 +274,7 @@ OF062–OF069 là hai bộ public past paper. Chúng dùng **honor-system spoile
 
 ### 5.1 Ma trận đóng kín syllabus
 
-`OF001–OF069` là bank nằm trong lịch. Sáu bài `SR` dưới đây là **coverage reserve**, không phải sáu buổi học mới: chỉ mở khi cột “Điều kiện dùng reserve” đúng hoặc khi muốn chứng minh mình chuyển được pattern sang ngữ cảnh khác. Danh sách máy đọc được nằm tại [Official Syllabus Reserve](PCCP_OFFICIAL_SYLLABUS_RESERVE.csv).
+`OF001–OF069` là bank được điều hướng từ Navigator; **không phải cả 69 đều được giao ngày cụ thể**. Sáu bài `SR` dưới đây là **coverage reserve**, không phải sáu buổi học mới: chỉ mở khi cột “Điều kiện dùng reserve” đúng hoặc khi muốn chứng minh mình chuyển được pattern sang ngữ cảnh khác. Danh sách máy đọc được nằm tại [Official Syllabus Reserve](PCCP_OFFICIAL_SYLLABUS_RESERVE.csv).
 
 | Thành phần official | Bài chính trong lịch | Bài chuyển giao/đối chứng official | Điều kiện dùng reserve | Trạng thái |
 |---|---|---|---|---|
@@ -443,7 +463,8 @@ Nguồn kiểm chứng mock/course hiện hành: [Mock 1 — 15008](https://scho
 ### Kết luận coverage
 
 - **Đủ toàn bộ Kit:** có.
-- **Đủ các bài bank bắt buộc/transfer/stretch của lịch:** có, 69/69.
+- **Đủ navigation cho bank:** có, 69/69; 61 bài thường có direct đề + lesson trong §4–5, 8 past-paper nằm trong launcher honor-locked.
+- **Lịch ngày có bắt làm cả 69:** không; lịch giao 43 OF có chủ đích, 26 TRANSFER/STRETCH còn lại là kho repair/đào sâu.
 - **Đủ bài official để từng mục được nêu đích danh trong syllabus có primary + transfer hoặc gate thực thi:** có, cộng 6/6 coverage reserve.
 - **Có đủ bốn buổi mock/past bắt buộc:** có, gồm 15008, 15009 và hai past set honor-locked; 20847/20848 chỉ là dự phòng optional.
 - **Có toàn bộ nội dung mọi mock ngay trong repo:** không; một phần cố ý khóa, legacy course không expose đủ lesson ở public outline.

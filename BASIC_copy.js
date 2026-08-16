@@ -627,3 +627,85 @@ console.log(
     0,
   ),
 );
+
+// Pseudo code
+// Tạo 1 map
+
+// players = ["mumu", "soe", "poe", "kai", "mine"];
+// callings = ["kai", "kai", "mine", "mine"]
+// results = ["mumu", "kai", "mine", "soe", "poe"]
+
+const solutionsPlayer = (players, callings) => {
+  const order = [...players]
+  const playerMap = new Map(order.map((player, index) => [player, index]))
+
+  for (const calledPlayer of callings) {
+    const calledIndex = playerMap.get(calledPlayer)
+    const overTakenPlayer = order[calledIndex - 1]
+
+    order[calledIndex - 1] = calledPlayer
+    order[calledIndex] = overTakenPlayer
+
+    playerMap.set(calledPlayer, calledIndex - 1)
+    playerMap.set(overTakenPlayer, calledIndex)
+
+    console.log(order)
+
+  }
+
+  return order
+}
+
+console.log(solutionsPlayer(["mumu", "soe", "poe", "kai", "mine"], ["kai", "kai", "mine", "mine"]))
+
+
+// GIỜ VIẾT LẠI NÈ
+
+const solutionPlayers2 = (players, callings) => {
+  const order = [...players]
+  const mapPlayer = new Map(players.map((player, index) => [player, index]))
+
+  for (const calledPlayer of callings) {
+    const calledIndex = mapPlayer.get(calledPlayer)
+    const overTakenPlayer = order[calledIndex - 1]
+
+    order[calledIndex - 1] = calledPlayer
+    order[calledIndex] = overTakenPlayer
+
+    mapPlayer.set(calledPlayer, calledIndex - 1)
+    mapPlayer.set(overTakenPlayer, calledIndex)
+  }
+
+  return order
+
+}
+
+console.log(solutionPlayers2(["mumu", "soe", "poe", "kai", "mine"], ["kai", "kai", "mine", "mine"]))
+
+const bestOfIndex = (array) => {
+  let bestIndex = 0
+  for (let index = 0; index < array.length; index++) {
+    if (array[index] >= array[bestIndex]) {
+      bestIndex = index
+    }
+  }
+  return bestIndex
+}
+
+
+console.log(bestOfIndex([1, 3, 4, 4, 4]))
+
+// matrix = [[1, 3, 4], [5, 2, 1]]
+
+const sumOfMatrix = (matrix) => {
+  let sum = 0
+  for (let row = 0; row < matrix.length; row ++) {
+    for (let col = 0; col < matrix[row].length; col++) {
+      sum += matrix[row][col]
+    }
+  }
+
+  return sum
+}
+
+console.log(sumOfMatrix([[1, 3, 4], [5, 2, 1]]))
