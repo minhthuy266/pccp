@@ -32,6 +32,16 @@ test("SR001 — matrix addition giữ đúng shape row/column", () => {
   assert.deepEqual(addMatrices([[1,2],[2,3]], [[3,4],[5,6]]), [[4,6],[7,9]]);
   assert.deepEqual(addMatrices([[1,2,3]], [[4,5,6]]), [[5,7,9]]);
   assert.deepEqual(addMatrices([[1],[2]], [[3],[4]]), [[4],[6]]);
+  assert.deepEqual(addMatrices([[-2,0]], [[1,-3]]), [[-1,-3]]);
+
+  const first = [[1, 2], [3, 4]];
+  const second = [[5, 6], [7, 8]];
+  const result = addMatrices(first, second);
+  result[0][0] = 999;
+
+  assert.deepEqual(first, [[1, 2], [3, 4]]);
+  assert.deepEqual(second, [[5, 6], [7, 8]]);
+  assert.deepEqual(result[1], [10, 12]);
 });
 
 test("SR002 — chunk compression flush run cuối và phần dư", () => {

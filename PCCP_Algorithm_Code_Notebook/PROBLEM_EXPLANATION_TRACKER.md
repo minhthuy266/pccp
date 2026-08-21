@@ -84,7 +84,7 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF059 | [OF059](../docs/pccp-700-roadmap/official-lessons/OF059.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF060 | [OF060](../docs/pccp-700-roadmap/official-lessons/OF060.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B3** |
 | OF061 | [OF061](../docs/pccp-700-roadmap/official-lessons/OF061.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
-| SR001 | [SR001](../docs/pccp-700-roadmap/official-lessons/SR001.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| SR001 | [SR001](../docs/pccp-700-roadmap/official-lessons/SR001.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B7** |
 | SR002 | [SR002](../docs/pccp-700-roadmap/official-lessons/SR002.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B6** |
 | SR003 | [SR003](../docs/pccp-700-roadmap/official-lessons/SR003.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | SR004 | [SR004](../docs/pccp-700-roadmap/official-lessons/SR004.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
@@ -186,8 +186,19 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
 - OF015, SR001 và OF049 không bị kéo vào batch này: chúng thuộc Sorting, Matrix và Simulation.
   Batch kế tiếp là Matrix.
 
+## Batch 7 — Matrix (COMPLETE)
+
+- Canonical patterns `MAT-01..05` đã FRAMEWORK-FULL và có Practice/Solution/Test tương ứng.
+- SR001 matrix addition là official owner trực tiếp còn thiếu và đã được nâng đầy đủ: brute
+  force tối ưu theo lower bound, bảng state/init, Blueprint và invariant hai tầng row/column.
+- Code canonical bỏ callback lồng viết tắt, dựng `resultRow` mới mỗi hàng để làm rõ shape,
+  non-mutation và independence của row references.
+- Revealing tests phủ `1×N`, `N×1`, số âm/zero, input không mutate và lỗi `.fill([])` alias.
+  OF049 được giữ cho batch Simulation vì matrix chỉ là representation, validate-then-commit
+  mới là engine quyết định. Batch kế tiếp là Simulation.
+
 ## Backlog thật
 
 1. Tách từng Practice ID khỏi 17 collection và đánh giá bằng chứng thay vì suy từ file.
-2. Batch 7 tiếp tục Matrix; sau đó các nhóm theo Navigator.
+2. Batch 8 tiếp tục Simulation; sau đó các nhóm theo Navigator.
 3. Official lessons ngoài Batch 1 vẫn PARTIAL; tracker này cố ý không tuyên bố “toàn bộ hoàn thành”.
