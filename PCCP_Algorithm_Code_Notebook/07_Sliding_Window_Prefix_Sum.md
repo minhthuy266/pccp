@@ -1,5 +1,7 @@
 # 07 — Prefix Sum và Sliding Window: làm chủ bài đoạn liên tiếp
 
+> Batch 1 deep lab: [Prefix / fixed window / variable window với Map / subarray sum k](chapters/07_prefix_window/05_Batch1_Problem_To_Code_Lab.md).
+
 > Chương đã có canonical theory, practice, solution và test. Bắt đầu bằng nội dung, không học thuộc tên pattern.
 
 ## Bắt đầu ở đâu?

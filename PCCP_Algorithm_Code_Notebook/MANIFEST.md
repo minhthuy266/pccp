@@ -1,5 +1,7 @@
 # Manifest — PCCP Algorithm Code Notebook
 
+[Chuẩn full solution: Problem → Code](00_PROBLEM_TO_CODE_STANDARD.md) · [Tracker audit từng bài](PROBLEM_EXPLANATION_TRACKER.md)
+
 Manifest này là hợp đồng nội dung của bộ sách, cùng với [Core → Template → Variants Framework](00_CORE_TEMPLATE_VARIANTS_FRAMEWORK.md). `Dạng` là đơn vị học nhỏ; `R/F/L/P/C/V/M` lần lượt là số bài nhận diện, điền khuyết, dựng logic, pseudocode, tự code, biến thể và mini-test. Mỗi chương khi hoàn thiện phải có tối thiểu `10/3/3/3/3/2/1`; bài pseudocode có thể dùng chung đề với tầng dựng logic nhưng phải là một nhiệm vụ riêng.
 
 | Chương | Các dạng nhỏ bắt buộc | R/F/L/P/C/V/M | Trạng thái |

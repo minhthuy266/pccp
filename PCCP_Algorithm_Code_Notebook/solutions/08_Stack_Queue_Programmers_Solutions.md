@@ -302,6 +302,56 @@ function canRemoveAllAdjacentPairs(s) {
 
 **Invariant:** stack là chuỗi còn lại sau khi rút gọn hoàn toàn prefix. **Complexity:** `O(n)`. **Bẫy:** replace chuỗi lặp lại có thể `O(n²)`.
 
+### Problem → Code cho SQ-P09
+
+**Contract/Bound/Làm tay:** trả `1` khi có thể xóa hết bằng các cặp ký tự giống nhau kề nhau,
+ngược lại `0`; `n` lớn nên không được tạo lại string nhiều vòng. Với `baabaa`: đọc `b,a,a`
+thì `aa` biến mất; current `b` sau đó gặp top `b` và cũng biến mất; hai `a` cuối biến mất.
+
+**Brute force:** lặp tìm một cặp kề giống nhau rồi splice; đúng vì mỗi bước thực hiện đúng một
+phép xóa hợp lệ, nhưng scan/dịch lặp có thể `O(n²)`. Bottleneck biến mất khi nhận ra current chỉ
+tương tác với ký tự gần nhất còn sống.
+
+```js
+function canRemoveAllAdjacentPairsBruteForce(s) {
+  const characters = s.split("");
+  let index = 1;
+  while (index < characters.length) {
+    if (characters[index - 1] === characters[index]) {
+      characters.splice(index - 1, 2);
+      index = Math.max(1, index - 1);
+      continue;
+    }
+    index++;
+  }
+  return characters.length === 0 ? 1 : 0;
+}
+```
+
+| State | Kiểu | Lưu gì | Init/lý do | Scope |
+| --- | --- | --- | --- | --- |
+| `reducedPrefix` | string[] | prefix sau khi xóa hết cặp có thể xóa | `[]` | xuyên loop |
+| `character` | string | current | từ for | iteration |
+
+```text
+OUTPUT: 1/0; PREPARE: stack; GLOBAL STATE: reducedPrefix; INIT: []
+MAIN LOOP: for character; CURRENT ITEM: character; CHECK: top === character?
+BRANCH: giống → pop; khác/rỗng → push; UPDATE: đúng một push hoặc pop
+POINTER MOVEMENT: for tự tiến; STOP: hết string; CLEANUP: check stack rỗng; RETURN: 1/0
+```
+
+Invariant sau mỗi lượt: stack đúng bằng prefix đã rút gọn hoàn toàn. `baabaa` làm state
+`[b]→[b,a]→[b]→[]→[a]→[]`. Mỗi ký tự push tối đa một, pop tối đa một: `O(n)` time/space.
+
+**Lỗi + test:** dùng Set sai với `abca`; chỉ `if`/replace không xử lý cascade; init bằng ký tự
+đầu làm empty input lỗi; return boolean sai contract; brute splice lộ performance trên run dài.
+
+```text
+Recall 1: current giống top → pop; khác → push; cuối rỗng trả 1.
+Recall 2: STATE stack; LOOP chars; CHECK top; UPDATE push/pop; RETURN empty.
+Recall 3: if (stack.length > 0 && stack.at(-1) ____ character) { ____; } else { ____; }
+```
+
 ## SQ-P10 — Xoay dấu ngoặc
 
 ```js
@@ -364,6 +414,63 @@ function countLoadedBoxes(order) {
 ```
 
 **Complexity:** `O(n)`. **Bẫy:** tìm target sâu trong stack dù không thể lấy qua các hộp phía trên.
+
+### Problem → Code cho SQ-P11
+
+**Contract/Bound/Làm tay:** hộp băng chính đến theo `1..n`; stack phụ chỉ lấy top. Cần xếp
+liên tiếp theo `order`, dừng tại target đầu tiên không lấy được và trả số đã xếp. Với target 4,
+đẩy `1,2,3,4` rồi pop 4; target 3 pop được; nếu target tiếp theo nằm sâu dưới top khác thì dừng.
+
+**Brute force:** mô phỏng băng chính bằng queue `shift()` và stack phụ; logic đúng nhưng shift
+dịch array. Pointer `nextMainBox` biểu diễn front băng chính mà không mutate.
+
+```js
+function countLoadedBoxesBruteForce(order) {
+  const mainBelt = [];
+  for (let boxNumber = 1; boxNumber <= order.length; boxNumber++) mainBelt.push(boxNumber);
+  const auxiliaryBelt = [];
+  let loadedCount = 0;
+  for (const targetBox of order) {
+    while (mainBelt.length > 0 && mainBelt[0] <= targetBox) {
+      auxiliaryBelt.push(mainBelt.shift());
+    }
+    if (auxiliaryBelt.at(-1) !== targetBox) break;
+    auxiliaryBelt.pop();
+    loadedCount++;
+  }
+  return loadedCount;
+}
+```
+
+| State | Kiểu | Lưu gì | Init/lý do | Scope |
+| --- | --- | --- | --- | --- |
+| `auxiliaryBelt` | number[] | hộp đã rời băng chính nhưng chưa lên xe | `[]` | xuyên loop |
+| `nextMainBox` | number | front logic tiếp theo của băng chính | `1` | xuyên loop |
+| `loadedCount` | number | prefix order đã xếp | `0` | output state |
+| `targetBox` | number | hộp xe đang cần | từ for | iteration |
+
+```text
+OUTPUT: loadedCount; PREPARE: stack phụ; GLOBAL STATE: stack,nextMainBox,count
+INIT: [],1,0; MAIN LOOP: for targetBox; CURRENT ITEM: targetBox
+CHECK: main front <= target? stack top === target?
+BRANCH: while cần đưa hộp tới target vào stack; top sai → break
+UPDATE: push main boxes; pop target; count++; POINTER: nextMainBox++ sau mỗi push
+STOP: mismatch hoặc hết order; CLEANUP: không; RETURN: count
+```
+
+Invariant trước target: `[1,nextMainBox)` đã rời băng chính; stack chứa đúng hộp chưa lên xe;
+`loadedCount` là độ dài prefix order đã hoàn thành. Mỗi box push/pop tối đa một nên nested while
+vẫn `O(n)`; stack `O(n)`.
+
+**Lỗi + test:** tìm target bằng `includes()` trong stack sai vì chỉ top lấy được; tăng main
+pointer trước push làm bỏ hộp 1; quên break tiếp tục sau mismatch; init next box 0; dùng shift
+lặp gây quadratic. Test lộ top rule: `order=[3,1,2]` chỉ xếp được 1 hộp.
+
+```text
+Recall 1: đẩy main tới target; target phải ở top; pop+count, nếu không thì dừng.
+Recall 2: STATE stack,next,count; LOOP order; CHECK <=/top; UPDATE push/pop; RETURN count.
+Recall 3: while (next <= n && next <= target) { stack.push(____); ____; } if (stack.at(-1) !== target) ____;
+```
 
 ## SQ-P12 — Làm hai queue có tổng bằng nhau
 
