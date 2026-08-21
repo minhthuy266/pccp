@@ -41,14 +41,14 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF016 | [OF016](../docs/pccp-700-roadmap/official-lessons/OF016.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B9** |
 | OF017 | [OF017](../docs/pccp-700-roadmap/official-lessons/OF017.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B9** |
 | OF018 | [OF018](../docs/pccp-700-roadmap/official-lessons/OF018.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B9** |
-| OF019 | [OF019](../docs/pccp-700-roadmap/official-lessons/OF019.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF019 | [OF019](../docs/pccp-700-roadmap/official-lessons/OF019.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B15** |
 | OF020 | [OF020](../docs/pccp-700-roadmap/official-lessons/OF020.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B13** |
-| OF021 | [OF021](../docs/pccp-700-roadmap/official-lessons/OF021.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF021 | [OF021](../docs/pccp-700-roadmap/official-lessons/OF021.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B15** |
 | OF022 | [OF022](../docs/pccp-700-roadmap/official-lessons/OF022.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B13** |
 | OF023 | [OF023](../docs/pccp-700-roadmap/official-lessons/OF023.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B11** |
 | OF024 | [OF024](../docs/pccp-700-roadmap/official-lessons/OF024.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B11** |
 | OF025 | [OF025](../docs/pccp-700-roadmap/official-lessons/OF025.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B4** |
-| OF026 | [OF026](../docs/pccp-700-roadmap/official-lessons/OF026.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF026 | [OF026](../docs/pccp-700-roadmap/official-lessons/OF026.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B15** |
 | OF027 | [OF027](../docs/pccp-700-roadmap/official-lessons/OF027.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | OF028 | [OF028](../docs/pccp-700-roadmap/official-lessons/OF028.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
 | OF029 | [OF029](../docs/pccp-700-roadmap/official-lessons/OF029.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B14** |
@@ -91,27 +91,31 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | SR005 | [SR005](../docs/pccp-700-roadmap/official-lessons/SR005.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B8** |
 | SR006 | [SR006](../docs/pccp-700-roadmap/official-lessons/SR006.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B11** |
 
-## Notebook solution collections — inventory không đánh đồng với hoàn thành
+## Notebook solution collections — legacy index, không chấm như một lesson
+
+Các file dưới đây gom nhiều Practice ID lịch sử. Chúng chỉ là source index; rubric 9 bước được chấm
+ở 89 canonical ID mà `check:notebook-framework` và `check:notebook-integration` audit trực tiếp.
+Vì vậy collection không nhận trạng thái hoàn thành của một lesson riêng.
 
 | Problem ID | File canonical | Có 9 bước | Có Blueprint | Có brute force | Có code đầy đủ | Có dry run | Có recall | Status |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| SOL-01-Array-String-Loop | [collection](solutions/01_Array_String_Loop_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-02-Matrix | [collection](solutions/02_Matrix_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-03-Map-Set | [collection](solutions/03_Map_Set_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-03-Map-Set-Programmers | [collection](solutions/03_Map_Set_Programmers_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-04-Simulation | [collection](solutions/04_Simulation_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-04-Simulation-PCCP | [collection](solutions/04_Simulation_PCCP_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-05-Sorting | [collection](solutions/05_Sorting_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-06-Two-Pointers | [collection](solutions/06_Two_Pointers_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-07-Sliding-Window-Prefix-Sum | [collection](solutions/07_Sliding_Window_Prefix_Sum_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-08-Stack-Queue | [collection](solutions/08_Stack_Queue_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-08-Stack-Queue-Programmers | [collection](solutions/08_Stack_Queue_Programmers_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-09-Binary-Search | [collection](solutions/09_Binary_Search_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-10-BFS-DFS | [collection](solutions/10_BFS_DFS_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-11-Heap-Greedy | [collection](solutions/11_Heap_Greedy_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-12-Backtracking-DP-Basic | [collection](solutions/12_Backtracking_DP_Basic_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-13-Advanced-Graph | [collection](solutions/13_Advanced_Graph_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
-| SOL-90-Mixed-Pattern-Tests | [collection](solutions/90_Mixed_Pattern_Tests_Solutions.md) | Chưa audit từng bài | Chưa | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | Có/tuỳ tầng | PARTIAL — cần tách hàng ở Batch 2+ |
+| SOL-01-Array-String-Loop | [collection](solutions/01_Array_String_Loop_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-02-Matrix | [collection](solutions/02_Matrix_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-03-Map-Set | [collection](solutions/03_Map_Set_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-03-Map-Set-Programmers | [collection](solutions/03_Map_Set_Programmers_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-04-Simulation | [collection](solutions/04_Simulation_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-04-Simulation-PCCP | [collection](solutions/04_Simulation_PCCP_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-05-Sorting | [collection](solutions/05_Sorting_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-06-Two-Pointers | [collection](solutions/06_Two_Pointers_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-07-Sliding-Window-Prefix-Sum | [collection](solutions/07_Sliding_Window_Prefix_Sum_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-08-Stack-Queue | [collection](solutions/08_Stack_Queue_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-08-Stack-Queue-Programmers | [collection](solutions/08_Stack_Queue_Programmers_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-09-Binary-Search | [collection](solutions/09_Binary_Search_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-10-BFS-DFS | [collection](solutions/10_BFS_DFS_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-11-Heap-Greedy | [collection](solutions/11_Heap_Greedy_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-12-Backtracking-DP-Basic | [collection](solutions/12_Backtracking_DP_Basic_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-13-Advanced-Graph | [collection](solutions/13_Advanced_Graph_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
+| SOL-90-Mixed-Pattern-Tests | [collection](solutions/90_Mixed_Pattern_Tests_Solutions.md) | N/A | N/A | N/A | N/A | N/A | N/A | INDEX ONLY |
 
 ## Batch 1
 
@@ -240,7 +244,7 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
 ## Batch 12 — Heap/Scheduling (COMPLETE)
 
 - Canonical patterns `HG-01..05` đã FRAMEWORK-FULL; greedy interval/extreme pairing được kế thừa
-  từ Batch 4, nên batch này tập trung đúng ba owner heap còn PARTIAL.
+  từ Batch 4, nên batch này tập trung đúng ba owner heap còn thiếu rubric.
 - OF012–OF014 đã được nâng đầy đủ cho min-heap, event sweep + shortest-job heap và dual heap lazy
   deletion; code tách các transition bubble, eligibility, clean stale và live-count rõ ràng.
 - Tests khóa duplicate occurrence, impossible state, job tương lai chưa eligible, idle jump, input
@@ -265,8 +269,20 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
   transitive chain, exact distance boundary và input không mutate.
 - Batch cuối xử lý OF019, OF021, OF026 rồi hardening toàn repository.
 
-## Backlog thật
+## Batch 15 — Final Hardening (COMPLETE)
 
-1. Tách từng Practice ID khỏi 17 collection và đánh giá bằng chứng thay vì suy từ file.
-2. Batch 15 xử lý ba lesson PARTIAL cuối và hardening toàn repository.
-3. Official lessons ngoài Batch 1 vẫn PARTIAL; tracker này cố ý không tuyên bố “toàn bộ hoàn thành”.
+- OF019, OF021 và OF026 đã được nâng đầy đủ cho cycle modulo, bounded factor search và joystick
+  route case analysis; toàn bộ 67 official/reserve lesson public hiện có Blueprint và recall.
+- Revealing tests khóa cycle dài/tie, factor pair phải khớp interior, alphabet wrap, all-A và hai
+  hướng quay đầu quanh run A.
+- 17 solution collection lịch sử được phân loại lại thành `INDEX ONLY`: rubric được audit trên 89
+  canonical ID, không gán trạng thái lesson cho một file gom nhiều bài.
+- Full repository gates: 89/89 framework, 24/24 pattern family, 67/67 official lesson, 8/8 mixed,
+  4/4 gate và mock spoiler boundary đều được audit tự động.
+
+## Trạng thái sau hardening
+
+1. Không còn official/reserve lesson public nào thiếu rubric.
+2. Collection lịch sử chỉ là index nguồn; canonical lesson/pattern mới là đơn vị học và audit.
+3. Công việc tiếp theo là luyện theo Navigator, ghi Error Log và chạy mock đúng spoiler boundary;
+   không còn batch nâng tài liệu bắt buộc trong phạm vi PCCP 700 hiện tại.

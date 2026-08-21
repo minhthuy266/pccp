@@ -10,6 +10,8 @@ const { maximumArithmeticExpressionValue } = require("../solutions/official/OF03
 test("OF026 — vertical độc lập, horizontal xét quay đầu qua A-run", () => {
   assert.equal(joystickMinimumMoves("JEROEN"), 56);
   assert.equal(joystickMinimumMoves("JAN"), 23);
+  assert.equal(joystickMinimumMoves("A"), 0);
+  assert.equal(joystickMinimumMoves("Z"), 1);
   assert.equal(joystickMinimumMoves("AAAA"), 0);
   assert.equal(joystickMinimumMoves("ABAAAAAAAAABB"), 7);
 });

@@ -28,6 +28,7 @@ test("OF021 — factor pair phải khớp cả total lẫn yellow interior", () 
   assert.deepEqual(carpetDimensions(10, 2), [4, 3]);
   assert.deepEqual(carpetDimensions(8, 1), [3, 3]);
   assert.deepEqual(carpetDimensions(24, 24), [8, 6]);
+  assert.deepEqual(carpetDimensions(22, 8), [10, 3]);
 });
 
 test("OF025 — overlap tự dùng reserve trước, sau đó cho mượn hàng xóm", () => {

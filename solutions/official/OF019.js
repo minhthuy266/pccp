@@ -10,14 +10,18 @@ function topMockExamScorers(answers) {
   for (let question = 0; question < answers.length; question++) {
     for (let student = 0; student < ANSWER_PATTERNS.length; student++) {
       const pattern = ANSWER_PATTERNS[student];
-      if (pattern[question % pattern.length] === answers[question]) scores[student]++;
+      if (pattern[question % pattern.length] === answers[question]) {
+        scores[student] += 1;
+      }
     }
   }
 
   const best = Math.max(...scores);
   const winners = [];
   for (let student = 0; student < scores.length; student++) {
-    if (scores[student] === best) winners.push(student + 1);
+    if (scores[student] === best) {
+      winners.push(student + 1);
+    }
   }
   return winners;
 }
