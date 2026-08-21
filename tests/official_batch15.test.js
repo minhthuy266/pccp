@@ -70,4 +70,10 @@ test("SR006 — giữ 90%, truyền floor 10% dọc parent chain", () => {
     ["sam", "emily", "jaimie", "edward"],
     [2, 3, 5, 4],
   ), [0, 110, 378, 180, 270, 450, 0, 0]);
+  assert.deepEqual(multiLevelProfits(
+    ["a", "b"],
+    ["-", "a"],
+    ["b"],
+    [1],
+  ), [9, 90]);
 });

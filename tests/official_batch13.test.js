@@ -4,7 +4,7 @@ const assert = require("node:assert/strict");
 const { maximumCircularRobbery } = require("../solutions/official/OF035.js");
 const { itemPickupDistance } = require("../solutions/official/OF040.js");
 const { travelItinerary } = require("../solutions/official/OF041.js");
-const { filledPuzzleCells, rotateShape } = require("../solutions/official/OF042.js");
+const { extractComponents, filledPuzzleCells, rotateShape } = require("../solutions/official/OF042.js");
 const { maximumMinimumRockDistance } = require("../solutions/official/OF044.js");
 const { roomCount } = require("../solutions/official/OF047.js");
 
@@ -48,6 +48,7 @@ test("OF041 — xử lý chain 10,000 ticket mà không tràn call stack", () =>
 
 test("OF042 — component normalize và bốn rotation match hole", () => {
   assert.deepEqual(rotateShape([[0,0],[1,0],[1,1]]), [[0,0],[0,1],[1,0]]);
+  assert.equal(extractComponents([[1,0],[0,1]], 1).length, 2);
   assert.equal(filledPuzzleCells(
     [[1,1,0,0,1,0],[0,0,1,0,1,0],[0,1,1,0,0,1],[1,1,0,1,1,1],[1,0,0,0,1,0],[0,1,1,1,0,0]],
     [[1,0,0,1,1,0],[1,0,1,0,1,0],[0,1,1,0,1,1],[0,0,1,0,0,0],[1,1,0,1,1,0],[0,1,0,0,0,0]],

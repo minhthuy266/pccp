@@ -31,6 +31,7 @@ test("OF024 — DFS preorder đúng thứ tự từ điển official", () => {
   assert.equal(vowelDictionaryRank("AAAAE"), 6);
   assert.equal(vowelDictionaryRank("I"), 1563);
   assert.equal(vowelDictionaryRank("EIO"), 1189);
+  assert.equal(vowelDictionaryRank("UUUUU"), 3905);
 });
 
 test("OF046 — rank xác định khi comparable với mọi player khác", () => {

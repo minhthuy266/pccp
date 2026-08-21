@@ -1,5 +1,7 @@
 function minimumNumberTransforms(x, y, n) {
-  if (x === y) return 0;
+  if (x === y) {
+    return 0;
+  }
 
   const queue = [x];
   const distance = new Int32Array(y + 1);
@@ -12,9 +14,13 @@ function minimumNumberTransforms(x, y, n) {
     const nextValues = [current + n, current * 2, current * 3];
 
     for (const next of nextValues) {
-      if (next > y || distance[next] !== -1) continue;
+      if (next > y || distance[next] !== -1) {
+        continue;
+      }
       distance[next] = distance[current] + 1;
-      if (next === y) return distance[next];
+      if (next === y) {
+        return distance[next];
+      }
       queue.push(next);
     }
   }

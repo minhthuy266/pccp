@@ -13,6 +13,7 @@ test("OF039 — implicit edge cần khác đúng một ký tự", () => {
   assert.equal(differsByOneCharacter("hit", "cog"), false);
   assert.equal(minimumWordTransformations("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]), 4);
   assert.equal(minimumWordTransformations("hit", "cog", ["hot", "dot", "dog", "lot", "log"]), 0);
+  assert.equal(minimumWordTransformations("aaa", "bbb", ["aab", "aba", "abb", "bbb"]), 3);
 });
 
 test("OF045 — BFS đếm mọi node ở maximum shortest distance", () => {

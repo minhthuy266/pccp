@@ -19,7 +19,11 @@ function multiLevelProfits(enroll, referral, seller, amount) {
     }
   }
 
-  return enroll.map((member) => earnings.get(member));
+  const result = [];
+  for (const member of enroll) {
+    result.push(earnings.get(member));
+  }
+  return result;
 }
 
 module.exports = { multiLevelProfits };

@@ -10,7 +10,9 @@ function mazeDistance(maps, start, targetCharacter) {
 
   while (head < queue.length) {
     const [row, column] = queue[head++];
-    if (maps[row][column] === targetCharacter) return { distance: distance[row][column], position: [row, column] };
+    if (maps[row][column] === targetCharacter) {
+      return { distance: distance[row][column], position: [row, column] };
+    }
 
     for (const [deltaRow, deltaColumn] of MAZE_DIRECTIONS) {
       const nextRow = row + deltaRow;
@@ -20,7 +22,9 @@ function mazeDistance(maps, start, targetCharacter) {
         nextColumn < 0 || nextColumn >= columns ||
         maps[nextRow][nextColumn] === "X" ||
         distance[nextRow][nextColumn] !== -1
-      ) continue;
+      ) {
+        continue;
+      }
       distance[nextRow][nextColumn] = distance[row][column] + 1;
       queue.push([nextRow, nextColumn]);
     }
@@ -37,9 +41,13 @@ function mazeEscapeTime(maps) {
   }
 
   const toLever = mazeDistance(maps, start, "L");
-  if (toLever === null) return -1;
+  if (toLever === null) {
+    return -1;
+  }
   const toExit = mazeDistance(maps, toLever.position, "E");
-  if (toExit === null) return -1;
+  if (toExit === null) {
+    return -1;
+  }
   return toLever.distance + toExit.distance;
 }
 
