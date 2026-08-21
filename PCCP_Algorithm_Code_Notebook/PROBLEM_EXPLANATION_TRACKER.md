@@ -85,7 +85,7 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF060 | [OF060](../docs/pccp-700-roadmap/official-lessons/OF060.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B3** |
 | OF061 | [OF061](../docs/pccp-700-roadmap/official-lessons/OF061.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | SR001 | [SR001](../docs/pccp-700-roadmap/official-lessons/SR001.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| SR002 | [SR002](../docs/pccp-700-roadmap/official-lessons/SR002.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| SR002 | [SR002](../docs/pccp-700-roadmap/official-lessons/SR002.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B6** |
 | SR003 | [SR003](../docs/pccp-700-roadmap/official-lessons/SR003.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | SR004 | [SR004](../docs/pccp-700-roadmap/official-lessons/SR004.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | SR005 | [SR005](../docs/pccp-700-roadmap/official-lessons/SR005.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
@@ -176,8 +176,18 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
 - Contrast Set presence / Map multiplicity / Map aggregate+group được giữ riêng theo contract.
   Batch kế tiếp là Array/String/Loop.
 
+## Batch 6 — Array/String/Loop (COMPLETE)
+
+- Canonical patterns `ARR-01..07` đã FRAMEWORK-FULL và có Practice/Solution/Test tương ứng.
+- OF006, transfer cho run liên tiếp, đã COMPLETE B2; khoảng trống owner còn lại là SR002
+  chunk compression và đã được nâng đầy đủ trong batch này.
+- SR002 nay tách rõ outer enumeration với inner run state, có brute force dựng string,
+  bảng state/init, Blueprint, final-flush invariant và test cho phần dư/count hai chữ số.
+- OF015, SR001 và OF049 không bị kéo vào batch này: chúng thuộc Sorting, Matrix và Simulation.
+  Batch kế tiếp là Matrix.
+
 ## Backlog thật
 
 1. Tách từng Practice ID khỏi 17 collection và đánh giá bằng chứng thay vì suy từ file.
-2. Batch 6 tiếp tục Array/String/Loop; sau đó các nhóm theo Navigator.
+2. Batch 7 tiếp tục Matrix; sau đó các nhóm theo Navigator.
 3. Official lessons ngoài Batch 1 vẫn PARTIAL; tracker này cố ý không tuyên bố “toàn bộ hoàn thành”.

@@ -36,6 +36,10 @@ test("SR001 — matrix addition giữ đúng shape row/column", () => {
 
 test("SR002 — chunk compression flush run cuối và phần dư", () => {
   assert.equal(compressedLengthForUnit("aabbaccc", 1), 7);
+  assert.equal(compressedLengthForUnit("abababab", 2), 3);
+  assert.equal(compressedLengthForUnit("abcabcab", 3), 6);
+  assert.equal(compressedLengthForUnit("aaaaaaaaaaaa", 1), 3);
+  assert.equal(compressedLengthForUnit("abc", 1), 3);
   assert.equal(shortestCompressedLength("aabbaccc"), 7);
   assert.equal(shortestCompressedLength("ababcdcdababcdcd"), 9);
   assert.equal(shortestCompressedLength("abcabcdede"), 8);
