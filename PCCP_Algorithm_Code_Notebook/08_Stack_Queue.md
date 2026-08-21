@@ -1,5 +1,7 @@
 # 08 — Stack và Queue
 
+> Batch 1 supplement: [blueprint và recall cho sáu bài vừa học](chapters/08_stack_queue/07_Batch1_Recall_Blueprints.md).
+
 > Trạng thái: **5/5 FRAMEWORK-FULL**; theory nền, 22 bài thật, audit 47 bài Kit, derived concepts và bằng chứng tại [QA.md](chapters/08_stack_queue/QA.md).
 
 ## Mục tiêu
