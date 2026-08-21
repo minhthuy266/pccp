@@ -21,6 +21,9 @@ test("OF005 — genre total, song plays và original-index tie-break", () => {
     [4, 1, 3, 0],
   );
   assert.deepEqual(bestAlbumSongIndices(["a", "a", "b"], [10, 10, 5]), [0, 1, 2]);
+  assert.deepEqual(bestAlbumSongIndices(["a", "a", "b"], [6, 6, 10]), [0, 1, 2]);
+  assert.deepEqual(bestAlbumSongIndices(["a"], [5]), [0]);
+  assert.deepEqual(bestAlbumSongIndices(["a", "a", "a"], [3, 2, 1]), [0, 1]);
 });
 
 test("OF024 — DFS preorder đúng thứ tự từ điển official", () => {

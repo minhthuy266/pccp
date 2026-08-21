@@ -23,11 +23,11 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 
 | Problem ID | File canonical | Có 9 bước | Có Blueprint | Có brute force | Có code đầy đủ | Có dry run | Có recall | Status |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| OF001 | [OF001](../docs/pccp-700-roadmap/official-lessons/OF001.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF002 | [OF002](../docs/pccp-700-roadmap/official-lessons/OF002.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF003 | [OF003](../docs/pccp-700-roadmap/official-lessons/OF003.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF004 | [OF004](../docs/pccp-700-roadmap/official-lessons/OF004.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF005 | [OF005](../docs/pccp-700-roadmap/official-lessons/OF005.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF001 | [OF001](../docs/pccp-700-roadmap/official-lessons/OF001.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B5** |
+| OF002 | [OF002](../docs/pccp-700-roadmap/official-lessons/OF002.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B5** |
+| OF003 | [OF003](../docs/pccp-700-roadmap/official-lessons/OF003.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B5** |
+| OF004 | [OF004](../docs/pccp-700-roadmap/official-lessons/OF004.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B5** |
+| OF005 | [OF005](../docs/pccp-700-roadmap/official-lessons/OF005.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B5** |
 | OF006 | [OF006](../docs/pccp-700-roadmap/official-lessons/OF006.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | OF007 | [OF007](../docs/pccp-700-roadmap/official-lessons/OF007.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
 | OF008 | [OF008](../docs/pccp-700-roadmap/official-lessons/OF008.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
@@ -47,12 +47,12 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF022 | [OF022](../docs/pccp-700-roadmap/official-lessons/OF022.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF023 | [OF023](../docs/pccp-700-roadmap/official-lessons/OF023.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF024 | [OF024](../docs/pccp-700-roadmap/official-lessons/OF024.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF025 | [OF025](../docs/pccp-700-roadmap/official-lessons/OF025.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF025 | [OF025](../docs/pccp-700-roadmap/official-lessons/OF025.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B4** |
 | OF026 | [OF026](../docs/pccp-700-roadmap/official-lessons/OF026.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF027 | [OF027](../docs/pccp-700-roadmap/official-lessons/OF027.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | OF028 | [OF028](../docs/pccp-700-roadmap/official-lessons/OF028.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
 | OF029 | [OF029](../docs/pccp-700-roadmap/official-lessons/OF029.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF030 | [OF030](../docs/pccp-700-roadmap/official-lessons/OF030.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF030 | [OF030](../docs/pccp-700-roadmap/official-lessons/OF030.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B4** |
 | OF031 | [OF031](../docs/pccp-700-roadmap/official-lessons/OF031.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF032 | [OF032](../docs/pccp-700-roadmap/official-lessons/OF032.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF033 | [OF033](../docs/pccp-700-roadmap/official-lessons/OF033.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
@@ -75,14 +75,14 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF050 | [OF050](../docs/pccp-700-roadmap/official-lessons/OF050.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF051 | [OF051](../docs/pccp-700-roadmap/official-lessons/OF051.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | OF052 | [OF052](../docs/pccp-700-roadmap/official-lessons/OF052.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
-| OF053 | [OF053](../docs/pccp-700-roadmap/official-lessons/OF053.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF053 | [OF053](../docs/pccp-700-roadmap/official-lessons/OF053.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B3** |
 | OF054 | [OF054](../docs/pccp-700-roadmap/official-lessons/OF054.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | OF055 | [OF055](../docs/pccp-700-roadmap/official-lessons/OF055.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF056 | [OF056](../docs/pccp-700-roadmap/official-lessons/OF056.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF057 | [OF057](../docs/pccp-700-roadmap/official-lessons/OF057.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF058 | [OF058](../docs/pccp-700-roadmap/official-lessons/OF058.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF057 | [OF057](../docs/pccp-700-roadmap/official-lessons/OF057.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B4** |
+| OF058 | [OF058](../docs/pccp-700-roadmap/official-lessons/OF058.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B3** |
 | OF059 | [OF059](../docs/pccp-700-roadmap/official-lessons/OF059.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF060 | [OF060](../docs/pccp-700-roadmap/official-lessons/OF060.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF060 | [OF060](../docs/pccp-700-roadmap/official-lessons/OF060.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B3** |
 | OF061 | [OF061](../docs/pccp-700-roadmap/official-lessons/OF061.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | SR001 | [SR001](../docs/pccp-700-roadmap/official-lessons/SR001.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | SR002 | [SR002](../docs/pccp-700-roadmap/official-lessons/SR002.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
@@ -147,8 +147,37 @@ Các entry `SQ-B01..B08`, `SQ-C01` là BFS/graph nên được owner bởi batch
 giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùng canonical pattern SQ-01..05
 đã FRAMEWORK-FULL; các tầng recognition/fill không bị giả vờ là full solution.
 
+## Batch 3 — Sliding Window/Prefix Sum (COMPLETE)
+
+- Bốn deep lab B1-PREFIX, B1-FIXED-WINDOW, B1-VARIABLE-MAP, B1-SUBARRAY-K đã COMPLETE.
+- OF052 fixed frequency window đã COMPLETE B1; OF053 positive variable window, OF058 cover Map
+  và OF060 difference 2D đã được nâng trực tiếp và đánh dấu COMPLETE B3.
+- Canonical pattern `PRE-01..05`, `SW-01..06` đã FRAMEWORK-FULL; Practice Ladder giữ đúng tầng
+  R/F/L/P/C/V/M, không ép đáp án nhận dạng ngắn thành một “full solution” giả.
+- Kết quả: các engine chính của chapter đã đủ cầu nối brute → bottleneck → state → transition →
+  invariant → code; Batch kế tiếp là Two Pointers/Greedy.
+
+## Batch 4 — Two Pointers/Greedy (COMPLETE)
+
+- Canonical patterns `TP-01..06` đã FRAMEWORK-FULL và có Practice/Solution/Test tương ứng.
+- OF028 extreme pairing đã COMPLETE B1; OF053 positive two pointers đã COMPLETE B3.
+- OF025 neighbor greedy, OF030 closed interval stabbing và OF057 open interval stabbing đã được
+  nâng đầy đủ trong batch này, gồm brute force, exchange invariant, Blueprint và revealing tests.
+- Contrast `<`/`<=` giữa interval mở/đóng được giữ ở hai canonical lesson riêng; không gom thành
+  mẹo đổi dấu thiếu proof. Batch kế tiếp là Map/Set.
+
+## Batch 5 — Map/Set (COMPLETE)
+
+- Canonical patterns `MAP-01..14` đã FRAMEWORK-FULL và có Practice/Solution/Test tương ứng.
+- Toàn bộ Hash Kit public `OF001..OF005` đã được nâng trực tiếp: frequency multiset, Set
+  cardinality, prefix adjacency, product rule và group-level/item-level ordering.
+- Mỗi lesson có làm tay, brute force executable, bottleneck, bảng state/init, Blueprint,
+  invariant, revealing tests và recall ba tầng; OF005 tách rõ hai Map phải cập nhật đồng bộ.
+- Contrast Set presence / Map multiplicity / Map aggregate+group được giữ riêng theo contract.
+  Batch kế tiếp là Array/String/Loop.
+
 ## Backlog thật
 
 1. Tách từng Practice ID khỏi 17 collection và đánh giá bằng chứng thay vì suy từ file.
-2. Batch 3 tiếp tục Sliding Window/Prefix Sum; sau đó Two Pointers/Greedy và các nhóm theo Navigator.
+2. Batch 6 tiếp tục Array/String/Loop; sau đó các nhóm theo Navigator.
 3. Official lessons ngoài Batch 1 vẫn PARTIAL; tracker này cố ý không tuyên bố “toàn bộ hoàn thành”.

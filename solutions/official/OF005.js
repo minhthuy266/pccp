@@ -4,9 +4,16 @@ function bestAlbumSongIndices(genres, plays) {
 
   for (let index = 0; index < genres.length; index++) {
     const genre = genres[index];
-    totalByGenre.set(genre, (totalByGenre.get(genre) ?? 0) + plays[index]);
-    if (!songsByGenre.has(genre)) songsByGenre.set(genre, []);
-    songsByGenre.get(genre).push({ index, plays: plays[index] });
+    const currentPlays = plays[index];
+    const previousTotal = totalByGenre.get(genre) ?? 0;
+    totalByGenre.set(genre, previousTotal + currentPlays);
+
+    if (!songsByGenre.has(genre)) {
+      songsByGenre.set(genre, []);
+    }
+
+    const genreSongs = songsByGenre.get(genre);
+    genreSongs.push({ index, plays: currentPlays });
   }
 
   const orderedGenres = [...totalByGenre.keys()].sort(
@@ -15,10 +22,19 @@ function bestAlbumSongIndices(genres, plays) {
   const answer = [];
 
   for (const genre of orderedGenres) {
-    songsByGenre.get(genre).sort(
-      (first, second) => second.plays - first.plays || first.index - second.index,
-    );
-    for (const song of songsByGenre.get(genre).slice(0, 2)) answer.push(song.index);
+    const genreSongs = songsByGenre.get(genre);
+    genreSongs.sort((first, second) => {
+      if (first.plays !== second.plays) {
+        return second.plays - first.plays;
+      }
+
+      return first.index - second.index;
+    });
+
+    const selectedCount = Math.min(2, genreSongs.length);
+    for (let rank = 0; rank < selectedCount; rank++) {
+      answer.push(genreSongs[rank].index);
+    }
   }
 
   return answer;

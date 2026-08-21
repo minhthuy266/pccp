@@ -13,12 +13,15 @@ test("OF001 — frequency giữ được duplicate name", () => {
     "mislav",
   );
   assert.equal(unfinishedParticipant(["a"], []), "a");
+  assert.equal(unfinishedParticipant(["a", "a", "b"], ["a", "b"]), "a");
 });
 
 test("OF002 — đáp án bị chặn bởi số slot và số loại distinct", () => {
   assert.equal(maxPokemonKinds([3, 1, 2, 3]), 2);
   assert.equal(maxPokemonKinds([3, 3, 3, 2, 2, 4]), 3);
   assert.equal(maxPokemonKinds([1, 1]), 1);
+  assert.equal(maxPokemonKinds([1, 2, 3, 4]), 2);
+  assert.equal(maxPokemonKinds([1, 1, 1, 1]), 1);
 });
 
 test("OF003 — chỉ cần kiểm adjacent sau lexicographic sort", () => {
@@ -26,6 +29,11 @@ test("OF003 — chỉ cần kiểm adjacent sau lexicographic sort", () => {
   assert.equal(hasNoPhonePrefix(["123", "456", "789"]), true);
   assert.equal(hasNoPhonePrefix(["12", "123", "1235", "567", "88"]), false);
   assert.equal(hasNoPhonePrefix(["911", "91"]), false);
+  assert.equal(hasNoPhonePrefix(["12", "312"]), true);
+
+  const originalPhoneBook = ["2", "1"];
+  hasNoPhonePrefix(originalPhoneBook);
+  assert.deepEqual(originalPhoneBook, ["2", "1"]);
 });
 
 test("OF004 — nhân (count + 1) rồi loại outfit rỗng", () => {
@@ -46,4 +54,12 @@ test("OF004 — nhân (count + 1) rồi loại outfit rỗng", () => {
     3,
   );
   assert.equal(clothingCombinations([["hat", "head"]]), 1);
+  assert.equal(
+    clothingCombinations([
+      ["hat", "head"],
+      ["cap", "head"],
+      ["glasses", "face"],
+    ]),
+    5,
+  );
 });
