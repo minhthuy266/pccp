@@ -38,10 +38,16 @@ test("OF036 — mỗi index tạo đúng hai nhánh cộng/trừ", () => {
   assert.equal(targetNumberWays([1, 1, 1, 1, 1], 3), 5);
   assert.equal(targetNumberWays([4, 1, 2, 1], 4), 2);
   assert.equal(targetNumberWays([1], -1), 1);
+  assert.equal(targetNumberWays([1, 1], 0), 2);
+  assert.equal(targetNumberWays([1, 1], 1), 0);
 });
 
 test("OF022 — backtracking restore visited sau mỗi choice", () => {
-  assert.equal(maximumDungeonCount(80, [[80, 20], [50, 40], [30, 10]]), 3);
+  const dungeons = [[80, 20], [50, 40], [30, 10]];
+
+  assert.equal(maximumDungeonCount(80, dungeons), 3);
   assert.equal(maximumDungeonCount(10, [[11, 1], [20, 1]]), 0);
   assert.equal(maximumDungeonCount(5, [[5, 5], [5, 1]]), 1);
+  assert.equal(maximumDungeonCount(10, [[10, 1], [10, 1]]), 1);
+  assert.deepEqual(dungeons, [[80, 20], [50, 40], [30, 10]]);
 });

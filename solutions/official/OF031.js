@@ -11,12 +11,16 @@ function minimumNExpressionCount(n, target) {
           valuesByCount[count].add(left + right);
           valuesByCount[count].add(left - right);
           valuesByCount[count].add(left * right);
-          if (right !== 0) valuesByCount[count].add(Math.trunc(left / right));
+          if (right !== 0) {
+            valuesByCount[count].add(Math.trunc(left / right));
+          }
         }
       }
     }
 
-    if (valuesByCount[count].has(target)) return count;
+    if (valuesByCount[count].has(target)) {
+      return count;
+    }
   }
 
   return -1;

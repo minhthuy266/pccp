@@ -36,13 +36,18 @@ test("OF059 — 2,000 parallel road ở official bound vẫn xử lý hết stal
 });
 
 test("OF032 — bottom-up DP chọn child tốt nhất", () => {
-  assert.equal(maximumTrianglePath([[7],[3,8],[8,1,0],[2,7,4,4],[4,5,2,6,5]]), 30);
+  const triangle = [[7],[3,8],[8,1,0],[2,7,4,4],[4,5,2,6,5]];
+
+  assert.equal(maximumTrianglePath(triangle), 30);
   assert.equal(maximumTrianglePath([[5]]), 5);
   assert.equal(maximumTrianglePath([[-1],[-2,-3]]), -3);
+  assert.deepEqual(triangle, [[7],[3,8],[8,1,0],[2,7,4,4],[4,5,2,6,5]]);
 });
 
 test("OF033 — puddle coordinate x,y được đổi thành row,column", () => {
   assert.equal(schoolRouteCount(4, 3, [[2, 2]]), 4);
   assert.equal(schoolRouteCount(2, 2, []), 2);
   assert.equal(schoolRouteCount(3, 2, [[2, 1]]), 1);
+  assert.equal(schoolRouteCount(3, 1, [[2, 1]]), 0);
+  assert.equal(schoolRouteCount(1, 1, []), 1);
 });

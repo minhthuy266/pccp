@@ -33,6 +33,7 @@ test("OF031 — Set DP dùng đúng count N và trunc division", () => {
   assert.equal(minimumNExpressionCount(5, 12), 4);
   assert.equal(minimumNExpressionCount(2, 11), 3);
   assert.equal(minimumNExpressionCount(5, 5), 1);
+  assert.equal(minimumNExpressionCount(5, 55), 2);
   assert.equal(minimumNExpressionCount(1, 31168), -1);
 });
 

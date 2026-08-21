@@ -7,7 +7,9 @@ function maximumDungeonCount(initialFatigue, dungeons) {
 
     for (let index = 0; index < dungeons.length; index++) {
       const [required, cost] = dungeons[index];
-      if (visited[index] || fatigue < required) continue;
+      if (visited[index] || fatigue < required) {
+        continue;
+      }
 
       visited[index] = true;
       dfs(fatigue - cost, cleared + 1);

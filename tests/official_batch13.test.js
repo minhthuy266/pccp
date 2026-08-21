@@ -12,6 +12,7 @@ test("OF035 — circular case split không chọn đồng thời nhà đầu/cu�
   assert.equal(maximumCircularRobbery([1, 2, 3, 1]), 4);
   assert.equal(maximumCircularRobbery([1, 2, 3]), 3);
   assert.equal(maximumCircularRobbery([5]), 5);
+  assert.equal(maximumCircularRobbery([2, 3]), 3);
   assert.equal(maximumCircularRobbery([10, 1, 1, 10]), 11);
 });
 

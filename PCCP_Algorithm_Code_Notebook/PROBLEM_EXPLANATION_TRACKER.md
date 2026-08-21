@@ -42,9 +42,9 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF017 | [OF017](../docs/pccp-700-roadmap/official-lessons/OF017.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B9** |
 | OF018 | [OF018](../docs/pccp-700-roadmap/official-lessons/OF018.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B9** |
 | OF019 | [OF019](../docs/pccp-700-roadmap/official-lessons/OF019.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF020 | [OF020](../docs/pccp-700-roadmap/official-lessons/OF020.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF020 | [OF020](../docs/pccp-700-roadmap/official-lessons/OF020.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B13** |
 | OF021 | [OF021](../docs/pccp-700-roadmap/official-lessons/OF021.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF022 | [OF022](../docs/pccp-700-roadmap/official-lessons/OF022.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF022 | [OF022](../docs/pccp-700-roadmap/official-lessons/OF022.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B13** |
 | OF023 | [OF023](../docs/pccp-700-roadmap/official-lessons/OF023.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B11** |
 | OF024 | [OF024](../docs/pccp-700-roadmap/official-lessons/OF024.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B11** |
 | OF025 | [OF025](../docs/pccp-700-roadmap/official-lessons/OF025.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B4** |
@@ -53,12 +53,12 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF028 | [OF028](../docs/pccp-700-roadmap/official-lessons/OF028.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
 | OF029 | [OF029](../docs/pccp-700-roadmap/official-lessons/OF029.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF030 | [OF030](../docs/pccp-700-roadmap/official-lessons/OF030.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B4** |
-| OF031 | [OF031](../docs/pccp-700-roadmap/official-lessons/OF031.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF032 | [OF032](../docs/pccp-700-roadmap/official-lessons/OF032.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF033 | [OF033](../docs/pccp-700-roadmap/official-lessons/OF033.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF034 | [OF034](../docs/pccp-700-roadmap/official-lessons/OF034.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF035 | [OF035](../docs/pccp-700-roadmap/official-lessons/OF035.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF036 | [OF036](../docs/pccp-700-roadmap/official-lessons/OF036.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF031 | [OF031](../docs/pccp-700-roadmap/official-lessons/OF031.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B13** |
+| OF032 | [OF032](../docs/pccp-700-roadmap/official-lessons/OF032.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B13** |
+| OF033 | [OF033](../docs/pccp-700-roadmap/official-lessons/OF033.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B13** |
+| OF034 | [OF034](../docs/pccp-700-roadmap/official-lessons/OF034.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B13** |
+| OF035 | [OF035](../docs/pccp-700-roadmap/official-lessons/OF035.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B13** |
+| OF036 | [OF036](../docs/pccp-700-roadmap/official-lessons/OF036.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B13** |
 | OF037 | [OF037](../docs/pccp-700-roadmap/official-lessons/OF037.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B11** |
 | OF038 | [OF038](../docs/pccp-700-roadmap/official-lessons/OF038.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B11** |
 | OF039 | [OF039](../docs/pccp-700-roadmap/official-lessons/OF039.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B11** |
@@ -246,8 +246,18 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
 - Tests khóa duplicate occurrence, impossible state, job tương lai chưa eligible, idle jump, input
   không mutate, delete empty và stale root cuối. Batch kế tiếp là Backtracking/DP.
 
+## Batch 13 — Backtracking/DP (COMPLETE)
+
+- Canonical patterns `BTD-01..08` đã FRAMEWORK-FULL.
+- OF020, OF022 và OF036 khóa ba decision tree khác nhau: partial permutation + output Set,
+  permutation có feasibility/restore và fixed binary choice theo index.
+- OF031–OF035 khóa Set-DP theo resource, bottom-up cell DP, grid count, interval min/max và circular
+  case split; mỗi lesson chỉ rõ state nào được gộp và dependency order.
+- Tests mới phủ leading zero/duplicate occurrence, restore, path-count base, negative DP, exact-count
+  concatenation và endpoint conflict. Batch kế tiếp là Advanced Graph.
+
 ## Backlog thật
 
 1. Tách từng Practice ID khỏi 17 collection và đánh giá bằng chứng thay vì suy từ file.
-2. Batch 13 tiếp tục Backtracking/DP; sau đó các nhóm theo Navigator.
+2. Batch 14 tiếp tục Advanced Graph; sau đó hardening các lesson còn lại.
 3. Official lessons ngoài Batch 1 vẫn PARTIAL; tracker này cố ý không tuyên bố “toàn bộ hoàn thành”.

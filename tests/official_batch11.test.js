@@ -20,6 +20,7 @@ test("OF020 — permutation theo index và Set loại duplicate/leading-zero", (
   assert.equal(isPrime(49), false);
   assert.equal(primePermutationCount("17"), 3);
   assert.equal(primePermutationCount("011"), 2);
+  assert.equal(primePermutationCount("11"), 1);
   assert.equal(primePermutationCount("000"), 0);
 });
 

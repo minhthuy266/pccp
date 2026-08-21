@@ -10,7 +10,9 @@ function robLinear(money, start, endExclusive) {
 }
 
 function maximumCircularRobbery(money) {
-  if (money.length === 1) return money[0];
+  if (money.length === 1) {
+    return money[0];
+  }
   return Math.max(
     robLinear(money, 0, money.length - 1),
     robLinear(money, 1, money.length),
