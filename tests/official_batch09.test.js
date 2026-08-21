@@ -7,9 +7,14 @@ const { vowelDictionaryRank } = require("../solutions/official/OF024.js");
 const { determinableRankCount } = require("../solutions/official/OF046.js");
 
 test("OF013 — jump idle time, then choose shortest arrived job", () => {
-  assert.equal(averageDiskTurnaround([[0, 3], [1, 9], [2, 6]]), 9);
+  const jobs = [[0, 3], [1, 9], [2, 6]];
+
+  assert.equal(averageDiskTurnaround(jobs), 9);
   assert.equal(averageDiskTurnaround([[5, 2]]), 2);
   assert.equal(averageDiskTurnaround([[0, 10], [0, 1], [0, 2]]), 5);
+  assert.equal(averageDiskTurnaround([[0, 10], [1, 1]]), 10);
+  assert.equal(averageDiskTurnaround([[0, 1], [10, 1]]), 1);
+  assert.deepEqual(jobs, [[0, 3], [1, 9], [2, 6]]);
 });
 
 test("OF005 — genre total, song plays và original-index tie-break", () => {

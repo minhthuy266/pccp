@@ -34,9 +34,9 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF009 | [OF009](../docs/pccp-700-roadmap/official-lessons/OF009.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
 | OF010 | [OF010](../docs/pccp-700-roadmap/official-lessons/OF010.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | OF011 | [OF011](../docs/pccp-700-roadmap/official-lessons/OF011.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
-| OF012 | [OF012](../docs/pccp-700-roadmap/official-lessons/OF012.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF013 | [OF013](../docs/pccp-700-roadmap/official-lessons/OF013.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF014 | [OF014](../docs/pccp-700-roadmap/official-lessons/OF014.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF012 | [OF012](../docs/pccp-700-roadmap/official-lessons/OF012.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B12** |
+| OF013 | [OF013](../docs/pccp-700-roadmap/official-lessons/OF013.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B12** |
+| OF014 | [OF014](../docs/pccp-700-roadmap/official-lessons/OF014.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B12** |
 | OF015 | [OF015](../docs/pccp-700-roadmap/official-lessons/OF015.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B9** |
 | OF016 | [OF016](../docs/pccp-700-roadmap/official-lessons/OF016.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B9** |
 | OF017 | [OF017](../docs/pccp-700-roadmap/official-lessons/OF017.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B9** |
@@ -237,8 +237,17 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
 - Mỗi lesson có làm tay, brute force executable, bảng state/init, Blueprint, invariant, revealing
   tests và recall. Batch kế tiếp là Heap/Scheduling.
 
+## Batch 12 — Heap/Scheduling (COMPLETE)
+
+- Canonical patterns `HG-01..05` đã FRAMEWORK-FULL; greedy interval/extreme pairing được kế thừa
+  từ Batch 4, nên batch này tập trung đúng ba owner heap còn PARTIAL.
+- OF012–OF014 đã được nâng đầy đủ cho min-heap, event sweep + shortest-job heap và dual heap lazy
+  deletion; code tách các transition bubble, eligibility, clean stale và live-count rõ ràng.
+- Tests khóa duplicate occurrence, impossible state, job tương lai chưa eligible, idle jump, input
+  không mutate, delete empty và stale root cuối. Batch kế tiếp là Backtracking/DP.
+
 ## Backlog thật
 
 1. Tách từng Practice ID khỏi 17 collection và đánh giá bằng chứng thay vì suy từ file.
-2. Batch 12 tiếp tục Heap/Scheduling; sau đó các nhóm theo Navigator.
+2. Batch 13 tiếp tục Backtracking/DP; sau đó các nhóm theo Navigator.
 3. Official lessons ngoài Batch 1 vẫn PARTIAL; tracker này cố ý không tuyên bố “toàn bộ hoàn thành”.

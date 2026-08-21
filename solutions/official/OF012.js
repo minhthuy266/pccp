@@ -1,7 +1,9 @@
 class MinHeap {
   constructor(values = []) {
     this.values = [];
-    for (const value of values) this.push(value);
+    for (const value of values) {
+      this.push(value);
+    }
   }
 
   get size() {
@@ -19,7 +21,9 @@ class MinHeap {
 
     while (child > 0) {
       const parent = Math.floor((child - 1) / 2);
-      if (heap[parent] <= heap[child]) break;
+      if (heap[parent] <= heap[child]) {
+        break;
+      }
       [heap[parent], heap[child]] = [heap[child], heap[parent]];
       child = parent;
     }
@@ -27,8 +31,12 @@ class MinHeap {
 
   pop() {
     const heap = this.values;
-    if (heap.length === 0) return undefined;
-    if (heap.length === 1) return heap.pop();
+    if (heap.length === 0) {
+      return undefined;
+    }
+    if (heap.length === 1) {
+      return heap.pop();
+    }
 
     const minimum = heap[0];
     heap[0] = heap.pop();
@@ -39,9 +47,15 @@ class MinHeap {
       const right = left + 1;
       let smallest = parent;
 
-      if (left < heap.length && heap[left] < heap[smallest]) smallest = left;
-      if (right < heap.length && heap[right] < heap[smallest]) smallest = right;
-      if (smallest === parent) break;
+      if (left < heap.length && heap[left] < heap[smallest]) {
+        smallest = left;
+      }
+      if (right < heap.length && heap[right] < heap[smallest]) {
+        smallest = right;
+      }
+      if (smallest === parent) {
+        break;
+      }
 
       [heap[parent], heap[smallest]] = [heap[smallest], heap[parent]];
       parent = smallest;
@@ -56,11 +70,13 @@ function minimumScovilleMixes(scoville, target) {
   let mixes = 0;
 
   while (heap.size > 0 && heap.peek() < target) {
-    if (heap.size < 2) return -1;
+    if (heap.size < 2) {
+      return -1;
+    }
     const least = heap.pop();
     const secondLeast = heap.pop();
     heap.push(least + secondLeast * 2);
-    mixes++;
+    mixes += 1;
   }
 
   return mixes;

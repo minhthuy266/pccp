@@ -14,14 +14,18 @@ class JobMinHeap {
     let child = heap.length - 1;
     while (child > 0) {
       const parent = Math.floor((child - 1) / 2);
-      if (this.compare(heap[parent], heap[child]) <= 0) break;
+      if (this.compare(heap[parent], heap[child]) <= 0) {
+        break;
+      }
       [heap[parent], heap[child]] = [heap[child], heap[parent]];
       child = parent;
     }
   }
   pop() {
     const heap = this.values;
-    if (heap.length === 1) return heap.pop();
+    if (heap.length === 1) {
+      return heap.pop();
+    }
     const minimum = heap[0];
     heap[0] = heap.pop();
     let parent = 0;
@@ -29,9 +33,15 @@ class JobMinHeap {
       const left = parent * 2 + 1;
       const right = left + 1;
       let smallest = parent;
-      if (left < heap.length && this.compare(heap[left], heap[smallest]) < 0) smallest = left;
-      if (right < heap.length && this.compare(heap[right], heap[smallest]) < 0) smallest = right;
-      if (smallest === parent) break;
+      if (left < heap.length && this.compare(heap[left], heap[smallest]) < 0) {
+        smallest = left;
+      }
+      if (right < heap.length && this.compare(heap[right], heap[smallest]) < 0) {
+        smallest = right;
+      }
+      if (smallest === parent) {
+        break;
+      }
       [heap[parent], heap[smallest]] = [heap[smallest], heap[parent]];
       parent = smallest;
     }
@@ -55,13 +65,14 @@ function averageDiskTurnaround(jobs) {
     }
 
     while (next < ordered.length && ordered[next].request <= time) {
-      waiting.push(ordered[next++]);
+      waiting.push(ordered[next]);
+      next += 1;
     }
 
     const job = waiting.pop();
     time += job.duration;
     totalTurnaround += time - job.request;
-    completed++;
+    completed += 1;
   }
 
   return Math.floor(totalTurnaround / jobs.length);
