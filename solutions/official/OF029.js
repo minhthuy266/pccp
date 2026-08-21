@@ -5,20 +5,26 @@ class DisjointSet {
   }
 
   find(node) {
-    if (this.parent[node] !== node) this.parent[node] = this.find(this.parent[node]);
+    if (this.parent[node] !== node) {
+      this.parent[node] = this.find(this.parent[node]);
+    }
     return this.parent[node];
   }
 
   union(first, second) {
     let firstRoot = this.find(first);
     let secondRoot = this.find(second);
-    if (firstRoot === secondRoot) return false;
+    if (firstRoot === secondRoot) {
+      return false;
+    }
 
     if (this.rank[firstRoot] < this.rank[secondRoot]) {
       [firstRoot, secondRoot] = [secondRoot, firstRoot];
     }
     this.parent[secondRoot] = firstRoot;
-    if (this.rank[firstRoot] === this.rank[secondRoot]) this.rank[firstRoot]++;
+    if (this.rank[firstRoot] === this.rank[secondRoot]) {
+      this.rank[firstRoot] += 1;
+    }
     return true;
   }
 }
@@ -30,10 +36,14 @@ function minimumIslandConnectionCost(n, costs) {
   let totalCost = 0;
 
   for (const [from, to, cost] of sorted) {
-    if (!disjointSet.union(from, to)) continue;
+    if (!disjointSet.union(from, to)) {
+      continue;
+    }
     totalCost += cost;
-    selectedEdges++;
-    if (selectedEdges === n - 1) break;
+    selectedEdges += 1;
+    if (selectedEdges === n - 1) {
+      break;
+    }
   }
 
   return totalCost;

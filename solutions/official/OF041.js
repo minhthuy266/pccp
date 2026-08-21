@@ -1,7 +1,9 @@
 function travelItinerary(tickets) {
   const destinationsByAirport = new Map();
   for (const [from, to] of tickets) {
-    if (!destinationsByAirport.has(from)) destinationsByAirport.set(from, []);
+    if (!destinationsByAirport.has(from)) {
+      destinationsByAirport.set(from, []);
+    }
     destinationsByAirport.get(from).push(to);
   }
   for (const destinations of destinationsByAirport.values()) {

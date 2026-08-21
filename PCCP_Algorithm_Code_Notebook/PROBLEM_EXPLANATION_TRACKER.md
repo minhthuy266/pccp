@@ -51,7 +51,7 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF026 | [OF026](../docs/pccp-700-roadmap/official-lessons/OF026.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF027 | [OF027](../docs/pccp-700-roadmap/official-lessons/OF027.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | OF028 | [OF028](../docs/pccp-700-roadmap/official-lessons/OF028.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
-| OF029 | [OF029](../docs/pccp-700-roadmap/official-lessons/OF029.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF029 | [OF029](../docs/pccp-700-roadmap/official-lessons/OF029.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B14** |
 | OF030 | [OF030](../docs/pccp-700-roadmap/official-lessons/OF030.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B4** |
 | OF031 | [OF031](../docs/pccp-700-roadmap/official-lessons/OF031.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B13** |
 | OF032 | [OF032](../docs/pccp-700-roadmap/official-lessons/OF032.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B13** |
@@ -63,13 +63,13 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF038 | [OF038](../docs/pccp-700-roadmap/official-lessons/OF038.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B11** |
 | OF039 | [OF039](../docs/pccp-700-roadmap/official-lessons/OF039.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B11** |
 | OF040 | [OF040](../docs/pccp-700-roadmap/official-lessons/OF040.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B11** |
-| OF041 | [OF041](../docs/pccp-700-roadmap/official-lessons/OF041.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF041 | [OF041](../docs/pccp-700-roadmap/official-lessons/OF041.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B14** |
 | OF042 | [OF042](../docs/pccp-700-roadmap/official-lessons/OF042.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B11** |
 | OF043 | [OF043](../docs/pccp-700-roadmap/official-lessons/OF043.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B10** |
 | OF044 | [OF044](../docs/pccp-700-roadmap/official-lessons/OF044.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B10** |
-| OF045 | [OF045](../docs/pccp-700-roadmap/official-lessons/OF045.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF046 | [OF046](../docs/pccp-700-roadmap/official-lessons/OF046.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF047 | [OF047](../docs/pccp-700-roadmap/official-lessons/OF047.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF045 | [OF045](../docs/pccp-700-roadmap/official-lessons/OF045.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B14** |
+| OF046 | [OF046](../docs/pccp-700-roadmap/official-lessons/OF046.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B14** |
+| OF047 | [OF047](../docs/pccp-700-roadmap/official-lessons/OF047.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B14** |
 | OF048 | [OF048](../docs/pccp-700-roadmap/official-lessons/OF048.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B8** |
 | OF049 | [OF049](../docs/pccp-700-roadmap/official-lessons/OF049.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B8** |
 | OF050 | [OF050](../docs/pccp-700-roadmap/official-lessons/OF050.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B8** |
@@ -81,7 +81,7 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF056 | [OF056](../docs/pccp-700-roadmap/official-lessons/OF056.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B11** |
 | OF057 | [OF057](../docs/pccp-700-roadmap/official-lessons/OF057.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B4** |
 | OF058 | [OF058](../docs/pccp-700-roadmap/official-lessons/OF058.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B3** |
-| OF059 | [OF059](../docs/pccp-700-roadmap/official-lessons/OF059.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF059 | [OF059](../docs/pccp-700-roadmap/official-lessons/OF059.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B14** |
 | OF060 | [OF060](../docs/pccp-700-roadmap/official-lessons/OF060.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B3** |
 | OF061 | [OF061](../docs/pccp-700-roadmap/official-lessons/OF061.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | SR001 | [SR001](../docs/pccp-700-roadmap/official-lessons/SR001.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B7** |
@@ -256,8 +256,17 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
 - Tests mới phủ leading zero/duplicate occurrence, restore, path-count base, negative DP, exact-count
   concatenation và endpoint conflict. Batch kế tiếp là Advanced Graph.
 
+## Batch 14 — Advanced Graph (COMPLETE)
+
+- Canonical patterns `GR-01..05` đã FRAMEWORK-FULL; OF045 được dùng làm contrast unweighted BFS.
+- OF029, OF041, OF045–OF047 và OF059 đã được nâng đầy đủ cho MST/DSU, lexical Euler trail,
+  one-source BFS, transitive closure, planar face counting và Dijkstra lazy deletion.
+- Tests khóa parallel edge, cycle rejection, duplicate ticket occurrence, temporary dead end,
+  transitive chain, exact distance boundary và input không mutate.
+- Batch cuối xử lý OF019, OF021, OF026 rồi hardening toàn repository.
+
 ## Backlog thật
 
 1. Tách từng Practice ID khỏi 17 collection và đánh giá bằng chứng thay vì suy từ file.
-2. Batch 14 tiếp tục Advanced Graph; sau đó hardening các lesson còn lại.
+2. Batch 15 xử lý ba lesson PARTIAL cuối và hardening toàn repository.
 3. Official lessons ngoài Batch 1 vẫn PARTIAL; tracker này cố ý không tuyên bố “toàn bộ hoàn thành”.

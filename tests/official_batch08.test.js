@@ -20,11 +20,14 @@ test("OF045 — BFS đếm mọi node ở maximum shortest distance", () => {
   assert.equal(farthestNodeCount(6, [[3,6],[4,3],[3,2],[1,3],[1,2],[2,4],[5,2]]), 3);
   assert.equal(farthestNodeCount(2, [[1,2]]), 1);
   assert.equal(farthestNodeCount(1, []), 1);
+  assert.equal(farthestNodeCount(4, [[1,2],[2,3],[3,4],[1,2]]), 1);
 });
 
 test("OF059 — Dijkstra xử lý parallel edge và stale heap entry", () => {
   assert.equal(deliverableVillageCount(5, [[1,2,1],[2,3,3],[5,2,2],[1,4,2],[5,3,1],[5,4,2]], 3), 4);
   assert.equal(deliverableVillageCount(3, [[1,2,10],[1,2,1],[2,3,1]], 2), 3);
+  assert.equal(deliverableVillageCount(2, [[1,2,3]], 3), 2);
+  assert.equal(deliverableVillageCount(2, [[1,2,3]], 2), 1);
 });
 
 test("OF059 — 2,000 parallel road ở official bound vẫn xử lý hết stale heap entry", () => {

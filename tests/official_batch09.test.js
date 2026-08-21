@@ -42,5 +42,6 @@ test("OF024 — DFS preorder đúng thứ tự từ điển official", () => {
 test("OF046 — rank xác định khi comparable với mọi player khác", () => {
   assert.equal(determinableRankCount(5, [[4,3],[4,2],[3,2],[1,2],[2,5]]), 2);
   assert.equal(determinableRankCount(3, [[1,2],[2,3]]), 3);
+  assert.equal(determinableRankCount(4, [[1,2],[2,3],[3,4]]), 4);
   assert.equal(determinableRankCount(3, [[1,2]]), 0);
 });

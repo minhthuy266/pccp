@@ -14,7 +14,9 @@ function farthestNodeCount(n, edges) {
   while (head < queue.length) {
     const node = queue[head++];
     for (const neighbor of adjacency[node]) {
-      if (distance[neighbor] !== -1) continue;
+      if (distance[neighbor] !== -1) {
+        continue;
+      }
       distance[neighbor] = distance[node] + 1;
       queue.push(neighbor);
     }
@@ -27,7 +29,7 @@ function farthestNodeCount(n, edges) {
       maximumDistance = distance[node];
       count = 1;
     } else if (distance[node] === maximumDistance) {
-      count++;
+      count += 1;
     }
   }
   return count;

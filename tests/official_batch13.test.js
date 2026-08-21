@@ -25,6 +25,7 @@ test("OF041 — dùng mọi ticket đúng một lần và lexical Euler route", 
   assert.deepEqual(travelItinerary([["ICN","JFK"],["HND","IAD"],["JFK","HND"]]), ["ICN","JFK","HND","IAD"]);
   assert.deepEqual(travelItinerary([["ICN","SFO"],["ICN","ATL"],["SFO","ATL"],["ATL","ICN"],["ATL","SFO"]]), ["ICN","ATL","ICN","SFO","ATL","SFO"]);
   assert.deepEqual(travelItinerary([["ICN","A"],["ICN","A"],["A","ICN"]]), ["ICN","A","ICN","A"]);
+  assert.deepEqual(travelItinerary([["ICN","B"],["ICN","A"],["A","ICN"]]), ["ICN","A","ICN","B"]);
 });
 
 test("OF041 — xử lý chain 10,000 ticket mà không tràn call stack", () => {
