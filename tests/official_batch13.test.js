@@ -56,9 +56,15 @@ test("OF042 — component normalize và bốn rotation match hole", () => {
 });
 
 test("OF044 — last feasible gap qua greedy removal predicate", () => {
-  assert.equal(maximumMinimumRockDistance(25, [2, 14, 11, 21, 17], 2), 4);
+  const rocks = [2, 14, 11, 21, 17];
+
+  assert.equal(maximumMinimumRockDistance(25, rocks, 2), 4);
   assert.equal(maximumMinimumRockDistance(10, [], 0), 10);
   assert.equal(maximumMinimumRockDistance(10, [5], 1), 10);
+  assert.equal(maximumMinimumRockDistance(10, [5], 0), 5);
+  assert.equal(maximumMinimumRockDistance(10, [2, 3, 7], 1), 3);
+  assert.equal(maximumMinimumRockDistance(10, [2, 3, 7], 3), 10);
+  assert.deepEqual(rocks, [2, 14, 11, 21, 17]);
 });
 
 test("OF047 — node cũ qua edge mới tạo room, half-step bắt diagonal crossing", () => {

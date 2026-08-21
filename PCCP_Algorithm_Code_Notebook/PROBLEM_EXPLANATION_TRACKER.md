@@ -65,8 +65,8 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF040 | [OF040](../docs/pccp-700-roadmap/official-lessons/OF040.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF041 | [OF041](../docs/pccp-700-roadmap/official-lessons/OF041.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF042 | [OF042](../docs/pccp-700-roadmap/official-lessons/OF042.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF043 | [OF043](../docs/pccp-700-roadmap/official-lessons/OF043.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF044 | [OF044](../docs/pccp-700-roadmap/official-lessons/OF044.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF043 | [OF043](../docs/pccp-700-roadmap/official-lessons/OF043.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B10** |
+| OF044 | [OF044](../docs/pccp-700-roadmap/official-lessons/OF044.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B10** |
 | OF045 | [OF045](../docs/pccp-700-roadmap/official-lessons/OF045.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF046 | [OF046](../docs/pccp-700-roadmap/official-lessons/OF046.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF047 | [OF047](../docs/pccp-700-roadmap/official-lessons/OF047.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
@@ -217,8 +217,18 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
   equality boundary, all-zero collapse, input mutation và orientation counterexample.
 - Batch kế tiếp là Binary Search.
 
+## Batch 10 — Binary Search (COMPLETE)
+
+- Canonical patterns `BS-01..05` đã FRAMEWORK-FULL.
+- OF043 và OF044 đã được nâng đầy đủ cho hai convention đối xứng: first feasible minimum time
+  và last feasible maximum gap qua first false.
+- OF043 khóa invariant `high` luôn feasible, cutoff predicate và arithmetic BigInt tới `10^18`;
+  OF044 khóa greedy removal, destination sentinel và input không mutate.
+- Mỗi lesson có làm tay, brute force executable, bảng state/init, Blueprint, chứng minh invariant,
+  revealing tests và recall. Batch kế tiếp là BFS/DFS/Graph.
+
 ## Backlog thật
 
 1. Tách từng Practice ID khỏi 17 collection và đánh giá bằng chứng thay vì suy từ file.
-2. Batch 10 tiếp tục Binary Search; sau đó các nhóm theo Navigator.
+2. Batch 11 tiếp tục BFS/DFS/Graph; sau đó các nhóm theo Navigator.
 3. Official lessons ngoài Batch 1 vẫn PARTIAL; tracker này cố ý không tuyên bố “toàn bộ hoàn thành”.

@@ -18,6 +18,7 @@ test("OF057 — interval mở chạm endpoint vẫn cần phát bắn mới", ()
 test("OF043 — first feasible time và BigInt precision path", () => {
   assert.equal(minimumImmigrationTime(6, [7, 10]), 28);
   assert.equal(minimumImmigrationTime(1, [5, 10]), 5);
+  assert.equal(minimumImmigrationTime(4, [2, 2]), 4);
   assert.equal(minimumImmigrationTimeBigInt(1_000_000_000, [1_000_000_000]), 1_000_000_000_000_000_000n);
 });
 

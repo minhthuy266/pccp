@@ -6,8 +6,11 @@ function maximumMinimumRockDistance(distance, rocks, removalsAllowed) {
     let removed = 0;
     let previous = 0;
     for (const position of positions) {
-      if (position - previous < minimumGap) removed++;
-      else previous = position;
+      if (position - previous < minimumGap) {
+        removed += 1;
+      } else {
+        previous = position;
+      }
     }
     return removed <= removalsAllowed;
   }
@@ -16,8 +19,11 @@ function maximumMinimumRockDistance(distance, rocks, removalsAllowed) {
   let high = distance + 1;
   while (low < high) {
     const middle = low + Math.floor((high - low) / 2);
-    if (feasible(middle)) low = middle + 1;
-    else high = middle;
+    if (feasible(middle)) {
+      low = middle + 1;
+    } else {
+      high = middle;
+    }
   }
   return low - 1;
 }

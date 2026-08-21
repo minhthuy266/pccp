@@ -1,8 +1,19 @@
 function minimumImmigrationTimeBigInt(people, times) {
   const target = BigInt(people);
-  const durations = times.map(BigInt);
+  const durations = [];
+  for (const time of times) {
+    durations.push(BigInt(time));
+  }
+
+  let fastest = durations[0];
+  for (const duration of durations) {
+    if (duration < fastest) {
+      fastest = duration;
+    }
+  }
+
   let low = 0n;
-  let high = durations.reduce((minimum, value) => value < minimum ? value : minimum) * target;
+  let high = fastest * target;
 
   while (low < high) {
     const middle = (low + high) / 2n;
@@ -10,11 +21,16 @@ function minimumImmigrationTimeBigInt(people, times) {
 
     for (const duration of durations) {
       processed += middle / duration;
-      if (processed >= target) break;
+      if (processed >= target) {
+        break;
+      }
     }
 
-    if (processed >= target) high = middle;
-    else low = middle + 1n;
+    if (processed >= target) {
+      high = middle;
+    } else {
+      low = middle + 1n;
+    }
   }
 
   return low;
