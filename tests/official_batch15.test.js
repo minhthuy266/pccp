@@ -47,6 +47,12 @@ test("SR005 — bài mới preempt, thời gian rảnh resume theo LIFO", () => 
     ["bbb", "12:10", "30"],
     ["ccc", "12:40", "10"],
   ]), ["bbb", "ccc", "aaa"]);
+  assert.deepEqual(homeworkCompletionOrder([
+    ["d", "14:00", "1"],
+    ["b", "12:10", "100"],
+    ["a", "12:00", "100"],
+    ["c", "12:20", "5"],
+  ]), ["c", "b", "d", "a"]);
 });
 
 test("SR006 — giữ 90%, truyền floor 10% dọc parent chain", () => {

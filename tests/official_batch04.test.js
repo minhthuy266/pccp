@@ -15,6 +15,11 @@ test("OF050 — swap order và cập nhật cả hai index", () => {
     ["mumu", "kai", "mine", "soe", "poe"],
   );
   assert.deepEqual(finalRunningOrder(["a", "b", "c"], ["b", "c"]), ["b", "c", "a"]);
+  assert.deepEqual(finalRunningOrder(["a", "b", "c"], ["c", "c"]), ["c", "a", "b"]);
+
+  const players = ["a", "b"];
+  finalRunningOrder(players, ["b"]);
+  assert.deepEqual(players, ["a", "b"]);
 });
 
 test("OF009 — re-enqueue giữ original index và priority state", () => {

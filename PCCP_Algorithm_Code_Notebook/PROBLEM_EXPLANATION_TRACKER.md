@@ -70,9 +70,9 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF045 | [OF045](../docs/pccp-700-roadmap/official-lessons/OF045.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF046 | [OF046](../docs/pccp-700-roadmap/official-lessons/OF046.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF047 | [OF047](../docs/pccp-700-roadmap/official-lessons/OF047.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF048 | [OF048](../docs/pccp-700-roadmap/official-lessons/OF048.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF049 | [OF049](../docs/pccp-700-roadmap/official-lessons/OF049.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF050 | [OF050](../docs/pccp-700-roadmap/official-lessons/OF050.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF048 | [OF048](../docs/pccp-700-roadmap/official-lessons/OF048.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B8** |
+| OF049 | [OF049](../docs/pccp-700-roadmap/official-lessons/OF049.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B8** |
+| OF050 | [OF050](../docs/pccp-700-roadmap/official-lessons/OF050.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B8** |
 | OF051 | [OF051](../docs/pccp-700-roadmap/official-lessons/OF051.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | OF052 | [OF052](../docs/pccp-700-roadmap/official-lessons/OF052.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
 | OF053 | [OF053](../docs/pccp-700-roadmap/official-lessons/OF053.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B3** |
@@ -88,7 +88,7 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | SR002 | [SR002](../docs/pccp-700-roadmap/official-lessons/SR002.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B6** |
 | SR003 | [SR003](../docs/pccp-700-roadmap/official-lessons/SR003.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | SR004 | [SR004](../docs/pccp-700-roadmap/official-lessons/SR004.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
-| SR005 | [SR005](../docs/pccp-700-roadmap/official-lessons/SR005.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| SR005 | [SR005](../docs/pccp-700-roadmap/official-lessons/SR005.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B8** |
 | SR006 | [SR006](../docs/pccp-700-roadmap/official-lessons/SR006.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 
 ## Notebook solution collections — inventory không đánh đồng với hoàn thành
@@ -197,8 +197,19 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
   OF049 được giữ cho batch Simulation vì matrix chỉ là representation, validate-then-commit
   mới là engine quyết định. Batch kế tiếp là Simulation.
 
+## Batch 8 — Simulation (COMPLETE)
+
+- Canonical patterns `SIM-01..05` đã FRAMEWORK-FULL; OF051 được kế thừa từ Batch 2.
+- OF048, OF049, OF050 và SR005 đã được nâng đầy đủ theo bốn state engine: normalize scalar,
+  validate-then-commit, array/inverse-Map invariant và event simulation + preemption stack.
+- Mỗi lesson có làm tay, brute force executable, bảng state/init, Blueprint, invariant,
+  revealing tests và recall; code OF050/SR005 tách callback rút gọn để lộ transition.
+- Tests mới khóa exclusive date boundary, rectangular rollback, repeated calling/immutable input
+  và một khoảng rảnh resume nhiều task. OF062 vẫn giữ khóa reserved mock đúng Navigator.
+  Batch kế tiếp là Sorting.
+
 ## Backlog thật
 
 1. Tách từng Practice ID khỏi 17 collection và đánh giá bằng chứng thay vì suy từ file.
-2. Batch 8 tiếp tục Simulation; sau đó các nhóm theo Navigator.
+2. Batch 9 tiếp tục Sorting; sau đó các nhóm theo Navigator.
 3. Official lessons ngoài Batch 1 vẫn PARTIAL; tracker này cố ý không tuyên bố “toàn bộ hoàn thành”.

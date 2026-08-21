@@ -1,6 +1,10 @@
 function finalRunningOrder(players, callings) {
   const order = [...players];
-  const indexByPlayer = new Map(order.map((player, index) => [player, index]));
+  const indexByPlayer = new Map();
+
+  for (let index = 0; index < order.length; index++) {
+    indexByPlayer.set(order[index], index);
+  }
 
   for (const calledPlayer of callings) {
     const calledIndex = indexByPlayer.get(calledPlayer);

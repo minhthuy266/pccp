@@ -30,6 +30,8 @@ test("OF048 — serial date dùng tháng 28 ngày và expiry-exclusive", () => {
     [1, 3],
   );
   assert.deepEqual(expiredPrivacyIndices("2022.02.01", ["A 1"], ["2022.01.01 A"]), [1]);
+  assert.deepEqual(expiredPrivacyIndices("2023.01.28", ["A 1"], ["2022.12.28 A"]), [1]);
+  assert.deepEqual(expiredPrivacyIndices("2022.01.28", ["A 1"], ["2022.01.01 A"]), []);
 });
 
 test("OF036 — mỗi index tạo đúng hai nhánh cộng/trừ", () => {

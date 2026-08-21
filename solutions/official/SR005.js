@@ -4,13 +4,19 @@ function toMinutes(time) {
 }
 
 function homeworkCompletionOrder(plans) {
-  const tasks = plans
-    .map(([name, start, duration]) => ({
+  const tasks = [];
+
+  for (const [name, start, duration] of plans) {
+    tasks.push({
       name,
       start: toMinutes(start),
       remaining: Number(duration),
-    }))
-    .sort((left, right) => left.start - right.start);
+    });
+  }
+
+  tasks.sort((left, right) => {
+    return left.start - right.start;
+  });
 
   const paused = [];
   const completed = [];
@@ -41,7 +47,11 @@ function homeworkCompletionOrder(plans) {
   }
 
   completed.push(tasks.at(-1).name);
-  while (paused.length > 0) completed.push(paused.pop().name);
+  while (paused.length > 0) {
+    const resumed = paused.pop();
+    completed.push(resumed.name);
+  }
+
   return completed;
 }
 
