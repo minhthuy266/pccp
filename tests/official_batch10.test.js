@@ -37,4 +37,6 @@ test("OF017 — descending boundary papers >= rank", () => {
   assert.equal(hIndex([0, 0, 0]), 0);
   assert.equal(hIndex([10, 10, 10]), 3);
   assert.equal(hIndex([1]), 1);
+  assert.equal(hIndex([3, 3, 3]), 3);
+  assert.equal(hIndex([100]), 1);
 });

@@ -37,10 +37,10 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF012 | [OF012](../docs/pccp-700-roadmap/official-lessons/OF012.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF013 | [OF013](../docs/pccp-700-roadmap/official-lessons/OF013.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF014 | [OF014](../docs/pccp-700-roadmap/official-lessons/OF014.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF015 | [OF015](../docs/pccp-700-roadmap/official-lessons/OF015.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF016 | [OF016](../docs/pccp-700-roadmap/official-lessons/OF016.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF017 | [OF017](../docs/pccp-700-roadmap/official-lessons/OF017.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
-| OF018 | [OF018](../docs/pccp-700-roadmap/official-lessons/OF018.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
+| OF015 | [OF015](../docs/pccp-700-roadmap/official-lessons/OF015.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B9** |
+| OF016 | [OF016](../docs/pccp-700-roadmap/official-lessons/OF016.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B9** |
+| OF017 | [OF017](../docs/pccp-700-roadmap/official-lessons/OF017.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B9** |
+| OF018 | [OF018](../docs/pccp-700-roadmap/official-lessons/OF018.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B9** |
 | OF019 | [OF019](../docs/pccp-700-roadmap/official-lessons/OF019.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF020 | [OF020](../docs/pccp-700-roadmap/official-lessons/OF020.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
 | OF021 | [OF021](../docs/pccp-700-roadmap/official-lessons/OF021.md) | Có | Chưa | Có | Có | Có | Chưa | PARTIAL |
@@ -208,8 +208,17 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
   và một khoảng rảnh resume nhiều task. OF062 vẫn giữ khóa reserved mock đúng Navigator.
   Batch kế tiếp là Sorting.
 
+## Batch 9 — Sorting (COMPLETE)
+
+- Canonical patterns `SORT-01..05` đã FRAMEWORK-FULL.
+- OF015..OF018 đã được nâng đầy đủ: numeric slice/rank, concatenation comparator,
+  descending rank boundary và local orientation normalization.
+- Code OF015/OF016 tách callback rút gọn; tests khóa lexicographic-vs-numeric, prefix token,
+  equality boundary, all-zero collapse, input mutation và orientation counterexample.
+- Batch kế tiếp là Binary Search.
+
 ## Backlog thật
 
 1. Tách từng Practice ID khỏi 17 collection và đánh giá bằng chứng thay vì suy từ file.
-2. Batch 9 tiếp tục Sorting; sau đó các nhóm theo Navigator.
+2. Batch 10 tiếp tục Binary Search; sau đó các nhóm theo Navigator.
 3. Official lessons ngoài Batch 1 vẫn PARTIAL; tracker này cố ý không tuyên bố “toàn bộ hoàn thành”.

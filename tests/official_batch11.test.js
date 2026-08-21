@@ -11,6 +11,7 @@ test("OF018 — normalize mỗi card thành cạnh dài/cạnh ngắn", () => {
   assert.equal(minimumWalletArea([[60, 50], [30, 70], [60, 30], [80, 40]]), 4000);
   assert.equal(minimumWalletArea([[10, 7], [12, 3], [8, 15], [14, 7], [5, 15]]), 120);
   assert.equal(minimumWalletArea([[1, 1]]), 1);
+  assert.equal(minimumWalletArea([[10, 100], [90, 20]]), 2000);
 });
 
 test("OF020 — permutation theo index và Set loại duplicate/leading-zero", () => {

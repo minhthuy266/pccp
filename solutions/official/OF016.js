@@ -1,9 +1,20 @@
 function largestConcatenatedNumber(numbers) {
-  const ordered = numbers
-    .map(String)
-    .sort((a, b) => (b + a).localeCompare(a + b));
+  const ordered = [];
 
-  if (ordered[0] === "0") return "0";
+  for (const number of numbers) {
+    ordered.push(String(number));
+  }
+
+  ordered.sort((first, second) => {
+    const secondFirst = second + first;
+    const firstSecond = first + second;
+    return secondFirst.localeCompare(firstSecond);
+  });
+
+  if (ordered[0] === "0") {
+    return "0";
+  }
+
   return ordered.join("");
 }
 
