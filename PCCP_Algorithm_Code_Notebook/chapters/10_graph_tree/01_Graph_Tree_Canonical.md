@@ -100,6 +100,171 @@ function shortestUnweighted(graph, source, target) {
 
 Chain `0-1-2` cho distance 0,1,2. `O(V+E)` time, `O(V)` state ngoài graph. Variants: distance tính edge hay số cell; implicit word/numeric graph. Transfer OF038–OF040, OF045, OF056. `shift()` lặp và mark-at-pop là lỗi JS/performance.
 
+### Gold standard — Dry run → Code reconstruction: đường đi ít cạnh nhất
+
+**Bài toán cụ thể.** Graph vô hướng không trọng số có adjacency:
+
+```text
+0: [1,2]   1: [0,3]   2: [0,3,4]
+3: [1,2,5] 4: [2,5]   5: [3,4]
+source=0, target=5
+```
+
+Trả số cạnh ít nhất. Đáp án là `3`, chẳng hạn `0→1→3→5`.
+
+#### 1. Bảng state chi tiết
+
+Queue hiển thị phần chưa xử lý từ `head` trở đi. Mỗi dòng neighbor ghi đúng condition `distance[next] === -1`.
+
+| Lượt / current | State trước | Điều kiện chính xác | Hành động | State sau | Answer thay đổi |
+| --- | --- | --- | --- | --- | --- |
+| init source 0 | distance toàn `-1`; queue `[]`; `head=0` | source hợp lệ | `distance[0]=0`; enqueue 0 | queue pending `[0]`; head 0 | `d[0]=0` |
+| dequeue 0 | pending `[0]`; `d=[0,-1,-1,-1,-1,-1]` | `0===5` false | `node=queue[head]`; `head 0→1` | pending `[]` | chưa đổi |
+| 0 xét next 1 | pending `[]` | `d[1]===-1` true | `d[1]=d[0]+1=1`; enqueue 1 | pending `[1]` | `d[1]=1` |
+| 0 xét next 2 | pending `[1]` | `d[2]===-1` true | `d[2]=1`; enqueue 2 | pending `[1,2]` | `d[2]=1` |
+| dequeue 1 | pending `[1,2]`; head 1 | `1===5` false | head `1→2` | pending `[2]` | chưa đổi |
+| 1 xét next 0 | `d[0]=0` | `d[0]===-1` false | skip | không đổi | không đổi |
+| 1 xét next 3 | `d[3]=-1` | true | `d[3]=d[1]+1=2`; enqueue 3 | pending `[2,3]` | `d[3]=2` |
+| dequeue 2 | pending `[2,3]` | `2===5` false | head `2→3` | pending `[3]` | chưa đổi |
+| 2 xét 0,3 | `d[0]=0,d[3]=2` | lần lượt false, false | skip cả hai | pending `[3]` | không đổi |
+| 2 xét 4 | `d[4]=-1` | true | `d[4]=d[2]+1=2`; enqueue 4 | pending `[3,4]` | `d[4]=2` |
+| dequeue 3 | pending `[3,4]` | `3===5` false | head `3→4` | pending `[4]` | chưa đổi |
+| 3 xét 1,2 | đã có distance | false, false | skip | pending `[4]` | không đổi |
+| 3 xét 5 | `d[5]=-1` | true | `d[5]=d[3]+1=3`; enqueue 5 | pending `[4,5]` | `d[5]=3` |
+| dequeue 4 | pending `[4,5]` | `4===5` false | head `4→5`; neighbor 2,5 đều seen | pending `[5]` | không đổi |
+| dequeue 5 | pending `[5]` | `5===5` true | trả `d[5]` | dừng | return `3` |
+
+#### 2. Câu hành động bằng tiếng Việt
+
+> Node đầu queue đi vào lượt xử lý → tăng `head` để lấy node đó ra → kiểm tra có phải target không → nếu chưa, duyệt từng neighbor → neighbor chưa có distance thì ghi `distance[current]+1` và cho vào cuối queue → xét neighbor kế → khi hết neighbor, chuyển sang node ở `head` mới.
+
+#### 3. Suy ra state
+
+| Thông tin phải sống | Biến | Khởi tạo và lý do |
+| --- | --- | --- |
+| Frontier theo thứ tự được discover | `queue` | `[source]`; source là layer 0 đầu tiên |
+| Vị trí phần tử queue kế tiếp | `head` | `0`; tránh `shift()` dịch toàn bộ array |
+| Node đã discover và số cạnh ngắn nhất | `distance` | fill `-1` nghĩa là unseen; `distance[source]=0` vì đi từ source tới chính nó dùng 0 cạnh |
+| Node đang expand | `node` | đọc `queue[head]` trong iteration; không cần sống sau khi đã xét hết neighbor |
+| Neighbor đang xét | `next` | biến của `for...of`; mỗi edge record được xét đúng khi expand đầu mút |
+
+`distance` đồng thời là answer state và visited state. Gán lúc enqueue đảm bảo một node chỉ vào queue một lần.
+
+#### 4. Suy ra loop
+
+- Chưa biết trước cần dequeue bao nhiêu node, nên `while (head < queue.length)` điều khiển frontier.
+- Với mỗi current, hành động xét mọi neighbor trở thành `for (const next of graph[node])`.
+- Condition unseen chỉ cần `if`: mỗi neighbor record được quyết định một lần; không có việc lặp bỏ neighbor cho tới valid như sliding window.
+- Một `if` không thể thay vòng `for...of`: node 0 phải discover cả 1 và 2, không chỉ neighbor đầu.
+
+#### 5. Ánh xạ logic Việt → code
+
+| Logic BFS cụ thể | Code |
+| --- | --- |
+| Mọi node ban đầu chưa được tới | `Array(graph.length).fill(-1)` |
+| Source ở cách 0 cạnh | `distance[source] = 0;` |
+| Source chờ được expand | `const queue = [source];` |
+| Lấy đầu queue mà không dịch array | `const node = queue[head]; head += 1;` |
+| Đã tới target theo layer sớm nhất | `if (node === target) return distance[node];` |
+| Xét từng cạnh đi ra | `for (const next of graph[node])` |
+| Neighbor chưa discover | `distance[next] === -1` |
+| Ghi layer kế và mark ngay | `distance[next] = distance[node] + 1;` |
+| Cho neighbor chờ expand | `queue.push(next);` |
+| Frontier cạn mà chưa gặp target | `return -1;` |
+
+#### 6. Dựng code tăng dần
+
+**Function shell:** `function shortestUnweightedReconstructed(graph, source, target) {}`.
+
+**State + initialization:**
+
+```js
+const distance = Array(graph.length).fill(-1);
+const queue = [source];
+let head = 0;
+distance[source] = 0;
+```
+
+**Main loop + current item:**
+
+```js
+while (head < queue.length) {
+  const node = queue[head];
+  head += 1;
+}
+```
+
+**Current condition:** thêm `if (node === target) return distance[node];` ngay sau dequeue.
+
+**Transition:** mở `for (const next of graph[node])`, rồi chỉ xử lý `if (distance[next] === -1)`.
+
+**Answer update:** `distance[next] = distance[node] + 1` phải đứng trước `queue.push(next)`; phép gán này vừa chốt shortest distance vừa mark visited.
+
+**Cleanup:** không có; node còn trong queue khi target đã dequeue không thể tạo đường ngắn hơn. **Return:** `return -1` sau `while`, chỉ khi frontier thật sự cạn.
+
+#### 7. Block scope
+
+| Block | Vị trí đúng | Điều vỡ khi chuyển |
+| --- | --- | --- |
+| distance, queue, head, source init | Trước `while` | Khai báo trong loop reset visited/frontier; cycle chạy mãi |
+| Dequeue + `head++` | Đầu iteration | Quên tăng head xử lý mãi một node; tăng trong neighbor loop bỏ node tùy degree |
+| Target check | Sau dequeue | Check neighbor trước khi distance được gán dễ trả undefined; check ngoài loop không biết current |
+| Neighbor loop | Trong iteration của node | Đưa ra ngoài làm mất `node` hoặc chỉ expand node cuối |
+| Mark distance | Trong unseen branch, trước enqueue | Mark ở dequeue cho phép cùng node được enqueue từ nhiều parent |
+| Enqueue | Cùng unseen branch | Enqueue seen node làm cycle phình vô hạn |
+| `return -1` | Sau `while` | Đặt trong iteration đầu kết luận thất bại trước khi xử lý frontier còn lại |
+
+#### 8. Code hoàn chỉnh và mọi entry distance được gán
+
+```js
+function shortestUnweightedReconstructed(graph, source, target) {
+  const distance = Array(graph.length).fill(-1);
+  const queue = [source];
+  let head = 0;
+  distance[source] = 0;
+
+  while (head < queue.length) {
+    const node = queue[head];
+    head += 1;
+    if (node === target) return distance[node];
+
+    for (const next of graph[node]) {
+      if (distance[next] === -1) {
+        distance[next] = distance[node] + 1;
+        queue.push(next);
+      }
+    }
+  }
+
+  return -1;
+}
+```
+
+| Phép gán | Khi nào | Distance sau gán |
+| --- | --- | --- |
+| `d[0]=0` | initialization | `[0,-1,-1,-1,-1,-1]` |
+| `d[1]=1` | expand 0, discover 1 | `[0,1,-1,-1,-1,-1]` |
+| `d[2]=1` | expand 0, discover 2 | `[0,1,1,-1,-1,-1]` |
+| `d[3]=2` | expand 1, discover 3 | `[0,1,1,2,-1,-1]` |
+| `d[4]=2` | expand 2, discover 4 | `[0,1,1,2,2,-1]` |
+| `d[5]=3` | expand 3, discover 5 | `[0,1,1,2,2,3]` |
+| return `d[5]` | dequeue 5 | `3` |
+
+#### 9. Các implementation sai
+
+| Sai | Failing input | State sai đầu tiên | Nguyên nhân | Block sửa |
+| --- | --- | --- | --- | --- |
+| Dùng `queue.pop()` như stack | graph `0:[2,1], 1:[3], 2:[5], 3:[4], 4:[5]`, source 0, target 5 | sau expand 0, array `[2,1]`; `pop()` chọn 1 và đi nhánh dài trước | DFS order không bảo đảm lần gặp target là ít cạnh nhất | Giữ `head`; dequeue bằng `queue[head++]` |
+| Mark visited khi dequeue | diamond `0:[1,2], 1:[3], 2:[3]` | sau expand 2, node 3 được enqueue lần hai vì bản đầu chưa dequeue | Frontier chứa duplicate; graph dày có thể vượt time/memory | Trong unseen branch, gán `distance[next]` **trước** `queue.push(next)` |
+| Quên `distance[source]=0` | graph bất kỳ, `source=target=0` | dequeue đầu: trả `distance[0] = -1` | Source chưa được đánh dấu và sai base distance | Khởi tạo `distance[source]=0` trước loop |
+| Dùng `queue.shift()` | chain hàng trăm nghìn node | từ mỗi dequeue, toàn suffix array bị reindex | Logic đúng nhưng JS có thể thành `O(V²)` và timeout | Dùng head index tăng đơn điệu |
+
+#### 10. Ba bài reconstruction
+
+1. **Từ mapping:** dựng BFS từ mục 5; khoanh hai dòng phải liền nhau để “mark khi enqueue”.
+2. **Từ hành động Việt:** che code, dựng thứ tự dequeue → target check → neighbor → unseen → distance → enqueue → head kế.
+3. **Từ đề:** chỉ đọc “ít cạnh nhất trên graph không trọng số”. Tự giải thích vì sao FIFO layer cần thiết, rồi code và test cả `source===target` lẫn target unreachable.
+
 ## `[BFS-04]` — Multi-source BFS
 
 ### Core, dấu hiệu nhận dạng và brute force bottleneck

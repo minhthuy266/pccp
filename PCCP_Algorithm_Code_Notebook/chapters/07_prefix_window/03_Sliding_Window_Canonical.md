@@ -209,6 +209,175 @@ Kết hợp variable window: `O(n)` expected time; space `O(numberOfKeysInWindow
 
 OF052 dùng requirement count trong fixed window; OF058 dùng distinct coverage trong variable window. Đây là COMBINATION: SW quản lý biên, MAP-03 quản multiplicity.
 
+### Gold standard — Dry run → Code reconstruction: đoạn dài nhất có nhiều nhất `k` loại
+
+**Bài toán cụ thể.** Cho mảng loại sản phẩm, tìm độ dài đoạn liên tiếp dài nhất chứa nhiều nhất `k` loại khác nhau.
+
+```text
+items = ["A", "B", "A", "C", "B"], k = 2
+answer = 3, từ window ["A", "B", "A"]
+```
+
+#### 1. Dry run chi tiết
+
+`frequency` chỉ mô tả window hiện tại `[left..right]`, không mô tả toàn prefix.
+
+| Lượt / current | State trước | Điều kiện chính xác | Hành động | State sau | Answer đổi |
+| --- | --- | --- | --- | --- | --- |
+| `right=0`, `A` vào | `left=0`, `{}`, `best=0` | sau add: `distinct=1`; `1 > 2` false | set `A→1`; không co; tính length `1` | `[0..0]`, `{A:1}` | `best=max(0,1)=1` |
+| `right=1`, `B` vào | `left=0`, `{A:1}`, `best=1` | sau add: `2 > 2` false | set `B→1`; không co | `[0..1]`, `{A:1,B:1}` | `best=2` |
+| `right=2`, `A` vào | `left=0`, `{A:1,B:1}`, `best=2` | add làm `A:2`; `2 > 2` false | tăng count A; không co | `[0..2]`, `{A:2,B:1}` | `best=3` |
+| `right=3`, `C` vào | `left=0`, `{A:2,B:1}`, `best=3` | add C: `distinct=3`; `3 > 2` true | `C→1`; bắt đầu co | tạm `[0..3]`, `{A:2,B:1,C:1}` | chưa cập nhật vì invalid |
+| vẫn `right=3` | `left=0`, `{A:2,B:1,C:1}` | `3 > 2` true | remove `items[0]=A`: `A 2→1`; `left 0→1` | `[1..3]`, `{A:1,B:1,C:1}` | chưa đổi; vẫn invalid |
+| vẫn `right=3` | `left=1`, `{A:1,B:1,C:1}` | `3 > 2` true | remove B: `1→0`, delete B; `distinct 3→2`; `left 1→2` | `[2..3]`, `{A:1,C:1}` | sau co, length 2; `best` vẫn 3 |
+| `right=4`, `B` vào | `left=2`, `{A:1,C:1}`, `best=3` | add B: `3 > 2` true | `B→1`; bắt đầu co | tạm `[2..4]`, `{A:1,C:1,B:1}` | chưa cập nhật |
+| vẫn `right=4` | `left=2`, `{A:1,C:1,B:1}` | `3 > 2` true | remove A: `1→0`, delete; `left 2→3` | `[3..4]`, `{C:1,B:1}` | length 2; `best` vẫn 3 |
+
+#### 2. Câu hành động bằng tiếng Việt
+
+> Item hiện tại đi vào bên phải → tăng đúng count của nó trong Map → kiểm tra số key còn count dương → nếu quá `k`, liên tục cho item bên trái đi ra, giảm/xóa count rồi tăng `left` → khi window hợp lệ, cập nhật độ dài tốt nhất → `right` sang item kế tiếp.
+
+#### 3. Suy ra state
+
+| Thông tin cần sống sang lượt sau | Biến | Giá trị đầu và lý do |
+| --- | --- | --- |
+| Biên trái của đoạn đang mở | `left` | `0`, vì current đầu tiên mở window tại index 0 |
+| Multiplicity từng loại trong đúng window | `frequency` | `new Map()`, vì window trước lần đọc đầu là rỗng |
+| Số loại hiện diện | `frequency.size` | Không cần scalar riêng: xóa key khi count về 0 để `size` luôn đúng |
+| Độ dài hợp lệ lớn nhất đã thấy | `best` | `0`, đáp án đúng cho input rỗng và phần tử trung hòa của `Math.max` |
+| Biên phải/current | `right`, `items[right]` | `right` do `for` tạo từ 0; current chỉ cần trong iteration |
+
+Invariant sau shrink: Map bằng chính xác multiplicity của `items[left..right]`, `frequency.size <= k`, và `best` là max của mọi window hợp lệ đã hoàn tất tới `right`.
+
+#### 4. Suy ra loop
+
+- Mỗi item lần lượt vào biên phải đúng một lần: dùng `for` trên `right`.
+- Khi invalid, việc bỏ **từng** item trái lặp có điều kiện: dùng `while (frequency.size > k)`.
+- `if` không đủ. Với `items=["A","A","B"]`, `k=1`, tại `right=2` bỏ A ở index 0 vẫn để `{A:1,B:1}`; cần bỏ tiếp A ở index 1 mới valid.
+
+#### 5. Ánh xạ logic Việt → code
+
+| Logic riêng của bài | Code |
+| --- | --- |
+| Window ban đầu bắt đầu ở đầu mảng | `let left = 0;` |
+| Chưa có loại nào | `const frequency = new Map();` |
+| Chưa có đoạn hợp lệ không rỗng | `let best = 0;` |
+| Item hiện tại vào | `frequency.set(current, (frequency.get(current) ?? 0) + 1);` |
+| Quá `k` loại | `frequency.size > k` |
+| Item trái ra | `const outgoing = items[left];` |
+| Giảm multiplicity của item ra | `const nextCount = frequency.get(outgoing) - 1;` |
+| Không còn item loại đó trong window | `if (nextCount === 0) frequency.delete(outgoing);` |
+| Sau khi bỏ item trái, biên dịch sang phải | `left += 1;` |
+| Chỉ đo window đã valid | `best = Math.max(best, right - left + 1);` |
+
+#### 6. Dựng code tăng dần
+
+**Function shell**
+
+```js
+function longestAtMostKTypes(items, k) {
+}
+```
+
+**State + initialization**
+
+```js
+let left = 0;
+const frequency = new Map();
+let best = 0;
+```
+
+**Main loop + current item**
+
+```js
+for (let right = 0; right < items.length; right += 1) {
+  const current = items[right];
+}
+```
+
+**Current enters**
+
+```js
+frequency.set(current, (frequency.get(current) ?? 0) + 1);
+```
+
+**Condition + transition**
+
+```js
+while (frequency.size > k) {
+  const outgoing = items[left];
+  const nextCount = frequency.get(outgoing) - 1;
+  if (nextCount === 0) frequency.delete(outgoing);
+  else frequency.set(outgoing, nextCount);
+  left += 1;
+}
+```
+
+**Answer update** đặt sau shrink: `best = Math.max(best, right - left + 1);`. **Cleanup:** không có; Map không phải output và window cuối không có pending state cần resolve. **Return:** sau `for`, `return best;`.
+
+#### 7. Block scope và điều gì vỡ khi di chuyển
+
+| Block | Vị trí đúng | Nếu di chuyển |
+| --- | --- | --- |
+| `left`, Map, `best` | Trước `for` | Khai báo trong loop làm mỗi window quên lịch sử, không còn sliding window |
+| Add current | Trong `for`, trước check | Check trước add không xét item vừa vào; answer có thể chứa loại thứ `k+1` |
+| Shrink `while` | Sau add, trong iteration | Đưa ra ngoài `for` cho phép các window invalid được đo trong traversal |
+| Remove count + `left += 1` | Cùng thân `while` | Tăng `left` mà không giảm Map làm Map lệch đoạn; giảm Map mà không tăng `left` có thể loop vô hạn |
+| Delete chỉ khi `nextCount===0` | Trong nhánh remove | Delete sớm làm Map quên duplicate vẫn còn trong window |
+| Update `best` | Sau `while`, vẫn trong `for` | Đặt trước shrink có thể ghi độ dài của window quá `k` loại |
+| Return | Sau `for` | Return trong iteration chỉ trả kết quả của prefix đầu |
+
+#### 8. Code hoàn chỉnh và mọi lần answer được gán
+
+```js
+function longestAtMostKTypes(items, k) {
+  let left = 0;
+  const frequency = new Map();
+  let best = 0;
+
+  for (let right = 0; right < items.length; right += 1) {
+    const current = items[right];
+    frequency.set(current, (frequency.get(current) ?? 0) + 1);
+
+    while (frequency.size > k) {
+      const outgoing = items[left];
+      const nextCount = frequency.get(outgoing) - 1;
+      if (nextCount === 0) frequency.delete(outgoing);
+      else frequency.set(outgoing, nextCount);
+      left += 1;
+    }
+
+    best = Math.max(best, right - left + 1);
+  }
+
+  return best;
+}
+```
+
+| Lúc gán `best` | Window đã valid | Phép gán | Kết quả |
+| --- | --- | --- | --- |
+| initialization | rỗng | `best=0` | 0 |
+| cuối `right=0` | `[A]` | `max(0,1)` | 1 |
+| cuối `right=1` | `[A,B]` | `max(1,2)` | 2 |
+| cuối `right=2` | `[A,B,A]` | `max(2,3)` | 3 |
+| cuối `right=3` sau hai shrink | `[A,C]` | `max(3,2)` | 3 |
+| cuối `right=4` sau một shrink | `[C,B]` | `max(3,2)` | 3 |
+
+#### 9. Ba implementation sai thực tế
+
+| Sai | Failing input | State sai đầu tiên | Nguyên nhân | Block đúng |
+| --- | --- | --- | --- | --- |
+| Shrink bằng `if` | `[A,A,B]`, `k=1` | `right=2`, sau remove index 0 Map vẫn `{A:1,B:1}` nhưng code dừng | Một lần bỏ không bảo đảm loại biến mất | `while (frequency.size > k) { remove; left += 1; }` |
+| Luôn `frequency.delete(outgoing)` | `[A,A,B]`, `k=1` | `right=2`, remove A ở index 0 xóa key dù A index 1 còn trong window | Set-like removal làm mất multiplicity | Tính `nextCount`; chỉ delete khi bằng 0, ngược lại set count mới |
+| Update `best` trước shrink | `[A,B,C]`, `k=2` | `right=2`, ghi `best=3` cho `{A,B,C}` invalid | Đo answer trước khi phục hồi invariant | Đưa `best = Math.max(...)` xuống sau `while` |
+| Quên `left += 1` | `[A,B]`, `k=1` | `right=1`, lần shrink thứ hai đọc lại A với count không tồn tại | Biên không khớp Map; loop không tiến | Đặt `left += 1` cuối mỗi lượt remove |
+
+#### 10. Ba bài reconstruction
+
+1. **Từ bảng mapping:** dựng function chỉ từ mục 5; đánh dấu dòng nào thay đổi biên và dòng nào thay đổi representation của window.
+2. **Từ hành động Việt:** che mọi code, đọc câu mục 2 và dựng đúng thứ tự add → check/shrink → answer → `right` tiến.
+3. **Từ đề bài:** chỉ dùng câu “đoạn liên tiếp dài nhất có nhiều nhất `k` loại”. Tự chọn state, giải thích vì sao Set sai với duplicate, rồi test `[A,A,B]`, `k=1`.
+
 ## `[SW-05]` — Đếm số window hợp lệ
 
 ### Core — bản chất và brute force bottleneck

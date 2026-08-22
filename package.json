@@ -5,6 +5,7 @@
     "build:level1-docs": "python3 tools/rebuild_level1_documents.py",
     "check:canonical": "node tools/audit_canonical.mjs",
     "check:lessons": "node tools/audit_official_lessons.mjs",
+    "check:reconstruction": "node tools/audit_dry_run_reconstruction.mjs",
     "check:patterns": "node tools/audit_pattern_families.mjs",
     "check:notebook-framework": "node tools/audit_notebook_framework.mjs",
     "check:notebook-integration": "node tools/audit_notebook_integration.mjs",

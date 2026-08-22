@@ -69,6 +69,155 @@ function pairSumIndices(sortedValues, target) {
 
 **Recall Card `[TP-01]`:** order → candidate → loại một biên → invariant còn đáp án trong đoạn. **Blank Page:** viết pair sum trong 90 giây. **Mutation:** trả cặp gần target nhất. **Explain Back:** vì sao sum nhỏ loại left chứ không loại right?
 
+### Gold standard — Dry run → Code reconstruction: cặp tổng bằng target
+
+**Input cụ thể:** `sortedValues=[-2,1,3,6,8]`, `target=7`. Cần trả hai index khác nhau; kết quả `[1,3]` vì `1+6=7`.
+
+#### 1. Bảng trạng thái chi tiết
+
+| Lượt / current pair | State trước | Điều kiện chính xác | Hành động | State sau | Answer đổi |
+| --- | --- | --- | --- | --- | --- |
+| 1: index `(0,4)`, value `(-2,8)` | `left=0,right=4`, answer `[-1,-1]` | `sum=6`; `6===7` false; `6<7` true | Loại index 0; `left += 1` | `left=1,right=4` | Chưa đổi |
+| 2: `(1,4)`, `(1,8)` | `left=1,right=4` | `sum=9`; `9===7` false; `9<7` false, nên `sum>target` | Loại index 4; `right -= 1` | `left=1,right=3` | Chưa đổi |
+| 3: `(1,3)`, `(1,6)` | `left=1,right=3` | `sum=7`; `7===7` true | Gán hai index và dừng loop | `left=1,right=3`, found | `answer[0]=1`, `answer[1]=3` |
+
+Tại lượt 1, với `left=0`, ngay cả phần tử lớn nhất còn lại là `8` cũng chỉ cho tổng `6`; mọi cặp `(-2, sortedValues[j])` với `j<4` còn nhỏ hơn. Vì vậy loại `left=0` không làm mất đáp án. Lập luận đối xứng áp dụng cho `right=4` ở lượt 2.
+
+#### 2. Câu hành động bằng tiếng Việt
+
+> Cặp ở hai đầu đi vào lượt xét → cộng hai value → nếu bằng target thì ghi hai index và dừng → nếu tổng nhỏ, loại đầu trái bằng cách tăng `left` → nếu tổng lớn, loại đầu phải bằng cách giảm `right` → lặp khi còn hai index khác nhau.
+
+#### 3. Suy ra state
+
+| Thông tin sống sang lượt sau | Biến | Khởi tạo và lý do |
+| --- | --- | --- |
+| Biên nhỏ nhất còn có thể thuộc đáp án | `left` | `0`, cực trái của sorted array |
+| Biên lớn nhất còn có thể thuộc đáp án | `right` | `length-1`, cực phải |
+| Hai index tìm được hoặc dấu không có | `answer` | `[-1,-1]`, đúng contract not-found và cho phép quan sát lúc từng ô được gán |
+| Tổng candidate hiện tại | `sum` | Khai báo lại trong iteration từ hai pointer; không cần sống sang lượt sau |
+| Đã tìm thấy hay chưa | `found` | `false`; dùng để thoát loop sau khi gán answer thay vì return sớm trong bản học scope |
+
+Invariant: trước mỗi lượt, nếu một cặp đáp án tồn tại thì có ít nhất một cặp với cả hai index trong `[left..right]`.
+
+#### 4. Suy ra loop
+
+Candidate được kiểm tra lặp khi `left < right`, nên dùng `while`: số lượt phụ thuộc nhánh vừa loại biên nào. `for` không diễn tả tự nhiên hai biến di chuyển khác hướng. Các nhánh equality/smaller/greater loại trừ nhau nên `if / else if / else` là đủ; không cần inner `while`. Điều kiện `<`, không phải `<=`, vì đề cần hai index khác nhau.
+
+#### 5. Ánh xạ logic Việt → code
+
+| Logic bài này | Code |
+| --- | --- |
+| Mở hai biên của toàn mảng | `let left=0; let right=sortedValues.length-1;` |
+| Còn hai phần tử khác nhau | `left < right` |
+| Tạo candidate | `const sum=sortedValues[left]+sortedValues[right];` |
+| Candidate đúng | `sum === target` |
+| Ghi index trái/phải | `answer[0]=left; answer[1]=right;` |
+| Tổng quá nhỏ: bỏ cực trái | `left += 1;` |
+| Tổng quá lớn: bỏ cực phải | `right -= 1;` |
+| Không có hoặc trả pair đã ghi | `return answer;` |
+
+#### 6. Dựng code tăng dần
+
+**Function shell:**
+
+```js
+function pairSumIndicesReconstructed(sortedValues, target) {
+}
+```
+
+**State + initialization:**
+
+```js
+let left = 0;
+let right = sortedValues.length - 1;
+const answer = [-1, -1];
+let found = false;
+```
+
+**Main loop + current item:**
+
+```js
+while (left < right && !found) {
+  const sum = sortedValues[left] + sortedValues[right];
+}
+```
+
+**Condition + transition + answer update:**
+
+```js
+if (sum === target) {
+  answer[0] = left;
+  answer[1] = right;
+  found = true;
+} else if (sum < target) {
+  left += 1;
+} else {
+  right -= 1;
+}
+```
+
+**Cleanup:** không có pending candidate; mỗi pair đã được chấp nhận hoặc một biên đã bị chứng minh vô vọng. **Return:** đặt sau loop: `return answer;`.
+
+#### 7. Block scope
+
+| Block | Vị trí đúng | Nếu chuyển sai |
+| --- | --- | --- |
+| Pointer, answer, found | Trước loop | Khai báo pointer trong loop reset hai biên và có thể lặp vô hạn |
+| Tính `sum` | Đầu mỗi iteration | Tính một lần trước loop tạo sum cũ sau khi pointer move |
+| Equality check | Trước pointer movement | Move trước rồi check bỏ qua candidate hiện tại, kể cả đáp án ở hai đầu |
+| Mỗi pointer update | Trong đúng nhánh | Move cả hai khi tổng lệch có thể bỏ đáp án dùng một biên còn tốt |
+| Gán hai ô answer | Trong nhánh equality | Gán ngoài nhánh ghi candidate cuối dù không bằng target |
+| Return | Sau loop | Return ở cuối iteration đầu không cho pointer tiếp tục tìm |
+
+#### 8. Code hoàn chỉnh và thời điểm từng ô answer được gán
+
+```js
+function pairSumIndicesReconstructed(sortedValues, target) {
+  let left = 0;
+  let right = sortedValues.length - 1;
+  const answer = [-1, -1];
+  let found = false;
+
+  while (left < right && !found) {
+    const sum = sortedValues[left] + sortedValues[right];
+    if (sum === target) {
+      answer[0] = left;
+      answer[1] = right;
+      found = true;
+    } else if (sum < target) {
+      left += 1;
+    } else {
+      right -= 1;
+    }
+  }
+
+  return answer;
+}
+```
+
+| Thời điểm | Phép gán answer | Giá trị |
+| --- | --- | --- |
+| Initialization | `answer[0]=-1`, `answer[1]=-1` | `[-1,-1]`, contract chưa tìm thấy |
+| Lượt 1, sum 6 | không gán | `[-1,-1]` |
+| Lượt 2, sum 9 | không gán | `[-1,-1]` |
+| Lượt 3, sum 7 | `answer[0]=left=1` | `[1,-1]` |
+| Cùng nhánh equality | `answer[1]=right=3` | `[1,3]` |
+
+#### 9. Các implementation sai
+
+| Sai | Failing input | Lượt state sai đầu tiên | Nguyên nhân | Block sửa |
+| --- | --- | --- | --- | --- |
+| `if (sum<target) right--` | `[-2,1,3,6,8]`, target 7 | lượt 1: sum 6 nhưng loại 8; state thành `[0,3]` | Tổng nhỏ phải tăng value nhỏ nhất, không giảm value lớn nhất | `else if (sum < target) left += 1;` |
+| Luôn move cả hai khi chưa bằng | `[1,2,4,8]`, target 10 | lượt 1: sum 9, chuyển `(0,3)` thành `(1,2)`, bỏ cặp `(1,3)` là đáp án | Chỉ một biên được chứng minh vô vọng | Nhánh nhỏ chỉ `left++`; nhánh lớn chỉ `right--` |
+| Dùng `left <= right` | `[5]`, target 10 | lượt đầu cho `left=right=0`, sum 10 và trả `[0,0]` | Dùng cùng phần tử hai lần | Loop `while (left < right && !found)` |
+| Sort tại chỗ rồi trả index đã sort | `[8,1,6]`, target 7 | trước lượt đầu, vị trí gốc đã mất | Contract hỏi original index nhưng state chỉ giữ value đã reorder | Nếu input chưa sort, sort `{value,index}` hoặc dùng Map; canonical này yêu cầu input đã sort |
+
+#### 10. Ba bài reconstruction
+
+1. **Từ mapping:** che code, dùng mục 5 dựng từng dòng; sau mỗi pointer update phải nói biên nào vừa bị chứng minh vô vọng.
+2. **Từ hành động Việt:** chỉ dùng câu mục 2 để dựng block `while` và ba nhánh; test input mẫu và `[5]`, target 10.
+3. **Từ đề:** chỉ đọc “sorted array, hai index khác nhau, tổng target”. Viết brute force trước, rồi chứng minh quy tắc loại biên trước khi viết two pointers.
+
 ## Dạng 2 `[TP-02]` — Fast/slow compact in-place
 
 **Dấu hiệu nhận dạng:** phải filter/compact tại chỗ trong một scan. **Brute force bottleneck:** splice giữa array dịch suffix và thành `O(n²)`; transition read luôn tiến, item giữ lại ghi tại write rồi tăng write.

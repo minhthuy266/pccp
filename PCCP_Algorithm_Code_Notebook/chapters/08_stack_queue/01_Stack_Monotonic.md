@@ -273,9 +273,412 @@ Vòng `for` chạy `n` lần. Một iteration có thể pop nhiều item, nhưng
 
 Full implementations và tests nằm ở [practice solutions](../../solutions/08_Stack_Queue_Solutions.md) và [Programmers solutions](../../solutions/08_Stack_Queue_Programmers_Solutions.md).
 
+### Gold standard — Dry run → Code reconstruction: Giá cổ phiếu / 주식가격
+
+**Bài toán cụ thể.** Với mỗi giây `i`, trả số giây giá `prices[i]` không giảm. Nếu lần đầu giảm ở `j`, đáp án là `j - i`; nếu không bao giờ giảm, đáp án là `n - 1 - i`. Dùng input thật của đề:
+
+```text
+prices = [1, 2, 3, 2, 3]
+answer = [4, 3, 1, 1, 0]
+```
+
+Stack ghi `index:price`. Một index nằm trong stack nghĩa là: “đã thấy giá ở index này, nhưng chưa thấy giá tương lai thấp hơn nó”.
+
+#### 1. Dry run chi tiết của traversal
+
+| Lượt / current | State trước | Điều kiện chính xác được xét | Hành động | State sau | Answer đổi |
+| --- | --- | --- | --- | --- | --- |
+| `i=0`, giá `1` | stack `[]`; answer `[0,0,0,0,0]` | `stack.length > 0` là `false` | Không vào `while`; push `0` | `[0:1]` | Chưa đổi |
+| `i=1`, giá `2` | `[0:1]` | `2 < prices[0]` → `2 < 1` là `false` | Không pop; push `1` | `[0:1,1:2]` | Chưa đổi |
+| `i=2`, giá `3` | `[0:1,1:2]` | `3 < prices[1]` → `3 < 2` là `false` | Không pop; push `2` | `[0:1,1:2,2:3]` | Chưa đổi |
+| `i=3`, giá `2` | `[0:1,1:2,2:3]` | `2 < prices[2]` → `2 < 3` là `true` | Pop `2`; gán `answer[2]=3-2=1` | `[0:1,1:2]` | `[0,0,1,0,0]` |
+| vẫn `i=3`, giá `2` | `[0:1,1:2]` | `2 < prices[1]` → `2 < 2` là `false` | Dừng `while`; giá bằng nhau không phải giảm; push `3` | `[0:1,1:2,3:2]` | Không đổi |
+| `i=4`, giá `3` | `[0:1,1:2,3:2]` | `3 < prices[3]` → `3 < 2` là `false` | Không pop; push `4` | `[0:1,1:2,3:2,4:3]` | Chưa đổi |
+
+Traversal đã hết nhưng các index `0,1,3,4` vẫn chưa gặp giá thấp hơn. Chỉ lúc này mới cleanup:
+
+| Cleanup | State trước | Điều kiện chính xác | Hành động | State sau | Answer đổi |
+| --- | --- | --- | --- | --- | --- |
+| 1 | `[0:1,1:2,3:2,4:3]` | `stack.length > 0` → `true` | pop `4`; `answer[4]=4-4=0` | `[0:1,1:2,3:2]` | `[0,0,1,0,0]` (gán ô 4) |
+| 2 | `[0:1,1:2,3:2]` | `true` | pop `3`; `answer[3]=4-3=1` | `[0:1,1:2]` | `[0,0,1,1,0]` |
+| 3 | `[0:1,1:2]` | `true` | pop `1`; `answer[1]=4-1=3` | `[0:1]` | `[0,3,1,1,0]` |
+| 4 | `[0:1]` | `true` | pop `0`; `answer[0]=4-0=4` | `[]` | `[4,3,1,1,0]` |
+| dừng | `[]` | `stack.length > 0` → `false` | thoát cleanup | `[]` | hoàn tất |
+
+#### 2. Câu hành động bằng tiếng Việt
+
+> Giá hiện tại đi vào lượt xử lý → nhìn index trên đỉnh đang chờ → nếu giá hiện tại thấp hơn thì pop và chốt thời lượng, rồi kiểm tra tiếp đỉnh mới → khi không còn giá cũ nào bị giảm, push index hiện tại → tăng `i`. Sau khi không còn giá tương lai nào để đọc, pop toàn bộ index còn chờ và tính thời lượng tới giây cuối.
+
+Ở `i=3`, một current có thể xử lý nhiều giá cũ nên câu “rồi kiểm tra tiếp đỉnh mới” là bắt buộc, dù input này chỉ pop một index ở lượt đó.
+
+#### 3. Suy ra state, không đoán biến
+
+| Thông tin phải sống sang lượt sau | Biến lưu | Vì sao khởi tạo như vậy |
+| --- | --- | --- |
+| Những thời điểm chưa gặp giá thấp hơn | `stack` chứa index | Ban đầu chưa đọc giá nào nên `[]`; lưu index để vừa đọc lại giá vừa tính `i - previousIndex` |
+| Thời lượng đã chốt của từng giây | `answer` | `Array(n).fill(0)` đúng contract của phần tử cuối và là chỗ để ghi theo index; các ô chưa chốt vẫn được phân biệt bằng việc index còn trong stack |
+| Vị trí/giá đang đến | `i`, `prices[i]` | `i` bắt đầu `0` vì traversal phải đọc mọi giá từ trái sang phải; current không cần sống ngoài iteration |
+| Mốc cuối dùng cho phần chưa giảm | `n - 1` | Không cần biến mutable: sau traversal, mọi survivor kéo dài từ index của nó đến đúng index cuối |
+
+Invariant sống qua hai iteration: ngay trước khi xử lý `i`, stack chỉ chứa index `< i` chưa gặp giá thấp hơn; giá từ đáy đến đỉnh không giảm.
+
+#### 4. Suy ra loop
+
+- Hành động lặp đúng một lần cho mỗi giá hiện tại trở thành `for (let i = 0; i < prices.length; i += 1)`.
+- Hành động “current còn thấp hơn đỉnh thì tiếp tục giải quyết đỉnh” trở thành `while`. `if` không đủ: với `[3,4,2]` tại `i=2`, giá `2` phải pop cả index `1` **và** `0`; `if` chỉ gán một trong hai.
+- Hành động lặp với mọi survivor sau khi đã đọc hết input trở thành một `while` thứ hai **sau** `for`. Nó không thuộc một current cụ thể.
+
+#### 5. Ánh xạ logic Việt → code
+
+| Logic của bài Giá cổ phiếu | JavaScript tương ứng |
+| --- | --- |
+| Tạo nơi ghi thời lượng cho đúng `n` giây | `const answer = Array(prices.length).fill(0);` |
+| Giữ các thời điểm còn chờ tương lai | `const stack = [];` |
+| Cho từng giá hiện tại đi vào | `for (let i = 0; i < prices.length; i += 1)` |
+| Vẫn còn thời điểm đang chờ | `stack.length > 0` |
+| Giá hiện tại thật sự thấp hơn giá cũ | `prices[i] < prices[stack.at(-1)]` |
+| Lấy thời điểm vừa bị giảm ra khỏi nhóm chờ | `const previousIndex = stack.pop();` |
+| Chốt số giây tới lần giảm đầu tiên | `answer[previousIndex] = i - previousIndex;` |
+| Current chưa biết tương lai nên cho vào chờ | `stack.push(i);` |
+| Đã hết input, survivor kéo dài tới cuối | `answer[index] = prices.length - 1 - index;` |
+| Trả đủ thời lượng theo thứ tự ban đầu | `return answer;` |
+
+#### 6. Dựng code tăng dần
+
+Không chép thẳng đáp án. Mỗi bước dưới đây lặp lại **toàn bộ function đã dựng tới thời điểm đó**. Nhìn các comment `MAIN FOR MỞ/ĐÓNG`, `WHILE BÊN TRONG FOR`, `CLEANUP SAU FOR` và `RETURN SAU CLEANUP` để luyện đặt dấu `}`.
+
+**Bước 1 — function shell**
+
+> **Prediction checkpoint:** Block function chạy per current hay bao toàn bộ thuật toán? Input nào phải có trước? Nếu đóng function trước các block còn lại thì những block đó còn truy cập được `prices` không?
+
+```js
+function stockPrices(prices) {
+}
+```
+
+**Bước 2 — khai báo state**
+
+> **Prediction checkpoint:** `answer` và `stack` phải sống trong một iteration hay qua mọi iteration? Ta đã biết kiểu state nào nhưng đã cần gán giá trị đầu chưa? Nếu khai báo chúng bên trong main `for`, lịch sử nào sẽ mất?
+
+```js
+function stockPrices(prices) {
+  let answer;
+  let stack;
+}
+```
+
+**Bước 3 — initialization**
+
+> **Prediction checkpoint:** Block này chạy một lần hay mỗi current? Ta đã biết `prices.length` và trạng thái “chưa có index chờ” chưa? Nếu reset `answer` hoặc `stack` trong main loop, giá tương lai còn thấy index cũ không?
+
+```js
+function stockPrices(prices) {
+  const answer = Array(prices.length).fill(0);
+  const stack = [];
+}
+```
+
+**Bước 4 — main loop**
+
+> **Prediction checkpoint:** Block này chạy một lần sau traversal hay một lần cho mỗi current? Ta cần biết số lượng giá nào? Dấu `}` nào phải đóng main `for` trước khi cleanup xuất hiện?
+
+```js
+function stockPrices(prices) {
+  const answer = Array(prices.length).fill(0);
+  const stack = [];
+
+  // ┌── MAIN FOR MỞ: mọi code ở đây chạy cho từng current i.
+  for (let i = 0; i < prices.length; i += 1) {
+  }
+  // └── MAIN FOR ĐÓNG: traversal đã đọc xong mọi current.
+}
+```
+
+**Bước 5 — current item**
+
+> **Prediction checkpoint:** `currentPrice` thuộc một iteration hay toàn traversal? Muốn đọc nó, `i` phải đã tồn tại ở đâu? Nếu đặt dòng này trước `for`, current có thay đổi khi `i` tăng không?
+
+```js
+function stockPrices(prices) {
+  const answer = Array(prices.length).fill(0);
+  const stack = [];
+
+  // ┌── MAIN FOR MỞ
+  for (let i = 0; i < prices.length; i += 1) {
+    const currentPrice = prices[i];
+  }
+  // └── MAIN FOR ĐÓNG
+}
+```
+
+**Bước 6 — condition: resolve-`while` thuộc current**
+
+> **Prediction checkpoint:** Condition giảm giá phải chạy per current hay sau traversal? Trước khi check, ta phải biết `currentPrice` và top cũ nào? Nếu đặt `while` này sau main `for`, biến `i/currentPrice` còn đúng cho từng lần giảm không?
+
+```js
+function stockPrices(prices) {
+  const answer = Array(prices.length).fill(0);
+  const stack = [];
+
+  // ┌── MAIN FOR MỞ
+  for (let i = 0; i < prices.length; i += 1) {
+    const currentPrice = prices[i];
+
+    // ┌── WHILE GIẢM GIÁ: block này NẰM TRONG MAIN FOR.
+    while (
+      stack.length > 0
+      && currentPrice < prices[stack.at(-1)]
+    ) {
+    }
+    // └── WHILE GIẢM GIÁ ĐÓNG; vẫn còn ở trong iteration i.
+  }
+  // └── MAIN FOR ĐÓNG
+}
+```
+
+**Bước 7 — transition: pop index vừa bị current làm giảm**
+
+> **Prediction checkpoint:** Một lần pop thuộc resolve-`while` hay cleanup? Trước khi pop, condition nào phải bảo đảm stack không rỗng? Nếu pop nằm ngoài resolve-`while`, index không bị giảm có bị loại nhầm không?
+
+```js
+function stockPrices(prices) {
+  const answer = Array(prices.length).fill(0);
+  const stack = [];
+
+  // ┌── MAIN FOR MỞ
+  for (let i = 0; i < prices.length; i += 1) {
+    const currentPrice = prices[i];
+
+    // ┌── WHILE GIẢM GIÁ NẰM TRONG MAIN FOR
+    while (
+      stack.length > 0
+      && currentPrice < prices[stack.at(-1)]
+    ) {
+      const previousIndex = stack.pop();
+    }
+    // └── WHILE GIẢM GIÁ ĐÓNG
+
+    // Current chưa biết tương lai: push đúng một lần, sau resolve-while.
+    stack.push(i);
+  }
+  // └── MAIN FOR ĐÓNG
+}
+```
+
+**Bước 8 — answer update khi tìm thấy lần giảm đầu tiên**
+
+> **Prediction checkpoint:** Phép gán này chạy cho mỗi current hay cho mỗi index bị pop? Ta phải biết cả `i` hiện tại và `previousIndex` nào? Nếu đưa phép gán ra ngoài `while`, làm sao ghi đủ hai ô với input `[3,4,2]`?
+
+```js
+function stockPrices(prices) {
+  const answer = Array(prices.length).fill(0);
+  const stack = [];
+
+  // ┌── MAIN FOR MỞ
+  for (let i = 0; i < prices.length; i += 1) {
+    const currentPrice = prices[i];
+
+    // ┌── WHILE GIẢM GIÁ NẰM TRONG MAIN FOR
+    while (
+      stack.length > 0
+      && currentPrice < prices[stack.at(-1)]
+    ) {
+      const previousIndex = stack.pop();
+      answer[previousIndex] = i - previousIndex;
+    }
+    // └── WHILE GIẢM GIÁ ĐÓNG
+
+    stack.push(i);
+  }
+  // └── MAIN FOR ĐÓNG
+}
+```
+
+Với riêng Stock Prices `[3,4,2]`, tại `i=2` cùng một current `2` phải gán `answer[1]=1`, rồi kiểm tra top mới và gán `answer[0]=2`. Đây là lý do dùng `while`, không phải `if`; ví dụ next-greater `[2,1,3]` không được dùng để suy ra block của bài này.
+
+**Bước 9 — cleanup sau traversal**
+
+> **Prediction checkpoint:** Cleanup chạy per current hay đúng một lần sau traversal? Ta chỉ được biết “index này không bao giờ gặp giá thấp hơn” sau khi đã biết điều gì? Nếu block này đặt bên trong main `for`, stack còn giữ được index 2 cho giá `2` ở `i=3` không?
+
+```js
+function stockPrices(prices) {
+  const answer = Array(prices.length).fill(0);
+  const stack = [];
+
+  // ┌── MAIN FOR MỞ
+  for (let i = 0; i < prices.length; i += 1) {
+    const currentPrice = prices[i];
+
+    // ┌── WHILE GIẢM GIÁ NẰM TRONG MAIN FOR
+    while (
+      stack.length > 0
+      && currentPrice < prices[stack.at(-1)]
+    ) {
+      const previousIndex = stack.pop();
+      answer[previousIndex] = i - previousIndex;
+    }
+    // └── WHILE GIẢM GIÁ ĐÓNG
+
+    stack.push(i);
+  }
+  // └── MAIN FOR ĐÓNG: phải đóng ở đây, trước cleanup.
+
+  // ┌── CLEANUP WHILE: chạy một lần SAU toàn bộ MAIN FOR.
+  while (stack.length > 0) {
+    const index = stack.pop();
+    answer[index] = prices.length - 1 - index;
+  }
+  // └── CLEANUP WHILE ĐÓNG
+}
+```
+
+**Bước 10 — return sau cleanup**
+
+> **Prediction checkpoint:** Return thuộc một iteration hay toàn function? Trước khi return, những survivor nào phải đã được cleanup? Nếu return nằm trong main `for` hoặc trước cleanup, answer nào còn dang dở?
+
+```js
+function stockPrices(prices) {
+  const answer = Array(prices.length).fill(0);
+  const stack = [];
+
+  // ┌── MAIN FOR MỞ
+  for (let i = 0; i < prices.length; i += 1) {
+    const currentPrice = prices[i];
+
+    // ┌── WHILE GIẢM GIÁ NẰM TRONG MAIN FOR
+    while (
+      stack.length > 0
+      && currentPrice < prices[stack.at(-1)]
+    ) {
+      const previousIndex = stack.pop();
+      answer[previousIndex] = i - previousIndex;
+    }
+    // └── WHILE GIẢM GIÁ ĐÓNG
+
+    stack.push(i);
+  }
+  // └── MAIN FOR ĐÓNG
+
+  // ┌── CLEANUP WHILE SAU MAIN FOR
+  while (stack.length > 0) {
+    const index = stack.pop();
+    answer[index] = prices.length - 1 - index;
+  }
+  // └── CLEANUP WHILE ĐÓNG
+
+  // RETURN SAU CLEANUP: answer lúc này mới hoàn tất mọi index.
+  return answer;
+}
+```
+
+#### 7. Block scope: vị trí là một phần của thuật toán
+
+| Block | Đặt ở đâu | Vì sao | Nếu chuyển sai chỗ |
+| --- | --- | --- | --- |
+| `answer`, `stack` | Trước `for` | Phải sống qua mọi giá | Khai báo trong `for` làm mất toàn bộ lịch sử sau mỗi lượt |
+| Đọc `currentPrice` | Trong mỗi iteration | Nó phụ thuộc `i` hiện tại | Đặt trước loop chỉ đọc một giá; cập nhật answer sai current |
+| `while` giảm giá | Trong iteration, trước push current | Current phải resolve hết index cũ trước khi tự vào chờ | Đặt sau `stack.push(i)` làm current tự so với chính nó và chặn các top cũ |
+| Pop + gán `i - previousIndex` | Bên trong `while` | Mỗi top được pop cần một phép gán riêng với cùng current | Đưa phép gán ra ngoài chỉ còn index cuối hoặc dùng biến ngoài scope |
+| `stack.push(i)` | Trong `for`, sau `while` | Mỗi current vào chờ đúng một lần | Đặt trong `while` có thể push nhiều lần hoặc không push khi không có giảm |
+| Cleanup | Sau toàn bộ `for` | Chỉ khi hết traversal mới biết survivor “không bao giờ giảm” | Đặt trong `for` kết luận quá sớm và xóa lịch sử cần cho tương lai |
+| `return` | Sau cleanup | Cần hoàn tất mọi ô answer | Return trong loop dừng ngay ở giá đầu |
+
+**Đúng lỗi thật của người học.** Main `for/while` đã đúng, nhưng cleanup bị đặt trong `for`:
+
+```js
+for (let i = 0; i < prices.length; i += 1) {
+  while (stack.length > 0 && prices[i] < prices[stack.at(-1)]) {
+    const previousIndex = stack.pop();
+    answer[previousIndex] = i - previousIndex;
+  }
+  stack.push(i);
+
+  // SAI: block này vẫn nằm trong for.
+  while (stack.length > 0) {
+    const index = stack.pop();
+    answer[index] = prices.length - 1 - index;
+  }
+}
+```
+
+Ngay cuối `i=0`, code vừa push `0` rồi cleanup chạy tới khi `stack=[]`; `answer[0]` bị gán `4` dựa trên giả định chưa hề kiểm chứng rằng giá `1` không giảm. Cuối `i=1`, index `1` cũng bị pop; cứ mỗi iteration, cleanup làm rỗng toàn bộ stack. Vì vậy ở `i=3`, giá `2` không còn thấy index `2` (giá `3`) để chốt lần giảm ở khoảng cách `1`: các index trước đã bị xóa khỏi state. Giá tương lai chỉ có thể resolve index còn tồn tại trong stack; đã pop thì không còn đường tham chiếu tới index đó trong main `while`.
+
+Sửa đúng là đóng `}` của `for` **trước** cleanup (đây là fragment vị trí block, không phải chương trình độc lập):
+
+```text
+  stack.push(i);
+} // hết traversal trước
+
+while (stack.length > 0) {
+  const index = stack.pop();
+  answer[index] = prices.length - 1 - index;
+}
+```
+
+#### 8. Code hoàn chỉnh và dry run theo từng phép gán answer
+
+```js
+function stockPrices(prices) {
+  const answer = Array(prices.length).fill(0);
+  const stack = [];
+
+  // ┌── MAIN FOR MỞ
+  for (let i = 0; i < prices.length; i += 1) {
+    const currentPrice = prices[i];
+
+    // ┌── WHILE GIẢM GIÁ NẰM TRONG MAIN FOR
+    while (
+      stack.length > 0
+      && currentPrice < prices[stack.at(-1)]
+    ) {
+      const previousIndex = stack.pop();
+      answer[previousIndex] = i - previousIndex;
+    }
+    // └── WHILE GIẢM GIÁ ĐÓNG
+
+    stack.push(i);
+  }
+  // └── MAIN FOR ĐÓNG TRƯỚC CLEANUP
+
+  // ┌── CLEANUP WHILE NẰM SAU MAIN FOR
+  while (stack.length > 0) {
+    const index = stack.pop();
+    answer[index] = prices.length - 1 - index;
+  }
+  // └── CLEANUP WHILE ĐÓNG
+
+  // RETURN NẰM SAU CLEANUP
+  return answer;
+}
+```
+
+| Thời điểm gán | Ô được gán | Lý do chính xác | Answer ngay sau gán |
+| --- | --- | --- | --- |
+| khởi tạo | mọi ô nhận default `0` | tạo output; chưa phải kết luận cho index 0..3 | `[0,0,0,0,0]` |
+| traversal `i=3` | `answer[2]=1` | `prices[3]=2 < prices[2]=3`; lần giảm đầu tiên của index 2 | `[0,0,1,0,0]` |
+| cleanup pop 4 | `answer[4]=0` | từ index 4 tới cuối là 0 giây | `[0,0,1,0,0]` |
+| cleanup pop 3 | `answer[3]=1` | không giảm sau index 3; tới cuối 1 giây | `[0,0,1,1,0]` |
+| cleanup pop 1 | `answer[1]=3` | không có giá `<2` sau index 1; giá bằng 2 không tính giảm | `[0,3,1,1,0]` |
+| cleanup pop 0 | `answer[0]=4` | không có giá `<1`; kéo tới index 4 | `[4,3,1,1,0]` |
+
+#### 9. Ba cách viết sai thực tế
+
+| Code sai | Input làm lộ lỗi | Lượt state sai đầu tiên | Nguyên nhân | Block sửa |
+| --- | --- | --- | --- | --- |
+| Cleanup nằm trong `for` | `[1,2,3,2,3]` | cuối `i=0`: stack từ `[0]` thành `[]`; đến `i=3` không còn index 2 | Kết luận “tới cuối” trước khi đọc tương lai | Đưa toàn bộ cleanup ra sau dấu `}` của `for` như block ở mục 7 |
+| `if (condition)` thay `while` | `[3,4,2]` | `i=2`: chỉ pop index 1, stack còn `[0]` dù `2 < 3` | Một current có thể làm giảm nhiều giá cũ | Dùng `while (stack.length > 0 && prices[i] < prices[stack.at(-1)]) { pop; assign; }` |
+| Dùng `<=` thay `<` | `[2,2]` | `i=1`: index 0 bị pop và gán 1 vì `2 <= 2` | Giá bằng nhau không phải “giảm” | Condition đúng: `prices[i] < prices[stack.at(-1)]` |
+| Push current trước `while` | `[3,2]` | `i=1`: top là chính index 1; `2 < 2` false, index 0 bị che | Current tự chặn việc nhìn top cũ | Đặt toàn bộ resolve-`while` trước `stack.push(i)` |
+
+#### 10. Ba bài reconstruction
+
+1. **Chỉ nhìn bảng mapping:** che toàn bộ code; dựng lại `stockPrices` theo từng hàng của mục 5. Sau mỗi dòng, nói biến đó phải sống tới block nào.
+2. **Chỉ nhìn hành động Việt:** dùng đúng câu ở mục 2, tự quyết định chỗ mở/đóng ngoặc. Test bắt buộc `[3,4,2]` và giải thích vì sao có hai lần pop trong một `i`.
+3. **Chỉ nhìn đề:** “với mỗi giá, tính thời gian đến lần đầu giá thấp hơn; nếu không có thì đến cuối”. Không xem từ khóa stack. Tự viết brute force, chỉ ra suffix bị quét lại, rồi dựng state “index chưa được giải quyết” và code hoàn chỉnh.
+
 ### Lỗi thường gặp và test làm lộ lỗi
 
-- Dùng `if` thay `while`: `[2,1,3]` sẽ chỉ resolve `1`, bỏ sót `2`.
+- Riêng Giá cổ phiếu, dùng `if` thay `while`: với `[3,4,2]` tại `i=2`, code chỉ resolve index `1` và bỏ sót index `0`. Ví dụ `[2,1,3]` phía trên thuộc next-greater, không phải dry run của Giá cổ phiếu.
 - Lưu value khi cần distance: `[5,1,6]` không còn index để tính `2` và `1`.
 - Sai strictness: `[2,2]` phân biệt greater với greater-or-equal.
 - Quên flush contract “tính tới cuối”: Giá cổ phiếu `[1,2,3]` phải trả `[2,1,0]`.
