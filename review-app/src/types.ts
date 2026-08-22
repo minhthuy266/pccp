@@ -2,7 +2,14 @@ export type Grade = "A" | "B" | "C" | "D";
 export const ANALYSIS_FIELDS = ["Contract", "Bounds", "Brute force", "Bottleneck", "Pattern", "State", "Transition", "Invariant", "Complexity"] as const;
 export type AnalysisField = typeof ANALYSIS_FIELDS[number];
 export type AssessmentStatus = "CORRECT" | "PARTIAL" | "WRONG";
-export type PracticeMode = "LEARN" | "FULL" | "CODE_ONLY";
+export type PracticeMode = "LEARN" | "FULL" | "CODE_ONLY" | "TEMPLATE";
+export type TemplateRating = "FLUENT" | "HESITANT" | "FAILED";
+export interface TemplateAssessment {
+  rating: TemplateRating;
+  skeletonUsed: boolean;
+  compared: boolean;
+  transferPassed: boolean;
+}
 export interface CodeEvidence {
   codeCompleted: boolean;
   examplesRun: boolean;
@@ -32,6 +39,8 @@ export interface ReviewRecord {
   codeEvidence?: CodeEvidence;
   masteryEligible?: boolean;
   firstStudy?: boolean;
+  templateAssessment?: TemplateAssessment;
+  templateAttempt?: string;
 }
 
 export interface LessonProgress {

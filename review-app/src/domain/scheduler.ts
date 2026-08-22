@@ -3,7 +3,9 @@ import { localDate } from "./dates";
 
 const FOUNDATIONS = ["array", "string", "scan", "map", "set", "sorting", "two pointer", "prefix", "stack", "queue", "binary"];
 
-export function latest(store: ReviewStore, id: string) { return store.lessons[id]?.history.at(-1); }
+export function latest(store: ReviewStore, id: string) {
+  return store.lessons[id]?.history.filter((record) => record.practiceMode !== "TEMPLATE").at(-1);
+}
 
 export function dueLessons(lessons: Lesson[], store: ReviewStore, today = localDate()) {
   const gradeRank = { D: 0, C: 1, B: 2, A: 3 };

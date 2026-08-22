@@ -12,10 +12,11 @@ export function suggestedGrade(hints: string[]): Grade {
 }
 
 export function isMastered(history: ReviewRecord[]): boolean {
-  const latest = history.at(-1);
+  const coreHistory = history.filter((record) => record.practiceMode !== "TEMPLATE");
+  const latest = coreHistory.at(-1);
   const assessedFields = latest?.analysisAssessment ? ANALYSIS_FIELDS.filter((field) => latest.analysisAssessment?.[field]) : [];
   const criticalWrong = CRITICAL_FIELDS.some((field) => latest?.analysisAssessment?.[field]?.status === "WRONG");
-  return history.filter((record) => record.grade === "A" && record.masteryEligible === true).length >= 2
+  return coreHistory.filter((record) => record.grade === "A" && record.masteryEligible === true).length >= 2
     && latest?.grade === "A" && latest.revealedHints.length === 0
     && (assessedFields.length === 0 || !criticalWrong)
     && latest.masteryEligible === true;
