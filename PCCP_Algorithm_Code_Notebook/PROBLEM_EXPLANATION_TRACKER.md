@@ -2,21 +2,20 @@
 
 [Chuẩn canonical](00_PROBLEM_TO_CODE_STANDARD.md) · [← Navigator](../PCCP_700_MASTER_NAVIGATOR.md)
 
-Snapshot audit lại ngày 21/08/2026. **Có** chỉ được ghi khi section có nội dung riêng của bài,
-không chỉ có heading. Audit A16 đọc trực tiếp Blueprint và Recall của từng lesson, thay thế các
-kết luận batch lịch sử bên dưới khi hai phần mâu thuẫn.
+Snapshot hoàn thiện ngày 22/08/2026. **Có** chỉ được ghi khi section có nội dung riêng của bài,
+không chỉ có heading. Audit A17 đọc trực tiếp Blueprint và Recall của từng lesson, đồng thời chạy
+code hoàn chỉnh bằng official tests của đúng ID.
 Official lesson là canonical cho bài public; catalog/notebook chapter là index hoặc canonical pattern,
 không phải bản lời giải cạnh tranh. Các file dưới `archive` là bản lịch sử và không thuộc phạm vi sửa.
 
-## Kết luận audit lại A16
+## Kết luận hoàn thiện A17
 
-- **22/67** official/reserve lesson đạt đủ 13 trường Blueprint và Recall 1/2/3 có nội dung.
-- **45/67** lesson bị hạ `PARTIAL`: OF011/OF027/OF051 thiếu một trường Blueprint; 42 bài còn
-  lại thiếu Blueprint chuẩn và chỉ có một recall tổng hợp thay vì ba tầng riêng.
-- Code hoàn chỉnh của **67/67** lesson vẫn chạy đúng official tests. Trạng thái `PARTIAL` ở đây
-  phản ánh thiếu cầu nối sư phạm, không khẳng định thuật toán sai.
+- **67/67** official/reserve lesson đạt đủ 13 trường Blueprint và Recall 1/2/3 có nội dung.
+- **0/67** lesson còn `PARTIAL`; 45 bài bị hạ ở A16 chỉ được nâng lại sau khi bổ sung scaffold thật.
+- Code hoàn chỉnh của **67/67** lesson chạy đúng official tests.
 - Chi tiết từng ID và log lệnh kiểm tra được lưu tại
-  [AUDIT_A16_VERIFICATION.md](AUDIT_A16_VERIFICATION.md).
+  [AUDIT_A17_VERIFICATION.md](AUDIT_A17_VERIFICATION.md). Snapshot phát hiện sai lệch ban đầu
+  vẫn được giữ tại [AUDIT_A16_VERIFICATION.md](AUDIT_A16_VERIFICATION.md).
 
 ## Kết luận audit Batch 0
 
@@ -45,63 +44,63 @@ không phải bản lời giải cạnh tranh. Các file dưới `archive` là b
 | OF008 | [OF008](../docs/pccp-700-roadmap/official-lessons/OF008.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
 | OF009 | [OF009](../docs/pccp-700-roadmap/official-lessons/OF009.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
 | OF010 | [OF010](../docs/pccp-700-roadmap/official-lessons/OF010.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
-| OF011 | [OF011](../docs/pccp-700-roadmap/official-lessons/OF011.md) | Có | Thiếu | Có | Có | Có | Có | **PARTIAL B1** |
-| OF012 | [OF012](../docs/pccp-700-roadmap/official-lessons/OF012.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B12** |
-| OF013 | [OF013](../docs/pccp-700-roadmap/official-lessons/OF013.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B12** |
-| OF014 | [OF014](../docs/pccp-700-roadmap/official-lessons/OF014.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B12** |
-| OF015 | [OF015](../docs/pccp-700-roadmap/official-lessons/OF015.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B9** |
-| OF016 | [OF016](../docs/pccp-700-roadmap/official-lessons/OF016.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B9** |
-| OF017 | [OF017](../docs/pccp-700-roadmap/official-lessons/OF017.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B9** |
-| OF018 | [OF018](../docs/pccp-700-roadmap/official-lessons/OF018.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B9** |
-| OF019 | [OF019](../docs/pccp-700-roadmap/official-lessons/OF019.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B15** |
-| OF020 | [OF020](../docs/pccp-700-roadmap/official-lessons/OF020.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B13** |
-| OF021 | [OF021](../docs/pccp-700-roadmap/official-lessons/OF021.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B15** |
-| OF022 | [OF022](../docs/pccp-700-roadmap/official-lessons/OF022.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B13** |
-| OF023 | [OF023](../docs/pccp-700-roadmap/official-lessons/OF023.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B11** |
-| OF024 | [OF024](../docs/pccp-700-roadmap/official-lessons/OF024.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B11** |
-| OF025 | [OF025](../docs/pccp-700-roadmap/official-lessons/OF025.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B4** |
-| OF026 | [OF026](../docs/pccp-700-roadmap/official-lessons/OF026.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B15** |
-| OF027 | [OF027](../docs/pccp-700-roadmap/official-lessons/OF027.md) | Có | Thiếu | Có | Có | Có | Có | **PARTIAL B2** |
+| OF011 | [OF011](../docs/pccp-700-roadmap/official-lessons/OF011.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A17** |
+| OF012 | [OF012](../docs/pccp-700-roadmap/official-lessons/OF012.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1712** |
+| OF013 | [OF013](../docs/pccp-700-roadmap/official-lessons/OF013.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1712** |
+| OF014 | [OF014](../docs/pccp-700-roadmap/official-lessons/OF014.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1712** |
+| OF015 | [OF015](../docs/pccp-700-roadmap/official-lessons/OF015.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A179** |
+| OF016 | [OF016](../docs/pccp-700-roadmap/official-lessons/OF016.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A179** |
+| OF017 | [OF017](../docs/pccp-700-roadmap/official-lessons/OF017.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A179** |
+| OF018 | [OF018](../docs/pccp-700-roadmap/official-lessons/OF018.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A179** |
+| OF019 | [OF019](../docs/pccp-700-roadmap/official-lessons/OF019.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1715** |
+| OF020 | [OF020](../docs/pccp-700-roadmap/official-lessons/OF020.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1713** |
+| OF021 | [OF021](../docs/pccp-700-roadmap/official-lessons/OF021.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1715** |
+| OF022 | [OF022](../docs/pccp-700-roadmap/official-lessons/OF022.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1713** |
+| OF023 | [OF023](../docs/pccp-700-roadmap/official-lessons/OF023.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1711** |
+| OF024 | [OF024](../docs/pccp-700-roadmap/official-lessons/OF024.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1711** |
+| OF025 | [OF025](../docs/pccp-700-roadmap/official-lessons/OF025.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A174** |
+| OF026 | [OF026](../docs/pccp-700-roadmap/official-lessons/OF026.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1715** |
+| OF027 | [OF027](../docs/pccp-700-roadmap/official-lessons/OF027.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A17** |
 | OF028 | [OF028](../docs/pccp-700-roadmap/official-lessons/OF028.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
-| OF029 | [OF029](../docs/pccp-700-roadmap/official-lessons/OF029.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B14** |
-| OF030 | [OF030](../docs/pccp-700-roadmap/official-lessons/OF030.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B4** |
-| OF031 | [OF031](../docs/pccp-700-roadmap/official-lessons/OF031.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B13** |
-| OF032 | [OF032](../docs/pccp-700-roadmap/official-lessons/OF032.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B13** |
-| OF033 | [OF033](../docs/pccp-700-roadmap/official-lessons/OF033.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B13** |
-| OF034 | [OF034](../docs/pccp-700-roadmap/official-lessons/OF034.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B13** |
-| OF035 | [OF035](../docs/pccp-700-roadmap/official-lessons/OF035.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B13** |
-| OF036 | [OF036](../docs/pccp-700-roadmap/official-lessons/OF036.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B13** |
-| OF037 | [OF037](../docs/pccp-700-roadmap/official-lessons/OF037.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B11** |
-| OF038 | [OF038](../docs/pccp-700-roadmap/official-lessons/OF038.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B11** |
-| OF039 | [OF039](../docs/pccp-700-roadmap/official-lessons/OF039.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B11** |
-| OF040 | [OF040](../docs/pccp-700-roadmap/official-lessons/OF040.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B11** |
-| OF041 | [OF041](../docs/pccp-700-roadmap/official-lessons/OF041.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B14** |
-| OF042 | [OF042](../docs/pccp-700-roadmap/official-lessons/OF042.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B11** |
-| OF043 | [OF043](../docs/pccp-700-roadmap/official-lessons/OF043.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B10** |
-| OF044 | [OF044](../docs/pccp-700-roadmap/official-lessons/OF044.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B10** |
-| OF045 | [OF045](../docs/pccp-700-roadmap/official-lessons/OF045.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B14** |
-| OF046 | [OF046](../docs/pccp-700-roadmap/official-lessons/OF046.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B14** |
-| OF047 | [OF047](../docs/pccp-700-roadmap/official-lessons/OF047.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B14** |
+| OF029 | [OF029](../docs/pccp-700-roadmap/official-lessons/OF029.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1714** |
+| OF030 | [OF030](../docs/pccp-700-roadmap/official-lessons/OF030.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A174** |
+| OF031 | [OF031](../docs/pccp-700-roadmap/official-lessons/OF031.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1713** |
+| OF032 | [OF032](../docs/pccp-700-roadmap/official-lessons/OF032.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1713** |
+| OF033 | [OF033](../docs/pccp-700-roadmap/official-lessons/OF033.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1713** |
+| OF034 | [OF034](../docs/pccp-700-roadmap/official-lessons/OF034.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1713** |
+| OF035 | [OF035](../docs/pccp-700-roadmap/official-lessons/OF035.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1713** |
+| OF036 | [OF036](../docs/pccp-700-roadmap/official-lessons/OF036.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1713** |
+| OF037 | [OF037](../docs/pccp-700-roadmap/official-lessons/OF037.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1711** |
+| OF038 | [OF038](../docs/pccp-700-roadmap/official-lessons/OF038.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1711** |
+| OF039 | [OF039](../docs/pccp-700-roadmap/official-lessons/OF039.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1711** |
+| OF040 | [OF040](../docs/pccp-700-roadmap/official-lessons/OF040.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1711** |
+| OF041 | [OF041](../docs/pccp-700-roadmap/official-lessons/OF041.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1714** |
+| OF042 | [OF042](../docs/pccp-700-roadmap/official-lessons/OF042.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1711** |
+| OF043 | [OF043](../docs/pccp-700-roadmap/official-lessons/OF043.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1710** |
+| OF044 | [OF044](../docs/pccp-700-roadmap/official-lessons/OF044.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1710** |
+| OF045 | [OF045](../docs/pccp-700-roadmap/official-lessons/OF045.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1714** |
+| OF046 | [OF046](../docs/pccp-700-roadmap/official-lessons/OF046.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1714** |
+| OF047 | [OF047](../docs/pccp-700-roadmap/official-lessons/OF047.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1714** |
 | OF048 | [OF048](../docs/pccp-700-roadmap/official-lessons/OF048.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B8** |
 | OF049 | [OF049](../docs/pccp-700-roadmap/official-lessons/OF049.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B8** |
 | OF050 | [OF050](../docs/pccp-700-roadmap/official-lessons/OF050.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B8** |
-| OF051 | [OF051](../docs/pccp-700-roadmap/official-lessons/OF051.md) | Có | Thiếu | Có | Có | Có | Có | **PARTIAL B2** |
+| OF051 | [OF051](../docs/pccp-700-roadmap/official-lessons/OF051.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A17** |
 | OF052 | [OF052](../docs/pccp-700-roadmap/official-lessons/OF052.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
-| OF053 | [OF053](../docs/pccp-700-roadmap/official-lessons/OF053.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B3** |
+| OF053 | [OF053](../docs/pccp-700-roadmap/official-lessons/OF053.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A173** |
 | OF054 | [OF054](../docs/pccp-700-roadmap/official-lessons/OF054.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
-| OF055 | [OF055](../docs/pccp-700-roadmap/official-lessons/OF055.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B11** |
-| OF056 | [OF056](../docs/pccp-700-roadmap/official-lessons/OF056.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B11** |
-| OF057 | [OF057](../docs/pccp-700-roadmap/official-lessons/OF057.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B4** |
-| OF058 | [OF058](../docs/pccp-700-roadmap/official-lessons/OF058.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B3** |
-| OF059 | [OF059](../docs/pccp-700-roadmap/official-lessons/OF059.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B14** |
-| OF060 | [OF060](../docs/pccp-700-roadmap/official-lessons/OF060.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B3** |
+| OF055 | [OF055](../docs/pccp-700-roadmap/official-lessons/OF055.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1711** |
+| OF056 | [OF056](../docs/pccp-700-roadmap/official-lessons/OF056.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1711** |
+| OF057 | [OF057](../docs/pccp-700-roadmap/official-lessons/OF057.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A174** |
+| OF058 | [OF058](../docs/pccp-700-roadmap/official-lessons/OF058.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A173** |
+| OF059 | [OF059](../docs/pccp-700-roadmap/official-lessons/OF059.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1714** |
+| OF060 | [OF060](../docs/pccp-700-roadmap/official-lessons/OF060.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A173** |
 | OF061 | [OF061](../docs/pccp-700-roadmap/official-lessons/OF061.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | SR001 | [SR001](../docs/pccp-700-roadmap/official-lessons/SR001.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B7** |
 | SR002 | [SR002](../docs/pccp-700-roadmap/official-lessons/SR002.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B6** |
 | SR003 | [SR003](../docs/pccp-700-roadmap/official-lessons/SR003.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | SR004 | [SR004](../docs/pccp-700-roadmap/official-lessons/SR004.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B2** |
 | SR005 | [SR005](../docs/pccp-700-roadmap/official-lessons/SR005.md) | Có | Có | Có | Có | Có | Có | **COMPLETE B8** |
-| SR006 | [SR006](../docs/pccp-700-roadmap/official-lessons/SR006.md) | Có | Thiếu | Có | Có | Có | Thiếu | **PARTIAL B11** |
+| SR006 | [SR006](../docs/pccp-700-roadmap/official-lessons/SR006.md) | Có | Có | Có | Có | Có | Có | **COMPLETE A1711** |
 
 ## Notebook solution collections — legacy index, không chấm như một lesson
 
@@ -142,10 +141,10 @@ Các bài public ưu tiên: OF007, OF008, OF009, OF011, OF028, OF052. Bốn less
 | B1-VARIABLE-MAP | [lab § B1-VARIABLE-MAP](chapters/07_prefix_window/05_Batch1_Problem_To_Code_Lab.md#b1-variable-map--đoạn-ngắn-nhất-chứa-mọi-loại) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
 | B1-SUBARRAY-K | [lab § B1-SUBARRAY-K](chapters/07_prefix_window/05_Batch1_Problem_To_Code_Lab.md#b1-subarray-k--đếm-đoạn-liên-tiếp-tổng-bằng-k) | Có | Có | Có | Có | Có | Có | **COMPLETE B1** |
 
-Kết quả lịch sử của Batch 1 từng ghi **10/10 COMPLETE**. Audit A16 hạ OF011 vì Blueprint thiếu
-`STOP / RETURN`; kết luận hiện tại phải đọc ở bảng official phía trên.
+Kết quả lịch sử của Batch 1 từng ghi **10/10 COMPLETE**. A16 hạ OF011 vì Blueprint thiếu
+`STOP / RETURN`; A17 đã bổ sung trường này và tái chứng nhận bằng gate mới.
 
-## Batch 2 — Stack/Queue (lịch sử; có bài PARTIAL theo A16)
+## Batch 2 — Stack/Queue (COMPLETE A17)
 
 - **Đã hoàn thành thật:** OF006 Không thích số giống nhau, OF010 Xe tải qua cầu, OF051 Game
   gắp thú, OF054 Làm hai queue có tổng bằng nhau, OF061 Số lớn hơn phía sau, SR003 Xoay dấu
@@ -163,7 +162,7 @@ Các entry `SQ-B01..B08`, `SQ-C01` là BFS/graph nên được owner bởi batch
 giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùng canonical pattern SQ-01..05
 đã FRAMEWORK-FULL; các tầng recognition/fill không bị giả vờ là full solution.
 
-## Batch 3 — Sliding Window/Prefix Sum (lịch sử; có bài PARTIAL theo A16)
+## Batch 3 — Sliding Window/Prefix Sum (COMPLETE A17)
 
 - Bốn deep lab B1-PREFIX, B1-FIXED-WINDOW, B1-VARIABLE-MAP, B1-SUBARRAY-K đã COMPLETE.
 - OF052 fixed frequency window đã COMPLETE B1; OF053 positive variable window, OF058 cover Map
@@ -173,7 +172,7 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
 - Kết quả: các engine chính của chapter đã đủ cầu nối brute → bottleneck → state → transition →
   invariant → code; Batch kế tiếp là Two Pointers/Greedy.
 
-## Batch 4 — Two Pointers/Greedy (lịch sử; có bài PARTIAL theo A16)
+## Batch 4 — Two Pointers/Greedy (COMPLETE A17)
 
 - Canonical patterns `TP-01..06` đã FRAMEWORK-FULL và có Practice/Solution/Test tương ứng.
 - OF028 extreme pairing đã COMPLETE B1; OF053 positive two pointers đã COMPLETE B3.
@@ -224,7 +223,7 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
   và một khoảng rảnh resume nhiều task. OF062 vẫn giữ khóa reserved mock đúng Navigator.
   Batch kế tiếp là Sorting.
 
-## Batch 9 — Sorting (lịch sử; PARTIAL theo A16)
+## Batch 9 — Sorting (COMPLETE A17)
 
 - Canonical patterns `SORT-01..05` đã FRAMEWORK-FULL.
 - OF015..OF018 đã được nâng đầy đủ: numeric slice/rank, concatenation comparator,
@@ -233,7 +232,7 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
   equality boundary, all-zero collapse, input mutation và orientation counterexample.
 - Batch kế tiếp là Binary Search.
 
-## Batch 10 — Binary Search (lịch sử; PARTIAL theo A16)
+## Batch 10 — Binary Search (COMPLETE A17)
 
 - Canonical patterns `BS-01..05` đã FRAMEWORK-FULL.
 - OF043 và OF044 đã được nâng đầy đủ cho hai convention đối xứng: first feasible minimum time
@@ -243,7 +242,7 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
 - Mỗi lesson có làm tay, brute force executable, bảng state/init, Blueprint, chứng minh invariant,
   revealing tests và recall. Batch kế tiếp là BFS/DFS/Graph.
 
-## Batch 11 — Graph Traversal/Tree (lịch sử; PARTIAL theo A16)
+## Batch 11 — Graph Traversal/Tree (COMPLETE A17)
 
 - Canonical patterns `BFS-01..07` và `TREE-01` đã FRAMEWORK-FULL.
 - OF023, OF024, OF037–OF040, OF042, OF055, OF056 và SR006 đã được nâng đầy đủ; OF022/OF036
@@ -253,7 +252,7 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
 - Mỗi lesson có làm tay, brute force executable, bảng state/init, Blueprint, invariant, revealing
   tests và recall. Batch kế tiếp là Heap/Scheduling.
 
-## Batch 12 — Heap/Scheduling (lịch sử; PARTIAL theo A16)
+## Batch 12 — Heap/Scheduling (COMPLETE A17)
 
 - Canonical patterns `HG-01..05` đã FRAMEWORK-FULL; greedy interval/extreme pairing được kế thừa
   từ Batch 4, nên batch này tập trung đúng ba owner heap còn thiếu rubric.
@@ -262,7 +261,7 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
 - Tests khóa duplicate occurrence, impossible state, job tương lai chưa eligible, idle jump, input
   không mutate, delete empty và stale root cuối. Batch kế tiếp là Backtracking/DP.
 
-## Batch 13 — Backtracking/DP (lịch sử; PARTIAL theo A16)
+## Batch 13 — Backtracking/DP (COMPLETE A17)
 
 - Canonical patterns `BTD-01..08` đã FRAMEWORK-FULL.
 - OF020, OF022 và OF036 khóa ba decision tree khác nhau: partial permutation + output Set,
@@ -272,7 +271,7 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
 - Tests mới phủ leading zero/duplicate occurrence, restore, path-count base, negative DP, exact-count
   concatenation và endpoint conflict. Batch kế tiếp là Advanced Graph.
 
-## Batch 14 — Advanced Graph (lịch sử; PARTIAL theo A16)
+## Batch 14 — Advanced Graph (COMPLETE A17)
 
 - Canonical patterns `GR-01..05` đã FRAMEWORK-FULL; OF045 được dùng làm contrast unweighted BFS.
 - OF029, OF041, OF045–OF047 và OF059 đã được nâng đầy đủ cho MST/DSU, lexical Euler trail,
@@ -281,21 +280,19 @@ giữ Batch Stack/Queue ở trạng thái mở. Practice nội bộ `S08-*` dùn
   transitive chain, exact distance boundary và input không mutate.
 - Batch cuối xử lý OF019, OF021, OF026 rồi hardening toàn repository.
 
-## Batch 15 — Final Hardening (kết luận cũ, đã bị A16 bác bỏ)
+## Batch 15 — Final Hardening (COMPLETE A17)
 
-- OF019, OF021 và OF026 có nội dung thuật toán, brute force và test tốt, nhưng Blueprint vẫn là
-  checklist diễn giải thay vì đủ 13 trường và Recall vẫn là một dòng tổng hợp. Cả ba đã hạ `PARTIAL`.
+- OF019, OF021 và OF026 có nội dung thuật toán, brute force và test; A17 bổ sung Blueprint đủ
+  13 trường cùng Recall 1/2/3 riêng rồi mới tái chứng nhận.
 - Revealing tests khóa cycle dài/tie, factor pair phải khớp interior, alphabet wrap, all-A và hai
   hướng quay đầu quanh run A.
 - 17 solution collection lịch sử được phân loại lại thành `INDEX ONLY`: rubric được audit trên 89
   canonical ID, không gán trạng thái lesson cho một file gom nhiều bài.
 - Các gate 89/89 framework, 24/24 pattern family, 8/8 mixed và 4/4 gate đo phạm vi khác. Gate
-  official lesson hiện chứng nhận 22/67 và cố ý thất bại cho tới khi 45 lesson được sửa thật.
+  official lesson hiện chứng nhận đủ 67/67 dưới rubric A17.
 
-## Trạng thái thật sau audit A16
+## Trạng thái sau hoàn thiện A17
 
-1. Còn 45 official/reserve lesson public thiếu Blueprint đủ trường; 42 trong số đó còn thiếu
-   Recall 1/2/3 tách riêng.
+1. Không còn official/reserve lesson public thiếu Blueprint đủ trường hoặc Recall 1/2/3.
 2. Collection lịch sử chỉ là index nguồn; canonical lesson/pattern mới là đơn vị học và audit.
-3. Chưa được tuyên bố hoàn thành sứ mệnh “hiểu tường tận” cho tới khi 45 lesson trở lại COMPLETE
-   dưới audit mới.
+3. Audit tự động giờ đối chiếu nội dung lesson với status tracker và chặn transition có side effect ẩn.

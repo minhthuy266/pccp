@@ -1,5 +1,8 @@
 # Audit A16 — Blueprint, Recall và code giảng dạy
 
+> Đây là snapshot phát hiện sai lệch ban đầu. Các thiếu sót đã được sửa và tái chứng nhận trong
+> [AUDIT_A17_VERIFICATION.md](AUDIT_A17_VERIFICATION.md).
+
 Ngày audit: 21/08/2026. Phạm vi: 67 lesson public `OF001..OF061`, `SR001..SR006`.
 
 ## Cách audit
