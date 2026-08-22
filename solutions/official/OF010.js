@@ -6,18 +6,19 @@ function bridgeCrossingTime(bridgeLength, weightLimit, truckWeights) {
   let time = 0;
 
   while (nextTruck < truckWeights.length || head < onBridge.length) {
-    time++;
+    time += 1;
 
     if (head < onBridge.length && onBridge[head].exitTime === time) {
       currentWeight -= onBridge[head].weight;
-      head++;
+      head += 1;
     }
 
     if (
       nextTruck < truckWeights.length &&
       currentWeight + truckWeights[nextTruck] <= weightLimit
     ) {
-      const weight = truckWeights[nextTruck++];
+      const weight = truckWeights[nextTruck];
+      nextTruck += 1;
       currentWeight += weight;
       onBridge.push({ weight, exitTime: time + bridgeLength });
     }

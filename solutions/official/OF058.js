@@ -15,7 +15,8 @@ function shortestGemShoppingRange(gems) {
         bestRight = right;
       }
 
-      const leaving = gems[left++];
+      const leaving = gems[left];
+      left += 1;
       const remaining = countByGem.get(leaving) - 1;
       if (remaining === 0) countByGem.delete(leaving);
       else countByGem.set(leaving, remaining);

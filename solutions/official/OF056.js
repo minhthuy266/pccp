@@ -10,7 +10,8 @@ function minimumNumberTransforms(x, y, n) {
   let head = 0;
 
   while (head < queue.length) {
-    const current = queue[head++];
+    const current = queue[head];
+    head += 1;
     const nextValues = [current + n, current * 2, current * 3];
 
     for (const next of nextValues) {

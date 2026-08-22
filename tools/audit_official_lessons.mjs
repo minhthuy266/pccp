@@ -7,6 +7,10 @@ const root = process.cwd();
 const hostRequire = createRequire(import.meta.url);
 const lessonDirectory = path.join(root, "docs/pccp-700-roadmap/official-lessons");
 const solutionDirectory = path.join(root, "solutions/official");
+const explanationTracker = fs.readFileSync(
+  path.join(root, "PCCP_Algorithm_Code_Notebook/PROBLEM_EXPLANATION_TRACKER.md"),
+  "utf8",
+);
 const officialTestFiles = fs
   .readdirSync(path.join(root, "tests"))
   .filter((name) => /^official_batch\d+\.test\.js$/.test(name))
@@ -84,6 +88,88 @@ const requiredHeadings = [
   "17. Lỗi JavaScript thường gặp",
   "18. Bài transfer cùng pattern",
 ];
+
+const requiredBlueprintFields = [
+  "OUTPUT",
+  "PREPARE",
+  "GLOBAL STATE",
+  "INIT",
+  "MAIN LOOP",
+  "CURRENT ITEM",
+  "PER-ITERATION STATE",
+  "CHECK",
+  "BRANCH",
+  "UPDATE",
+  "POINTER MOVEMENT",
+  "STOP / RETURN",
+  "CLEANUP",
+];
+
+function escapeRegularExpression(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function hasMeaningfulLabeledValue(markdown, label) {
+  const escapedLabel = escapeRegularExpression(label);
+  const match = markdown.match(new RegExp(`${escapedLabel}:\\s*([^\\n]+)`, "i"));
+  if (!match) return false;
+  const value = match[1]
+    .replace(/[`*_#>-]/g, "")
+    .trim();
+  return value.length >= 3 && !/^(?:n\/?a|không rõ|todo|tbd|\.\.\.)$/i.test(value);
+}
+
+function hasMeaningfulRecall(markdown, tier) {
+  const match = markdown.match(new RegExp(`Recall ${tier}(?:\\s*—[^:\\n]+)?:\\s*([^\\n]+)`, "i"));
+  if (!match) return false;
+  const value = match[1]
+    .replace(/[`*_#>-]/g, "")
+    .trim();
+  return value.length >= 12;
+}
+
+function auditLearningScaffold(markdown, itemErrors) {
+  const textBlocks = [...markdown.matchAll(/^```text\s*\n([\s\S]*?)^```\s*$/gm)]
+    .map((match) => match[1]);
+  const blueprintBlock = textBlocks
+    .map((block) => ({
+      block,
+      fieldCount: requiredBlueprintFields.filter((field) => hasMeaningfulLabeledValue(block, field)).length,
+    }))
+    .sort((first, second) => second.fieldCount - first.fieldCount)[0]?.block ?? "";
+  const missingBlueprintFields = requiredBlueprintFields.filter(
+    (field) => !hasMeaningfulLabeledValue(blueprintBlock, field),
+  );
+  if (missingBlueprintFields.length > 0) {
+    itemErrors.push(`Blueprint thiếu trường: ${missingBlueprintFields.join(", ")}`);
+  }
+
+  for (const tier of [1, 2, 3]) {
+    if (!hasMeaningfulRecall(markdown, tier)) {
+      itemErrors.push(`thiếu Recall ${tier} có nội dung riêng`);
+    }
+  }
+}
+
+function auditTeachingTransitions(code, itemErrors, location) {
+  if (code === null) return;
+  const hiddenTransitions = [
+    /\[[^\]\n]*(?:\+\+|--)\s*\]/,
+    /(?:\+\+|--)[A-Za-z_$][\w$]*/,
+    /\b[A-Za-z_$][\w$]*\s*\+=\s*[^;\n]*\?[^:\n]+:/,
+  ];
+  if (hiddenTransitions.some((pattern) => pattern.test(code))) {
+    itemErrors.push(`${location} còn transition viết tắt che thứ tự đọc/cập nhật state`);
+  }
+}
+
+function trackerStatusFor(id) {
+  const row = explanationTracker.match(new RegExp(`^\\| ${id} \\|[^\\n]+$`, "m"))?.[0];
+  if (!row) return null;
+  if (/\*\*COMPLETE\b/.test(row)) return "COMPLETE";
+  if (/\*\*PARTIAL\b/.test(row)) return "PARTIAL";
+  return null;
+}
 
 const completeCodeSmokeCases = new Map([
   ["OF012", { expression: "minimumScovilleMixes([1, 2, 3, 9, 10, 12], 7)", expected: 2 }],
@@ -258,6 +344,7 @@ for (const item of catalog.filter((entry) => !entry.locked)) {
     if (!markdown.includes(`## ${heading}`)) itemErrors.push(`thiếu heading ${heading}`);
   }
   if (!markdown.includes(item.link.split("?", 1)[0])) itemErrors.push("thiếu link official đúng lesson");
+  auditLearningScaffold(markdown, itemErrors);
   if (!fs.existsSync(solutionPath)) itemErrors.push("thiếu solution module");
   if (!testText.includes(item.id)) itemErrors.push("chưa có test mang ID bài");
 
@@ -272,6 +359,7 @@ for (const item of catalog.filter((entry) => !entry.locked)) {
   let codeBlockCount = 0;
   for (const match of markdown.matchAll(/^```(?:js|javascript)\s*\n([\s\S]*?)^```\s*$/gm)) {
     codeBlockCount++;
+    auditTeachingTransitions(match[1], itemErrors, `code block ${codeBlockCount}`);
     try {
       new vm.Script(match[1], { filename: `${item.id}#block-${codeBlockCount}` });
     } catch (error) {
@@ -335,6 +423,12 @@ for (const item of catalog.filter((entry) => !entry.locked)) {
     } catch (error) {
       itemErrors.push(`solution không parse: ${error.message}`);
     }
+  }
+
+  const contentStatus = itemErrors.length === 0 ? "COMPLETE" : "PARTIAL";
+  const trackerStatus = trackerStatusFor(item.id);
+  if (trackerStatus !== contentStatus) {
+    itemErrors.push(`tracker ghi ${trackerStatus ?? "không có status"}, nội dung phải là ${contentStatus}`);
   }
 
   if (itemErrors.length > 0) {

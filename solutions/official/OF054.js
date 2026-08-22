@@ -14,11 +14,15 @@ function equalQueueSumOperations(queue1, queue2) {
 
     if (current < target) {
       if (right >= combined.length) break;
-      current += combined[right++];
+      const enteringValue = combined[right];
+      current += enteringValue;
+      right += 1;
     } else {
-      current -= combined[left++];
+      const leavingValue = combined[left];
+      current -= leavingValue;
+      left += 1;
     }
-    operations++;
+    operations += 1;
   }
 
   return -1;
