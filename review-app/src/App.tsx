@@ -42,17 +42,38 @@ export function App() {
 function CloudControl({ cloud }: { cloud: ReturnType<typeof useCloudSync> }) {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [registering, setRegistering] = useState(false);
   const [busy, setBusy] = useState(false);
-  const send = async () => {
+  useEffect(() => { if ((!cloud.user && cloud.message) || cloud.recovering) setOpen(true); }, [cloud.user, cloud.message, cloud.recovering]);
+  const submit = async () => {
+    if (!email.trim() || password.length < 6) return;
+    setBusy(true); cloud.setMessage("");
+    try {
+      if (registering) await cloud.signUp(email.trim(), password);
+      else await cloud.signIn(email.trim(), password);
+    }
+    catch (error) { cloud.setMessage(error instanceof Error ? error.message : "Không thể đăng nhập"); }
+    finally { setBusy(false); }
+  };
+  const resetPassword = async () => {
     if (!email.trim()) return;
     setBusy(true); cloud.setMessage("");
-    try { await cloud.sendMagicLink(email.trim()); }
-    catch (error) { cloud.setMessage(error instanceof Error ? error.message : "Không gửi được magic link"); }
+    try { await cloud.requestPasswordReset(email.trim()); }
+    catch (error) { cloud.setMessage(error instanceof Error ? error.message : "Không gửi được email đặt lại mật khẩu"); }
+    finally { setBusy(false); }
+  };
+  const savePassword = async () => {
+    if (password.length < 6) return;
+    setBusy(true); cloud.setMessage("");
+    try { await cloud.updatePassword(password); }
+    catch (error) { cloud.setMessage(error instanceof Error ? error.message : "Không lưu được mật khẩu mới"); }
     finally { setBusy(false); }
   };
   if (!cloud.configured) return <span className="cloud-local" title="Thêm biến môi trường Supabase để bật đồng bộ">Chỉ lưu local</span>;
+  if (cloud.user && cloud.recovering) return <div className="cloud-login"><button className="cloud-login-button" onClick={() => setOpen(!open)}>Đặt mật khẩu mới</button>{open && <div className="cloud-popover"><b>Đặt mật khẩu mới</b><p>Nhập mật khẩu mới cho tài khoản {cloud.user.email}.</p><input type="password" autoComplete="new-password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Tối thiểu 6 ký tự" onKeyDown={(event) => { if (event.key === "Enter") void savePassword(); }} /><button disabled={busy || password.length < 6} onClick={() => { void savePassword(); }}>{busy ? "Đang lưu…" : "Lưu mật khẩu"}</button>{cloud.message && <small>{cloud.message}</small>}</div>}</div>;
   if (cloud.user) return <div className="cloud-user"><button className={`cloud-pill ${cloud.status}`} onClick={() => { void cloud.syncNow(); }} title={cloud.message || cloud.user.email}>{cloud.status === "syncing" ? "Đang sync…" : cloud.status === "error" ? "Lỗi sync" : "Đã đồng bộ"}</button><button className="cloud-signout" onClick={() => { void cloud.signOut(); }}>Đăng xuất</button></div>;
-  return <div className="cloud-login"><button className="cloud-login-button" onClick={() => setOpen(!open)}>Đăng nhập đồng bộ</button>{open && <div className="cloud-popover"><b>Đồng bộ nhiều thiết bị</b><p>Nhập email, sau đó mở magic link được gửi tới hộp thư.</p><input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" onKeyDown={(event) => { if (event.key === "Enter") void send(); }} /><button disabled={busy || !email.trim()} onClick={() => { void send(); }}>{busy ? "Đang gửi…" : "Gửi magic link"}</button>{cloud.message && <small>{cloud.message}</small>}</div>}</div>;
+  return <div className="cloud-login"><button className="cloud-login-button" onClick={() => setOpen(!open)}>Đăng nhập đồng bộ</button>{open && <div className="cloud-popover"><b>{registering ? "Tạo tài khoản" : "Đăng nhập để đồng bộ"}</b><p>Dùng cùng một tài khoản trên mọi thiết bị để giữ lịch ôn và kết quả.</p><input type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Email" /><input type="password" autoComplete={registering ? "new-password" : "current-password"} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Mật khẩu (tối thiểu 6 ký tự)" onKeyDown={(event) => { if (event.key === "Enter") void submit(); }} /><button disabled={busy || !email.trim() || password.length < 6} onClick={() => { void submit(); }}>{busy ? "Đang xử lý…" : registering ? "Tạo tài khoản" : "Đăng nhập"}</button><button className="cloud-switch" onClick={() => { setRegistering(!registering); cloud.setMessage(""); }}>{registering ? "Đã có tài khoản? Đăng nhập" : "Chưa có tài khoản? Đăng ký"}</button>{!registering && <button className="cloud-switch" disabled={busy || !email.trim()} onClick={() => { void resetPassword(); }}>Quên hoặc chưa có mật khẩu?</button>}{cloud.message && <small>{cloud.message}</small>}</div>}</div>;
 }
 
 function LessonCard({ lesson, store }: { lesson: Lesson; store: ReviewStore }) {
