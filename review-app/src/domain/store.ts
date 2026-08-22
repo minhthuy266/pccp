@@ -1,12 +1,12 @@
-import type { LessonProgress, ReviewRecord, ReviewStore } from "../types";
+import type { LessonProgress, PatternReviewRecord, ReviewRecord, ReviewStore } from "../types";
 
 export const STORAGE_KEY = "pccp-review-store-v1";
-const EMPTY: ReviewStore = { version: 1, lessons: {} };
+const EMPTY: ReviewStore = { version: 1, lessons: {}, patterns: {} };
 
 export function loadStore(storage: Pick<Storage, "getItem"> = localStorage): ReviewStore {
   try {
     const value = JSON.parse(storage.getItem(STORAGE_KEY) ?? "null");
-    if (value?.version === 1 && value.lessons && typeof value.lessons === "object") return value;
+    if (value?.version === 1 && value.lessons && typeof value.lessons === "object") return { ...value, patterns: value.patterns ?? {} };
   } catch { /* preserve app usability if local data is corrupt */ }
   return structuredClone(EMPTY);
 }
@@ -14,7 +14,7 @@ export function loadStore(storage: Pick<Storage, "getItem"> = localStorage): Rev
 export function parseStoreJson(json: string): ReviewStore | null {
   try {
     const value = JSON.parse(json);
-    return value?.version === 1 && value.lessons && typeof value.lessons === "object" ? value : null;
+    return value?.version === 1 && value.lessons && typeof value.lessons === "object" ? { ...value, patterns: value.patterns ?? {} } : null;
   } catch { return null; }
 }
 
@@ -36,6 +36,12 @@ export function mergeStores(current: ReviewStore, imported: ReviewStore): Review
       updatedAt: currentIsNewer ? existing.updatedAt : incoming.updatedAt,
     };
   }
+  merged.patterns ??= {};
+  for (const [id, incoming] of Object.entries(imported.patterns ?? {})) {
+    merged.patterns[id] = [...(merged.patterns[id] ?? []), ...incoming]
+      .filter((record, index, all) => all.findIndex((candidate) => candidate.reviewedAt === record.reviewedAt) === index)
+      .sort((a, b) => a.reviewedAt.localeCompare(b.reviewedAt));
+  }
   return merged;
 }
 
@@ -56,5 +62,11 @@ export function saveDraft(store: ReviewStore, lessonId: string, draftAnalysis: R
 export function saveReview(store: ReviewStore, lessonId: string, record: ReviewRecord) {
   const current = progressFor(store, lessonId);
   store.lessons[lessonId] = { ...current, draftAnalysis: {}, draftCode: "", history: [...current.history, record], updatedAt: new Date().toISOString() };
+  saveStore(store);
+}
+
+export function savePatternReview(store: ReviewStore, patternId: string, record: PatternReviewRecord) {
+  store.patterns ??= {};
+  store.patterns[patternId] = [...(store.patterns[patternId] ?? []), record];
   saveStore(store);
 }

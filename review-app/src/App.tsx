@@ -4,15 +4,17 @@ import { dueDateFor, localDate } from "./domain/dates";
 import { HINT_ORDER, isMastered, suggestedGrade } from "./domain/grading";
 import { analysisMastered, analysisScore, CRITICAL_FIELDS, scoreBand, weakAssessments } from "./domain/assessment";
 import { dueLessons, latest, suggestedNew } from "./domain/scheduler";
-import { loadStore, mergeStores, parseStoreJson, progressFor, saveDraft, saveReview, saveStore } from "./domain/store";
+import { loadStore, mergeStores, parseStoreJson, progressFor, saveDraft, savePatternReview, saveReview, saveStore } from "./domain/store";
 import { CodeEditor } from "./components/CodeEditor";
 import { MarkdownPreview } from "./components/MarkdownPreview";
 import { BlueprintPreview } from "./components/BlueprintPreview";
+import { SampleRunner } from "./components/SampleRunner";
 import { useCloudSync } from "./cloud/useCloudSync";
 import { templateMastered, templateQueue, templateRatingGrade, templateSkeleton } from "./domain/template";
+import { familyByLesson, patternFamilies, type PatternFamily } from "./patterns";
 import { ANALYSIS_FIELDS, type AnalysisField, type AssessmentStatus, type CodeEvidence, type ErrorCategory, type FieldAssessment, type Grade, type Lesson, type PracticeMode, type ReviewRecord, type ReviewStore, type TemplateRating } from "./types";
 
-type Page = "today" | "practice" | "progress";
+type Page = "today" | "practice" | "progress" | "patterns" | "pattern";
 const ERRORS: ErrorCategory[] = ["RECOGNITION", "STATE", "INIT", "LOOP", "CONDITION", "UPDATE", "ORDER", "INDEX", "JAVASCRIPT"];
 const HINT_LABELS: Record<string, string> = { recall1: "Recall mức 1", blueprint: "Blueprint", recall2: "Recall mức 2", recall3: "Recall mức 3", full: "Giải thích và lời giải đầy đủ" };
 const EXAM_DATE = "2026-09-12";
@@ -27,7 +29,10 @@ function readableAuthError(error: unknown, fallback: string) {
 function useNavigation() {
   const read = () => {
     const match = location.hash.match(/^#\/practice\/([^/]+)(?:\/(template))?$/);
-    return match ? { page: "practice" as Page, id: match[1], requestedMode: match[2] === "template" ? "TEMPLATE" as PracticeMode : undefined } : { page: location.hash === "#/progress" ? "progress" as Page : "today" as Page };
+    if (match) return { page: "practice" as Page, id: match[1], requestedMode: match[2] === "template" ? "TEMPLATE" as PracticeMode : undefined };
+    const pattern = location.hash.match(/^#\/patterns\/(PF\d{2})$/);
+    if (pattern) return { page: "pattern" as Page, id: pattern[1] };
+    return { page: location.hash === "#/progress" ? "progress" as Page : location.hash === "#/patterns" ? "patterns" as Page : "today" as Page };
   };
   const [route, setRoute] = useState(read);
   useEffect(() => { const handler = () => setRoute(read()); addEventListener("hashchange", handler); return () => removeEventListener("hashchange", handler); }, []);
@@ -40,9 +45,11 @@ export function App() {
   const refresh = useCallback(() => setStore(loadStore()), []);
   const cloud = useCloudSync(refresh);
   return <div className="app">
-    <header><a className="brand" href="#/">PCCP Recall</a><div className="header-right"><nav><a href="#/">Hôm nay</a><a href="#/progress">Tiến độ</a></nav><CloudControl cloud={cloud} /></div></header>
+    <header><a className="brand" href="#/">PCCP Recall</a><div className="header-right"><nav><a href="#/">Hôm nay</a><a href="#/patterns">Pattern Gym</a><a href="#/progress">Tiến độ</a></nav><CloudControl cloud={cloud} /></div></header>
     {route.page === "today" && <Today store={store} />}
     {route.page === "progress" && <Progress store={store} onUpdated={refresh} />}
+    {route.page === "patterns" && <PatternIndex store={store} />}
+    {route.page === "pattern" && <PatternPractice family={patternFamilies.find((family) => family.id === route.id)} store={store} onSaved={refresh} />}
     {route.page === "practice" && <Practice key={`${route.id}-${route.requestedMode ?? "default"}`} lesson={lessons.find((lesson) => lesson.id === route.id)} store={store} onSaved={refresh} requestedMode={route.requestedMode} />}
   </div>;
 }
@@ -114,16 +121,16 @@ function Today({ store }: { store: ReviewStore }) {
   return <main>
     <div className="page-title"><div><p className="eyebrow">{new Intl.DateTimeFormat("vi-VN", { dateStyle: "full" }).format(new Date())}</p><h1>Ôn tập hôm nay</h1><p className="exam-countdown">Còn <b>{examDays} ngày</b> tới kỳ thi 12/09/2026 · ưu tiên bài quá hạn và lỗi critical.</p></div><span>{due.length} bài đến hạn</span></div>
     <section><h2>Đến hạn</h2><LessonGrid items={due} store={store} /></section>
-    <section><div className="section-heading"><div><p className="eyebrow">Luyện phản xạ dựng code</p><h2>Template Gym hôm nay</h2></div><span className="template-count">{templates.length} template</span></div>{templates.length ? <div className="template-queue">{templates.map((lesson) => { const history = store.lessons[lesson.id].history; const cleanDays = new Set(history.filter((record) => record.templateAssessment?.rating === "FLUENT" && !record.templateAssessment.skeletonUsed).map((record) => localDate(new Date(record.reviewedAt)))).size; return <a href={`#/practice/${lesson.id}/template`} key={lesson.id}><span><b>{lesson.id}</b> · {lesson.title}<small>{lesson.pattern}</small></span><strong>{cleanDays}/3 ngày</strong></a>; })}</div> : <p className="empty">Không có template đến hạn. Học thêm lab hoặc quay lại ngày mai.</p>}{learnedTemplates.length > 0 && <details className="library template-library"><summary>Mở toàn bộ template đã học ({learnedTemplates.length})</summary><div className="lesson-links">{learnedTemplates.map((lesson) => <a href={`#/practice/${lesson.id}/template`} key={lesson.id}>{templateMastered(store.lessons[lesson.id].history) ? "✓ " : ""}{lesson.id} · {lesson.title}</a>)}</div></details>}</section>
+    <section><div className="section-heading"><div><p className="eyebrow">Luyện phản xạ dựng code</p><h2>Template Gym hôm nay</h2></div><span className="template-count">{templates.length} template</span></div>{templates.length ? <div className="template-queue">{templates.map((lesson) => { const history = store.lessons[lesson.id].history; const cleanDays = new Set(history.filter((record) => record.templateAssessment?.rating === "FLUENT" && !record.templateAssessment.skeletonUsed).map((record) => localDate(new Date(record.reviewedAt)))).size; return <a href={`#/practice/${lesson.id}/template`} key={lesson.id}><span><b>{lesson.id}</b> · {lesson.title}<small>{lesson.pattern}</small></span><strong>{cleanDays}/3 ngày</strong></a>; })}</div> : <p className="empty">Không có template đến hạn. Học thêm lab hoặc quay lại ngày mai.</p>}{learnedTemplates.length > 0 && <details className="library template-library"><summary>Mở toàn bộ template đã học ({learnedTemplates.length})</summary><div className="lesson-links">{learnedTemplates.map((lesson) => <a href={`#/practice/${lesson.id}/template`} key={lesson.id}>{templateMastered(store.lessons[lesson.id].history) ? "✓ " : ""}{lesson.id} · {lesson.title}</a>)}</div></details>}<a className="button secondary pattern-gym-link" href="#/patterns">Ôn 24 pattern families →</a></section>
     <section><h2>Bản nháp chưa xong</h2><LessonGrid items={unfinished} store={store} /></section>
     <section><h2>Gợi ý bài mới <small>tối đa 3 mỗi ngày</small></h2><LessonGrid items={fresh} store={store} /></section>
     <details className="library"><summary>Chọn bài khác ({lessons.length} bài)</summary><div className="lesson-links">{lessons.map((lesson) => <a href={`#/practice/${lesson.id}`} key={lesson.id}>{lesson.id} · {lesson.title}</a>)}</div></details>
   </main>;
 }
 
-type Session = { startedAt: number; hints: string[]; analysisLocked: boolean; assessments: Partial<Record<AnalysisField, FieldAssessment>>; mode: PracticeMode; modeChosen: boolean; evidence: CodeEvidence; template: { locked: boolean; skeletonUsed: boolean; compared: boolean; rating?: TemplateRating; transferPassed: boolean } };
+type Session = { startedAt: number; hints: string[]; analysisLocked: boolean; assessments: Partial<Record<AnalysisField, FieldAssessment>>; mode: PracticeMode; modeChosen: boolean; evidence: CodeEvidence; template: { locked: boolean; skeletonUsed: boolean; compared: boolean; rating?: TemplateRating; transferPassed: boolean; transferAnswer: string } };
 function loadSession(id: string, firstStudy: boolean, requestedMode?: PracticeMode): Session {
-  const empty: Session = { startedAt: Date.now(), hints: [], analysisLocked: false, assessments: {}, mode: firstStudy ? "LEARN" : "FULL", modeChosen: false, evidence: { codeCompleted: false, examplesRun: false, officialPassed: false, edgeCasesChecked: false }, template: { locked: false, skeletonUsed: false, compared: false, transferPassed: false } };
+  const empty: Session = { startedAt: Date.now(), hints: [], analysisLocked: false, assessments: {}, mode: firstStudy ? "LEARN" : "FULL", modeChosen: false, evidence: { codeCompleted: false, examplesRun: false, officialPassed: false, edgeCasesChecked: false }, template: { locked: false, skeletonUsed: false, compared: false, transferPassed: false, transferAnswer: "" } };
   try { const saved = JSON.parse(localStorage.getItem(`pccp-review-session-${id}`) ?? "null") ?? {}; return { ...empty, ...saved, mode: requestedMode ?? (firstStudy && !saved.modeChosen ? "LEARN" : (saved.mode ?? empty.mode)), modeChosen: Boolean(requestedMode) || saved.modeChosen, evidence: { ...empty.evidence, ...saved.evidence }, template: { ...empty.template, ...saved.template } }; }
   catch { return empty; }
 }
@@ -136,6 +143,10 @@ function TextBlock({ text, code = false }: { text: string; code?: boolean }) {
 function Practice({ lesson, store, onSaved, requestedMode }: { lesson?: Lesson; store: ReviewStore; onSaved: () => void; requestedMode?: PracticeMode }) {
   if (!lesson) return <main><h1>Không tìm thấy bài học</h1><a href="#/">Về hôm nay</a></main>;
   const progress = progressFor(store, lesson.id);
+  const family = familyByLesson.get(lesson.id);
+  const familyIndex = family?.lessonIds.indexOf(lesson.id) ?? -1;
+  const transferId = family && family.lessonIds.length > 1 ? family.lessonIds[(familyIndex + 1) % family.lessonIds.length] : undefined;
+  const transferLesson = lessons.find((item) => item.id === transferId);
   const isNewLesson = progress.history.length === 0;
   const [analysis, setAnalysis] = useState<Record<string, string>>(() => ({
     ...progress.draftAnalysis,
@@ -152,7 +163,7 @@ function Practice({ lesson, store, onSaved, requestedMode }: { lesson?: Lesson; 
   const fullyAssessed = session.mode !== "FULL" || (session.analysisLocked && availableFields.every((field) => session.assessments[field]));
   const canLock = ANALYSIS_FIELDS.every((field) => analysis[field]?.trim());
   const canFinish = session.mode === "TEMPLATE"
-    ? Boolean(code.trim() && session.template.locked && session.template.rating)
+    ? Boolean(code.trim() && session.template.locked && session.template.rating && session.template.transferAnswer.trim().length >= 80)
     : fullyAssessed && session.evidence.codeCompleted && code.trim().length > 0;
   const previousWeak = weakAssessments(priorAssessment);
   const seconds = Math.max(0, Math.floor((now - session.startedAt) / 1000));
@@ -199,9 +210,10 @@ function Practice({ lesson, store, onSaved, requestedMode }: { lesson?: Lesson; 
       {session.analysisLocked && <Assessment lesson={lesson} analysis={analysis} session={session} assess={assess} correct={correct} />}
     </section>}
     {session.mode === "CODE_ONLY" && <section className="sprint-brief"><p className="eyebrow">Code Sprint</p><h2>Viết lại từ contract, không xem analysis</h2><p>Analysis của bài này đã đạt chuẩn. Mục tiêu lượt này là dựng code sạch, chạy judge và kiểm edge case trong thời gian ngắn.</p>{previousWeak.length > 0 && <aside className="previous-weak"><strong>Lần trước cần sửa</strong><ul>{previousWeak.map((item) => <li key={item.field}><b>{item.field}</b>{item.correctionNote ? ` — ${item.correctionNote}` : ""}</li>)}</ul></aside>}</section>}
-    {session.mode === "TEMPLATE" && <TemplateDrill lesson={lesson} history={progress.history} code={code} setCode={setCode} state={session.template} update={setTemplate} />}
+    {session.mode === "TEMPLATE" && <TemplateDrill lesson={lesson} family={family} transferLesson={transferLesson} history={progress.history} code={code} setCode={setCode} state={session.template} update={setTemplate} />}
     {session.mode !== "TEMPLATE" && <section><CodeEditor value={code} onChange={setCode} /></section>}
-    {session.mode !== "TEMPLATE" && <section className="evidence"><div className="section-heading"><div><p className="eyebrow">Bằng chứng trước khi chấm</p><h2>Kiểm chứng code</h2></div>{lesson.officialUrl && <a className="button" href={lesson.officialUrl} target="_blank" rel="noreferrer">Chạy trên Programmers ↗</a>}</div><p>App không chạy code thay bạn. Đánh dấu đúng những gì đã thực sự làm.</p><div className="evidence-grid">
+    <SampleRunner lessonId={lesson.id} code={code} canonicalCode={lesson.solution} onPassed={() => setEvidence("examplesRun", true)} />
+    {session.mode !== "TEMPLATE" && <section className="evidence"><div className="section-heading"><div><p className="eyebrow">Bằng chứng trước khi chấm</p><h2>Kiểm chứng code</h2></div>{lesson.officialUrl && <a className="button" href={lesson.officialUrl} target="_blank" rel="noreferrer">Chạy trên Programmers ↗</a>}</div><p>Sample runner có thể xác nhận test tự nhập; judge chính thức vẫn là bằng chứng cuối cùng.</p><div className="evidence-grid">
       <label><input type="checkbox" checked={session.evidence.codeCompleted} onChange={(event) => setEvidence("codeCompleted", event.target.checked)} /><span><b>Đã tự viết xong</b><small>Không copy lời giải</small></span></label>
       <label><input type="checkbox" checked={session.evidence.examplesRun} onChange={(event) => setEvidence("examplesRun", event.target.checked)} /><span><b>Đã chạy sample test</b><small>Kết quả đúng</small></span></label>
       <label><input type="checkbox" checked={session.evidence.officialPassed} onChange={(event) => setEvidence("officialPassed", event.target.checked)} /><span><b>Đã pass judge chính thức</b><small>Programmers báo accepted</small></span></label>
@@ -222,12 +234,12 @@ function Practice({ lesson, store, onSaved, requestedMode }: { lesson?: Lesson; 
         </article>;
       })}
     </section>}
-    <div className="sticky-actions"><span>{session.mode === "LEARN" ? "Lượt học đầu tiên sẽ được xếp recall vào ngày mai" : session.mode === "TEMPLATE" ? !session.template.locked ? "Tự viết rồi khóa để so sánh template" : !session.template.rating ? "Tự chấm mức độ nhớ template" : "Đã đủ dữ liệu cho lượt Template Gym" : !fullyAssessed ? "Khóa và tự đánh giá analysis trước" : !session.evidence.codeCompleted || !code.trim() ? "Cần viết xong code và xác nhận bằng chứng" : "Đủ điều kiện kết thúc lượt ôn"}</span><button disabled={!canFinish} onClick={() => setFinishing(true)}>{session.mode === "LEARN" ? "Hoàn tất học lần đầu" : "Kết thúc ôn · ⌘/Ctrl+Enter"}</button></div>
+    <div className="sticky-actions"><span>{session.mode === "LEARN" ? "Lượt học đầu tiên sẽ được xếp recall vào ngày mai" : session.mode === "TEMPLATE" ? !session.template.locked ? "Tự viết rồi khóa để so sánh template" : !session.template.rating ? "Tự chấm mức độ nhớ template" : session.template.transferAnswer.trim().length < 80 ? "Hoàn thành câu trả lời transfer" : "Đã đủ dữ liệu cho lượt Template Gym" : !fullyAssessed ? "Khóa và tự đánh giá analysis trước" : !session.evidence.codeCompleted || !code.trim() ? "Cần viết xong code và xác nhận bằng chứng" : "Đủ điều kiện kết thúc lượt ôn"}</span><button disabled={!canFinish} onClick={() => setFinishing(true)}>{session.mode === "LEARN" ? "Hoàn tất học lần đầu" : "Kết thúc ôn · ⌘/Ctrl+Enter"}</button></div>
     {finishing && <ResultModal lesson={lesson} store={store} session={session} analysis={analysis} code={code} priorAnalysisMastered={priorAnalysisMastered} duration={seconds} close={() => setFinishing(false)} saved={() => { localStorage.removeItem(`pccp-review-session-${lesson.id}`); onSaved(); location.hash = "#/"; }} />}
   </main>;
 }
 
-function TemplateDrill({ lesson, history, code, setCode, state, update }: { lesson: Lesson; history: ReviewRecord[]; code: string; setCode: (value: string) => void; state: Session["template"]; update: (next: Partial<Session["template"]>) => void }) {
+function TemplateDrill({ lesson, family, transferLesson, history, code, setCode, state, update }: { lesson: Lesson; family?: PatternFamily; transferLesson?: Lesson; history: ReviewRecord[]; code: string; setCode: (value: string) => void; state: Session["template"]; update: (next: Partial<Session["template"]>) => void }) {
   const cleanDays = new Set(history.filter((record) => record.templateAssessment?.rating === "FLUENT" && !record.templateAssessment.skeletonUsed).map((record) => localDate(new Date(record.reviewedAt)))).size;
   const hasTransfer = history.some((record) => record.templateAssessment?.rating === "FLUENT" && !record.templateAssessment.skeletonUsed && record.templateAssessment.transferPassed);
   const mastered = templateMastered(history);
@@ -244,7 +256,7 @@ function TemplateDrill({ lesson, history, code, setCode, state, update }: { less
       <div className="template-compare"><div><b>Template của bạn</b><TextBlock text={code} code /></div><div><b>Template canonical</b><TextBlock text={lesson.solution} code /></div></div>
       <details className="template-blueprint"><summary>Đối chiếu Blueprint: State → Transition → Return</summary><BlueprintPreview blueprint={lesson.blueprint} /></details>
       <div className="template-self-score"><h3>Tự chấm độ trôi chảy</h3><p>Đánh giá khả năng tự dựng đúng ý nghĩa và đúng thứ tự update; không so chuỗi code.</p><div>{(["FLUENT", "HESITANT", "FAILED"] as TemplateRating[]).map((rating) => <label className={state.rating === rating ? "selected" : ""} key={rating}><input type="radio" name="template-rating" checked={state.rating === rating} onChange={() => update({ rating })} /><b>{rating}</b><small>{rating === "FLUENT" ? "Tự dựng trơn tru" : rating === "HESITANT" ? "Đúng nhưng còn ngập ngừng" : "Không dựng được"}</small></label>)}</div></div>
-      <label className="transfer-check"><input type="checkbox" checked={state.transferPassed} onChange={(event) => update({ transferPassed: event.target.checked })} /><span><b>Transfer pass</b><small>Tôi đã áp dụng cùng khung này cho input hoặc bài biến thể khác mà không xem canonical.</small></span></label>
+      <div className="transfer-task"><p className="eyebrow">Transfer bắt buộc · không xem lời giải bài đích</p><h3>{transferLesson ? `${transferLesson.id} · ${transferLesson.title}` : `${family?.id ?? "Pattern"} · Drill biến thể`}</h3>{transferLesson ? <><p><b>Vai trò trong family:</b> {family?.roles[transferLesson.id]}</p><TextBlock text={transferLesson.problem} /></> : <MarkdownPreview markdown={family?.drills || "Tự đổi contract hoặc constraint và giải thích phần nào trong template phải thay đổi."} />}<label>Viết state, transition và phần template phải đổi<textarea rows={6} value={state.transferAnswer} onChange={(event) => update({ transferAnswer: event.target.value, transferPassed: false })} placeholder="Không cần viết full code, nhưng phải đủ cụ thể để triển khai..." /></label><label className="transfer-check"><input type="checkbox" disabled={state.transferAnswer.trim().length < 80} checked={state.transferPassed} onChange={(event) => update({ transferPassed: event.target.checked })} /><span><b>Transfer pass</b><small>Chỉ xác nhận sau khi đã tự dựng được biến thể. Cần ít nhất 80 ký tự trả lời trước.</small></span></label></div>
     </>}
   </section>;
 }
@@ -280,7 +292,7 @@ function ResultModal({ lesson, store, session, analysis, code, priorAnalysisMast
     const reviewed = new Date();
     const analysisAnswers = Object.fromEntries(ANALYSIS_FIELDS.map((field) => [field, analysis[field] ?? ""]));
     const savedGrade: Grade = firstStudy ? "D" : session.mode === "TEMPLATE" ? suggested : grade;
-    saveReview(store, lesson.id, { grade: savedGrade, reviewedAt: reviewed.toISOString(), dueAt: dueDateFor(savedGrade, reviewed), durationSeconds: duration, revealedHints: firstStudy ? ["full"] : session.hints, errors, note: note.trim(), analysisAnswers, analysisAssessment: session.mode === "FULL" ? session.assessments : undefined, practiceMode: session.mode, codeEvidence: session.mode === "TEMPLATE" ? undefined : session.evidence, masteryEligible: firstStudy || session.mode === "TEMPLATE" ? false : masteryEligible, firstStudy, templateAssessment: session.mode === "TEMPLATE" && session.template.rating ? { rating: session.template.rating, skeletonUsed: session.template.skeletonUsed, compared: session.template.compared, transferPassed: session.template.transferPassed } : undefined, templateAttempt: session.mode === "TEMPLATE" ? code : undefined });
+    saveReview(store, lesson.id, { grade: savedGrade, reviewedAt: reviewed.toISOString(), dueAt: dueDateFor(savedGrade, reviewed), durationSeconds: duration, revealedHints: firstStudy ? ["full"] : session.hints, errors, note: note.trim(), analysisAnswers, analysisAssessment: session.mode === "FULL" ? session.assessments : undefined, practiceMode: session.mode, codeEvidence: session.mode === "TEMPLATE" ? undefined : session.evidence, masteryEligible: firstStudy || session.mode === "TEMPLATE" ? false : masteryEligible, firstStudy, templateAssessment: session.mode === "TEMPLATE" && session.template.rating ? { rating: session.template.rating, skeletonUsed: session.template.skeletonUsed, compared: session.template.compared, transferPassed: session.template.transferPassed, transferPromptId: familyByLesson.get(lesson.id)?.id, transferAnswer: session.template.transferAnswer } : undefined, templateAttempt: session.mode === "TEMPLATE" ? code : undefined });
     saved();
   };
   return <div className="modal-backdrop" role="presentation"><div className="modal" role="dialog" aria-modal="true"><button className="modal-close" onClick={close} aria-label="Đóng">×</button>
@@ -292,6 +304,36 @@ function ResultModal({ lesson, store, session, analysis, code, priorAnalysisMast
   </div></div>;
 }
 
+function patternMastered(store: ReviewStore, id: string) {
+  const fluent = (store.patterns?.[id] ?? []).filter((record) => record.rating === "FLUENT");
+  return new Set(fluent.map((record) => localDate(new Date(record.reviewedAt)))).size >= 2;
+}
+
+function PatternIndex({ store }: { store: ReviewStore }) {
+  return <main><div className="page-title"><div><p className="eyebrow">24 mô hình · không học thuộc 67 lời giải</p><h1>Pattern Gym</h1><p className="exam-countdown">Chỉ luyện family đã có ít nhất một lab được học. Recall tín hiệu, invariant, code core và knobs trước khi mở canonical.</p></div></div><div className="pattern-gym-grid">{patternFamilies.map((family) => {
+    const learned = family.lessonIds.filter((id) => store.lessons[id]?.history.length);
+    const attempts = store.patterns?.[family.id] ?? [];
+    const mastered = patternMastered(store, family.id);
+    return <article className={learned.length ? "" : "locked"} key={family.id}><div><span className="lesson-id">{family.id}</span>{mastered && <span className="mastery-badge">PATTERN MASTERED</span>}</div><h2>{family.title}</h2><p>{learned.length}/{family.lessonIds.length} lab đã học · {attempts.length} lượt recall</p>{learned.length ? <><div className="pattern-source-tags">{learned.map((id) => <span key={id}>{id}</span>)}</div><a className="button" href={`#/patterns/${family.id}`}>Luyện family</a></> : <small>Học ít nhất một lab nguồn để mở.</small>}</article>;
+  })}</div></main>;
+}
+
+function PatternPractice({ family, store, onSaved }: { family?: PatternFamily; store: ReviewStore; onSaved: () => void }) {
+  const [answers, setAnswers] = useState({ signals: "", core: "", variations: "" });
+  const [locked, setLocked] = useState(false);
+  const [rating, setRating] = useState<TemplateRating>();
+  if (!family) return <main><h1>Không tìm thấy pattern</h1><a href="#/patterns">← Pattern Gym</a></main>;
+  const learned = family.lessonIds.filter((id) => store.lessons[id]?.history.length);
+  if (!learned.length) return <main><h1>{family.id} · {family.title}</h1><p className="empty">Học ít nhất một lab nguồn trước khi mở canonical family này.</p><a href="#/patterns">← Pattern Gym</a></main>;
+  const enough = Object.values(answers).every((answer) => answer.trim().length >= 30);
+  const save = () => {
+    if (!rating || !enough) return;
+    savePatternReview(store, family.id, { reviewedAt: new Date().toISOString(), rating, answers });
+    onSaved(); location.hash = "#/patterns";
+  };
+  return <main className="pattern-practice"><a href="#/patterns">← Pattern Gym</a><div className="page-title"><div><p className="eyebrow">{family.id} · Recall family</p><h1>{family.title}</h1><p className="exam-countdown">Lab đã học: {learned.join(", ")}</p></div><span>{patternMastered(store, family.id) ? "MASTERED" : `${store.patterns?.[family.id]?.length ?? 0} lượt`}</span></div><section className="pattern-recall"><h2>Tự dựng pattern trước</h2><div className="pattern-answer-grid"><label>Tín hiệu nhận dạng và khi không dùng<textarea readOnly={locked} rows={7} value={answers.signals} onChange={(event) => setAnswers({ ...answers, signals: event.target.value })} placeholder="Contract/constraint nào bật pattern? Counter-signal nào loại nó?" /></label><label>Invariant và code core<textarea readOnly={locked} rows={7} value={answers.core} onChange={(event) => setAnswers({ ...answers, core: event.target.value })} placeholder="State gì, invariant gì, loop/transition cốt lõi ra sao?" /></label><label>Knobs và transfer<textarea readOnly={locked} rows={7} value={answers.variations} onChange={(event) => setAnswers({ ...answers, variations: event.target.value })} placeholder="Khi đề đổi weight/bound/order/output thì template đổi ở đâu?" /></label></div>{!locked && <div className="lock-row"><p>Mỗi ô tối thiểu 30 ký tự. Canonical chỉ hiện sau khi khóa.</p><button disabled={!enough} onClick={() => setLocked(true)}>Khóa và mở canonical</button></div>}{locked && <><div className="pattern-canonical"><MarkdownPreview markdown={family.markdown} /></div><div className="template-self-score"><h3>Tự chấm family recall</h3><div>{(["FLUENT", "HESITANT", "FAILED"] as TemplateRating[]).map((item) => <label className={rating === item ? "selected" : ""} key={item}><input type="radio" name="pattern-rating" checked={rating === item} onChange={() => setRating(item)} /><b>{item}</b><small>{item === "FLUENT" ? "Nhận diện và điều chỉnh được" : item === "HESITANT" ? "Nhớ core nhưng knobs còn yếu" : "Chưa dựng lại được"}</small></label>)}</div></div><div className="modal-actions"><button className="secondary" onClick={() => setLocked(false)}>Viết lại</button><button disabled={!rating} onClick={save}>Lưu Pattern Gym</button></div></>}</section></main>;
+}
+
 function Progress({ store, onUpdated }: { store: ReviewStore; onUpdated: () => void }) {
   const today = localDate();
   const reviewedLessons = lessons.filter((lesson) => store.lessons[lesson.id]?.history.length);
@@ -299,6 +341,7 @@ function Progress({ store, onUpdated }: { store: ReviewStore; onUpdated: () => v
   const overdue = due.filter((lesson) => latest(store, lesson.id)!.dueAt < today);
   const mastered = reviewedLessons.filter((lesson) => isMastered(store.lessons[lesson.id].history));
   const templateDone = reviewedLessons.filter((lesson) => templateMastered(store.lessons[lesson.id].history));
+  const patternDone = patternFamilies.filter((family) => patternMastered(store, family.id));
   const accepted = reviewedLessons.filter((lesson) => latest(store, lesson.id)?.codeEvidence?.officialPassed);
   const masteryQueue = reviewedLessons.filter((lesson) => !isMastered(store.lessons[lesson.id].history)).slice(0, 12);
   const patterns = useMemo(() => Object.entries(lessons.reduce<Record<string, Lesson[]>>((groups, lesson) => { (groups[lesson.pattern] ??= []).push(lesson); return groups; }, {})).sort(([a], [b]) => a.localeCompare(b)), []);
@@ -324,7 +367,7 @@ function Progress({ store, onUpdated }: { store: ReviewStore; onUpdated: () => v
     return "Cần lượt A sạch tiếp theo";
   };
   return <main><div className="page-title"><div><p className="eyebrow">Tổng quan</p><h1>Tiến độ</h1></div><div className="data-actions"><button className="secondary" onClick={exportData}>Xuất backup</button><label className="button secondary">Nhập backup<input type="file" accept="application/json,.json" onChange={(event) => { void importData(event.target.files?.[0]); event.target.value = ""; }} /></label></div></div>
-    <div className="stats"><div><strong>{due.length}</strong><span>Đến hạn hôm nay</span></div><div><strong>{overdue.length}</strong><span>Quá hạn</span></div><div><strong>{accepted.length}</strong><span>Judge pass gần nhất</span></div><div><strong>{mastered.length}</strong><span>Đã vững / {lessons.length}</span></div><div><strong>{templateDone.length}</strong><span>Template hằn sâu</span></div></div>
+    <div className="stats"><div><strong>{due.length}</strong><span>Đến hạn hôm nay</span></div><div><strong>{overdue.length}</strong><span>Quá hạn</span></div><div><strong>{accepted.length}</strong><span>Judge pass gần nhất</span></div><div><strong>{mastered.length}</strong><span>Đã vững / {lessons.length}</span></div><div><strong>{templateDone.length}</strong><span>Template hằn sâu</span></div><div><strong>{patternDone.length}</strong><span>Pattern mastered / 24</span></div></div>
     <section><h2>Hàng đợi mastery</h2>{masteryQueue.length ? <div className="mastery-queue">{masteryQueue.map((lesson) => <a href={`#/practice/${lesson.id}`} key={lesson.id}><span><b>{lesson.id}</b> · {lesson.title}</span><small>{reason(lesson)}</small></a>)}</div> : <p className="empty">Các bài đã ôn đều đạt mastery.</p>}</section>
     <section><h2>Theo pattern</h2><div className="pattern-groups">{patterns.map(([pattern, group]) => { const done = group.filter((lesson) => store.lessons[lesson.id]?.history.length).length; return <div key={pattern}><span>{pattern}</span><b>{done}/{group.length}</b></div>; })}</div></section>
     <section><h2>Lịch sử gần đây</h2>{history.length ? <div className="history">{history.map(({ lesson, record }, index) => <div key={`${lesson.id}-${record.reviewedAt}-${index}`}><span><b>{lesson.id}</b> · {lesson.title}{record.practiceMode === "TEMPLATE" && <small className="history-mode">Template · {record.templateAssessment?.rating}</small>}</span><span className={`grade grade-${record.grade}`}>{record.grade}</span><time>{localDate(new Date(record.reviewedAt))} · {Math.round(record.durationSeconds / 60)} phút</time></div>)}</div> : <p className="empty">Chưa có lượt ôn nào.</p>}</section>

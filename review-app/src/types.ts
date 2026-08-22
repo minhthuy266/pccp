@@ -9,6 +9,13 @@ export interface TemplateAssessment {
   skeletonUsed: boolean;
   compared: boolean;
   transferPassed: boolean;
+  transferPromptId?: string;
+  transferAnswer?: string;
+}
+export interface PatternReviewRecord {
+  reviewedAt: string;
+  rating: TemplateRating;
+  answers: { signals: string; core: string; variations: string };
 }
 export interface CodeEvidence {
   codeCompleted: boolean;
@@ -51,7 +58,7 @@ export interface LessonProgress {
   updatedAt?: string;
 }
 
-export interface ReviewStore { version: 1; lessons: Record<string, LessonProgress> }
+export interface ReviewStore { version: 1; lessons: Record<string, LessonProgress>; patterns?: Record<string, PatternReviewRecord[]> }
 
 export interface Lesson {
   id: string;

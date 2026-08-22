@@ -31,3 +31,9 @@ it("keeps the newest draft when two devices merge", () => {
   expect(merged.lessons.OF001.draftCode).toBe("new cloud");
   expect(merged.lessons.OF001.draftAnalysis).toEqual({ State: "queue" });
 });
+
+it("merges Pattern Gym history for cloud sync", () => {
+  const current = { version: 1 as const, lessons: {}, patterns: { PF01: [{ reviewedAt: "2026-08-20", rating: "HESITANT" as const, answers: { signals: "a", core: "b", variations: "c" } }] } };
+  const remote = { version: 1 as const, lessons: {}, patterns: { PF01: [{ reviewedAt: "2026-08-21", rating: "FLUENT" as const, answers: { signals: "d", core: "e", variations: "f" } }] } };
+  expect(mergeStores(current, remote).patterns?.PF01.map((record) => record.reviewedAt)).toEqual(["2026-08-20", "2026-08-21"]);
+});
