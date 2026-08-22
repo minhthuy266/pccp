@@ -40,3 +40,25 @@ location.reload();
 ```
 
 Không xóa key khác của cùng origin.
+
+## Đồng bộ nhiều thiết bị với Supabase
+
+App vẫn hoạt động local-first khi chưa cấu hình cloud. Để bật đăng nhập email magic link và tự đồng bộ:
+
+1. Tạo Supabase project.
+2. Mở SQL Editor và chạy toàn bộ file `supabase/migrations/20260822000000_create_review_stores.sql`.
+3. Trong Authentication → URL Configuration, đặt Site URL là domain deploy và thêm cả URL local/deploy vào Redirect URLs, ví dụ `http://localhost:5173/**` và `https://your-app.example/**`.
+4. Copy `.env.example` thành `.env.local`, rồi điền Project URL và publishable key:
+
+```bash
+cp .env.example .env.local
+```
+
+```env
+VITE_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=YOUR_PUBLISHABLE_OR_ANON_KEY
+```
+
+5. Restart `npm run dev`. Đăng nhập cùng một email trên mọi thiết bị.
+
+Trên Vercel, thêm hai biến trên vào Project Settings → Environment Variables rồi redeploy. Không bao giờ đưa `service_role` hoặc secret key vào app frontend. Khi đăng nhập, app merge lịch sử local/cloud, chọn draft có `updatedAt` mới hơn và tự sync sau khi dữ liệu đổi. Backup JSON vẫn nên được giữ như một lớp dự phòng.

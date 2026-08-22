@@ -39,6 +39,7 @@ export interface LessonProgress {
   draftAnalysis: Record<string, string>;
   draftCode: string;
   history: ReviewRecord[];
+  updatedAt?: string;
 }
 
 export interface ReviewStore { version: 1; lessons: Record<string, LessonProgress> }

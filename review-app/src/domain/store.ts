@@ -26,18 +26,22 @@ export function mergeStores(current: ReviewStore, imported: ReviewStore): Review
     const history = [...existing.history, ...incoming.history]
       .filter((record, index, all) => all.findIndex((candidate) => candidate.reviewedAt === record.reviewedAt) === index)
       .sort((a, b) => a.reviewedAt.localeCompare(b.reviewedAt));
+    const currentIsNewer = !incoming.updatedAt || Boolean(existing.updatedAt && existing.updatedAt >= incoming.updatedAt);
+    const draftSource = currentIsNewer ? existing : incoming;
     merged.lessons[id] = {
       lessonId: id,
-      draftAnalysis: Object.values(existing.draftAnalysis).some(Boolean) ? existing.draftAnalysis : incoming.draftAnalysis,
-      draftCode: existing.draftCode || incoming.draftCode,
+      draftAnalysis: draftSource.draftAnalysis,
+      draftCode: draftSource.draftCode,
       history,
+      updatedAt: currentIsNewer ? existing.updatedAt : incoming.updatedAt,
     };
   }
   return merged;
 }
 
-export function saveStore(store: ReviewStore, storage: Pick<Storage, "setItem"> = localStorage) {
+export function saveStore(store: ReviewStore, storage: Pick<Storage, "setItem"> = localStorage, notify = true) {
   storage.setItem(STORAGE_KEY, JSON.stringify(store));
+  if (notify && typeof window !== "undefined") window.dispatchEvent(new CustomEvent("pccp-store-change"));
 }
 
 export function progressFor(store: ReviewStore, lessonId: string): LessonProgress {
@@ -45,12 +49,12 @@ export function progressFor(store: ReviewStore, lessonId: string): LessonProgres
 }
 
 export function saveDraft(store: ReviewStore, lessonId: string, draftAnalysis: Record<string, string>, draftCode: string) {
-  store.lessons[lessonId] = { ...progressFor(store, lessonId), draftAnalysis, draftCode };
+  store.lessons[lessonId] = { ...progressFor(store, lessonId), draftAnalysis, draftCode, updatedAt: new Date().toISOString() };
   saveStore(store);
 }
 
 export function saveReview(store: ReviewStore, lessonId: string, record: ReviewRecord) {
   const current = progressFor(store, lessonId);
-  store.lessons[lessonId] = { ...current, draftAnalysis: {}, draftCode: "", history: [...current.history, record] };
+  store.lessons[lessonId] = { ...current, draftAnalysis: {}, draftCode: "", history: [...current.history, record], updatedAt: new Date().toISOString() };
   saveStore(store);
 }

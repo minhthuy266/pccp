@@ -23,3 +23,11 @@ it("validates and merges backups without losing current drafts or duplicate hist
   expect(merged.lessons.OF001.history.map((record) => record.reviewedAt)).toEqual(["2026-08-20", "2026-08-21"]);
   expect(parseStoreJson("not json")).toBeNull();
 });
+
+it("keeps the newest draft when two devices merge", () => {
+  const current = { version: 1 as const, lessons: { OF001: { lessonId: "OF001", draftAnalysis: {}, draftCode: "old local", history: [], updatedAt: "2026-08-20T10:00:00.000Z" } } };
+  const remote = { version: 1 as const, lessons: { OF001: { lessonId: "OF001", draftAnalysis: { State: "queue" }, draftCode: "new cloud", history: [], updatedAt: "2026-08-21T10:00:00.000Z" } } };
+  const merged = mergeStores(current, remote);
+  expect(merged.lessons.OF001.draftCode).toBe("new cloud");
+  expect(merged.lessons.OF001.draftAnalysis).toEqual({ State: "queue" });
+});

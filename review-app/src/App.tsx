@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { lessons } from "./lessons";
 import { dueDateFor, localDate } from "./domain/dates";
 import { HINT_ORDER, isMastered, suggestedGrade } from "./domain/grading";
@@ -8,6 +8,7 @@ import { loadStore, mergeStores, parseStoreJson, progressFor, saveDraft, saveRev
 import { CodeEditor } from "./components/CodeEditor";
 import { MarkdownPreview } from "./components/MarkdownPreview";
 import { BlueprintPreview } from "./components/BlueprintPreview";
+import { useCloudSync } from "./cloud/useCloudSync";
 import { ANALYSIS_FIELDS, type AnalysisField, type AssessmentStatus, type CodeEvidence, type ErrorCategory, type FieldAssessment, type Grade, type Lesson, type PracticeMode, type ReviewStore } from "./types";
 
 type Page = "today" | "practice" | "progress";
@@ -28,13 +29,30 @@ function useNavigation() {
 export function App() {
   const route = useNavigation();
   const [store, setStore] = useState<ReviewStore>(() => loadStore());
-  const refresh = () => setStore(loadStore());
+  const refresh = useCallback(() => setStore(loadStore()), []);
+  const cloud = useCloudSync(refresh);
   return <div className="app">
-    <header><a className="brand" href="#/">PCCP Recall</a><nav><a href="#/">Hôm nay</a><a href="#/progress">Tiến độ</a></nav></header>
+    <header><a className="brand" href="#/">PCCP Recall</a><div className="header-right"><nav><a href="#/">Hôm nay</a><a href="#/progress">Tiến độ</a></nav><CloudControl cloud={cloud} /></div></header>
     {route.page === "today" && <Today store={store} />}
     {route.page === "progress" && <Progress store={store} onUpdated={refresh} />}
     {route.page === "practice" && <Practice lesson={lessons.find((lesson) => lesson.id === route.id)} store={store} onSaved={refresh} />}
   </div>;
+}
+
+function CloudControl({ cloud }: { cloud: ReturnType<typeof useCloudSync> }) {
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [busy, setBusy] = useState(false);
+  const send = async () => {
+    if (!email.trim()) return;
+    setBusy(true); cloud.setMessage("");
+    try { await cloud.sendMagicLink(email.trim()); }
+    catch (error) { cloud.setMessage(error instanceof Error ? error.message : "Không gửi được magic link"); }
+    finally { setBusy(false); }
+  };
+  if (!cloud.configured) return <span className="cloud-local" title="Thêm biến môi trường Supabase để bật đồng bộ">Chỉ lưu local</span>;
+  if (cloud.user) return <div className="cloud-user"><button className={`cloud-pill ${cloud.status}`} onClick={() => { void cloud.syncNow(); }} title={cloud.message || cloud.user.email}>{cloud.status === "syncing" ? "Đang sync…" : cloud.status === "error" ? "Lỗi sync" : "Đã đồng bộ"}</button><button className="cloud-signout" onClick={() => { void cloud.signOut(); }}>Đăng xuất</button></div>;
+  return <div className="cloud-login"><button className="cloud-login-button" onClick={() => setOpen(!open)}>Đăng nhập đồng bộ</button>{open && <div className="cloud-popover"><b>Đồng bộ nhiều thiết bị</b><p>Nhập email, sau đó mở magic link được gửi tới hộp thư.</p><input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" onKeyDown={(event) => { if (event.key === "Enter") void send(); }} /><button disabled={busy || !email.trim()} onClick={() => { void send(); }}>{busy ? "Đang gửi…" : "Gửi magic link"}</button>{cloud.message && <small>{cloud.message}</small>}</div>}</div>;
 }
 
 function LessonCard({ lesson, store }: { lesson: Lesson; store: ReviewStore }) {
