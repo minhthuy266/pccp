@@ -1,7 +1,12 @@
 function differsByOneCharacter(first, second) {
   let differences = 0;
   for (let index = 0; index < first.length; index++) {
-    if (first[index] !== second[index] && ++differences > 1) return false;
+    if (first[index] !== second[index]) {
+      differences += 1;
+      if (differences > 1) {
+        return false;
+      }
+    }
   }
   return differences === 1;
 }
@@ -14,8 +19,11 @@ function minimumWordTransformations(begin, target, words) {
   let head = 0;
 
   while (head < queue.length) {
-    const { word, steps } = queue[head++];
-    if (word === target) return steps;
+    const { word, steps } = queue[head];
+    head += 1;
+    if (word === target) {
+      return steps;
+    }
 
     for (let index = 0; index < words.length; index++) {
       if (visited[index] || !differsByOneCharacter(word, words[index])) continue;

@@ -11,6 +11,7 @@ test("OF018 — normalize mỗi card thành cạnh dài/cạnh ngắn", () => {
   assert.equal(minimumWalletArea([[60, 50], [30, 70], [60, 30], [80, 40]]), 4000);
   assert.equal(minimumWalletArea([[10, 7], [12, 3], [8, 15], [14, 7], [5, 15]]), 120);
   assert.equal(minimumWalletArea([[1, 1]]), 1);
+  assert.equal(minimumWalletArea([[10, 100], [90, 20]]), 2000);
 });
 
 test("OF020 — permutation theo index và Set loại duplicate/leading-zero", () => {
@@ -19,6 +20,7 @@ test("OF020 — permutation theo index và Set loại duplicate/leading-zero", (
   assert.equal(isPrime(49), false);
   assert.equal(primePermutationCount("17"), 3);
   assert.equal(primePermutationCount("011"), 2);
+  assert.equal(primePermutationCount("11"), 1);
   assert.equal(primePermutationCount("000"), 0);
 });
 
@@ -26,6 +28,7 @@ test("OF021 — factor pair phải khớp cả total lẫn yellow interior", () 
   assert.deepEqual(carpetDimensions(10, 2), [4, 3]);
   assert.deepEqual(carpetDimensions(8, 1), [3, 3]);
   assert.deepEqual(carpetDimensions(24, 24), [8, 6]);
+  assert.deepEqual(carpetDimensions(22, 8), [10, 3]);
 });
 
 test("OF025 — overlap tự dùng reserve trước, sau đó cho mượn hàng xóm", () => {

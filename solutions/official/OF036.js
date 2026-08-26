@@ -3,7 +3,9 @@ function targetNumberWays(numbers, target) {
 
   function dfs(index, sum) {
     if (index === numbers.length) {
-      if (sum === target) ways++;
+      if (sum === target) {
+        ways += 1;
+      }
       return;
     }
 

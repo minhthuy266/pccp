@@ -1,3 +1,13 @@
+function encodedRunLength(chunk, repetitions) {
+  let encodedLength = chunk.length;
+
+  if (repetitions > 1) {
+    encodedLength += String(repetitions).length;
+  }
+
+  return encodedLength;
+}
+
 function compressedLengthForUnit(string, unit) {
   let length = 0;
   let previous = string.slice(0, unit);
@@ -9,12 +19,13 @@ function compressedLengthForUnit(string, unit) {
       repetitions++;
       continue;
     }
-    length += previous.length + (repetitions > 1 ? String(repetitions).length : 0);
+    length += encodedRunLength(previous, repetitions);
     previous = current;
     repetitions = 1;
   }
 
-  return length + previous.length + (repetitions > 1 ? String(repetitions).length : 0);
+  length += encodedRunLength(previous, repetitions);
+  return length;
 }
 
 function shortestCompressedLength(string) {
@@ -26,4 +37,4 @@ function shortestCompressedLength(string) {
   return best;
 }
 
-module.exports = { compressedLengthForUnit, shortestCompressedLength };
+module.exports = { encodedRunLength, compressedLengthForUnit, shortestCompressedLength };

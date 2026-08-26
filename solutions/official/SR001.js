@@ -1,7 +1,18 @@
 function addMatrices(first, second) {
-  return first.map((row, rowIndex) =>
-    row.map((value, columnIndex) => value + second[rowIndex][columnIndex]),
-  );
+  const result = [];
+
+  for (let row = 0; row < first.length; row++) {
+    const resultRow = [];
+
+    for (let column = 0; column < first[row].length; column++) {
+      const cellSum = first[row][column] + second[row][column];
+      resultRow.push(cellSum);
+    }
+
+    result.push(resultRow);
+  }
+
+  return result;
 }
 
 module.exports = { addMatrices };

@@ -10,17 +10,22 @@ const { maximumArithmeticExpressionValue } = require("../solutions/official/OF03
 test("OF026 — vertical độc lập, horizontal xét quay đầu qua A-run", () => {
   assert.equal(joystickMinimumMoves("JEROEN"), 56);
   assert.equal(joystickMinimumMoves("JAN"), 23);
+  assert.equal(joystickMinimumMoves("A"), 0);
+  assert.equal(joystickMinimumMoves("Z"), 1);
   assert.equal(joystickMinimumMoves("AAAA"), 0);
   assert.equal(joystickMinimumMoves("ABAAAAAAAAABB"), 7);
 });
 
 test("OF029 — DSU reject cycle và Kruskal lấy n-1 edge", () => {
+  const costs = [[0,1,1],[0,2,2],[1,2,5],[1,3,1],[2,3,8]];
   const set = new DisjointSet(4);
   assert.equal(set.union(0, 1), true);
   assert.equal(set.union(1, 2), true);
   assert.equal(set.union(0, 2), false);
-  assert.equal(minimumIslandConnectionCost(4, [[0,1,1],[0,2,2],[1,2,5],[1,3,1],[2,3,8]]), 4);
+  assert.equal(minimumIslandConnectionCost(4, costs), 4);
   assert.equal(minimumIslandConnectionCost(2, [[0,1,7]]), 7);
+  assert.equal(minimumIslandConnectionCost(3, [[0,1,10],[0,1,1],[1,2,2],[0,2,9]]), 3);
+  assert.deepEqual(costs, [[0,1,1],[0,2,2],[1,2,5],[1,3,1],[2,3,8]]);
 });
 
 test("OF030 — closed interval chạm camera endpoint vẫn được cover", () => {
@@ -33,6 +38,7 @@ test("OF031 — Set DP dùng đúng count N và trunc division", () => {
   assert.equal(minimumNExpressionCount(5, 12), 4);
   assert.equal(minimumNExpressionCount(2, 11), 3);
   assert.equal(minimumNExpressionCount(5, 5), 1);
+  assert.equal(minimumNExpressionCount(5, 55), 2);
   assert.equal(minimumNExpressionCount(1, 31168), -1);
 });
 

@@ -24,7 +24,9 @@ function expiredPrivacyIndices(today, terms, privacies) {
     const [startDate, code] = privacies[index].split(" ");
     const expiryExclusive =
       dateToSerial(startDate) + termMonths.get(code) * DAYS_PER_MONTH;
-    if (expiryExclusive <= todaySerial) expired.push(index + 1);
+    if (expiryExclusive <= todaySerial) {
+      expired.push(index + 1);
+    }
   }
 
   return expired;

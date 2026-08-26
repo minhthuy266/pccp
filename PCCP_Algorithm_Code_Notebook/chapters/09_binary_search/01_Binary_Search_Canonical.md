@@ -99,6 +99,144 @@ function lowerBound(values, target) {
 
 Dùng `lowerBound(target)` và `lowerBound(target+epsilon)` không an toàn cho mọi type; BS-03 cung cấp upper bound rõ predicate.
 
+### Gold standard — Dry run → Code reconstruction: lower bound
+
+**Bài toán cụ thể.** Với sorted array `values=[1,3,3,7]` và `target=3`, trả index đầu tiên có value `>=3`. Đáp án là `1`, không phải một vị trí `3` bất kỳ.
+
+#### 1. Bảng state chi tiết
+
+Khoảng tìm kiếm là half-open `[low,high)`: có chứa `low`, không chứa `high`.
+
+| Lượt / current middle | State trước | Điều kiện chính xác | Hành động | State sau | Answer thay đổi |
+| --- | --- | --- | --- | --- | --- |
+| init | chưa có range | boundary có thể là từ 0 đến `n` | `low=0`, `high=4` | candidate range `[0,4)` | chưa chốt |
+| 1: `middle=2`, value 3 | `[0,4)` | `values[2] >= 3` → `3>=3` true | Giữ middle làm ứng viên; `high=2` | `[0,2)` | candidate boundary không thể ở sau 2 |
+| 2: `middle=1`, value 3 | `[0,2)` | `values[1] >= 3` true | `high=1` | `[0,1)` | candidate không thể ở sau 1 |
+| 3: `middle=0`, value 1 | `[0,1)` | `values[0] >= 3` → `1>=3` false | Loại middle; `low=0+1=1` | `[1,1)` | boundary bị ép tới 1 |
+| dừng | `low=1,high=1` | `low < high` false | `answer=low` | answer 1 | gán kết quả `1` |
+
+Case bắt buộc thứ hai: target `9`. Các middle 2,3 đều false, `low` tiến tới `4`; trả `n=4`, nghĩa là vị trí chèn sau phần tử cuối, không phải lỗi index.
+
+#### 2. Câu hành động bằng tiếng Việt
+
+> Khoảng ứng viên hiện tại đi vào lượt xét → lấy index giữa → kiểm tra value giữa đã `>= target` chưa → nếu đúng, giữ chính middle và bỏ nửa bên phải bằng `high=middle` → nếu sai, bỏ cả middle và nửa trái bằng `low=middle+1` → hai biên tiến lại gần → khi gặp nhau, vị trí gặp là lower bound.
+
+#### 3. Suy ra state
+
+| Thông tin phải sống | Biến | Khởi tạo và lý do |
+| --- | --- | --- |
+| Index nhỏ nhất chưa bị chứng minh false | `low` | `0`, đầu sorted array |
+| Biên loại trừ ngay sau vùng còn xét | `high` | `values.length`, để `n` có thể là đáp án khi mọi value nhỏ hơn target |
+| Điểm đang hỏi predicate | `middle` | Tính lại mỗi iteration từ range hiện tại; không sống sau transition |
+| Kết quả cuối | `answer` | Chỉ tạo `const answer=low` sau loop, vì trước đó boundary chưa duy nhất |
+
+Invariant: mọi index `<low` có value `<target`; boundary đầu tiên thỏa nằm trong miền khép kín logic từ `low` tới `high`, trong đó `high=n` là sentinel hợp lệ.
+
+#### 4. Suy ra loop
+
+- Không có hành động “xử lý từng item” nên bài này **không tạo `for`**; dùng `for` sẽ che mất việc bỏ nửa search space.
+- Hành động lặp có điều kiện “range còn ít nhất một index” trở thành `while (low < high)`.
+- Một `if` chỉ thu hẹp một lần. Với bốn phần tử, sau `middle=2` range vẫn `[0,2)` và chưa biết boundary là 0 hay 1; phải quay lại `while`.
+- Bên trong mỗi lượt, predicate true/false loại trừ nhau nên một `if/else` là đủ.
+
+#### 5. Ánh xạ logic Việt → code
+
+| Logic lower bound | Code |
+| --- | --- |
+| Mở toàn miền ứng viên, kể cả vị trí chèn `n` | `let low=0; let high=values.length;` |
+| Khi hai biên chưa gặp | `while (low < high)` |
+| Lấy giữa mà không tràn theo công thức tổng quát | `const middle=low+Math.floor((high-low)/2);` |
+| Middle thuộc vùng true | `values[middle] >= target` |
+| Giữ middle, bỏ phía sau | `high = middle;` |
+| Middle false nên bỏ cả middle | `low = middle + 1;` |
+| Hai biên gặp tại first true | `const answer = low;` |
+| Trả insertion index | `return answer;` |
+
+#### 6. Dựng code tăng dần
+
+**Function shell**
+
+```js
+function lowerBoundReconstructed(values, target) {
+}
+```
+
+**State + initialization**
+
+```js
+let low = 0;
+let high = values.length;
+```
+
+**Main loop:** `while (low < high) {}`. Không thêm `for` vì current không phải item tuần tự.
+
+**Current item:**
+
+```js
+const middle = low + Math.floor((high - low) / 2);
+const currentValue = values[middle];
+```
+
+**Condition:** `if (currentValue >= target)`. **Transition:** nhánh true `high=middle`; nhánh false `low=middle+1`.
+
+**Answer update:** chưa gán output trong loop; range mới là state đang được cập nhật. **Cleanup:** không có pending item. **Return:** sau loop, tạo `const answer=low; return answer;`.
+
+#### 7. Block scope
+
+| Block | Vị trí đúng | Nếu chuyển sai |
+| --- | --- | --- |
+| `low`, `high` | Trước `while` | Khai báo trong loop reset range, không hội tụ |
+| Tính `middle`, `currentValue` | Trong mỗi iteration | Đặt trước loop giữ midpoint cũ sau khi range đổi |
+| Predicate | Sau khi có middle | Đọc `values[high]` có thể đọc `values[n]`; phải đọc middle thuộc `[low,high)` |
+| Boundary transition | Trong đúng nhánh | `high=middle-1` trộn closed convention và có thể bỏ first true; `low=middle` có thể không tiến |
+| Tạo answer | Sau loop | Gán/return ngay khi equal có thể trả duplicate ở giữa |
+| Return | Sau `while` | Return trong nhánh false/true kết thúc sau một phép chia đôi |
+
+#### 8. Code hoàn chỉnh và mọi lần state/output được gán
+
+```js
+function lowerBoundReconstructed(values, target) {
+  let low = 0;
+  let high = values.length;
+
+  while (low < high) {
+    const middle = low + Math.floor((high - low) / 2);
+    const currentValue = values[middle];
+    if (currentValue >= target) {
+      high = middle;
+    } else {
+      low = middle + 1;
+    }
+  }
+
+  const answer = low;
+  return answer;
+}
+```
+
+| Thời điểm | Phép gán | State/kết quả |
+| --- | --- | --- |
+| initialization | `low=0`, `high=4` | `[0,4)` |
+| lượt 1 | `middle=2`; true nên `high=2` | `[0,2)` |
+| lượt 2 | `middle=1`; true nên `high=1` | `[0,1)` |
+| lượt 3 | `middle=0`; false nên `low=1` | `[1,1)` |
+| sau loop | `answer=low=1` | output duy nhất được gán là `1` |
+
+#### 9. Các implementation sai
+
+| Sai | Failing input | Lượt state sai đầu tiên | Nguyên nhân | Block sửa |
+| --- | --- | --- | --- | --- |
+| `if (value===target) return middle` | `[1,3,3,3,7]`, target 3 | lượt đầu `middle=2`, trả 2 | Exact match chưa chứng minh là occurrence đầu | Với `value>=target`, giữ tìm trái bằng `high=middle`; chỉ return sau loop |
+| Khởi tạo `high=n-1` nhưng vẫn dùng half-open `low<high` | `[1,3,7]`, target 9 | init range `[0,2)` đã loại index 2/sentinel 3; kết thúc trả 2 | Trộn closed và half-open conventions | Half-open block: `high=values.length`, true `high=middle`, false `low=middle+1` |
+| Nhánh false dùng `low=middle` | `[1,3]`, target 3 | range `[0,1)`, middle 0 false nhưng low vẫn 0 | Range không nhỏ đi, infinite loop | `low = middle + 1` vì middle đã được chứng minh false |
+| Dùng `while (low <= high)` với `high=n` | `[1]`, target 2 | sau low=1, loop vẫn chạy với middle 1 và đọc `values[1]` undefined | Closed-loop condition không khớp half-open sentinel | Giữ `while (low < high)` |
+
+#### 10. Ba bài reconstruction
+
+1. **Từ mapping:** dựng function từ mục 5 và ghi `T/F` lên hai miền mà mỗi assignment loại bỏ.
+2. **Từ hành động Việt:** chỉ đọc mục 2; tự đặt ngoặc để middle được tính lại sau mỗi lần biên đổi. Dry run target 3 và 9.
+3. **Từ đề:** chỉ đọc “index đầu tiên có value `>=target`, array sorted”. Tự chọn interval convention, viết invariant, rồi code; test duplicate, input rỗng và target lớn hơn mọi value.
+
 ## `[BS-03]` — Upper bound và last true
 
 ### Core — hai boundary đối ngẫu

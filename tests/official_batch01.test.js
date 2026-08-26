@@ -19,12 +19,16 @@ test("OF015 — cắt theo chỉ số 1-based, sort số và lấy rank", () => 
   );
   assert.deepEqual(kthNumbers([10], [[1, 1, 1]]), [10]);
   assert.deepEqual(kthNumbers([10, 2, 1], [[1, 3, 2]]), [2]);
+  const original = [4, 1, 3, 2];
+  kthNumbers(original, [[1, 4, 2]]);
+  assert.deepEqual(original, [4, 1, 3, 2]);
 });
 
 test("OF049 — command phải rollback toàn bộ nếu một bước invalid", () => {
   assert.deepEqual(parkWalk(["SOO", "OOO", "OOO"], ["E 2", "S 2", "W 1"]), [2, 1]);
   assert.deepEqual(parkWalk(["SOO", "OXX", "OOO"], ["E 2", "S 1"]), [0, 2]);
   assert.deepEqual(parkWalk(["OSO", "OOO"], ["N 1", "W 1"]), [0, 0]);
+  assert.deepEqual(parkWalk(["SOOX", "OOOO"], ["E 3", "S 1"]), [1, 0]);
 });
 
 test("OF051 — lấy một doll mỗi move, mutate ô về 0 và pop cặp", () => {

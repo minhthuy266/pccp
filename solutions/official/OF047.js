@@ -18,7 +18,9 @@ function roomCount(arrows) {
         ? `${currentKey}|${nextKey}`
         : `${nextKey}|${currentKey}`;
 
-      if (visitedNodes.has(nextKey) && !visitedEdges.has(edgeKey)) rooms++;
+      if (visitedNodes.has(nextKey) && !visitedEdges.has(edgeKey)) {
+        rooms += 1;
+      }
       visitedNodes.add(nextKey);
       visitedEdges.add(edgeKey);
       x = nextX;

@@ -11,21 +11,24 @@ function targetProcessOrder(priorities, location) {
   }
 
   while (head < queue.length) {
-    const process = queue[head++];
+    const process = queue[head];
+    head += 1;
 
     if (process.priority < highestRemaining) {
       queue.push(process);
       continue;
     }
 
-    remainingByPriority[process.priority]--;
-    executed++;
+    remainingByPriority[process.priority] -= 1;
+    executed += 1;
 
     while (highestRemaining > 0 && remainingByPriority[highestRemaining] === 0) {
-      highestRemaining--;
+      highestRemaining -= 1;
     }
 
-    if (process.index === location) return executed;
+    if (process.index === location) {
+      return executed;
+    }
   }
 
   return -1;

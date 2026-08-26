@@ -12,7 +12,9 @@ function vowelDictionaryRank(word) {
         answer = rank;
         return true;
       }
-      if (next.length < 5 && dfs(next)) return true;
+      if (next.length < 5 && dfs(next)) {
+        return true;
+      }
     }
     return false;
   }

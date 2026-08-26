@@ -15,6 +15,11 @@ test("OF050 — swap order và cập nhật cả hai index", () => {
     ["mumu", "kai", "mine", "soe", "poe"],
   );
   assert.deepEqual(finalRunningOrder(["a", "b", "c"], ["b", "c"]), ["b", "c", "a"]);
+  assert.deepEqual(finalRunningOrder(["a", "b", "c"], ["c", "c"]), ["c", "a", "b"]);
+
+  const players = ["a", "b"];
+  finalRunningOrder(players, ["b"]);
+  assert.deepEqual(players, ["a", "b"]);
 });
 
 test("OF009 — re-enqueue giữ original index và priority state", () => {
@@ -38,8 +43,12 @@ test("OF012 — min-heap giữ root nhỏ nhất qua push/pop", () => {
 });
 
 test("OF012 — luôn trộn hai phần tử nhỏ nhất và phát hiện impossible", () => {
-  assert.equal(minimumScovilleMixes([1, 2, 3, 9, 10, 12], 7), 2);
+  const scoville = [1, 2, 3, 9, 10, 12];
+
+  assert.equal(minimumScovilleMixes(scoville, 7), 2);
   assert.equal(minimumScovilleMixes([7, 8], 7), 0);
   assert.equal(minimumScovilleMixes([1], 7), -1);
   assert.equal(minimumScovilleMixes([1, 1], 10), -1);
+  assert.equal(minimumScovilleMixes([1, 1], 3), 1);
+  assert.deepEqual(scoville, [1, 2, 3, 9, 10, 12]);
 });

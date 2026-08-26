@@ -6,12 +6,16 @@ function itemPickupDistance(rectangles, characterX, characterY, itemX, itemY) {
 
   for (const [x1, y1, x2, y2] of rectangles) {
     for (let row = y1 * 2; row <= y2 * 2; row++) {
-      for (let column = x1 * 2; column <= x2 * 2; column++) board[row][column] = 1;
+      for (let column = x1 * 2; column <= x2 * 2; column++) {
+        board[row][column] = 1;
+      }
     }
   }
   for (const [x1, y1, x2, y2] of rectangles) {
     for (let row = y1 * 2 + 1; row < y2 * 2; row++) {
-      for (let column = x1 * 2 + 1; column < x2 * 2; column++) board[row][column] = 0;
+      for (let column = x1 * 2 + 1; column < x2 * 2; column++) {
+        board[row][column] = 0;
+      }
     }
   }
 
@@ -24,15 +28,20 @@ function itemPickupDistance(rectangles, characterX, characterY, itemX, itemY) {
   distance[start[0]][start[1]] = 0;
 
   while (head < queue.length) {
-    const [row, column] = queue[head++];
-    if (row === targetRow && column === targetColumn) return distance[row][column] / 2;
+    const [row, column] = queue[head];
+    head += 1;
+    if (row === targetRow && column === targetColumn) {
+      return distance[row][column] / 2;
+    }
     for (const [deltaRow, deltaColumn] of BORDER_DIRECTIONS) {
       const nextRow = row + deltaRow;
       const nextColumn = column + deltaColumn;
       if (
         nextRow < 0 || nextRow >= SIZE || nextColumn < 0 || nextColumn >= SIZE ||
         board[nextRow][nextColumn] !== 1 || distance[nextRow][nextColumn] !== -1
-      ) continue;
+      ) {
+        continue;
+      }
       distance[nextRow][nextColumn] = distance[row][column] + 1;
       queue.push([nextRow, nextColumn]);
     }

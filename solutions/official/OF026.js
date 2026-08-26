@@ -8,7 +8,9 @@ function joystickMinimumMoves(name) {
     verticalMoves += Math.min(alphabetIndex, 26 - alphabetIndex);
 
     let next = index + 1;
-    while (next < length && name[next] === "A") next++;
+    while (next < length && name[next] === "A") {
+      next += 1;
+    }
 
     horizontalMoves = Math.min(
       horizontalMoves,
