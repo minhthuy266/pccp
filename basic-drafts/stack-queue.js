@@ -390,3 +390,205 @@ console.log(combineSlidingWindow(['A','B','C','A','D','A'], 2))
 
 
 
+function solutionTruck(bridge_length, weight, truck_weights) {
+  let time = 0;
+  let truckOnBridge = [];
+  let truckQueue = truck_weights;
+  let headQueue = 0;
+  let bridgeWeight = 0;
+
+  while (truckOnBridge.length > 0 || headQueue < truckQueue.length) {
+    time++;
+
+    if (truckOnBridge[0]?.exitTime === time) {
+      // xe ra
+      const leavingTruck = truckOnBridge.shift();
+      bridgeWeight -= leavingTruck.current;
+    }
+
+    if (headQueue < truckQueue.length) {
+      // nhìn xe
+      const hasSpace = truckOnBridge.length < bridge_length;
+      const canCarry = bridgeWeight + truckQueue[headQueue] <= weight;
+
+      if (hasSpace && canCarry) {
+        truckOnBridge.push({
+          current: truckQueue[headQueue],
+          exitTime: time + bridge_length,
+        });
+        bridgeWeight += truckQueue[headQueue];
+        // xe vào
+        headQueue++;
+      }
+    }
+  }
+
+  // RETURN
+  return time;
+}
+
+console.log(solutionTruck(2, 10, [7, 4, 5, 6]));
+
+const solutionTruck2 = (bridge_length, weight, truck_weights) => {
+  let time = 0;
+  let truckOnBridge = [];
+  let truckQueue = truck_weights;
+  let head = 0;
+  let bridgeWeight = 0;
+
+  while (truckOnBridge.length > 0 || head < truckQueue.length) {
+    time++;
+
+    if (truckOnBridge.length > 0 && truckOnBridge[0].exitTime === time) {
+      const leavingTruck = truckOnBridge.shift();
+      bridgeWeight -= leavingTruck.current;
+    }
+
+    if (head < truckQueue.length) {
+      const canCarry = truckQueue[head] + bridgeWeight < weight;
+      const hasSpace = truckOnBridge.length < bridge_length;
+
+      if (canCarry && hasSpace) {
+        truckOnBridge.push({
+          current: truckQueue[head],
+          exitTime: time + bridge_length,
+        });
+
+        bridgeWeight += truckQueue[head];
+        head++;
+      }
+    }
+  }
+
+  return time;
+};
+
+console.log(solutionTruck2(2, 10, [7, 4, 5, 6]));
+
+const solutionTruck3 = (bridge_length, weight, truck_weights) => {
+  let time = 0;
+  let truckOnBridge = [];
+  let headBridge = 0;
+  let headQueue = 0;
+  let bridgeWeight = 0;
+
+  while (
+    headBridge < truckOnBridge.length ||
+    headQueue < truck_weights.length
+  ) {
+    // EXIT
+    time++;
+
+    if (headBridge < truckOnBridge.length) {
+      if (truckOnBridge[headBridge]?.exitTime === time) {
+        bridgeWeight -= truckOnBridge[headBridge].current;
+        headBridge++;
+      }
+    }
+
+    if (headQueue < truck_weights.length) {
+      const hasSpace = truckOnBridge.length - headQueue < bridge_length;
+      const canCarry = bridgeWeight + truck_weights[headQueue] <= weight;
+
+      if (hasSpace && canCarry) {
+        truckOnBridge.push({
+          current: truck_weights[headQueue],
+          exitTime: time + bridge_length,
+        });
+
+        bridgeWeight += truck_weights[headQueue];
+        headQueue++;
+      }
+    }
+  }
+
+  return time;
+};
+
+console.log(solutionTruck3(2, 10, [7, 4, 5, 6]));
+
+const solutionTruck4 = (bridge_length, weight, truck_weights) => {
+  let time = 0;
+  let truckOnBridge = [];
+  let truckHead = 0;
+  let queueHead = 0;
+  let bridgeWeight = 0;
+
+  while (truckHead < truckOnBridge.length || queueHead < truck_weights.length) {
+    // EXIT
+    time++;
+
+    if (truckHead < truckOnBridge.length) {
+      if (truckOnBridge[truckHead].exitTime === time) {
+        const leavingTruck = truckOnBridge[truckHead].current;
+        bridgeWeight -= leavingTruck;
+        truckHead++;
+      }
+    }
+
+    if (queueHead < truck_weights.length) {
+      const hasSpace = truckOnBridge.length - queueHead < bridge_length;
+      const enterTruck = truck_weights[queueHead];
+      const canCarry = bridgeWeight + truck_weights[queueHead] <= weight;
+
+      if (hasSpace && canCarry) {
+        truckOnBridge.push({
+          current: enterTruck,
+          exitTime: time + bridge_length,
+        });
+
+        bridgeWeight += enterTruck;
+        queueHead++;
+      }
+    }
+  }
+
+  return time;
+};
+
+console.log(solutionTruck4(2, 10, [7, 4, 5, 6]));
+
+
+// const chunk = ["ab", "ab", "cd", "cd"]
+
+const groupChunk = (chunks) => {
+  let group = []
+  let prevChunk = chunks[0]
+  let count = 1
+
+  for (let i = 1; i < chunks.length; i++) {
+    if (prevChunk === chunks[i]) {
+      count++
+    } else {
+      group.push([prevChunk, count])
+      prevChunk = chunks[i]
+      count = 1
+    }
+  }
+
+  group.push([prevChunk, count]);
+
+  return group
+
+}
+
+console.log("GROUP", groupChunk(["ab", "ab", "cd", "cd"]))
+
+const encodeGroup = (group) => {
+  let result = ""
+
+  for (const [chunk, count] of group) {
+    if (count > 1) {
+      result += count
+    }
+
+    result += chunk
+
+    console.log("RESULT", result)
+  }
+
+  return result
+
+}
+
+console.log("encodeGroup", encodeGroup([ [ 'ab', 2 ], [ 'cd', 2 ] ]))
