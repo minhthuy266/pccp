@@ -7,7 +7,8 @@ export function emptyTrainingProgress(userId: string, lesson: ProgressiveLesson)
   return {
     user_id: userId, lesson_id: lesson.id, lesson_version: lesson.version,
     current_step: 1, completed_steps: [], mastery_level: "NEW",
-    full_code_passed: false, variant_passed: false, viewed_solution: false,
+    full_code_passed: false, full_recall_passed: false, debug_passed: false,
+    variant_passed: false, first_full_recall_at: null, viewed_solution: false,
     hint_level_used: 0, attempt_count: 0, draft_answers: {},
     last_reviewed_at: null, next_review_at: null, created_at: now, updated_at: now,
   };
@@ -50,6 +51,7 @@ export type RecordAttemptInput = {
   stepCompleted: boolean;
   testResults?: Json;
   hintLevel: number;
+  viewedSolution: boolean;
   durationMs: number;
   progress: ProgressiveTrainingProgressRow;
   draft: TrainingDraft;
@@ -57,15 +59,18 @@ export type RecordAttemptInput = {
 
 export async function recordTrainingAttempt(input: RecordAttemptInput) {
   if (!supabase) throw new Error("Supabase chưa được cấu hình");
-  const stepNumber = input.lesson.steps.findIndex((step) => step.type === input.stepType) + 1;
+  const sequence = input.lesson.levels ?? input.lesson.steps ?? [];
+  const stepNumber = sequence.findIndex((step) => step.type === input.stepType) + 1;
+  if (stepNumber === 0) throw new Error(`Unknown training level: ${input.stepType}`);
   const completed = input.stepCompleted
     ? [...new Set([...input.progress.completed_steps, stepNumber])].sort((a, b) => a - b)
     : input.progress.completed_steps;
-  const currentStep = input.stepCompleted ? Math.min(5, Math.max(input.progress.current_step, stepNumber + 1)) : input.progress.current_step;
-  const fullCodePassed = input.progress.full_code_passed || (input.stepType === "FULL_CODE" && input.stepCompleted);
-  const variantPassed = input.progress.variant_passed || (input.stepType === "VARIANT" && input.stepCompleted);
-  const nextReview = variantPassed ? new Date(Date.now() + 3 * 86_400_000).toISOString() : null;
-  const { data, error } = await supabase.rpc("record_progressive_training_attempt", {
+  const currentStep = input.stepCompleted ? Math.min(6, Math.max(input.progress.current_step, stepNumber + 1)) : input.progress.current_step;
+  const fullRecallPassed = input.progress.full_recall_passed || (["FULL_CODE", "FULL_RECALL"].includes(input.stepType) && input.stepCompleted);
+  const challengeKind = input.answer && typeof input.answer === "object" && !Array.isArray(input.answer) ? input.answer.challengeKind : undefined;
+  const debugPassed = input.progress.debug_passed || (input.stepType === "DEBUG_VARIANT" && input.passed && challengeKind === "DEBUG");
+  const variantPassed = input.progress.variant_passed || ((input.stepType === "VARIANT" && input.stepCompleted) || (input.stepType === "DEBUG_VARIANT" && input.passed && challengeKind === "VARIANT"));
+  const { data, error } = await supabase.rpc("record_progressive_training_attempt_v2", {
     p_attempt_id: input.attemptId,
     p_lesson_id: input.lesson.id,
     p_lesson_version: input.lesson.version,
@@ -75,13 +80,13 @@ export async function recordTrainingAttempt(input: RecordAttemptInput) {
     p_test_results: input.testResults ?? [],
     p_hint_level_used: input.hintLevel,
     p_duration_ms: Math.max(0, Math.round(input.durationMs)),
-    p_current_step: currentStep,
-    p_completed_steps: completed,
-    p_full_code_passed: fullCodePassed,
+    p_current_level: currentStep,
+    p_completed_levels: completed,
+    p_full_recall_passed: fullRecallPassed,
+    p_debug_passed: debugPassed,
     p_variant_passed: variantPassed,
-    p_viewed_solution: input.progress.viewed_solution,
+    p_viewed_solution: input.viewedSolution,
     p_draft_answers: input.draft as Json,
-    p_next_review_at: nextReview,
   });
   if (error) throw error;
   return data;

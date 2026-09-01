@@ -17,6 +17,8 @@ export function useProgressiveTraining(userId: string | undefined, lesson: Progr
   const progressRef = useRef(progress);
   const draftRef = useRef(draft);
   const pendingAttemptId = useRef<string | null>(null);
+  const attemptHintLevel = useRef(0);
+  const attemptViewedSolution = useRef(false);
   const startedAt = useRef(Date.now());
   progressRef.current = progress;
   draftRef.current = draft;
@@ -26,7 +28,7 @@ export function useProgressiveTraining(userId: string | undefined, lesson: Progr
     setLoading(true); setError("");
     try {
       const next = await loadTrainingProgress(userId, lesson);
-      setProgress(next);
+      setProgress(next); attemptHintLevel.current = 0; attemptViewedSolution.current = false;
       setDraft((next.draft_answers && typeof next.draft_answers === "object" && !Array.isArray(next.draft_answers) ? next.draft_answers : {}) as TrainingDraft);
     } catch (cause) { setError(trainingErrorMessage(cause, "Không tải được tiến độ")); }
     finally { setLoading(false); }
@@ -53,6 +55,8 @@ export function useProgressiveTraining(userId: string | undefined, lesson: Progr
   }, [persist]);
 
   const markHelp = useCallback(async (hintLevel: number, viewedSolution = false) => {
+    attemptHintLevel.current = Math.max(attemptHintLevel.current, hintLevel);
+    attemptViewedSolution.current ||= viewedSolution;
     const current = progressRef.current;
     if (current) {
       const next = { ...current, hint_level_used: Math.max(current.hint_level_used, hintLevel), viewed_solution: current.viewed_solution || viewedSolution };
@@ -70,11 +74,13 @@ export function useProgressiveTraining(userId: string | undefined, lesson: Progr
     try {
       const saved = await recordTrainingAttempt({
         attemptId: pendingAttemptId.current, lesson, stepType, answer, passed, stepCompleted, testResults,
-        hintLevel: current.hint_level_used, durationMs: Date.now() - startedAt.current,
+        hintLevel: attemptHintLevel.current, viewedSolution: attemptViewedSolution.current,
+        durationMs: Date.now() - startedAt.current,
         progress: current, draft: draftRef.current,
       });
       pendingAttemptId.current = null;
       setProgress(saved); setSaveStatus("saved"); startedAt.current = Date.now();
+      if (stepCompleted) { attemptHintLevel.current = 0; attemptViewedSolution.current = false; }
       return saved;
     } catch (cause) {
       setSaveStatus("error"); setError(trainingErrorMessage(cause, "Không lưu được kết quả; input vẫn được giữ để thử lại"));

@@ -1,4 +1,10 @@
-import { assertProgressiveLessons, type ProgressiveLesson } from "./types";
+import { assertProgressiveLessons, type BlueprintField, type LearningLevels, type ProgressiveLesson, type TransferChallenge } from "./types";
+import { p0a1Lessons } from "./lessons.p0a1";
+import { p0a2Lessons } from "./lessons.p0a2";
+import { p0a3Lessons } from "./lessons.p0a3";
+import { priorityD10Lessons } from "./lessons.priority-d10";
+import { priorityD11D12Lessons } from "./lessons.priority-d11d12";
+import { progressiveProblemStatements } from "./problemStatements";
 
 const takeSkipSolution = `function countTargetWays(numbers, target) {
   function dfs(index, sum) {
@@ -32,9 +38,95 @@ const assignmentSolution = `function maximizeAssignment(scores) {
   return best;
 }`;
 
+const takeSkipTests = [
+  { label: "sample", expression: "countTargetWays([1, 2, 3], 3)", expected: "2" },
+  { label: "empty choice", expression: "countTargetWays([2, 4], 0)", expected: "1" },
+  { label: "duplicates are distinct indices", expression: "countTargetWays([1, 1, 1], 2)", expected: "3" },
+  { label: "impossible", expression: "countTargetWays([5, 6], 4)", expected: "0" },
+];
+
+const assignmentTests = [
+  { label: "greedy trap", expression: "maximizeAssignment([[9,8],[8,1]])", expected: "16" },
+  { label: "three positions", expression: "maximizeAssignment([[5,1,4],[2,8,3],[6,7,9]])", expected: "22" },
+  { label: "single", expression: "maximizeAssignment([[-3]])", expected: "-3" },
+  { label: "all negative", expression: "maximizeAssignment([[-1,-4],[-2,-3]])", expected: "-4" },
+];
+
+const takeSkipBlueprint: BlueprintField[] = [
+  { id: "STATE", label: "STATE", prompt: "Mỗi lời gọi cần giữ state nào?", canonical: "index hiện tại và tổng sum đã chọn", acceptedKeywords: [["index", "sum"], ["chỉ số", "tổng"]] },
+  { id: "BASE_CASE", label: "BASE CASE", prompt: "Khi nào dừng và trả gì?", canonical: "index === numbers.length; trả 1 nếu sum === target, ngược lại 0", acceptedKeywords: [["length", "target"], ["hết", "target"]] },
+  { id: "CHOICES", label: "CHOICES", prompt: "Tại mỗi index có những choice nào?", canonical: "skip current hoặc take current", acceptedKeywords: [["skip", "take"], ["bỏ", "lấy"]] },
+  { id: "TRANSITION", label: "TRANSITION", prompt: "State đổi thế nào sau mỗi choice?", canonical: "đều sang index + 1; nhánh take cộng numbers[index] vào sum", acceptedKeywords: [["index + 1", "sum"], ["chỉ số", "1", "tổng"]] },
+  { id: "ANSWER", label: "ANSWER", prompt: "Hai nhánh được ghép thành đáp án thế nào?", canonical: "cộng số cách của skip và take", acceptedKeywords: [["cộng", "skip", "take"], ["tổng", "hai nhánh"]] },
+  { id: "INVARIANT", label: "INVARIANT", prompt: "Invariant của dfs(index, sum) là gì?", canonical: "sum là tổng choices của prefix [0,index)", acceptedKeywords: [["sum", "prefix"], ["tổng", "trước index"]] },
+  { id: "COMPLEXITY", label: "COMPLEXITY", prompt: "Độ phức tạp worst-case?", canonical: "O(2^n) time, O(n) call stack", acceptedKeywords: [["2^n", "o(n)"], ["2 n", "stack"]] },
+];
+
+const assignmentBlueprint: BlueprintField[] = [
+  { id: "STATE", label: "STATE", prompt: "Depth và accumulated state là gì?", canonical: "position, total, used[] và best", acceptedKeywords: [["position", "total", "used"], ["vị trí", "tổng", "used"]] },
+  { id: "BASE_CASE", label: "BASE CASE", prompt: "Khi nào một assignment hoàn chỉnh?", canonical: "position === n; update best bằng total", acceptedKeywords: [["position", "n", "best"], ["vị trí", "n", "best"]] },
+  { id: "CHOICES", label: "CHOICES", prompt: "Choice hợp lệ ở mỗi position?", canonical: "mọi candidate chưa được used", acceptedKeywords: [["candidate", "used"], ["ứng viên", "chưa dùng"]] },
+  { id: "TRANSITION", label: "TRANSITION", prompt: "Choose và explore thay đổi gì?", canonical: "mark candidate, dfs(position + 1, total + score)", acceptedKeywords: [["mark", "position + 1", "total"], ["đánh dấu", "vị trí", "tổng"]] },
+  { id: "RESTORE", label: "RESTORE", prompt: "State mutable phải khôi phục gì?", canonical: "used[candidate] = false ngay sau recursive call", acceptedKeywords: [["used", "false"], ["bỏ đánh dấu", "sau"]] },
+  { id: "ANSWER", label: "ANSWER", prompt: "Output được tích lũy ở đâu?", canonical: "best là maximum total ở mọi lá", acceptedKeywords: [["best", "maximum"], ["best", "lớn nhất"]] },
+  { id: "INVARIANT", label: "INVARIANT", prompt: "Invariant của used[]?", canonical: "used[] đúng chính xác các candidate trên path hiện tại", acceptedKeywords: [["used", "path"], ["used", "nhánh hiện tại"]] },
+  { id: "COMPLEXITY", label: "COMPLEXITY", prompt: "Độ phức tạp worst-case?", canonical: "O(n!) time, O(n) recursion/state", acceptedKeywords: [["n!", "o(n)"], ["giai thừa", "stack"]] },
+];
+
+const logicByLesson: Record<string, { id: string; text: string }[]> = {
+  "PT-DFS-TAKE-SKIP": [
+    { id: "open", text: "Khai báo dfs(index, sum)" }, { id: "base", text: "Nếu đã xét hết index, kiểm tra sum với target" },
+    { id: "skip", text: "Gọi nhánh bỏ current" }, { id: "take", text: "Gọi nhánh lấy current" },
+    { id: "combine", text: "Cộng số cách của hai nhánh" }, { id: "call", text: "Gọi dfs từ index 0, sum 0 và trả đáp án" },
+  ],
+  "PT-BT-ASSIGNMENT": [
+    { id: "setup", text: "Khởi tạo used[] và best" }, { id: "dfs", text: "Khai báo dfs(position, total)" },
+    { id: "base", text: "Nếu đủ position, cập nhật best rồi return" }, { id: "loop", text: "Duyệt mọi candidate và bỏ qua candidate đã dùng" },
+    { id: "choose", text: "Mark candidate" }, { id: "explore", text: "Recurse sang position tiếp theo" },
+    { id: "restore", text: "Restore used[candidate]" }, { id: "call", text: "Gọi dfs ban đầu" }, { id: "answer", text: "Trả best" },
+  ],
+};
+
+function debugChallenges(lesson: ProgressiveLesson): TransferChallenge[] {
+  if (lesson.id === "PT-DFS-TAKE-SKIP") return [
+    { kind: "DEBUG", id: "debug-base-boundary", title: "Debug base case off-by-one", change: "Starter dừng trước khi xử lý phần tử cuối. Sửa boundary để mọi index được quyết định.", functionSignature: lesson.functionSignature, starterCode: takeSkipSolution.replace("index === numbers.length", "index === numbers.length - 1"), solution: takeSkipSolution, tests: takeSkipTests },
+    { kind: "DEBUG", id: "debug-take-transition", title: "Debug transition nhánh take", change: "Starter cộng hằng số 1 thay vì current value. Sửa transition theo đúng state.", functionSignature: lesson.functionSignature, starterCode: takeSkipSolution.replace("sum + numbers[index]", "sum + 1"), solution: takeSkipSolution, tests: takeSkipTests },
+  ];
+  return [
+    { kind: "DEBUG", id: "debug-missing-restore", title: "Debug thiếu restore", change: "Starter giữ used[] của nhánh trước. Khôi phục mutable state ngay sau recursive call.", functionSignature: lesson.functionSignature, starterCode: assignmentSolution.replace("      used[candidate] = false;", "      // missing restore"), solution: assignmentSolution, tests: assignmentTests },
+    { kind: "DEBUG", id: "debug-base-depth", title: "Debug base case sai depth", change: "Starter update best sớm một position. Sửa boundary của assignment hoàn chỉnh.", functionSignature: lesson.functionSignature, starterCode: assignmentSolution.replace("position === n", "position === n - 1"), solution: assignmentSolution, tests: assignmentTests },
+  ];
+}
+
+function buildLearningLevels(lesson: ProgressiveLesson): LearningLevels {
+  const legacySteps = lesson.steps!;
+  const pattern = legacySteps[0]; const ordering = legacySteps[1]; const full = legacySteps[3];
+  const logicItems = logicByLesson[lesson.id];
+  const orderedBlocks = ordering.correctOrder.map((id) => ordering.blocks.find((block) => block.id === id)!);
+  const writingBlocks = orderedBlocks.map((block, index) => ({
+    id: block.id,
+    subgoal: logicItems[Math.min(index, logicItems.length - 1)]?.text ?? block.id,
+    prompt: `Tự viết toàn bộ block “${block.id}”; không điền một token rời.`,
+    starterCode: "",
+    canonicalCode: block.code,
+    dependencies: index ? [orderedBlocks[index - 1].id] : [],
+  }));
+  const blueprint = lesson.id === "PT-DFS-TAKE-SKIP" ? takeSkipBlueprint : assignmentBlueprint;
+  const variants = legacySteps[4].challenges.map((challenge): TransferChallenge => ({ ...challenge, kind: "VARIANT" }));
+  return [
+    { type: "PATTERN_BLUEPRINT", prompt: pattern.prompt, options: pattern.options, correctOptionId: pattern.correctOptionId, blueprint },
+    { type: "LOGIC_ORDERING", prompt: "Sắp xếp subgoal tiếng Việt trước khi nhìn code.", items: logicItems, correctOrder: logicItems.map((item) => item.id), canonicalOnly: true },
+    { type: "CODE_BLOCK_ORDERING", prompt: ordering.prompt, blocks: ordering.blocks, correctOrder: ordering.correctOrder, canonicalOnly: true, tests: ordering.tests },
+    { type: "BLOCK_WRITING", prompt: "Viết từng block theo subgoal; hệ thống sẽ ghép source thật và chạy tests.", blocks: writingBlocks, tests: full.tests },
+    { type: "FULL_RECALL", prompt: "Viết toàn bộ hàm từ trang trắng. Chỉ mở đúng mức hint thật sự cần.", solution: full.solution, tests: full.tests, hints: [lesson.basePattern, blueprint.map((field) => `${field.id}: ${field.canonical}`).join("\n"), logicItems.map((item) => item.text).join("\n"), `function ${lesson.functionSignature} {\n  // core logic\n}`, full.solution] },
+    { type: "DEBUG_VARIANT", prompt: "Sửa bug thật và chuyển cùng core sang contract khác.", challenges: [...debugChallenges(lesson), ...variants] },
+  ];
+}
+
 const lessons: ProgressiveLesson[] = [
   {
     id: "PT-DFS-TAKE-SKIP",
+    familyId: "F11",
     slug: "dfs-take-skip-target-count",
     title: "DFS lấy/bỏ — đếm số cách đạt target",
     priority: "P0",
@@ -44,7 +136,7 @@ const lessons: ProgressiveLesson[] = [
     functionSignature: "countTargetWays(numbers, target)",
     officialSources: ["OF036 — Số mục tiêu", "BTD-04 — subset generation"],
     status: "ACTIVE",
-    version: 1,
+    version: 2,
     steps: [
       {
         type: "PATTERN_CHOICE",
@@ -70,6 +162,8 @@ const lessons: ProgressiveLesson[] = [
           { id: "close", code: "}" },
         ],
         correctOrder: ["open", "base", "skip", "take", "combine", "return", "close"],
+        canonicalOnly: true,
+        tests: takeSkipTests,
       },
       {
         type: "CODE_FILL",
@@ -94,12 +188,7 @@ const lessons: ProgressiveLesson[] = [
         prompt: "Tự viết toàn bộ hàm từ signature. Cần pass tất cả test, không chỉ sample.",
         starterCode: "function countTargetWays(numbers, target) {\n  // Viết DFS take/skip từ trí nhớ\n}",
         solution: takeSkipSolution,
-        tests: [
-          { label: "sample", expression: "countTargetWays([1, 2, 3], 3)", expected: "2" },
-          { label: "empty choice", expression: "countTargetWays([2, 4], 0)", expected: "1" },
-          { label: "duplicates are distinct indices", expression: "countTargetWays([1, 1, 1], 2)", expected: "3" },
-          { label: "impossible", expression: "countTargetWays([5, 6], 4)", expected: "0" },
-        ],
+        tests: takeSkipTests,
       },
       {
         type: "VARIANT",
@@ -149,6 +238,7 @@ const lessons: ProgressiveLesson[] = [
   },
   {
     id: "PT-BT-ASSIGNMENT",
+    familyId: "F11",
     slug: "backtracking-assignment-max",
     title: "Backtracking phân công — tìm tổng lớn nhất",
     priority: "P0",
@@ -158,7 +248,7 @@ const lessons: ProgressiveLesson[] = [
     functionSignature: "maximizeAssignment(scores)",
     officialSources: ["M1Q2 — Đại hội thể thao", "OF022 — backtracking restore visited"],
     status: "ACTIVE",
-    version: 1,
+    version: 2,
     steps: [
       {
         type: "PATTERN_CHOICE",
@@ -182,9 +272,13 @@ const lessons: ProgressiveLesson[] = [
           { id: "loop", code: "for (let candidate = 0; candidate < n; candidate++) {\n  if (used[candidate]) continue;" },
           { id: "base", code: "if (position === n) {\n  best = Math.max(best, total);\n  return;\n}" },
           { id: "dfs", code: "function dfs(position, total) {" },
-          { id: "close", code: "  }\n}\n}" },
+          { id: "close-loop", code: "}" },
+          { id: "close-dfs", code: "}" },
+          { id: "close", code: "}" },
         ],
-        correctOrder: ["open", "setup", "dfs", "base", "loop", "choose", "close", "call"],
+        correctOrder: ["open", "setup", "dfs", "base", "loop", "choose", "close-loop", "close-dfs", "call", "close"],
+        canonicalOnly: true,
+        tests: assignmentTests,
       },
       {
         type: "CODE_FILL",
@@ -217,12 +311,7 @@ const lessons: ProgressiveLesson[] = [
         prompt: "Tự viết toàn bộ assignment backtracking và pass test có greedy trap.",
         starterCode: "function maximizeAssignment(scores) {\n  // DFS theo position, nhớ rollback used[]\n}",
         solution: assignmentSolution,
-        tests: [
-          { label: "greedy trap", expression: "maximizeAssignment([[9,8],[8,1]])", expected: "16" },
-          { label: "three positions", expression: "maximizeAssignment([[5,1,4],[2,8,3],[6,7,9]])", expected: "22" },
-          { label: "single", expression: "maximizeAssignment([[-3]])", expected: "-3" },
-          { label: "all negative", expression: "maximizeAssignment([[-1,-4],[-2,-3]])", expected: "-4" },
-        ],
+        tests: assignmentTests,
       },
       {
         type: "VARIANT",
@@ -289,5 +378,8 @@ const lessons: ProgressiveLesson[] = [
   },
 ];
 
-export const progressiveLessons = assertProgressiveLessons(lessons);
+const upgradedLegacyLessons = lessons.map((lesson) => ({ ...lesson, version: 3, levels: buildLearningLevels(lesson) }));
+const lessonInventory = [...p0a1Lessons, ...p0a2Lessons, ...p0a3Lessons, ...priorityD10Lessons, ...priorityD11D12Lessons, ...upgradedLegacyLessons]
+  .map((lesson) => ({ ...lesson, problem: progressiveProblemStatements[lesson.id] }));
+export const progressiveLessons = assertProgressiveLessons(lessonInventory);
 export const progressiveLessonById = new Map(progressiveLessons.map((lesson) => [lesson.id, lesson]));

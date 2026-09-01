@@ -51,7 +51,19 @@ Flow review cũ vẫn hoạt động local-first khi chưa cấu hình cloud. Đ
 ```text
 supabase/migrations/20260822000000_create_review_stores.sql
 supabase/migrations/20260901000000_create_progressive_training.sql
+supabase/migrations/20260901010000_upgrade_progressive_six_levels.sql
+supabase/migrations/20260901020000_reload_progressive_rpc_schema.sql
 ```
+
+Nếu gặp `PGRST202` cho `record_progressive_training_attempt_v2`, kiểm tra trong SQL Editor trước:
+
+```sql
+select to_regprocedure(
+  'public.record_progressive_training_attempt_v2(uuid,text,integer,text,jsonb,boolean,jsonb,smallint,integer,smallint,smallint[],boolean,boolean,boolean,boolean,jsonb)'
+);
+```
+
+Nếu kết quả là `null`, apply file `20260901010000_upgrade_progressive_six_levels.sql` đúng một lần. Nếu function đã tồn tại, không chạy lại migration chuyển đổi dữ liệu; chỉ chạy `notify pgrst, 'reload schema';` (nội dung file `20260901020000`) rồi tải lại app.
 3. Trong Authentication → URL Configuration, đặt Site URL là domain deploy và thêm cả URL local/deploy vào Redirect URLs, ví dụ `http://localhost:5173/**` và `https://your-app.example/**`.
 4. Copy `.env.example` thành `.env.local`, rồi điền Project URL và publishable key:
 
@@ -70,8 +82,10 @@ Trên Vercel, thêm hai biến trên vào Project Settings → Environment Varia
 
 ## Progressive Algorithm Training
 
-Mở `#/training` sau khi đăng nhập. Vertical slice đầu tiên gồm hai lesson P0, mỗi lesson có năm bước: chọn pattern, xếp block, điền code, viết full code và sửa code cho biến thể.
+Mở `#/training` sau khi đăng nhập. Mười ba lesson executable hiện phủ F01–F06 cùng các lesson ưu tiên D10–D12 thuộc F11, F13, F14 và F16; mỗi lesson hiện đề bài đầy đủ gồm contract, input/output, constraints, signature, ví dụ và link đề Programmers chính thức trước khi yêu cầu suy state. Link được ghi rõ là đề exact hay bài official liên quan. Tất cả dùng flow sáu level: Pattern + Blueprint, Logic Ordering, Code Block Ordering, Block Writing, Full Recall từ trang trắng, rồi Debug + Contract Variant. Routing rút gọn deterministic dựa trên bằng chứng đã lưu; fail Full Recall đưa người học về Block Writing.
 
-Progress/draft và attempt của module này được lưu trong `progressive_training_progress` và `progressive_training_attempts`. RPC `record_progressive_training_attempt` ghi attempt và cập nhật progress trong cùng transaction, dùng UUID phía client để retry không tạo attempt trùng. RLS chỉ cho authenticated user đọc/ghi dữ liệu có `user_id = auth.uid()`.
+Trang danh sách không xếp lesson phẳng: lộ trình chia bảy module theo prerequisite gồm representation, linear/Map/Set/sorting, grid/atomic simulation, decision tree/backtracking, tree traversal, interval greedy và binary search on answer. Mỗi module hiện tín hiệu nhận dạng pattern, invariant cần giữ và thứ tự bài nên học.
+
+Progress/draft và attempt của module này được lưu trong `progressive_training_progress` và `progressive_training_attempts`. RPC `record_progressive_training_attempt_v2` ghi attempt và cập nhật progress trong cùng transaction, dùng UUID phía client để retry không tạo attempt trùng. RLS chỉ cho authenticated user đọc/ghi dữ liệu có `user_id = auth.uid()`.
 
 Code được chạy trong Web Worker tại browser với timeout hai giây; Supabase không thực thi code người học.
