@@ -4,14 +4,19 @@ export function inferredFunctionName(code: string) {
 
 export function runnerWorkerSource() {
   return `self.onmessage = async ({ data }) => {
-    try {
-      const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-      const result = await new AsyncFunction(data.code + "\\nreturn (" + data.expression + ");")();
-      const actual = JSON.stringify(result, (_, value) => typeof value === "bigint" ? value.toString() + "n" : value);
-      self.postMessage({ ok: true, actual: actual === undefined ? "undefined" : actual });
-    } catch (error) {
-      self.postMessage({ ok: false, error: error && error.message ? error.message : String(error) });
+    const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+    const results = [];
+    for (const item of data.cases) {
+      try {
+        const result = await new AsyncFunction(data.code + "\\nreturn (" + item.expression + ");")();
+        const encoded = JSON.stringify(result, (_, value) => typeof value === "bigint" ? value.toString() + "n" : value);
+        const actual = encoded === undefined ? "undefined" : encoded;
+        results.push({ label: item.label, passed: actual === item.expected, expected: item.expected, actual });
+      } catch (error) {
+        results.push({ label: item.label, passed: false, expected: item.expected, error: error && error.message ? error.message : String(error) });
+      }
     }
+    self.postMessage({ results });
   };`;
 }
 

@@ -52,7 +52,13 @@ export function parseLesson(markdown: string, sourcePath = "unknown.md"): Lesson
   const pattern = patternMeta ?? patternBody.split("\n").find(Boolean)?.replace(/[*`]/g, "").trim() ?? "Chưa phân loại";
   const recall = (level: number) => {
     const match = markdown.match(new RegExp(`^[-*]?\\s*(?:\\*\\*)?Recall\\s*${level}[^:\\n]*:(?:\\*\\*)?\\s*(.+)$`, "im"));
-    if (!match) return "";
+    if (!match) {
+      const short = sections.find((section) => /recall ngắn/i.test(section.heading))?.body ?? "";
+      if (!short) return "";
+      const code = short.match(/```(?:text)?\s*\n([\s\S]*?)```/i)?.[1]?.trim() ?? short;
+      const quote = short.match(/^>\s*(.+)$/m)?.[1]?.trim();
+      return level === 1 ? (quote ?? code.split(/\r?\n/).find((line) => line.trim()) ?? "") : level === 2 ? code : short;
+    }
     const continuation: string[] = [];
     const following = markdown.slice((match.index ?? 0) + match[0].length).split(/\r?\n/).slice(1);
     for (const line of following) {

@@ -1,6 +1,6 @@
 # PCCP Recall
 
-Ứng dụng active-recall tối giản, đọc trực tiếp 67 lesson Markdown chính thức từ `docs/pccp-700-roadmap/official-lessons`. Không có backend; bản nháp và lịch sử được lưu trong trình duyệt.
+Ứng dụng active-recall đọc trực tiếp 67 lesson Markdown chính thức từ `docs/pccp-700-roadmap/official-lessons`. Flow review cũ hoạt động local-first và có thể đồng bộ qua Supabase; module Progressive Algorithm Training dùng Supabase làm nguồn progress/attempt canonical.
 
 ## Cài đặt và chạy
 
@@ -43,10 +43,15 @@ Không xóa key khác của cùng origin.
 
 ## Đồng bộ nhiều thiết bị với Supabase
 
-App vẫn hoạt động local-first khi chưa cấu hình cloud. Để bật đăng nhập email magic link và tự đồng bộ:
+Flow review cũ vẫn hoạt động local-first khi chưa cấu hình cloud. Để bật đăng nhập email/password và tự đồng bộ:
 
 1. Tạo Supabase project.
-2. Mở SQL Editor và chạy toàn bộ file `supabase/migrations/20260822000000_create_review_stores.sql`.
+2. Mở SQL Editor và chạy các migration theo thứ tự:
+
+```text
+supabase/migrations/20260822000000_create_review_stores.sql
+supabase/migrations/20260901000000_create_progressive_training.sql
+```
 3. Trong Authentication → URL Configuration, đặt Site URL là domain deploy và thêm cả URL local/deploy vào Redirect URLs, ví dụ `http://localhost:5173/**` và `https://your-app.example/**`.
 4. Copy `.env.example` thành `.env.local`, rồi điền Project URL và publishable key:
 
@@ -62,3 +67,11 @@ VITE_SUPABASE_PUBLISHABLE_KEY=YOUR_PUBLISHABLE_OR_ANON_KEY
 5. Restart `npm run dev`. Đăng nhập cùng một email trên mọi thiết bị.
 
 Trên Vercel, thêm hai biến trên vào Project Settings → Environment Variables rồi redeploy. Không bao giờ đưa `service_role` hoặc secret key vào app frontend. Khi đăng nhập, app merge lịch sử local/cloud, chọn draft có `updatedAt` mới hơn và tự sync sau khi dữ liệu đổi. Backup JSON vẫn nên được giữ như một lớp dự phòng.
+
+## Progressive Algorithm Training
+
+Mở `#/training` sau khi đăng nhập. Vertical slice đầu tiên gồm hai lesson P0, mỗi lesson có năm bước: chọn pattern, xếp block, điền code, viết full code và sửa code cho biến thể.
+
+Progress/draft và attempt của module này được lưu trong `progressive_training_progress` và `progressive_training_attempts`. RPC `record_progressive_training_attempt` ghi attempt và cập nhật progress trong cùng transaction, dùng UUID phía client để retry không tạo attempt trùng. RLS chỉ cho authenticated user đọc/ghi dữ liệu có `user_id = auth.uid()`.
+
+Code được chạy trong Web Worker tại browser với timeout hai giây; Supabase không thực thi code người học.

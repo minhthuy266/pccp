@@ -1,4 +1,5 @@
 import type { ReviewStore } from "../types";
+import type { Json } from "./database.types";
 import { loadStore, mergeStores, parseStoreJson, saveStore } from "../domain/store";
 import { supabase } from "./supabase";
 
@@ -16,14 +17,14 @@ export async function syncReviewStore(userId: string): Promise<ReviewStore> {
     const remote = row ? validRemote(row.data) : null;
     const merged = remote ? mergeStores(local, remote) : local;
     if (!row) {
-      const { error } = await supabase.from("review_stores").insert({ user_id: userId, data: merged, revision: 1 });
+      const { error } = await supabase.from("review_stores").insert({ user_id: userId, data: merged as unknown as Json, revision: 1 });
       if (error?.code === "23505") continue;
       if (error) throw error;
       saveStore(merged, localStorage, false);
       return merged;
     }
     const { data: updated, error } = await supabase.from("review_stores")
-      .update({ data: merged, revision: row.revision + 1, updated_at: new Date().toISOString() })
+      .update({ data: merged as unknown as Json, revision: row.revision + 1, updated_at: new Date().toISOString() })
       .eq("user_id", userId).eq("revision", row.revision).select("revision").maybeSingle();
     if (error) throw error;
     if (!updated) continue;

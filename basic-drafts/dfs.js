@@ -112,3 +112,55 @@ function dfs() {
 }
 
 dfs();
+
+
+function solution(ability) {
+  const studentCount = ability.length;
+  const sportCount = ability[0].length;
+
+  const used = Array(
+    studentCount
+  ).fill(false);
+
+  let maxScore = 0;
+
+  function dfs(sport, score) {
+    // Đã phân công đủ tất cả các môn
+    if (sport === sportCount) {
+      maxScore = Math.max(
+        maxScore,
+        score
+      );
+
+      return;
+    }
+
+    // Thử từng học sinh cho môn hiện tại
+    for (
+      let student = 0;
+      student < studentCount;
+      student++
+    ) {
+      // Người này đã thi môn trước
+      if (used[student]) {
+        continue;
+      }
+
+      // CHỌN
+      used[student] = true;
+
+      // ĐI SÂU
+      dfs(
+        sport + 1,
+        score + ability[student][sport]
+      );
+
+      // HOÀN TÁC
+      used[student] = false;
+    }
+  }
+
+  dfs(0, 0);
+
+  return maxScore;
+}
