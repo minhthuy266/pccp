@@ -8,7 +8,7 @@ import { progressiveLessonById } from "./lessons";
 import type { CaseResult, CodeTestCase, LearningLevelType, ProgressiveLesson, TrainingDraft, TransferChallenge } from "./types";
 import { useProgressiveTraining } from "./useProgressiveTraining";
 
-const LEVEL_LABELS = ["Pattern + Blueprint", "Logic ordering", "Code ordering", "Block writing", "Full recall", "Debug + Variant"];
+const LEVEL_LABELS = ["Pattern + Blueprint", "Logic ordering", "Code ordering", "Guided full code", "Full recall", "Debug + Variant"];
 const VARIANT_QUESTIONS = ["STATE đổi gì?", "BASE CASE đổi gì?", "TRANSITION đổi gì?", "INVARIANT đổi gì?", "OUTPUT đổi gì?"];
 
 function CaseResults({ results }: { results: CaseResult[] }) {
@@ -102,10 +102,17 @@ function CodeOrderingView({ lesson, draft, update, submit, busy, done }: LevelPr
   return <LevelShell number={3} title="Code block ordering" prompt={step.prompt} done={done}><SortableList order={order} labels={new Map(step.blocks.map((block) => [block.id, <pre key={block.id}><code>{block.code}</code></pre>]))} onChange={(next) => update({ codeBlockOrder: next })} />{results.length > 0 && <CaseResults results={results} />}<Action feedback={feedback} disabled={busy || checking} busy={busy || checking} onClick={check} /></LevelShell>;
 }
 
-function BlockWritingView({ lesson, draft, update, submit, busy, done }: LevelProps) {
-  const step = lesson.levels![3]; const answers = draft.writtenBlocks ?? {}; const [results, setResults] = useState<CaseResult[]>([]); const [feedback, setFeedback] = useState(""); const [checking, setChecking] = useState(false);
-  const check = async () => { setChecking(true); const source = assembleWrittenBlocks(step.blocks, answers); const next = await runCodeCases(source, step.tests); setResults(next); const passed = next.every((test) => test.passed); const saved = await submit(step.type, { blocks: answers, source }, passed, next); setChecking(false); if (saved) setFeedback(passed ? "Các block tự viết ghép thành source hợp lệ và pass tests." : "Source ghép chưa compile/pass. Sửa block theo subgoal, không cần chép đúng từng khoảng trắng."); };
-  return <LevelShell number={4} title="Tự viết từng block" prompt={step.prompt} done={done}><div className="written-blocks">{step.blocks.map((block) => <article key={block.id}><p className="eyebrow">{block.id} · {block.subgoal}</p><p>{block.prompt}</p><CodeEditor value={answers[block.id] ?? block.starterCode} onChange={(code) => update({ writtenBlocks: { ...answers, [block.id]: code } })} /></article>)}</div>{results.length > 0 && <CaseResults results={results} />}<Action feedback={feedback} disabled={busy || checking || step.blocks.some((block) => !(answers[block.id] ?? "").trim())} busy={busy || checking} onClick={check} /></LevelShell>;
+export function BlockWritingView({ lesson, draft, update, submit, busy, done }: LevelProps) {
+  const step = lesson.levels![3]; const legacyBlocks = draft.writtenBlocks ?? {};
+  const legacySource = assembleWrittenBlocks(step.blocks, legacyBlocks).trim();
+  const code = draft.blockWritingCode ?? legacySource;
+  const [results, setResults] = useState<CaseResult[]>([]); const [feedback, setFeedback] = useState(""); const [checking, setChecking] = useState(false);
+  const check = async () => { setChecking(true); const next = await runCodeCases(code, step.tests); setResults(next); const passed = next.every((test) => test.passed); const saved = await submit(step.type, { code, subgoals: step.blocks.map((block) => block.id) }, passed, next); setChecking(false); if (saved) setFeedback(passed ? "Lời giải hoàn chỉnh pass toàn bộ tests." : "Code chưa compile/pass. Kiểm tra lại scope, dấu ngoặc và từng subgoal trong checklist."); };
+  return <LevelShell number={4} title="Viết trọn lời giải" prompt={step.prompt} done={done}>
+    <div className="guided-code-layout"><aside><h3>Checklist subgoal</h3><ol>{step.blocks.map((block) => <li key={block.id}><b>{block.id}</b><span>{block.subgoal}</span></li>)}</ol></aside><div><CodeEditor value={code} onChange={(next) => update({ blockWritingCode: next })} /></div></div>
+    {legacySource && draft.blockWritingCode === undefined && <p className="draft-migration-note">Đã tự ghép draft từng block cũ vào editor. Từ giờ bạn sửa trực tiếp toàn bộ code tại đây.</p>}
+    {results.length > 0 && <CaseResults results={results} />}<Action feedback={feedback} disabled={busy || checking || !code.trim()} busy={busy || checking} onClick={check} />
+  </LevelShell>;
 }
 
 function FullRecallView({ lesson, draft, update, submit, help, busy, done }: LevelProps) {

@@ -1,14 +1,14 @@
 # Progressive Training — Implementation Checkpoint
 
-Ngày cập nhật: 01/09/2026  
+Ngày cập nhật: 02/09/2026
 Baseline đã audit: `c805fa2924c4197631bc6ac87b3e02c77b33e4dd`  
 Ngày thi: 12/09/2026
 
 ## CURRENT BATCH
 
-`CONTENT BATCH A2 — COMPLETE`
+`CONTENT BATCH A6 — COMPLETE`
 
-Ba lesson P0 F04–F06 chạy end-to-end qua engine sáu level: multiset Map/Set, comparator nhiều khóa và Robot thực hành atomic simulation. Mỗi lesson có full contract, official provenance, canonical execution, hai debug trở lên và contract variants thực thi.
+Hai lesson P0 mới chạy end-to-end cho F13: OF037 connected components và rooted-tree parent/depth/subtree bằng forward traversal + reverse fold. Cùng OF023 tree edge-cut, variants đã phủ matrix/list/grid components, iterative DFS và level aggregation nên F13 được nâng lên `COMPLETE`.
 
 ## BATCH 0 AUDIT
 
@@ -93,9 +93,9 @@ Ba lesson P0 F04–F06 chạy end-to-end qua engine sáu level: multiset Map/Set
 
 - Flow UI/data canonical có sáu level: Pattern + Blueprint, Logic Ordering, Code Block Ordering, Block Writing, Full Recall, Debug + Variant.
 - Mọi lesson hiển thị đề bài đầy đủ trước Level 1: rule/contract, input, output, constraints, function signature, ví dụ và giải thích; kèm link Programmers chính thức được phân loại `ĐỀ CHÍNH XÁC` hoặc `BÀI LIÊN QUAN` để không đánh đồng drill nền với nguyên đề.
-- Training index được xếp thành bảy module prerequisite: representation → linear/Map/Set/sorting → grid/atomic simulation → decision tree/backtracking → tree traversal → interval greedy → binary search on answer. Mỗi module ghi tín hiệu nhận dạng, invariant và thứ tự lesson từ nền tới transfer.
+- Training index được xếp thành chín module prerequisite: representation → linear/Map/Set/sorting → grid/atomic simulation → queue/timeline simulation → decision tree/backtracking → tree/graph traversal → heap selection/scheduling → interval greedy → binary search on answer. Mỗi module ghi tín hiệu nhận dạng, invariant và thứ tự lesson từ nền tới transfer.
 - Blueprint theo family; logic/code ordering random ban đầu, kéo-thả và có nút lên/xuống; mọi draft tiếp tục lưu Supabase.
-- Block Writing nhận cả block code và chỉ pass khi source ghép compile/chạy deterministic tests.
+- Level 4 dùng một editor viết trọn lời giải có checklist subgoal; chỉ pass khi full source compile/chạy deterministic tests. Draft từng-block cũ được tự ghép vào editor để không mất dữ liệu.
 - Full Recall bắt đầu editor trống, có hint ladder năm mức; mở solution không tính clean recall.
 - Mỗi lesson có ít nhất hai debug challenge và hai contract variants; OF043 có sáu variants tương ứng sáu drill Lab C. Variant yêu cầu trả lời STATE/BASE CASE/TRANSITION/INVARIANT/OUTPUT trước khi pass.
 - Adaptive route deterministic; fail Level 5 quay về Level 4.
@@ -119,9 +119,13 @@ Ba lesson P0 F04–F06 chạy end-to-end qua engine sáu level: multiset Map/Set
 - F04 — `COMPLETE` với frequency multiset, stable Set dedupe, grouping buckets và first-index lookup.
 - F05 — `COMPLETE` với comparator score/time/id, numeric normalization và concatenation comparator.
 - F06 — `COMPLETE` với Robot thực hành R/L/G/B, bounded validate-before-commit và inventory transaction.
+- F07 — `COMPLETE` với same-time collision batches, half-open events và FIFO server timeline.
+- F09 — `COMPLETE` với array+head, re-enqueue metadata, release batches và deque transfers.
 - F11 có bốn lesson chạy đủ sáu level, gồm OF036 và OF022; vẫn `PARTIAL` vì family còn rộng.
-- F13 có OF023 tree traversal/cut và transfer tree depths; vẫn `PARTIAL` vì chưa phủ đầy đủ components/BFS family.
+- F12 — `COMPLETE` với graph/grid shortest path, farthest layer, target distance, multi-source graph/grid, 8-neighbor và expanded state one/K-break cùng key-door.
+- F13 — `COMPLETE` với OF037 matrix components, adjacency-list/grid transfer, iterative DFS, rooted-tree parent/depth/subtree/level count và OF023 tree edge-cut.
 - F14 — `COMPLETE` với OF043 BigInt, first/last feasible và đủ sáu predicate drills Lab C.
+- F15 — `COMPLETE` với min/max heap, repeated transform/reinsert, bounded Top K, object comparator, event scheduling và resource availability heap.
 - F16 có OF057 và Lab E executable; vẫn `PARTIAL` vì greedy family còn nhiều proof shape khác.
 
 ## COMPLETED LESSONS
@@ -134,17 +138,28 @@ Ba lesson P0 F04–F06 chạy end-to-end qua engine sáu level: multiset Map/Set
 - `PT-F04-FREQUENCY-MULTISET` — Map multiplicity/delete-zero cùng Set, grouping và inverse lookup transfers.
 - `PT-F05-MULTIKEY-SORT` — comparator số nhiều khóa, explicit ties và input-copy contract.
 - `PT-F06-ATOMIC-ROBOT` — PCCP Robot thực hành cùng atomic validation/commit variants.
+- `PT-F07-COLLISION-TIMELINE` — PCCP collision risk time-batch simulation.
+- `PT-F09-QUEUE-HEAD` — process queue với head index và original identity.
+- `PT-F11-COMBINATION` — combination start-index cùng target/repetition transfers.
+- `PT-F12-GRAPH-BFS` — OF045 graph BFS với distance layer, farthest tie count, target và multi-source transfers.
+- `PT-F12-GRID-BFS` — OF038 grid shortest-path, rectangular bounds, multi-source grid và 8-neighbor transfer.
+- `PT-F12-EXPANDED-STATE-BFS` — visited theo position × resource, one/K-break và key-door transfer.
+- `PT-F15-SCOVILLE-HEAP` — OF012 min-heap repeated transform, reinsert, max-heap và optimal merge.
+- `PT-F15-BOUNDED-TOP-K` — Hall of Fame streaming Top K, bounded heap và object-frequency comparator.
+- `PT-F15-EVENT-HEAP-SCHEDULING` — OF013 sorted arrivals + ready heap, idle jump và resource availability transfer.
+- `PT-F13-NETWORK-COMPONENTS` — OF037 outer unseen-root traversal, isolated node và component size/grid transfers.
+- `PT-F13-ROOTED-TREE-PROFILE` — iterative parent/depth traversal, reverse-order subtree aggregation và level counts.
 - `PT-OF036-TARGET-NUMBER` — D10 DFS cộng/trừ, hai debug và hai contract variants.
 - `PT-OF022-FATIGUE` — D10 permutation backtracking, restore và required/cost contract.
 - `PT-OF023-POWER-GRID` — D11 tree edge cut/component traversal.
 - `PT-OF057-INTERCEPTION` — D11 earliest-end cho interval mở và Lab E.
 - `PT-OF043-IMMIGRATION-BIGINT` — D12 first feasible BigInt cùng sáu drill Lab C.
 
-Hai lesson pass validator/content execution và draft fields được lưu qua JSON payload. Supabase RLS vẫn chỉ static-tested, vì vậy completion claim không bao gồm local-Supabase integration.
+Hai mươi bốn lesson pass validator/content execution và draft fields được lưu qua JSON payload. Supabase RLS vẫn chỉ static-tested, vì vậy completion claim không bao gồm local-Supabase integration.
 
 ## PLANNED LESSONS
 
-- Content Batch A3: F07 timeline/event/queue simulation, F09 queue/deque mechanics và một representative F11 combination lesson.
+- Content Batch A7: hoàn thiện gap còn lại của F11, ưu tiên grid/multi-agent backtracking và duplicate-choice pruning.
 - Các lesson tiếp theo tiếp tục theo sub-batch tối đa 3–4 lesson.
 
 ## KNOWN BUGS
@@ -154,7 +169,7 @@ Hai lesson pass validator/content execution và draft fields được lưu qua J
 
 ## TEST STATUS
 
-- `cd review-app && npm test`: PASS — 23 files, 86 tests.
+- `cd review-app && npm test`: PASS — 23 files, 87 tests.
 - `npm test` tại root: PASS — 187 tests.
 - `cd review-app && npx tsc -b --pretty false`: PASS.
 - Tests mới chứng minh: schema sáu level; blueprint/logic graders; adaptive routes; hint/mastery evidence; D+1/D+3/D+7; assembled code/block-writing/full-recall pass; mọi debug starter có revealing test; mọi debug/variant solution pass; đủ sáu binary-search drills; migration tương thích; auth gate và RLS static checks.
@@ -163,15 +178,15 @@ Hai lesson pass validator/content execution và draft fields được lưu qua J
 ## BUILD STATUS
 
 - `cd review-app && npm run build`: PASS.
-- Vite còn warning chunk chính khoảng 3.00 MB (>500 kB); đây là performance warning, không phải build failure.
+- Vite còn warning chunk chính khoảng 3.10 MB (>500 kB); đây là performance warning, không phải build failure.
 
 ## COVERAGE MATRIX STATUS
 
 - Matrix canonical có đúng 24 row và được validator kiểm tra trong CI.
-- `COMPLETE`: F01, F02, F03, F04, F05, F06, F14.
-- `PARTIAL`: F11, F13, F16.
-- `PLANNED`: F07–F10, F12, F15, F17–F24.
+- `COMPLETE`: F01–F07, F09, F12–F15.
+- `PARTIAL`: F11, F16.
+- `PLANNED`: F08, F10, F17–F24.
 
 ## NEXT EXACT TASK
 
-Thực hiện Content Batch A3: thêm tối đa ba executable P0 lessons cho F07, F09 và F11 combination; không chuyển sang F12 khi A3 còn failure.
+Thực hiện Content Batch A7: thêm executable F11 grid/multi-agent backtracking và duplicate-choice pruning; chỉ nâng F11 khi các search-space shape còn thiếu có deterministic evidence.

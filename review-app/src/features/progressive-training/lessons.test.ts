@@ -12,11 +12,14 @@ async function execute(code: string, expression: string) {
 
 describe("progressive training executable lessons", () => {
   it("contains Content Batch A1 and priority D10 lessons with six canonical levels", () => {
-    expect(progressiveLessons).toHaveLength(16);
+    expect(progressiveLessons).toHaveLength(24);
     expect(progressiveLessons.map((lesson) => lesson.id)).toEqual([
       "PT-F01-TIME-NORMALIZATION", "PT-F02-RUN-SCAN", "PT-F03-GRID-NEIGHBORS",
       "PT-F04-FREQUENCY-MULTISET", "PT-F05-MULTIKEY-SORT", "PT-F06-ATOMIC-ROBOT",
       "PT-F07-COLLISION-TIMELINE", "PT-F09-QUEUE-HEAD", "PT-F11-COMBINATION",
+      "PT-F12-GRAPH-BFS", "PT-F12-GRID-BFS", "PT-F12-EXPANDED-STATE-BFS",
+      "PT-F15-SCOVILLE-HEAP", "PT-F15-BOUNDED-TOP-K", "PT-F15-EVENT-HEAP-SCHEDULING",
+      "PT-F13-NETWORK-COMPONENTS", "PT-F13-ROOTED-TREE-PROFILE",
       "PT-OF036-TARGET-NUMBER", "PT-OF022-FATIGUE",
       "PT-OF023-POWER-GRID", "PT-OF057-INTERCEPTION", "PT-OF043-IMMIGRATION-BIGINT",
       "PT-DFS-TAKE-SKIP", "PT-BT-ASSIGNMENT",

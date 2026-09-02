@@ -2,6 +2,10 @@ import { assertProgressiveLessons, type BlueprintField, type LearningLevels, typ
 import { p0a1Lessons } from "./lessons.p0a1";
 import { p0a2Lessons } from "./lessons.p0a2";
 import { p0a3Lessons } from "./lessons.p0a3";
+import { p0a4Lessons } from "./lessons.p0a4";
+import { p0a4bLessons } from "./lessons.p0a4b";
+import { p0a5Lessons } from "./lessons.p0a5";
+import { p0a6Lessons } from "./lessons.p0a6";
 import { priorityD10Lessons } from "./lessons.priority-d10";
 import { priorityD11D12Lessons } from "./lessons.priority-d11d12";
 import { progressiveProblemStatements } from "./problemStatements";
@@ -117,7 +121,7 @@ function buildLearningLevels(lesson: ProgressiveLesson): LearningLevels {
     { type: "PATTERN_BLUEPRINT", prompt: pattern.prompt, options: pattern.options, correctOptionId: pattern.correctOptionId, blueprint },
     { type: "LOGIC_ORDERING", prompt: "Sắp xếp subgoal tiếng Việt trước khi nhìn code.", items: logicItems, correctOrder: logicItems.map((item) => item.id), canonicalOnly: true },
     { type: "CODE_BLOCK_ORDERING", prompt: ordering.prompt, blocks: ordering.blocks, correctOrder: ordering.correctOrder, canonicalOnly: true, tests: ordering.tests },
-    { type: "BLOCK_WRITING", prompt: "Viết từng block theo subgoal; hệ thống sẽ ghép source thật và chạy tests.", blocks: writingBlocks, tests: full.tests },
+    { type: "BLOCK_WRITING", prompt: "Viết trọn lời giải trong một editor; dùng các subgoal làm checklist rồi chạy toàn bộ tests.", blocks: writingBlocks, tests: full.tests },
     { type: "FULL_RECALL", prompt: "Viết toàn bộ hàm từ trang trắng. Chỉ mở đúng mức hint thật sự cần.", solution: full.solution, tests: full.tests, hints: [lesson.basePattern, blueprint.map((field) => `${field.id}: ${field.canonical}`).join("\n"), logicItems.map((item) => item.text).join("\n"), `function ${lesson.functionSignature} {\n  // core logic\n}`, full.solution] },
     { type: "DEBUG_VARIANT", prompt: "Sửa bug thật và chuyển cùng core sang contract khác.", challenges: [...debugChallenges(lesson), ...variants] },
   ];
@@ -379,7 +383,7 @@ const lessons: ProgressiveLesson[] = [
 ];
 
 const upgradedLegacyLessons = lessons.map((lesson) => ({ ...lesson, version: 3, levels: buildLearningLevels(lesson) }));
-const lessonInventory = [...p0a1Lessons, ...p0a2Lessons, ...p0a3Lessons, ...priorityD10Lessons, ...priorityD11D12Lessons, ...upgradedLegacyLessons]
+const lessonInventory = [...p0a1Lessons, ...p0a2Lessons, ...p0a3Lessons, ...p0a4Lessons, ...p0a4bLessons, ...p0a5Lessons, ...p0a6Lessons, ...priorityD10Lessons, ...priorityD11D12Lessons, ...upgradedLegacyLessons]
   .map((lesson) => ({ ...lesson, problem: progressiveProblemStatements[lesson.id] }));
 export const progressiveLessons = assertProgressiveLessons(lessonInventory);
 export const progressiveLessonById = new Map(progressiveLessons.map((lesson) => [lesson.id, lesson]));

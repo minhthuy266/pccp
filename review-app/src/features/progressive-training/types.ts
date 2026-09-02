@@ -157,6 +157,7 @@ export type TrainingDraft = {
   logicOrder?: string[];
   codeBlockOrder?: string[];
   writtenBlocks?: Record<string, string>;
+  blockWritingCode?: string;
   fullRecallCode?: string;
   transferCode?: Record<string, string>;
   transferPassedIds?: string[];
