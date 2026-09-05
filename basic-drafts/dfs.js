@@ -113,34 +113,24 @@ function dfs() {
 
 dfs();
 
-
 function solution(ability) {
   const studentCount = ability.length;
   const sportCount = ability[0].length;
 
-  const used = Array(
-    studentCount
-  ).fill(false);
+  const used = Array(studentCount).fill(false);
 
   let maxScore = 0;
 
   function dfs(sport, score) {
     // Đã phân công đủ tất cả các môn
     if (sport === sportCount) {
-      maxScore = Math.max(
-        maxScore,
-        score
-      );
+      maxScore = Math.max(maxScore, score);
 
       return;
     }
 
     // Thử từng học sinh cho môn hiện tại
-    for (
-      let student = 0;
-      student < studentCount;
-      student++
-    ) {
+    for (let student = 0; student < studentCount; student++) {
       // Người này đã thi môn trước
       if (used[student]) {
         continue;
@@ -150,10 +140,7 @@ function solution(ability) {
       used[student] = true;
 
       // ĐI SÂU
-      dfs(
-        sport + 1,
-        score + ability[student][sport]
-      );
+      dfs(sport + 1, score + ability[student][sport]);
 
       // HOÀN TÁC
       used[student] = false;
@@ -164,3 +151,41 @@ function solution(ability) {
 
   return maxScore;
 }
+
+const solutionMetmoi = (k, dungeons) => {
+  const used = Array(dungeons.length).fill(false);
+
+  let answer;
+
+  function dfs(currentFatigue, count) {
+    // 1. Ghi nhận số dungeon đã đi
+
+    const used = Array(dungeons).fill(false);
+    // 2. Thử từng dungeon
+
+    for (let i = 0; i < dungeons.length; i++) {
+      const [required, consumed] = dungeons[i];
+      if (used[i]) continue;
+
+      if (currentFatigue < required) continue;
+
+      used[i] = true;
+
+      dfs(currentFatigue - required, count + 1);
+
+      used[i] = false;
+    }
+
+    dfs(k, 0);
+
+    return answer;
+
+    // 3. Bỏ qua nếu đã dùng hoặc không đủ fatigue
+
+    // 4. Chọn
+
+    // 5. Đi sâu với fatigue mới và count mới
+
+    // 6. Restore
+  }
+};
