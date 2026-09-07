@@ -321,3 +321,72 @@ const flattenTriangleSnail = (n) => {
 };
 
 // flattenTriangleSnail(4);
+
+const solutionBoat = (people, limit) => {
+  let boats = 0;
+
+  const sortedPeople = [...people].sort((a, b) => a - b);
+
+  let left = 0;
+  let right = sortedPeople.length - 1;
+
+  // Mỗi vòng xử lý xong một thuyền
+  while (left < right) {
+    if (sortedPeople[left] + sortedPeople[right] <= limit) {
+      // Hai người cùng đi
+      left++;
+      right--;
+      boats++;
+    } else {
+      // Người nặng nhất đi một mình
+      right--;
+      boats++;
+    }
+  }
+
+  // Sau vòng lặp còn đúng một người
+  if (left === right) {
+    boats++;
+  }
+
+  return boats;
+};
+
+console.log(solutionBoat([50, 50, 70, 80], 100)); // 3
+console.log(solutionBoat([50], 100)); // 1
+
+console.log(solutionBoat([50, 50, 70, 80], 100));
+
+const solutionK = (sequence, k) => {
+  let left = 0;
+  let right = 0;
+  let sum = 0;
+  let bestStart = 0;
+  let bestEnd = 0;
+  let bestLength = Infinity;
+
+  while (right < sequence.length) {
+    sum = sum + sequence[right];
+
+    while (sum > k) {
+      sum = sum - sequence[left];
+      left++;
+    }
+
+    if (sum === k) {
+      const currentLength = right - left + 1;
+
+      if (currentLength < bestLength) {
+        bestLength = currentLength;
+        bestStart = left;
+        bestEnd = right;
+      }
+    }
+
+    right++;
+  }
+
+  return [bestStart, bestEnd];
+};
+
+console.log("SOLUTION K", solutionK([1, 2, 3, 4, 5], 5));
