@@ -228,7 +228,7 @@ const swap = (heap, i, j) => {
 
 // //         // ELSE đổi chỗ 2 thắng
 // //         this.swap(index, parentIndex)
-        
+
 // //         // Cập nhật thằng index hiện tại, để vòng loop được tiếp tục
 // //         index = parentIndex
 // //     }
@@ -261,7 +261,6 @@ const swap = (heap, i, j) => {
 // //     }
 // //   }
 
-
 //   pop () {
 //     // Nếu this.heap.length === 0 thì trả về undefined
 //     if (this.heap.length === 0) return undefined
@@ -271,14 +270,14 @@ const swap = (heap, i, j) => {
 
 //     // Lưu GIÁ TRỊ ở gốc vào biến top. Đây là kết quả sẽ trả về cuối cùng
 //     let top = this.heap[0]
-    
+
 //     // Xóa phần tử cuối rồi đưa phần tử cuối đó lên thay gốc
 //     let last = this.heap.pop()
 //     this.heap[0] = last
-    
+
 //     // Bắt đầu xét từ index = 0
 //     let index = 0
-    
+
 //     while (true) {
 //        const leftIndex = (index * 2) + 1
 //        const rightIndex = (index * 2) + 2
@@ -300,7 +299,7 @@ const swap = (heap, i, j) => {
 //         this.swap(index, bestIndex)
 //         index = bestIndex
 //     }
-    
+
 //     // Lặp liên tục:
 //         // Tìm index con trái và con phải
 
@@ -359,8 +358,6 @@ const swap = (heap, i, j) => {
 
 //     }
 
-
-
 //     return top
 //   }
 // }
@@ -397,175 +394,233 @@ const swap = (heap, i, j) => {
 // console.log(heapPop.peek()); // 5
 
 class MinHeap {
-        constructor (compare) {
-            this.heap = []
-            this.compare = compare
-        }
+  constructor(compare) {
+    this.heap = [];
+    this.compare = compare;
+  }
 
-        get size() {
-            return this.heap.length
-        }
+  get size() {
+    return this.heap.length;
+  }
 
-        peek() {
-            return this.heap[0]
-        }
+  peek() {
+    return this.heap[0];
+  }
 
-        swap(i, j) {
-            let temp = this.heap[i]
-            this.heap[i] = this.heap[j]
-            this.heap[j] = temp
-        }
+  swap(i, j) {
+    let temp = this.heap[i];
+    this.heap[i] = this.heap[j];
+    this.heap[j] = temp;
+  }
 
-        push (value) {
-            this.heap.push(value)
-            let index = this.heap.length - 1
-            
-            while (index > 0) {
-                let parentIndex = Math.floor((index - 1) / 2)
+  push(value) {
+    this.heap.push(value);
+    let index = this.heap.length - 1;
 
-                if (this.compare(this.heap[index], this.heap[parentIndex]) >= 0) {
-                    break;
-                }
+    while (index > 0) {
+      let parentIndex = Math.floor((index - 1) / 2);
 
-                this.swap(index, parentIndex)
-                index = parentIndex
-            }
-        }
-
-        pop() {
-          if (this.heap.length === 0) return undefined
-
-          if (this.heap.length === 1) return this.heap.pop()
-
-          const top = this.heap[0]
-          let last = this.heap.pop()
-
-          this.heap[0] = last
-          let index = 0
-
-          while (true) {
-            const leftIndex = index * 2 + 1
-            const rightIndex = index * 2 + 2
-
-            let bestIndex = index
-
-            if (leftIndex < this.heap.length && this.compare(this.heap[leftIndex], this.heap[bestIndex]) < 0) {
-              bestIndex = leftIndex
-            }
-
-            if (rightIndex < this.heap.length && this.compare(this.heap[rightIndex], this.heap[bestIndex]) < 0) {
-              bestIndex = rightIndex
-            }
-
-            if (bestIndex === index) {
-              break;
-            }
-
-            this.swap(index, bestIndex)
-            index = bestIndex
-          }
-
-
-          return top
-        }
-    }
-
-const solutionCay = (scoville, k) => {
-    const newHeap = new MinHeap((a, b) => (a - b))
-
-    for (const item of scoville) {
-      newHeap.push(item)
-    }
-
-    let count = 0
-
-    while (newHeap.peek() < k) {
-      if (newHeap.size < 2) {
-        return -1
+      if (this.compare(this.heap[index], this.heap[parentIndex]) >= 0) {
+        break;
       }
 
-      const first = newHeap.pop()
-      const second = newHeap.pop()
+      this.swap(index, parentIndex);
+      index = parentIndex;
+    }
+  }
 
-      const mixed = first + second * 2
-      newHeap.push(mixed)
-      count++
+  pop() {
+    if (this.heap.length === 0) return undefined;
+
+    if (this.heap.length === 1) return this.heap.pop();
+
+    const top = this.heap[0];
+    let last = this.heap.pop();
+
+    this.heap[0] = last;
+    let index = 0;
+
+    while (true) {
+      const leftIndex = index * 2 + 1;
+      const rightIndex = index * 2 + 2;
+
+      let bestIndex = index;
+
+      if (
+        leftIndex < this.heap.length &&
+        this.compare(this.heap[leftIndex], this.heap[bestIndex]) < 0
+      ) {
+        bestIndex = leftIndex;
+      }
+
+      if (
+        rightIndex < this.heap.length &&
+        this.compare(this.heap[rightIndex], this.heap[bestIndex]) < 0
+      ) {
+        bestIndex = rightIndex;
+      }
+
+      if (bestIndex === index) {
+        break;
+      }
+
+      this.swap(index, bestIndex);
+      index = bestIndex;
     }
 
-    return count
-
-    newHeap.push(7)
-    newHeap.push(4)
-    newHeap.push(2)
-    newHeap.push(1)
-
-    console.log("MIN HEAP", newHeap)
-
-    newHeap.pop()
-    console.log("MIN HEAP", newHeap)
-
-    newHeap.pop()
-    console.log("MIN HEAP", newHeap)
+    return top;
+  }
 }
 
-console.log("======", solutionCay([[1, 2, 3, 9, 10, 12]], 8))
+const solutionCay = (scoville, k) => {
+  const newHeap = new MinHeap((a, b) => a - b);
+
+  for (const item of scoville) {
+    newHeap.push(item);
+  }
+
+  let count = 0;
+
+  while (newHeap.peek() < k) {
+    if (newHeap.size < 2) {
+      return -1;
+    }
+
+    const first = newHeap.pop();
+    const second = newHeap.pop();
+
+    const mixed = first + second * 2;
+    newHeap.push(mixed);
+    count++;
+  }
+
+  return count;
+
+  newHeap.push(7);
+  newHeap.push(4);
+  newHeap.push(2);
+  newHeap.push(1);
+
+  console.log("MIN HEAP", newHeap);
+
+  newHeap.pop();
+  console.log("MIN HEAP", newHeap);
+
+  newHeap.pop();
+  console.log("MIN HEAP", newHeap);
+};
+
+console.log("======", solutionCay([[1, 2, 3, 9, 10, 12]], 8));
 
 const solutionJob = (jobs) => {
-  let answer = 0
+  let answer = 0;
 
   const mappedJobs = jobs.map(([request, duration], index) => {
-    return (
-      {
-        request,
-        duration,
-        index
-      }
-    )
-  })
+    return {
+      request,
+      duration,
+      index,
+    };
+  });
 
-  const sortedJobs = mappedJobs.sort((a, b) => a.request - b.request)
+  const sortedJobs = mappedJobs.sort((a, b) => a.request - b.request);
 
-  console.log("++++++", mappedJobs, sortedJobs)
+  console.log("++++++", mappedJobs, sortedJobs);
 
   const heap = new MinHeap((a, b) => {
     if (a.duration !== b.duration) {
-      return a.duration - b.duration
+      return a.duration - b.duration;
     }
 
     if (a.request !== b.request) {
-      return a.request - b.request
+      return a.request - b.request;
     }
 
-    return a.index - b.index
-  })
+    return a.index - b.index;
+  });
 
-  let currentTime = 0
-  let nextIndex = 0
-  let completedCount = 0
+  let currentTime = 0;
+  let nextIndex = 0;
+  let completedCount = 0;
 
   while (completedCount < sortedJobs.length) {
-    while (nextIndex < sortedJobs.length && sortedJobs[nextIndex].request <= currentTime) {
-      heap.push(sortedJobs[nextIndex])
-      nextIndex++
+    while (
+      nextIndex < sortedJobs.length &&
+      sortedJobs[nextIndex].request <= currentTime
+    ) {
+      heap.push(sortedJobs[nextIndex]);
+      nextIndex++;
     }
 
     if (heap.size === 0) {
-      currentTime = sortedJobs[nextIndex].request
+      currentTime = sortedJobs[nextIndex].request;
       continue;
     }
 
-    const job = heap.pop()
+    const job = heap.pop();
 
-    currentTime += job.duration
-    answer += currentTime - job.request
-    completedCount++
+    currentTime += job.duration;
+    answer += currentTime - job.request;
+    completedCount++;
   }
 
-  answer = Math.floor(answer / jobs.length)
+  answer = Math.floor(answer / jobs.length);
+
+  return answer;
+};
+
+console.log(
+  "solutionJob",
+  solutionJob([
+    [0, 3],
+    [1, 9],
+    [3, 5],
+  ]),
+);
+
+const solutionEmployee = (ability, number) => {
+  // INIT
+  let train = 0;
+  const heap = new MinHeap((a, b) => a - b);
+  let currentSum = 0;
+
+  for (const item of ability) {
+    heap.push(item);
+    currentSum += item;
+  }
+
+  console.log("HEAP", heap);
+
+  // CONTINUE/STOP
+  while (train < number) {
+    const first = heap.pop();
+    const second = heap.pop();
+
+    const merged = first + second;
+
+    heap.push(merged);
+    heap.push(merged);
+
+    console.log("HEAP", heap)
+
+    currentSum += merged;
+
+    train++;
+  }
+
+  return currentSum;
+};
+
+console.log("SOLUTION", solutionEmployee([10, 3, 7, 2], 2));
 
 
-  return answer
-
+const dfs = (currentEnergy, count) => {
+  while (currentEnergy < k) {
+    for (const [minRequired, consumed] of dungeons) {
+      if (currentEnergy <= minRequired) {
+        count++
+        currentEnergy = currentEnergy - consumed
+      }
+    }
+  }
 }
-
-console.log("solutionJob", solutionJob([[0, 3], [1, 9], [3, 5]]))
