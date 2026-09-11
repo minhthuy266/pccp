@@ -15,8 +15,9 @@ import { familyByLesson, patternFamilies, type PatternFamily } from "./patterns"
 import { ANALYSIS_FIELDS, type AnalysisField, type AssessmentStatus, type CodeEvidence, type ErrorCategory, type FieldAssessment, type Grade, type Lesson, type PracticeMode, type ReviewRecord, type ReviewStore, type TemplateRating } from "./types";
 import { ProgressiveTrainingIndex } from "./features/progressive-training/ProgressiveTrainingIndex";
 import { ProgressiveTrainingLesson } from "./features/progressive-training/ProgressiveTrainingLesson";
+import { Final36 } from "./features/final36/Final36";
 
-type Page = "today" | "practice" | "progress" | "patterns" | "pattern" | "training" | "trainingLesson";
+type Page = "today" | "practice" | "progress" | "patterns" | "pattern" | "training" | "trainingLesson" | "final36";
 const ERRORS: ErrorCategory[] = ["RECOGNITION", "STATE", "INIT", "LOOP", "CONDITION", "UPDATE", "ORDER", "INDEX", "JAVASCRIPT"];
 const HINT_LABELS: Record<string, string> = { recall1: "Recall mức 1", blueprint: "Blueprint", recall2: "Recall mức 2", recall3: "Recall mức 3", full: "Giải thích và lời giải đầy đủ" };
 const EXAM_DATE = "2026-09-12";
@@ -36,6 +37,8 @@ function useNavigation() {
     if (pattern) return { page: "pattern" as Page, id: pattern[1] };
     const training = location.hash.match(/^#\/training\/([^/]+)$/);
     if (training) return { page: "trainingLesson" as Page, id: training[1] };
+    const final36 = location.hash.match(/^#\/final36(?:\/(\d+))?$/);
+    if (final36) return { page: "final36" as Page, id: final36[1] };
     return { page: location.hash === "#/progress" ? "progress" as Page : location.hash === "#/patterns" ? "patterns" as Page : location.hash === "#/training" ? "training" as Page : "today" as Page };
   };
   const [route, setRoute] = useState(read);
@@ -49,7 +52,7 @@ export function App() {
   const refresh = useCallback(() => setStore(loadStore()), []);
   const cloud = useCloudSync(refresh);
   return <div className="app">
-    <header><a className="brand" href="#/">PCCP Recall</a><div className="header-right"><nav><a href="#/">Hôm nay</a><a href="#/training">Progressive</a><a href="#/patterns">Pattern Gym</a><a href="#/progress">Tiến độ</a></nav><CloudControl cloud={cloud} /></div></header>
+    <header><a className="brand" href="#/">PCCP Recall</a><div className="header-right"><nav><a href="#/">Hôm nay</a><a href="#/final36">36 bài</a><a href="#/training">Progressive</a><a href="#/patterns">Pattern Gym</a><a href="#/progress">Tiến độ</a></nav><CloudControl cloud={cloud} /></div></header>
     {route.page === "today" && <Today store={store} />}
     {route.page === "progress" && <Progress store={store} onUpdated={refresh} />}
     {route.page === "patterns" && <PatternIndex store={store} />}
@@ -57,6 +60,7 @@ export function App() {
     {route.page === "practice" && <Practice key={`${route.id}-${route.requestedMode ?? "default"}`} lesson={lessons.find((lesson) => lesson.id === route.id)} store={store} onSaved={refresh} requestedMode={route.requestedMode} />}
     {route.page === "training" && <ProgressiveTrainingIndex userId={cloud.user?.id} configured={cloud.configured} />}
     {route.page === "trainingLesson" && <ProgressiveTrainingLesson lessonId={route.id} userId={cloud.user?.id} configured={cloud.configured} />}
+    {route.page === "final36" && <Final36 lessonOrder={route.id} />}
   </div>;
 }
 
