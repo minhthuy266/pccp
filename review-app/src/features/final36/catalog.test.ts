@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { final36Lessons } from "./catalog";
+import { algorithmByLessonOrder, final36Algorithms } from "./algorithms";
 
 describe("PCCP Final 36 catalog", () => {
   it("loads all 37 lessons in numerical order", () => {
@@ -19,5 +20,21 @@ describe("PCCP Final 36 catalog", () => {
       expect(lesson.code, `code ${lesson.order}`).toMatch(/function solution\s*\(/);
     }
   });
-});
 
+  it("assigns every lesson to exactly one algorithm with a recall template", () => {
+    const assignedOrders = final36Algorithms.flatMap((algorithm) => [...algorithm.lessonOrders]);
+    expect(assignedOrders).toHaveLength(37);
+    expect(new Set(assignedOrders).size).toBe(37);
+    expect([...assignedOrders].sort((a, b) => a - b)).toEqual(
+      Array.from({ length: 37 }, (_, index) => index + 1),
+    );
+
+    for (const lesson of final36Lessons) {
+      expect(algorithmByLessonOrder.has(lesson.order), `algorithm ${lesson.order}`).toBe(true);
+    }
+    for (const algorithm of final36Algorithms) {
+      expect(algorithm.template.length, algorithm.label).toBeGreaterThan(120);
+      expect(algorithm.description.length, algorithm.label).toBeGreaterThan(30);
+    }
+  });
+});

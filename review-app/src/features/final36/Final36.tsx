@@ -1,14 +1,17 @@
+import { useState } from "react";
 import { MarkdownPreview } from "../../components/MarkdownPreview";
 import { final36LessonByOrder, final36Lessons, type Final36Lesson } from "./catalog";
+import { algorithmByLessonOrder, final36Algorithms } from "./algorithms";
 
 function LessonTile({ lesson }: { lesson: Final36Lesson }) {
+  const algorithm = algorithmByLessonOrder.get(lesson.order);
   return <a className="final36-card" href={`#/final36/${lesson.order}`}>
     <div className="final36-card-top">
       <span>{String(lesson.order).padStart(2, "0")}</span>
       <span className="final36-arrow" aria-hidden="true">↗</span>
     </div>
     <h2>{lesson.vietnameseTitle}</h2>
-    <p>{lesson.pattern}</p>
+    <p>{algorithm?.shortLabel ?? lesson.pattern}</p>
     <small>{lesson.coreFlow}</small>
   </a>;
 }
@@ -62,27 +65,69 @@ function LessonDetail({ lesson }: { lesson: Final36Lesson }) {
 }
 
 export function Final36({ lessonOrder }: { lessonOrder?: string }) {
+  const [selectedAlgorithmId, setSelectedAlgorithmId] = useState(final36Algorithms[0].id);
   const lesson = lessonOrder ? final36LessonByOrder.get(Number(lessonOrder)) : undefined;
   if (lessonOrder && !lesson) return <main className="final36-not-found"><h1>Không tìm thấy bài {lessonOrder}</h1><a href="#/final36">Về danh sách 37 bài</a></main>;
   if (lesson) return <LessonDetail lesson={lesson} />;
+
+  const selectedAlgorithm = final36Algorithms.find((algorithm) => algorithm.id === selectedAlgorithmId);
+  const visibleLessons = selectedAlgorithm
+    ? final36Lessons.filter((item) => selectedAlgorithm.lessonOrders.includes(item.order))
+    : final36Lessons;
 
   return <main className="final36-index">
     <section className="final36-hero">
       <div>
         <p className="eyebrow">PCCP FINAL · JAVASCRIPT</p>
         <h1>37 bài. Một nơi để<br />đọc đề và chốt code.</h1>
-        <p>Chọn một card để xem đề tiếng Việt ở bên trái, lời giải cô đọng và code hoàn chỉnh ở bên phải.</p>
+        <p>Chọn thuật toán, thuộc một template lõi, rồi mở từng card để xem đề tiếng Việt và code hoàn chỉnh.</p>
       </div>
       <div className="final36-hero-count"><strong>37</strong><span>bài trọng tâm</span></div>
     </section>
 
+    <section className="final36-algorithm-section">
+      <div className="final36-section-heading">
+        <div><p className="eyebrow">Bước 01</p><h2>Chọn thuật toán</h2></div>
+        <p>{final36Algorithms.length} nhóm · 37 bài · mỗi nhóm một code shape</p>
+      </div>
+      <div className="final36-algorithm-buttons">
+        <button className={!selectedAlgorithm ? "active" : ""} onClick={() => setSelectedAlgorithmId("")}>
+          <span className="final36-algorithm-index">00</span>
+          <span><b>Tất cả bài</b><small>Toàn bộ thư viện</small></span>
+          <strong>37</strong>
+        </button>
+        {final36Algorithms.map((algorithm, index) => <button
+          className={selectedAlgorithmId === algorithm.id ? "active" : ""}
+          key={algorithm.id}
+          onClick={() => setSelectedAlgorithmId(algorithm.id)}
+          aria-pressed={selectedAlgorithmId === algorithm.id}
+        >
+          <span className="final36-algorithm-index">{String(index + 1).padStart(2, "0")}</span>
+          <span><b>{algorithm.label}</b><small>{algorithm.shortLabel}</small></span>
+          <strong>{algorithm.lessonOrders.length}</strong>
+        </button>)}
+      </div>
+    </section>
+
+    {selectedAlgorithm && <section className="final36-template-card">
+      <div className="final36-template-copy">
+        <p className="eyebrow">Bước 02 · Template cần nhớ</p>
+        <h2>{selectedAlgorithm.label}</h2>
+        <p>{selectedAlgorithm.description}</p>
+        <div><small>Khi nào bật template này?</small><strong>{selectedAlgorithm.trigger}</strong></div>
+      </div>
+      <div className="final36-template-code">
+        <div><span>template.js</span><small>Code shape tổng quát</small></div>
+        <pre><code>{selectedAlgorithm.template}</code></pre>
+      </div>
+    </section>}
+
     <div className="final36-toolbar">
-      <p><span /> Sẵn sàng ôn tập</p>
-      <span>{final36Lessons.length} / 37 bài đã tải</span>
+      <p><span /> {selectedAlgorithm ? selectedAlgorithm.label : "Tất cả thuật toán"}</p>
+      <span>{visibleLessons.length} bài trong nhóm</span>
     </div>
     <section className="final36-grid" aria-label="Danh sách 37 bài PCCP">
-      {final36Lessons.map((item) => <LessonTile key={item.order} lesson={item} />)}
+      {visibleLessons.map((item) => <LessonTile key={item.order} lesson={item} />)}
     </section>
   </main>;
 }
-
