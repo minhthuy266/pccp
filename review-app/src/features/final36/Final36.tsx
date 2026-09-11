@@ -19,7 +19,7 @@ function LessonDetail({ lesson }: { lesson: Final36Lesson }) {
 
   return <main className="final36-detail">
     <div className="final36-detail-nav">
-      <a href="#/final36">← Tất cả 36 bài</a>
+      <a href="#/final36">← Tất cả 37 bài</a>
       <div>
         {previous && <a href={`#/final36/${previous.order}`}>← Bài {previous.order}</a>}
         {next && <a href={`#/final36/${next.order}`}>Bài {next.order} →</a>}
@@ -63,27 +63,26 @@ function LessonDetail({ lesson }: { lesson: Final36Lesson }) {
 
 export function Final36({ lessonOrder }: { lessonOrder?: string }) {
   const lesson = lessonOrder ? final36LessonByOrder.get(Number(lessonOrder)) : undefined;
-  if (lessonOrder && !lesson) return <main className="final36-not-found"><h1>Không tìm thấy bài {lessonOrder}</h1><a href="#/final36">Về danh sách 36 bài</a></main>;
+  if (lessonOrder && !lesson) return <main className="final36-not-found"><h1>Không tìm thấy bài {lessonOrder}</h1><a href="#/final36">Về danh sách 37 bài</a></main>;
   if (lesson) return <LessonDetail lesson={lesson} />;
 
   return <main className="final36-index">
     <section className="final36-hero">
       <div>
         <p className="eyebrow">PCCP FINAL · JAVASCRIPT</p>
-        <h1>36 bài. Một nơi để<br />đọc đề và chốt code.</h1>
+        <h1>37 bài. Một nơi để<br />đọc đề và chốt code.</h1>
         <p>Chọn một card để xem đề tiếng Việt ở bên trái, lời giải cô đọng và code hoàn chỉnh ở bên phải.</p>
       </div>
-      <div className="final36-hero-count"><strong>36</strong><span>bài trọng tâm</span></div>
+      <div className="final36-hero-count"><strong>37</strong><span>bài trọng tâm</span></div>
     </section>
 
     <div className="final36-toolbar">
       <p><span /> Sẵn sàng ôn tập</p>
-      <span>{final36Lessons.length} / 36 bài đã tải</span>
+      <span>{final36Lessons.length} / 37 bài đã tải</span>
     </div>
-    <section className="final36-grid" aria-label="Danh sách 36 bài PCCP">
+    <section className="final36-grid" aria-label="Danh sách 37 bài PCCP">
       {final36Lessons.map((item) => <LessonTile key={item.order} lesson={item} />)}
     </section>
   </main>;
 }
-
 

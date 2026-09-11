@@ -91,6 +91,90 @@ export function parseFinal36Lessons(markdowns: string[], index: string): Final36
   return lessons.sort((a, b) => a.order - b.order);
 }
 
-export const final36Lessons = parseFinal36Lessons(Object.values(lessonModules), indexMarkdown);
-export const final36LessonByOrder = new Map(final36Lessons.map((lesson) => [lesson.order, lesson]));
+const oilDrillingLesson: Final36Lesson = {
+  order: 37,
+  title: "석유 시추 (Loang dầu / Khai thác dầu)",
+  vietnameseTitle: "Loang dầu / Khai thác dầu",
+  officialUrl: "https://school.programmers.co.kr/learn/courses/30/lessons/250136",
+  pattern: "Grid DFS/BFS · Connected Components",
+  coreFlow: "Duyệt từng khối dầu đúng một lần → đếm kích thước và các cột khối chạm tới → cộng kích thước vào từng cột → lấy tổng lớn nhất",
+  trap: "Một khối có thể chạm cùng một cột ở nhiều ô; phải dùng Set để chỉ cộng khối đó một lần cho mỗi cột. Đánh dấu visited ngay khi đưa ô vào stack.",
+  statement: `Cho một khu đất hình chữ nhật được biểu diễn bởi ma trận \`land\`:
 
+- \`land[row][col] = 1\`: ô có dầu.
+- \`land[row][col] = 0\`: ô đất trống.
+- Các ô dầu nối với nhau theo **bốn hướng trên, dưới, trái, phải** thuộc cùng một khối dầu.
+
+Một mũi khoan được đặt tại đúng một cột và khoan thẳng từ trên xuống dưới. Khi mũi khoan đi qua một ô thuộc khối dầu, ta khai thác được **toàn bộ khối dầu liên thông đó**. Một khối chỉ được tính một lần dù nó chiếm nhiều ô trên cùng cột.
+
+Hãy chọn cột đặt mũi khoan sao cho tổng lượng dầu khai thác được là lớn nhất và trả về lượng dầu đó.
+
+### Giới hạn
+
+- \`1 ≤ land.length ≤ 500\`.
+- \`1 ≤ land[0].length ≤ 500\`.
+- Mỗi ô chỉ có giá trị \`0\` hoặc \`1\`.
+
+### Ví dụ tư duy
+
+Nếu một khối dầu có kích thước \`8\` và chạm các cột \`1, 2, 3\`, thì cả ba cột đều được cộng thêm \`8\`. Sau khi xử lý mọi khối, đáp án là giá trị lớn nhất trong mảng tổng dầu theo cột.`,
+  code: `function solution(land) {
+  const rows = land.length
+  const cols = land[0].length
+  const oilByColumn = Array(cols).fill(0)
+  const visited = Array.from(
+    { length: rows },
+    () => Array(cols).fill(false)
+  )
+  const directions = [
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1],
+  ]
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      if (land[row][col] === 0 || visited[row][col]) continue
+
+      let size = 0
+      const touchedColumns = new Set()
+      const stack = [[row, col]]
+      visited[row][col] = true
+
+      while (stack.length) {
+        const [currentRow, currentCol] = stack.pop()
+        size++
+        touchedColumns.add(currentCol)
+
+        for (const [dr, dc] of directions) {
+          const nextRow = currentRow + dr
+          const nextCol = currentCol + dc
+
+          if (
+            nextRow < 0 || nextRow >= rows ||
+            nextCol < 0 || nextCol >= cols ||
+            land[nextRow][nextCol] === 0 ||
+            visited[nextRow][nextCol]
+          ) continue
+
+          visited[nextRow][nextCol] = true
+          stack.push([nextRow, nextCol])
+        }
+      }
+
+      for (const touchedCol of touchedColumns) {
+        oilByColumn[touchedCol] += size
+      }
+    }
+  }
+
+  return Math.max(...oilByColumn)
+}`,
+};
+
+export const final36Lessons = [
+  ...parseFinal36Lessons(Object.values(lessonModules), indexMarkdown),
+  oilDrillingLesson,
+];
+export const final36LessonByOrder = new Map(final36Lessons.map((lesson) => [lesson.order, lesson]));

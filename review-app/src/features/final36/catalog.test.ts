@@ -2,10 +2,10 @@ import { describe, expect, it } from "vitest";
 import { final36Lessons } from "./catalog";
 
 describe("PCCP Final 36 catalog", () => {
-  it("loads exactly 36 lessons in numerical order", () => {
-    expect(final36Lessons).toHaveLength(36);
+  it("loads all 37 lessons in numerical order", () => {
+    expect(final36Lessons).toHaveLength(37);
     expect(final36Lessons.map((lesson) => lesson.order)).toEqual(
-      Array.from({ length: 36 }, (_, index) => index + 1),
+      Array.from({ length: 37 }, (_, index) => index + 1),
     );
   });
 
@@ -20,5 +20,4 @@ describe("PCCP Final 36 catalog", () => {
     }
   });
 });
-
 
