@@ -22,7 +22,7 @@ function LessonDetail({ lesson }: { lesson: Final36Lesson }) {
 
   return <main className="final36-detail">
     <div className="final36-detail-nav">
-      <a href="#/final36">← Tất cả 37 bài</a>
+      <a href="#/final36">← Tất cả {final36Lessons.length} bài</a>
       <div>
         {previous && <a href={`#/final36/${previous.order}`}>← Bài {previous.order}</a>}
         {next && <a href={`#/final36/${next.order}`}>Bài {next.order} →</a>}
@@ -67,7 +67,7 @@ function LessonDetail({ lesson }: { lesson: Final36Lesson }) {
 export function Final36({ lessonOrder }: { lessonOrder?: string }) {
   const [selectedAlgorithmId, setSelectedAlgorithmId] = useState(final36Algorithms[0].id);
   const lesson = lessonOrder ? final36LessonByOrder.get(Number(lessonOrder)) : undefined;
-  if (lessonOrder && !lesson) return <main className="final36-not-found"><h1>Không tìm thấy bài {lessonOrder}</h1><a href="#/final36">Về danh sách 37 bài</a></main>;
+  if (lessonOrder && !lesson) return <main className="final36-not-found"><h1>Không tìm thấy bài {lessonOrder}</h1><a href="#/final36">Về danh sách bài</a></main>;
   if (lesson) return <LessonDetail lesson={lesson} />;
 
   const selectedAlgorithm = final36Algorithms.find((algorithm) => algorithm.id === selectedAlgorithmId);
@@ -79,22 +79,22 @@ export function Final36({ lessonOrder }: { lessonOrder?: string }) {
     <section className="final36-hero">
       <div>
         <p className="eyebrow">PCCP FINAL · JAVASCRIPT</p>
-        <h1>37 bài. Một nơi để<br />đọc đề và chốt code.</h1>
+        <h1>{final36Lessons.length} bài. Một nơi để<br />đọc đề và chốt code.</h1>
         <p>Chọn thuật toán, thuộc một template lõi, rồi mở từng card để xem đề tiếng Việt và code hoàn chỉnh.</p>
       </div>
-      <div className="final36-hero-count"><strong>37</strong><span>bài trọng tâm</span></div>
+      <div className="final36-hero-count"><strong>{final36Lessons.length}</strong><span>bài trọng tâm</span></div>
     </section>
 
     <section className="final36-algorithm-section">
       <div className="final36-section-heading">
         <div><p className="eyebrow">Bước 01</p><h2>Chọn thuật toán</h2></div>
-        <p>{final36Algorithms.length} nhóm · 37 bài · mỗi nhóm một code shape</p>
+        <p>{final36Algorithms.length} nhóm · {final36Lessons.length} bài · mỗi nhóm một code shape</p>
       </div>
       <div className="final36-algorithm-buttons">
         <button className={!selectedAlgorithm ? "active" : ""} onClick={() => setSelectedAlgorithmId("")}>
           <span className="final36-algorithm-index">00</span>
           <span><b>Tất cả bài</b><small>Toàn bộ thư viện</small></span>
-          <strong>37</strong>
+          <strong>{final36Lessons.length}</strong>
         </button>
         {final36Algorithms.map((algorithm, index) => <button
           className={selectedAlgorithmId === algorithm.id ? "active" : ""}
@@ -126,7 +126,7 @@ export function Final36({ lessonOrder }: { lessonOrder?: string }) {
       <p><span /> {selectedAlgorithm ? selectedAlgorithm.label : "Tất cả thuật toán"}</p>
       <span>{visibleLessons.length} bài trong nhóm</span>
     </div>
-    <section className="final36-grid" aria-label="Danh sách 37 bài PCCP">
+    <section className="final36-grid" aria-label={`Danh sách ${final36Lessons.length} bài PCCP`}>
       {visibleLessons.map((item) => <LessonTile key={item.order} lesson={item} />)}
     </section>
   </main>;

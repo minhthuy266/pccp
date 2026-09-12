@@ -15,7 +15,7 @@ export const final36Algorithms: Final36Algorithm[] = [
     shortLabel: "Simulation",
     description: "Biến từng câu trong đề thành một bước cập nhật state theo đúng thứ tự.",
     trigger: "Nhiều command độc lập, xử lý ngày/tháng, cắt chuỗi hoặc thử từng cấu hình nhỏ.",
-    lessonOrders: [1, 3, 18, 19],
+    lessonOrders: [1, 3, 18, 19, 39, 40, 41],
     template: `function solution(input, commands) {
   let state = initState(input)
 
@@ -37,7 +37,7 @@ export const final36Algorithms: Final36Algorithm[] = [
     shortLabel: "Hash",
     description: "Đổi thao tác tìm kiếm hoặc đếm lặp lại thành lookup gần O(1).",
     trigger: "Cần đếm tần suất, nhớ vị trí, kiểm tra đã tồn tại hoặc loại trùng.",
-    lessonOrders: [2, 5, 6, 7],
+    lessonOrders: [2, 5, 6, 7, 42],
     template: `function solution(items) {
   const count = new Map()
 
@@ -263,7 +263,7 @@ export const final36Algorithms: Final36Algorithm[] = [
     shortLabel: "Components",
     description: "Mỗi lần gặp node chưa thăm, flood fill toàn bộ component của nó đúng một lần.",
     trigger: "Đếm vùng/nhóm, đo kích thước khối, duyệt cây hoặc tách graph theo cạnh.",
-    lessonOrders: [24, 29, 37],
+    lessonOrders: [24, 29, 37, 38],
     template: `function solution(graph) {
   const visited = Array(graph.length).fill(false)
   let components = 0

@@ -52,7 +52,7 @@ export function App() {
   const refresh = useCallback(() => setStore(loadStore()), []);
   const cloud = useCloudSync(refresh);
   return <div className="app">
-    <header><a className="brand" href="#/">PCCP Recall</a><div className="header-right"><nav><a href="#/">Hôm nay</a><a href="#/final36">37 bài</a><a href="#/training">Progressive</a><a href="#/patterns">Pattern Gym</a><a href="#/progress">Tiến độ</a></nav><CloudControl cloud={cloud} /></div></header>
+    <header><a className="brand" href="#/">PCCP Recall</a><div className="header-right"><nav><a href="#/">Hôm nay</a><a href="#/final36">42 bài</a><a href="#/training">Progressive</a><a href="#/patterns">Pattern Gym</a><a href="#/progress">Tiến độ</a></nav><CloudControl cloud={cloud} /></div></header>
     {route.page === "today" && <Today store={store} />}
     {route.page === "progress" && <Progress store={store} onUpdated={refresh} />}
     {route.page === "patterns" && <PatternIndex store={store} />}
